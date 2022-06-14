@@ -1,0 +1,12 @@
+group "com.mx.path.api.gateway"
+dependencies {
+  implementation project(":models")
+  implementation project(":messaging")
+  implementation project(":context")
+
+  implementation "com.squareup:javapoet:1.13.0"
+  implementation "com.google.auto.service:auto-service:1.0.1"
+  implementation "org.projectlombok:lombok:1.18.22"
+
+  annotationProcessor "com.google.auto.service:auto-service:1.0-rc7"
+}

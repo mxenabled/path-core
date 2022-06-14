@@ -1,0 +1,18 @@
+pluginManagement {
+  repositories {
+    mavenCentral()
+    gradlePluginPortal()
+    mavenLocal()
+    maven { url 'https://jitpack.io' }
+  }
+}
+
+rootProject.name = 'path-sdk'
+include 'common'
+include 'models'
+include 'utilities'
+include 'context'
+include 'messaging'
+include 'gateway'
+include 'gateway-generator'
+include 'realtime'

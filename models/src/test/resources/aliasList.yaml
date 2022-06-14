@@ -1,0 +1,14 @@
+key: &Anchor
+  key1: value1
+  key2: value2
+list:
+  - *Anchor
+  - *Anchor
+  - *Anchor
+  - *Anchor
+  - *Anchor
+  - *Anchor
+  - *Anchor
+  - *Anchor
+  - *Anchor
+  - *Anchor

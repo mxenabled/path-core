@@ -1,0 +1,10 @@
+group "com.mx.path.api.lib"
+jar.archiveBaseName = "realtime"
+
+coppuccino { coverage { minimumCoverage = 0.98 } }
+
+dependencies {
+  // We have to import Gateway so that we can use Request & Response. When these classes are moved to their own
+  // library we should remove this dependency.
+  implementation project(":gateway")
+}

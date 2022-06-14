@@ -1,0 +1,33 @@
+group "com.mx.path.api.gateway"
+jar.archiveBaseName = "gateway"
+
+coppuccino {
+  coverage {
+    minimumCoverage = 0.73
+    excludes = [
+      "build/generated/**",
+      "com/mx/path/gateway/api/**",
+      "com/mx/path/gateway/remote/**",
+      "com/mx/path/gateway/accessor/proxy/**",
+      "com/mx/path/gateway/accessor/remote/**"
+    ]
+  }
+}
+
+dependencies {
+  api project(":models")
+  api project(":context")
+  api project(":messaging")
+  api "com.netflix.hystrix:hystrix-core:1.5.18"
+  api "io.opentracing:opentracing-api:0.33.0"
+  implementation "org.slf4j:slf4j-api:1.7.30"
+  implementation "org.apache.httpcomponents:httpclient:4.5.13"
+  implementation "commons-lang:commons-lang:2.6"
+
+  // SDK Gateway Generator
+  annotationProcessor project(":gateway-generator")
+
+  //testing dependencies
+  testImplementation "org.slf4j:slf4j-simple:1.7.30"
+  testImplementation "io.opentracing:opentracing-mock:0.33.0"
+}

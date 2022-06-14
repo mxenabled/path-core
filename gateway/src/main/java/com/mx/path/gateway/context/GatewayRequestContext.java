@@ -1,0 +1,55 @@
+package com.mx.path.gateway.context;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
+
+import com.mx.accessors.Accessor;
+import com.mx.models.MdxBase;
+import com.mx.path.gateway.BaseGateway;
+import com.mx.path.gateway.api.Gateway;
+import com.mx.path.model.context.RequestContext;
+
+/**
+ * Decorates RequestContext with Gateway-specific fields.
+ *
+ * Provides the same API as RequestContext, but will need to be explicitly casted to GatewayRequestContext if accessed
+ * via GatewayRequestContext.current() or RequestContext.current()
+ */
+@Data
+@SuperBuilder(toBuilder = true)
+@EqualsAndHashCode(callSuper = true)
+public final class GatewayRequestContext extends RequestContext {
+  private Gateway gateway;
+  private Accessor currentAccessor;
+  private BaseGateway currentGateway;
+  private boolean listOp;
+  private Class<? extends MdxBase<?>> model;
+  private String op;
+
+  /**
+   * Coerces the current RequestContext into a GatewayRequestContext and returns it.
+   *
+   * @return GatewayRequestContext
+   */
+  public static GatewayRequestContext current() {
+    RequestContext requestContext = RequestContext.current();
+    if (requestContext == null) {
+      return null;
+    }
+    return fromRequestContext(requestContext);
+  }
+
+  public static GatewayRequestContext fromRequestContext(RequestContext requestContext) {
+    if (requestContext instanceof GatewayRequestContext) {
+      return (GatewayRequestContext) requestContext;
+    } else if (requestContext == null) {
+      return GatewayRequestContext.builder().build();
+    }
+    return new GatewayRequestContext(requestContext);
+  }
+
+  private GatewayRequestContext(RequestContext requestContext) {
+    super(requestContext.toBuilder());
+  }
+}

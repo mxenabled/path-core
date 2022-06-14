@@ -1,0 +1,113 @@
+{
+  "clientName": {
+    "facilities": {
+      "cacheStore": {
+        "class": "com.mx.testing.StoreImpl",
+        "configurations": {
+          "key1": "value1"
+        }
+      },
+      "sessionStore": {
+        "class": "com.mx.testing.StoreImpl",
+        "configurations": {
+          "key1": "value2"
+        }
+      },
+      "encryptionService": {
+        "class": "com.mx.testing.EncryptionServiceImpl",
+        "configurations": {
+          "key1": "value3"
+        }
+      },
+      "messageBroker": {
+        "class": "com.mx.testing.MessageBrokerImpl",
+        "configurations": {
+          "key1": "value4"
+        }
+      },
+      "faultTolerantExecutor": {
+        "class": "com.mx.testing.FaultTolerantExecutorImpl",
+        "configurations": {
+          "timeoutScope": "http"
+        }
+      }
+    },
+    "rootBehaviors": [
+      {
+        "class": "com.mx.testing.GatewayBehaviorImpl",
+        "configurations": {
+          "key1": "value1",
+          "key2": "value2",
+          "integer": 12,
+          "decimal": 0.12
+        }
+      }
+    ],
+    "services": [
+      {
+        "class": "com.mx.testing.GatewayServiceImpl",
+        "configurations": {
+          "key1": "value1",
+          "key2": "value2",
+          "integer": 12,
+          "decimal": 0.12
+        }
+      }
+    ],
+    "accessor": {
+      "class": "com.mx.testing.BaseAccessorImpl",
+      "scope": "singleton",
+      "connections": {
+        "testConnection": {
+          "baseUrl": "http://localhost:3000",
+          "keystorePath": "./src/main/resources/certificates/keystore.jks",
+          "keystorePassword": "${env:KEYSTORE_PASSWORD}",
+          "certificateAlias": "afcu_ensenta",
+          "skipHostNameVerify": true,
+          "configurations": {
+            "someMapOfValues": [ 1, 2, 3 ]
+          }
+        },
+        "anotherTestConnection": {
+          "baseUrl": "http://localhost:3000",
+          "configurations": {
+            "arbitrary": "value"
+          }
+        }
+      },
+      "configurations": {
+        "key1": "value1",
+        "key2": "value2",
+        "integer": 12,
+        "decimal": 0.12
+      }
+    },
+    "gateways": {
+      "id" : {
+      },
+      "accounts" : {
+        "remotes": {
+          "list": {}
+        },
+        "behaviors": [
+          {
+            "class": "com.mx.testing.GatewayBehaviorImpl"
+          }
+        ],
+        "services": [
+          {
+            "class": "com.mx.testing.GatewayServiceImpl"
+          }
+        ],
+        "gateways": {
+          "transactions": {
+            "remotes": {
+              "search": {},
+              "recent": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}

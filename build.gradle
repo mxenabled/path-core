@@ -1,0 +1,140 @@
+plugins {
+  id "idea"
+  id "com.github.mxenabled.vogue" version "1.0.0"
+  id "com.github.mxenabled.coppuccino" version "1.1.2" apply false
+  id "com.jfrog.artifactory" version "4.28.2" apply false
+  id "io.freefair.lombok" version "6.4.3" apply false
+}
+
+version "14.0.3"
+
+allprojects {
+    group "com.mx.path.sdk"
+    description "The Path SDK"
+    version rootProject.version
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+configure(project.subprojects) {
+    apply plugin: "java"
+    apply plugin: "java-library"
+    apply plugin: "maven-publish"
+    apply plugin: "groovy"
+    apply plugin: "com.mx.coppuccino"
+    apply plugin: "com.mx.vogue"
+    apply plugin: "com.jfrog.artifactory"
+    apply plugin: "io.freefair.lombok"
+
+    dependencies {
+        testImplementation "org.mockito:mockito-inline:4.+"
+        testImplementation "org.spockframework:spock-core:2.+"
+        testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.+"
+    }
+
+    test { useJUnitPlatform() }
+
+    compileJava { options.compilerArgs << "-parameters" }
+
+    sourceSets {
+        test {
+            groovy { srcDirs "src/test/groovy" }
+            java { srcDirs "src/test/java" }
+        }
+    }
+
+    coppuccino {
+        rootDir = "${projectDir}/"
+    }
+
+    vogue {
+        dependencyUpdatesOutputDir = "${projectDir}/build/dependencyUpdates"
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = "sources"
+        from sourceSets.main.allSource
+    }
+
+    artifacts {
+        archives sourcesJar
+        archives jar
+    }
+
+    artifactory {
+        contextUrl = "https://artifactory.internal.mx:443"
+        publish {
+            repository {
+                repoKey = "gradle-local"
+                username = "gradle-write"
+                password = System.getenv("GRADLE_ARTIFACTORY_API_KEY")
+                maven = true
+            }
+            defaults { publications("mavenJava") }
+            publishBuildInfo = true
+            publishArtifacts = true
+            publishPom = true
+        }
+        resolve {
+            repository {
+                repoKey = "maven-local"
+                username = "maven-read"
+                maven = true
+            }
+        }
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) { from components.java }
+        }
+    }
+
+    artifactoryPublish { dependsOn jar }
+}
+
+task spotlessApply {
+    subprojects.each {
+        it.afterEvaluate {
+            def spotlessApplyTask = it.tasks.findByName("spotlessApply")
+            dependsOn(spotlessApplyTask)
+        }
+    }
+}
+
+task dependencyCheckAnalyze {
+    subprojects.each {
+        it.afterEvaluate {
+            def dependencyCheckAnalyzeTask = it.tasks.findByName("dependencyCheckAnalyze")
+            dependsOn(dependencyCheckAnalyzeTask)
+        }
+    }
+}
+
+task subdependencies {
+    subprojects.each {
+        it.afterEvaluate {
+            def dependenciesTask = it.tasks.findByName("dependencies")
+            dependsOn(dependenciesTask)
+        }
+    }
+}
+
+project.tasks.getByPath("dependencies").finalizedBy("subdependencies")
+
+task install {
+    configure {
+        description "Publishes all subprojects to local maven repo"
+        setProperty("group", "Publishing")
+    }
+    subprojects.each {
+        it.afterEvaluate {
+            def publishToMavenLocalTask = it.tasks.findByName("publishToMavenLocal")
+            dependsOn(publishToMavenLocalTask)
+        }
+    }
+}

@@ -1,0 +1,10 @@
+group "com.mx.path.core"
+jar.archiveBaseName = "common"
+
+coppuccino { coverage { minimumCoverage = 0.68 } }
+
+dependencies {
+  api "org.apache.commons:commons-text:+" // For string manipulation utilities. There is a very small overlap with Guava's strings class, but adds many more features.
+  api "com.google.guava:guava:+" // For google utilities
+  api "com.github.spotbugs:spotbugs-annotations:+" // For annotating classes and methods to suppress SpotBugs violations
+}

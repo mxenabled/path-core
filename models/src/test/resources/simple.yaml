@@ -1,0 +1,8 @@
+---
+definitions:
+  - &SIMPLE_ANCHOR { x: 1, y: 2 }
+simpleReference: *SIMPLE_ANCHOR
+simpleMerge:
+  <<: *SIMPLE_ANCHOR
+  y: 3
+
