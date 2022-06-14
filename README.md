@@ -1,9 +1,4 @@
-[![pipeline status](https://gitlab.mx.com/path/path-sdk-monorepo/badges/master/pipeline.svg)](https://gitlab.mx.com/path/path-sdk-monorepo/commits/master)
-[![coverage report](https://gitlab.mx.com/path/path-sdk-monorepo/badges/master/coverage.svg)](https://gitlab.mx.com/path/path-sdk-monorepo/commits/master)
-
-[Path SDK Issues](https://gitlab.mx.com/groups/mx/money-experiences/path/path-issues/-/issues?scope=all&utf8=%E2%9C%93&state=opened&label_name[]=Path%20SDK)
-
-# Path SDK - Monorepo
+# Path SDK - Subprojects
 
 * [Common](common/README.md)
 * [Context](context/README.md)
@@ -14,7 +9,7 @@
 * [Utilities](utilities/README.md)
 
 ## Contributing
-Create a topic branch. Make our changes commit and push to GitLab. Create an MR.
+Create a topic branch, make your changes, and create an PR.
 
 ## Building everything
 
@@ -80,7 +75,7 @@ $ ./gradlew :$projectName:clean :$projectName:test
 
 ## Managing Dependencies
 
-This project uses gradle to manage dependencies with dependency locking. The Vogue plugin is used to help keep the dependencies up-to-date. [Vogue](https://gitlab.mx.com/path/vogue)
+This project uses gradle to manage dependencies with dependency locking. The Vogue plugin is used to help keep the dependencies up-to-date. [Vogue](https://github.com/mxenabled/vogue)
 
 **Generating lockfiles for all projects**
 
@@ -113,9 +108,9 @@ $ ./gradlew dependencyCheckAnalyze
 ```
 To view the generated report of found vulnerabilities open `build/reports/dependency-check-report.html` in a browser.
 
-## Deploying Locally
+## Publishing Locally
 
-To create a local build of the accessor to use in connector services use
+To create a local build of the project:
 
 ```shell
 $ ./gradlew publishToMavenLocal
@@ -127,14 +122,3 @@ On OXS using gradle the default location for the local maven repository is
 ```shell
 ~/.m2/repository/
 ```
-
-## Deploying
-
-* Merge Pull Request to Master
-* Switch to `master` branch
-* Update version in `build.gradle` (the version must be unique)
-* Commit the updated `build.gradle`
-    * `git add build.gradle&&git commit -m "Bump version to ?.?.?"`
-* Push build.gradle update
-    * `git push origin master`
-* Release it `rake release`
