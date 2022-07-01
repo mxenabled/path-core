@@ -55,8 +55,4 @@ public class FakeSessionRepository implements SessionRepository {
     return setIfNotExist(session, key, value);
   }
 
-  @Override
-  public String getRedisResponse() {
-    return null;
-  }
 }

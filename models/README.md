@@ -1,6 +1,6 @@
-# MDX Models
+# Models
 
-A jar that defines as MDX model POJOs along with serializers needed to use them in a Spring Boot micro service.
+A subproject that defines as MDX model POJOs along with serializers needed to use them in a Path application.
 
 See https://developer.mx.com/drafts/mdx/overview/
 
@@ -12,7 +12,6 @@ Example
 
 ```java
 GsonBuilder builder = new GsonBuilder()
-
     .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
     .setDateFormat("YYYY-MM-dd")
     .setPrettyPrinting();
@@ -20,39 +19,6 @@ GsonBuilder builder = new GsonBuilder()
 Resources.registerResources(builder);
 
 Gson serializer = builder.create();
-```
-
-To provide Gson serialization to a Spring-Boot application register a FactoryBean.
-
-Example
-
-```java
-public class MdxSerializerFactoryBean implements FactoryBean<Gson> {
-  public MdxSerializerFactoryBean() {
-  }
-
-  @Override
-  public final Gson getObject() throws Exception {
-    GsonBuilder baseGson = new GsonBuilder()
-        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-        .setDateFormat("YYYY-MM-dd")
-        .setPrettyPrinting();
-
-    Resources.registerResources(baseGson);
-
-    return baseGson.create();
-  }
-
-  @Override
-  public final Class<?> getObjectType() {
-    return Gson.class;
-  }
-
-  @Override
-  public final boolean isSingleton() {
-    return false;
-  }
-}
 ```
 
 ### Internal Fields

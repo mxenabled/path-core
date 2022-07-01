@@ -15,10 +15,10 @@ import com.mx.models.transfer.options.RepaymentListOptions;
 /**
  * Accessor base for transfer repayment operations
  *
- * <p>See <a href="https://developer.internal.mx/drafts/mdx/transfer/#transfers-transfer-repayment-schedule">specifications</a>
+ * <p>See <a href="https://developer.mx.com/drafts/mdx/transfer/#transfers-transfer-repayment-schedule">specifications</a>
  */
 @GatewayClass
-@API(specificationUrl = "https://developer.internal.mx/drafts/mdx/transfer/#transfers-transfer-repayment-schedule")
+@API(specificationUrl = "https://developer.mx.com/drafts/mdx/transfer/#transfers-transfer-repayment-schedule")
 public abstract class RepaymentBaseAccessor extends Accessor {
 
   public RepaymentBaseAccessor(AccessorConfiguration configuration) {

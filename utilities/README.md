@@ -1,6 +1,6 @@
-# Path Utilities
+# Utilities
 
-Standalone utility classes used by the Path SDK and Accessors
+A subproject containing standalone utility classes used by the Path SDK and Accessors
 
 ### Truly common utility
 

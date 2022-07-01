@@ -16,7 +16,7 @@ import com.mx.models.ach_transfer.options.FrequencyListOptions;
  * Accessor for ACH scheduled transfer frequencies
  */
 @GatewayClass
-@API(specificationUrl = "https://developer.internal.mx/drafts/mdx/ach_transfer/#ach-scheduled-transfers-scheduled-ach-transfer-frequencies")
+@API(specificationUrl = "https://developer.mx.com/drafts/mdx/ach_transfer/#ach-scheduled-transfers-scheduled-ach-transfer-frequencies")
 public abstract class FrequencyBaseAccessor extends Accessor {
 
   public FrequencyBaseAccessor(AccessorConfiguration configuration) {

@@ -3,8 +3,6 @@ package com.mx.models.ondemand;
 import com.mx.models.MdxList;
 
 /**
- * Because Jackson XML is $h!+
- *
  * We need to have a special class to wrap lists because Jackson will wrap all arrays, regardless of configuration
  * options provided. Lame.
  */

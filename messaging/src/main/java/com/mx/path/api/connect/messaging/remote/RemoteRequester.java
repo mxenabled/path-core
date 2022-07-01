@@ -16,7 +16,7 @@ import com.mx.path.model.context.Session;
 import com.mx.path.model.context.facility.Facilities;
 
 /**
- * Service that enables Middleware Services to request data
+ * Service that enables Path services to request data
  */
 public abstract class RemoteRequester<T> {
   // Fields

@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * Used for encapsulating the request parameters for a TransferAmountOption#list request.
  *
- * https://developer.internal.mx/drafts/mdx/transfer/index.html#transfer-amount-options
+ * https://developer.mx.com/drafts/mdx/transfer/index.html#transfer-amount-options
  */
 @Data
 public class TransferAmountOptionListOptions {

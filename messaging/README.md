@@ -1,6 +1,9 @@
-# MX Path Messaging
+# Messaging
 
-Library containing classes and utilities to enable messaging between Path services.
+A subproject containing classes and utilities to enable messaging between Path services.
 
-## Contributing
-Create a topic branch. Make our changes commit and push to GitLab. Create an MR.
+### Notable classes:
+
+* Base class for **performing remote requests**: [RemoteRequester.java](src/main/java/com/mx/path/api/connect/messaging/remote/RemoteRequester.java)
+* Base class for **responding to remote requests**: [RemoteService.java](src/main/java/com/mx/path/api/connect/messaging/remote/RemoteService.java)
+* Remote request logger: [RemoteLogger.java](src/main/java/com/mx/path/api/connect/messaging/remote/RemoteLogger.java)

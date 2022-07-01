@@ -18,7 +18,7 @@ import com.mx.models.ach_transfer.FundingSource;
  */
 @GatewayClass
 @API(specificationUrl = "https://developer.mx.com/drafts/mdx/ach_transfer/#funding-sources")
-@Deprecated // This is being replaced by: https://developer.internal.mx/drafts/mdx/ach_transfer/#mdx-ach-transfer
+@Deprecated // This is being replaced by: https://developer.mx.com/drafts/mdx/ach_transfer/#mdx-ach-transfer
 public abstract class FundingSourceBaseAccessor extends Accessor {
 
   public FundingSourceBaseAccessor(AccessorConfiguration configuration) {

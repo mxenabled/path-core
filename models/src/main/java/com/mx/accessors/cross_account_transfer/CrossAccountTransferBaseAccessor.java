@@ -35,6 +35,10 @@ public abstract class CrossAccountTransferBaseAccessor extends Accessor {
 
   @GatewayAPI
   @Getter(AccessLevel.PROTECTED)
+  private FeeBaseAccessor fees;
+
+  @GatewayAPI
+  @Getter(AccessLevel.PROTECTED)
   private FrequencyBaseAccessor frequency;
 
   public CrossAccountTransferBaseAccessor(AccessorConfiguration configuration) {
@@ -102,6 +106,18 @@ public abstract class CrossAccountTransferBaseAccessor extends Accessor {
   }
 
   /**
+   * Accessor for cross account transfer fees operations
+   */
+  @API(description = "Access cross account transfer fees")
+  public FeeBaseAccessor fees() {
+    if (fees != null) {
+      return fees;
+    }
+
+    throw new AccessorException(AccessorResponseStatus.NOT_IMPLEMENTED);
+  }
+
+  /**
    * Accessor for frequency operations
    */
   @API
@@ -156,6 +172,14 @@ public abstract class CrossAccountTransferBaseAccessor extends Accessor {
    */
   public void setDestination(DestinationBaseAccessor destination) {
     this.destination = destination;
+  }
+
+  /**
+   * Set fees accessor
+   * @param fees
+   */
+  public void setFees(FeeBaseAccessor fees) {
+    this.fees = fees;
   }
 
   /**

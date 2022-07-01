@@ -38,7 +38,7 @@ class RemoteServiceTest extends Specification {
     Session.setRepositorySupplier({ -> sessionRepository })
     messageBroker = mock(MessageBroker)
 
-    subject = new RemoteServiceWithObserver("afcu")
+    subject = new RemoteServiceWithObserver("client")
     subject.setMessageBrokerSupplier({ -> messageBroker })
 
     CustomTracer.setTracer(new MockTracer())
@@ -54,10 +54,10 @@ class RemoteServiceTest extends Specification {
     def messageResponder = mock(MessageResponder)
 
     when:
-    subject.register("path.request.afcu.accounts.list", messageResponder)
+    subject.register("path.request.client.accounts.list", messageResponder)
 
     then:
-    verify(messageBroker).registerResponder("path.request.afcu.accounts.list", messageResponder) || true
+    verify(messageBroker).registerResponder("path.request.client.accounts.list", messageResponder) || true
   }
 
   def "register eventListener interacts with messageBroker"() {
@@ -65,36 +65,36 @@ class RemoteServiceTest extends Specification {
     def eventListener = mock(EventListener)
 
     when:
-    subject.register("path.event.afcu.RemoteAccount.list", eventListener)
+    subject.register("path.event.client.RemoteAccount.list", eventListener)
 
     then:
-    verify(messageBroker).registerListener("path.event.afcu.RemoteAccount.list", eventListener) || true
+    verify(messageBroker).registerListener("path.event.client.RemoteAccount.list", eventListener) || true
   }
 
   def "register registers all annotated listeners and responders"() {
     given:
-    subject = new RemoteServiceValid("afcu")
+    subject = new RemoteServiceValid("client")
     subject.setMessageBrokerSupplier({ -> messageBroker })
 
     when:
     subject.register()
 
     then:
-    verify(messageBroker).registerResponder("path.request.afcu.RemoteAccount.list", subject) || true
-    verify(messageBroker).registerListener("path.event.afcu.RemoteAccount.changed", subject) || true
+    verify(messageBroker).registerResponder("path.request.client.RemoteAccount.list", subject) || true
+    verify(messageBroker).registerListener("path.event.client.RemoteAccount.changed", subject) || true
   }
 
 
   def "registerResponder"() {
     given:
-    def subjectNoDispatch = new RemoteServiceWithInvalid("afcu")
+    def subjectNoDispatch = new RemoteServiceWithInvalid("client")
     subjectNoDispatch.setMessageBrokerSupplier({ -> messageBroker })
 
     when: "valid responder"
     subjectNoDispatch.registerResponder("list")
 
     then:
-    verify(messageBroker).registerResponder("path.request.afcu.RemoteAccount.list", subjectNoDispatch)
+    verify(messageBroker).registerResponder("path.request.client.RemoteAccount.list", subjectNoDispatch)
 
     when: "invalid responder"
     subjectNoDispatch.registerResponder("wrongArgs")
@@ -113,14 +113,14 @@ class RemoteServiceTest extends Specification {
 
   def "registerListener"() {
     given:
-    def subjectNoDispatch = new RemoteServiceWithInvalid("afcu")
+    def subjectNoDispatch = new RemoteServiceWithInvalid("client")
     subjectNoDispatch.setMessageBrokerSupplier({ -> messageBroker })
 
     when: "valid responder"
     subjectNoDispatch.registerListener("changed")
 
     then:
-    verify(messageBroker).registerListener("path.event.afcu.RemoteAccount.changed", subjectNoDispatch)
+    verify(messageBroker).registerListener("path.event.client.RemoteAccount.changed", subjectNoDispatch)
 
     when: "invalid responder"
     subjectNoDispatch.registerListener("bad")
@@ -145,9 +145,9 @@ class RemoteServiceTest extends Specification {
 
   def "loads the Session using Facilities on dispatch"() {
     given:
-    subject = new RemoteServiceValid("afcu")
+    subject = new RemoteServiceValid("client")
     Session.setRepositorySupplier(new SessionRepositorySupplier())
-    Facilities.populate("afcu", new ObjectMap().tap {
+    Facilities.populate("client", new ObjectMap().tap {
       put("sessionStore", new ObjectMap().tap {
         put("class", "com.mx.testing.fakes.FakeStore")
         put("configurations", new ObjectMap())
@@ -164,7 +164,7 @@ class RemoteServiceTest extends Specification {
         .sessionId("sessionId")
         .build()
         ).build()
-    def response = subject.dispatch(RemoteChannel.buildRequestChannel("afcu", Object.class, message), message)
+    def response = subject.dispatch(RemoteChannel.buildRequestChannel("client", Object.class, message), message)
 
     then:
     response.status != MessageStatus.FAIL
@@ -273,7 +273,7 @@ class RemoteServiceTest extends Specification {
     def message = MessageEvent.builder().body("hi").build()
 
     when:
-    noOpSubject.receive("path.event.afcu.RemoteAccount.not_implemented", message.toJson())
+    noOpSubject.receive("path.event.client.RemoteAccount.not_implemented", message.toJson())
 
     then:
     noExceptionThrown()

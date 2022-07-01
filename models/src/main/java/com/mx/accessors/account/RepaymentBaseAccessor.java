@@ -15,7 +15,7 @@ import com.mx.models.transfer.Repayment;
  * Accessor for account repayment operations
  */
 @GatewayClass
-@API(specificationUrl = "https://developer.internal.mx/drafts/mdx/accounts/#accounts-repayment-schedule")
+@API(specificationUrl = "https://developer.mx.com/drafts/mdx/accounts/#accounts-repayment-schedule")
 public abstract class RepaymentBaseAccessor extends Accessor {
   public RepaymentBaseAccessor(AccessorConfiguration configuration) {
     super(configuration);

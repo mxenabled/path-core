@@ -1,12 +1,13 @@
 plugins {
   id "idea"
-  id "com.github.mxenabled.vogue" version "1.0.0"
-  id "com.github.mxenabled.coppuccino" version "1.1.2" apply false
+  id "com.github.mxenabled.vogue" version "1.0.1"
+  id "com.github.mxenabled.coppuccino" version "2.0.0" apply false
+  id "com.github.mxenabled.hush" version "1.0.6" apply false
   id "com.jfrog.artifactory" version "4.28.2" apply false
   id "io.freefair.lombok" version "6.4.3" apply false
 }
 
-version "14.0.3"
+version "15.0.0"
 
 allprojects {
     group "com.mx.path.sdk"
@@ -25,6 +26,7 @@ configure(project.subprojects) {
     apply plugin: "java-library"
     apply plugin: "maven-publish"
     apply plugin: "groovy"
+    apply plugin: "com.mx.hush"
     apply plugin: "com.mx.coppuccino"
     apply plugin: "com.mx.vogue"
     apply plugin: "com.jfrog.artifactory"

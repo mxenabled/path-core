@@ -20,7 +20,7 @@ import com.mx.models.ach_transfer.options.AchTransferListOptions;
  * Accessor base for ACH transfer operations
  */
 @GatewayClass
-@API(specificationUrl = "https://developer.internal.mx/drafts/mdx/ach_transfer/#transfers")
+@API(specificationUrl = "https://developer.mx.com/drafts/mdx/ach_transfer/#transfers")
 public abstract class AchTransferBaseAccessor extends Accessor {
   @GatewayAPI
   @Getter(AccessLevel.PROTECTED)
@@ -139,7 +139,7 @@ public abstract class AchTransferBaseAccessor extends Accessor {
    * Accessor for scheduled ACH transfer operations
    * @return accessor
    */
-  @API(specificationUrl = "https://developer.internal.mx/drafts/mdx/ach_transfer/#ach-scheduled-transfers")
+  @API(specificationUrl = "https://developer.mx.com/drafts/mdx/ach_transfer/#ach-scheduled-transfers")
   public AchScheduledTransferBaseAccessor scheduled() {
     if (scheduled != null) {
       return scheduled;

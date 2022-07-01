@@ -17,7 +17,7 @@ import com.netflix.hystrix.HystrixThreadPoolProperties;
  * #example config
  * hystrix:
  *  enable: true
- *  group_name: Costanza
+ *  group_name: Servicename
  *  timeout_in_ms: 20000
  *  queue:
  *    enable: true
@@ -37,6 +37,7 @@ import com.netflix.hystrix.HystrixThreadPoolProperties;
  *    requestVolumeThreshold - the minimum number of requests in a rolling window that will trip the circuit
  */
 @SuppressFBWarnings
+@Deprecated
 public class HystrixConfigurations {
   private static final int DEFAULT_TIMEOUT_IN_MS = 10000;
   private static final int DEFAULT_MAX_QUEUE_SIZE = -1;

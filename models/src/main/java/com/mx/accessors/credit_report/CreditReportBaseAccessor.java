@@ -69,7 +69,7 @@ public abstract class CreditReportBaseAccessor extends Accessor {
    * Accessor for transfer operations
    * @return accessor
    */
-  @API(specificationUrl = "https://developer.internal.mx/drafts/mdx/id/#mdx-id")
+  @API(specificationUrl = "https://developer.mx.com/drafts/mdx/id/#mdx-id")
   public ScoreFactorBaseAccessor scoreFactors() {
     if (scoreFactors != null) {
       return scoreFactors;
@@ -82,7 +82,7 @@ public abstract class CreditReportBaseAccessor extends Accessor {
    * Accessor for credit report setting operations
    * @return accessor
    */
-  @API(specificationUrl = "https://developer.internal.mx/drafts/mdx/id/#mdx-id")
+  @API(specificationUrl = "https://developer.mx.com/drafts/mdx/id/#mdx-id")
   public CreditReportSettingsBaseAccessor settings() {
     if (settings != null) {
       return settings;

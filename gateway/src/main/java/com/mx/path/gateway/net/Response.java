@@ -3,6 +3,9 @@ package com.mx.path.gateway.net;
 import java.util.Objects;
 import java.util.function.Supplier;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mx.common.collections.MultiValueMap;
 import com.mx.common.collections.SingleValueMap;
 import com.mx.common.http.HttpStatus;
@@ -11,6 +14,16 @@ import com.mx.path.gateway.util.MdxApiException;
 public class Response {
 
   public static final Integer NANO_TO_SECONDS = 1000000;
+
+  /**
+   * @deprecated This makes too many assumptions about the response payload. The application code should handle configuring the associated serializer.
+   */
+  @Deprecated
+  private static final Gson GSON = new GsonBuilder()
+      .setPrettyPrinting()
+      .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+      .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
+      .create();
 
   private byte[] rawBody;
   private String body = "";
@@ -58,7 +71,7 @@ public class Response {
   }
 
   public final <T> T getBodyAs(Class<T> asClass) {
-    return Serializer.get().fromJson(this.body, asClass);
+    return GSON.fromJson(this.body, asClass);
   }
 
   public final Response withCookies(MultiValueMap<String, String> newCookies) {

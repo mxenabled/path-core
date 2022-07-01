@@ -16,7 +16,7 @@ import com.mx.models.ach_transfer.options.AchAccountListOptions;
  * Accessor base for ACH account operations
  */
 @GatewayClass
-@API(specificationUrl = "https://developer.internal.mx/drafts/mdx/ach_transfer/#ach-account")
+@API(specificationUrl = "https://developer.mx.com/drafts/mdx/ach_transfer/#ach-account")
 public abstract class AchAccountBaseAccessor extends Accessor {
   public AchAccountBaseAccessor(AccessorConfiguration configuration) {
     super(configuration);

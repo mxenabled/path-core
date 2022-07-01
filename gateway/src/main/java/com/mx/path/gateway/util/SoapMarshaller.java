@@ -19,10 +19,9 @@ import javax.xml.soap.SOAPMessage;
 import com.mx.common.http.HttpStatus;
 
 /**
- * NOTE: This has been moved from Web to Gateway temporarily to allow new connectors to remove their dependency on Web (i.e. https://gitlab.mx.com/path/path-accessor-jh-silverlake)
- *       This, and other related utilities, will be moved to a more "correct" location in the future (a new library potentially).
- *
  * Static methods for marshalling to and from SOAP Envelopes
+ *
+ * NOTE: This should be moved to Common or Models with the other serializer utilities.
  */
 public class SoapMarshaller {
 

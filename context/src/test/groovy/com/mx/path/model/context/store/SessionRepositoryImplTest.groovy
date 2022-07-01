@@ -96,12 +96,4 @@ class SessionRepositoryImplTest extends Specification {
     then:
     verify(store).putIfNotExist("sessionId:key1", "value1", 1234) || true
   }
-
-  def "getRedisResponse"() {
-    when:
-    subject.getRedisResponse()
-
-    then:
-    verify(store).status() || true
-  }
 }

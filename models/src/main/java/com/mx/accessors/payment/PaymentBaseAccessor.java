@@ -114,7 +114,7 @@ public abstract class PaymentBaseAccessor extends Accessor {
    * Accessor for bill operations
    * @return accessor
    */
-  @API(specificationUrl = "https://developer.internal.mx/drafts/mdx/payment/#bills")
+  @API(specificationUrl = "https://developer.mx.com/drafts/mdx/payment/#bills")
   public BillBaseAccessor bills() {
     if (bills != null) {
       return bills;
@@ -135,7 +135,7 @@ public abstract class PaymentBaseAccessor extends Accessor {
    * Accessor for merchant operations
    * @return accessor
    */
-  @API(specificationUrl = "https://developer.internal.mx/drafts/mdx/payment/#merchants")
+  @API(specificationUrl = "https://developer.mx.com/drafts/mdx/payment/#merchants")
   public MerchantBaseAccessor merchants() {
     if (merchants != null) {
       return merchants;
@@ -156,7 +156,7 @@ public abstract class PaymentBaseAccessor extends Accessor {
    * Accessor for merchant operations
    * @return accessor
    */
-  @API(specificationUrl = "https://developer.internal.mx/drafts/mdx/payment/#payees")
+  @API(specificationUrl = "https://developer.mx.com/drafts/mdx/payment/#payees")
   public PayeeBaseAccessor payees() {
     if (payees != null) {
       return payees;
@@ -177,7 +177,7 @@ public abstract class PaymentBaseAccessor extends Accessor {
    * Accessor for recurring payment operations
    * @return accessor
    */
-  @API(specificationUrl = "https://developer.internal.mx/drafts/mdx/payment#recurring-payments")
+  @API(specificationUrl = "https://developer.mx.com/drafts/mdx/payment#recurring-payments")
   public RecurringPaymentBaseAccessor recurring() {
     if (recurring != null) {
       return recurring;

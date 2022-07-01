@@ -17,7 +17,7 @@ import com.mx.models.ach_transfer.Customer;
  */
 @GatewayClass
 @API(specificationUrl = "https://developer.mx.com/drafts/mdx/ach_transfer/#customer")
-@Deprecated // This is going to be removed in favor of the new ACH transfer spec: https://developer.internal.mx/drafts/mdx/ach_transfer/#mdx-ach-transfer
+@Deprecated // This is going to be removed in favor of the new ACH transfer spec: https://developer.mx.com/drafts/mdx/ach_transfer/#mdx-ach-transfer
 public abstract class CustomerBaseAccessor extends Accessor {
   public CustomerBaseAccessor(AccessorConfiguration configuration) {
     super(configuration);

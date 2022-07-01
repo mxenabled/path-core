@@ -5,7 +5,7 @@ import com.mx.models.Internal;
 import com.mx.models.MdxBase;
 import com.mx.models.UserIdProvider;
 
-@Deprecated // This is being replaced by: https://developer.internal.mx/drafts/mdx/ach_transfer/#mdx-ach-transfer
+@Deprecated // This is being replaced by: https://developer.mx.com/drafts/mdx/ach_transfer/#mdx-ach-transfer
 public final class FundingSource extends MdxBase<FundingSource> {
 
   private String id;

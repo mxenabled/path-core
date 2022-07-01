@@ -14,7 +14,11 @@ import java.util.Map;
  * These can be inspected and the behaviors can be discovered/applied
  * applied via this class.
  * </p>
+ *
+ * @deprecated AccountBehavior is no longer supported. Applications using the SDK should build the functionality they
+ *             need from this class into the Accessor code.
  */
+@Deprecated
 public class AccountBehavior {
 
   // Fields

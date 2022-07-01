@@ -5,6 +5,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * @deprecated AccountBehaviors is no longer supported. Applications using the SDK should build the functionality they
+ *             need from this class into the Accessor code.
+ */
+@Deprecated
 public class AccountBehaviors {
 
   // Fields
@@ -44,7 +49,7 @@ public class AccountBehaviors {
   }
 
   /**
-   * @param accountId - MX account external guid
+   * @param accountId - The associated accountId
    * @param accountBehavior - The associated AccountBehavior
    */
   public final void put(String accountId, AccountBehavior accountBehavior) {
@@ -52,7 +57,7 @@ public class AccountBehaviors {
   }
 
   /**
-   * @param accountId - MX account external guid
+   * @param accountId - The associated accountId
    * @return The associated AccountBehavior
    */
   public final AccountBehavior get(String accountId) {

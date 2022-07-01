@@ -15,10 +15,10 @@ import com.mx.models.transfer.options.TransferAmountOptionListOptions;
 /**
  * Accessor base for transfer amount options
  *
- * <p>See <a href="https://developer.internal.mx/drafts/mdx/transfer/#transfer-amount-options">specifications</a>
+ * <p>See <a href="https://developer.mx.com/drafts/mdx/transfer/#transfer-amount-options">specifications</a>
  */
 @GatewayClass
-@API(specificationUrl = "https://developer.internal.mx/drafts/mdx/transfer/#transfer-amount-options")
+@API(specificationUrl = "https://developer.mx.com/drafts/mdx/transfer/#transfer-amount-options")
 public abstract class AmountOptionBaseAccessor extends Accessor {
   public AmountOptionBaseAccessor(AccessorConfiguration configuration) {
     super(configuration);

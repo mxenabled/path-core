@@ -70,13 +70,13 @@ class RemoteRequesterTest extends Specification {
         .build()
 
     def messageBroker = mock(MessageBroker)
-    def channel = "path.request.afcu.Account.list"
+    def channel = "path.request.client.Account.list"
 
     when(messageBroker.request(any(), any())).thenReturn(response.toJson())
-    Facilities.MESSAGE_BROKERS.put("afcu", messageBroker)
+    Facilities.MESSAGE_BROKERS.put("client", messageBroker)
 
     when:
-    response = subject.request("afcu", payload)
+    response = subject.request("client", payload)
 
     then:
     response.getBody() == accountsJson
@@ -91,11 +91,11 @@ class RemoteRequesterTest extends Specification {
         .build()
 
     def messageBroker = mock(MessageBroker)
-    def channel = "path.event.afcu.Account.changed"
-    Facilities.MESSAGE_BROKERS.put("afcu", messageBroker)
+    def channel = "path.event.client.Account.changed"
+    Facilities.MESSAGE_BROKERS.put("client", messageBroker)
 
     when:
-    subject.send("afcu", payload)
+    subject.send("client", payload)
 
     then:
     verify(messageBroker).publish(channel, payload.toJson()) || true
@@ -112,11 +112,11 @@ class RemoteRequesterTest extends Specification {
         .build()
 
     def messageBroker = mock(MessageBroker)
-    def channel = "path.event.afcu.Account.changed"
-    Facilities.MESSAGE_BROKERS.put("afcu", messageBroker)
+    def channel = "path.event.client.Account.changed"
+    Facilities.MESSAGE_BROKERS.put("client", messageBroker)
 
     when:
-    subject.executeRequest("afcu", payload)
+    subject.executeRequest("client", payload)
 
     then:
     verify(sessionRepository).save(any()) || true
@@ -135,13 +135,13 @@ class RemoteRequesterTest extends Specification {
         .build()
 
     when: "a request is executed"
-    def result = subject.executeRequest("afcu", payload)
+    def result = subject.executeRequest("client", payload)
 
     then:
     result.status == MessageStatus.DISABLED
 
     when: "an event is published"
-    subject.send("afcu", MessageEvent.builder().build())
+    subject.send("client", MessageEvent.builder().build())
 
     then:
     def e = thrown(MessageError)

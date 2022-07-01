@@ -55,11 +55,6 @@ public class SessionRepositoryImpl implements SessionRepository {
     return getScopedStoreSession(session).putIfNotExist(key, value, expiryMilliseconds);
   }
 
-  @Override
-  public final String getRedisResponse() {
-    return store.status();
-  }
-
   private Store getScopedStoreSession(Session session) {
     return new ScopedStoreSession(this.store, session);
   }

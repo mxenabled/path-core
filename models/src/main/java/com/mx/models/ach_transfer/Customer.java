@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import com.mx.models.MdxBase;
 import com.mx.models.UserIdProvider;
 
-@Deprecated // This is going to be removed in favor of the new ACH transfer spec: https://developer.internal.mx/drafts/mdx/ach_transfer/#mdx-ach-transfer
+@Deprecated // This is going to be removed in favor of the new ACH transfer spec: https://developer.mx.com/drafts/mdx/ach_transfer/#mdx-ach-transfer
 public final class Customer extends MdxBase<Customer> {
 
   private String id;

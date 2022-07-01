@@ -1,3 +1,3 @@
 # Realtime
 
-A utility library for MDX realtime classes.
+A subproject containing classes used for MDX realtime requests.

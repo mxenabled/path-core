@@ -72,7 +72,7 @@ class UserRemapIdTest extends Specification {
   def "withProcessor"() {
     given:
     def dob = "1992-06-10"
-    def email = "johndoe@hotmail.com"
+    def email = "username@example.com"
     def fingerprint = "U-3aec5eee-80db-43be-847c-45f9f1fff12a"
     def firstName = "John"
     def id = "61527a1699c8e521a000bf47"

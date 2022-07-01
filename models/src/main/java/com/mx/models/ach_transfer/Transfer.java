@@ -7,7 +7,7 @@ import com.mx.models.MdxBase;
 import com.mx.models.UserIdProvider;
 import com.mx.models.challenges.Challenge;
 
-@Deprecated // This is being replaced by: https://developer.internal.mx/drafts/mdx/ach_transfer/#mdx-ach-transfer
+@Deprecated // This is being replaced by: https://developer.mx.com/drafts/mdx/ach_transfer/#mdx-ach-transfer
 public final class Transfer extends MdxBase<Transfer> {
 
   private String id;

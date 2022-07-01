@@ -20,6 +20,4 @@ public interface SessionRepository {
 
   boolean setIfNotExist(Session session, String key, String value, long expiryMilliseconds);
 
-  String getRedisResponse();
-
 }

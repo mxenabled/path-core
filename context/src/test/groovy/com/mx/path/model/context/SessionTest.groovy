@@ -276,12 +276,12 @@ class SessionTest extends Specification {
     given:
     def rep = new HashSessionRepository()
     Session.setRepositorySupplier({ -> rep })
-    rep.saveValue(subject, "RSA.key1", "valueInRedis")
-    rep.saveValue(subject, "scope.key1", "valueInRedis")
+    rep.saveValue(subject, "RSA.key1", "valueInStore")
+    rep.saveValue(subject, "scope.key1", "valueInStore")
 
     expect:
-    "valueInRedis" == subject.get(Session.ServiceIdentifier.RSA, "key1")
-    "valueInRedis" == subject.get(TestScope.Key, "key1")
+    "valueInStore" == subject.get(Session.ServiceIdentifier.RSA, "key1")
+    "valueInStore" == subject.get(TestScope.Key, "key1")
   }
 
   def "deleteFromSessionRepository"() {
@@ -290,12 +290,12 @@ class SessionTest extends Specification {
     Session.setRepositorySupplier({ -> rep })
 
     when:
-    rep.saveValue(subject, "RSA.key1", "valueInRedis")
-    rep.saveValue(subject, "scope.key1", "valueInRedis")
+    rep.saveValue(subject, "RSA.key1", "valueInStore")
+    rep.saveValue(subject, "scope.key1", "valueInStore")
 
     then:
-    "valueInRedis" == subject.get(Session.ServiceIdentifier.RSA, "key1")
-    "valueInRedis" == subject.get(TestScope.Key, "key1")
+    "valueInStore" == subject.get(Session.ServiceIdentifier.RSA, "key1")
+    "valueInStore" == subject.get(TestScope.Key, "key1")
 
     when:
     subject.delete(Session.ServiceIdentifier.RSA, "key1")

@@ -20,7 +20,7 @@ import com.mx.path.model.context.store.SessionRepository;
 import com.mx.path.model.context.util.XMLGregorianCalendarConverter;
 
 /**
- * Represents a user session across the MX Mobile Middleware services. The {@code .current()} session
+ * Represents a user session across Path services. The {@code .current()} session
  * exists as a Thread Local singleton. It MUST therefore be removed to prevent a memory leak.
  *
  * MAINTENANCE NOTICE:

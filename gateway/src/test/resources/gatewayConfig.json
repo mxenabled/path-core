@@ -62,7 +62,7 @@
           "baseUrl": "http://localhost:3000",
           "keystorePath": "./src/main/resources/certificates/keystore.jks",
           "keystorePassword": "${env:KEYSTORE_PASSWORD}",
-          "certificateAlias": "afcu_ensenta",
+          "certificateAlias": "some_alias",
           "skipHostNameVerify": true,
           "configurations": {
             "someMapOfValues": [ 1, 2, 3 ]

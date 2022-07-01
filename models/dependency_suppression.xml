@@ -1,15 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
     <suppress>
-        <notes><![CDATA[
-   file name: org.jacoco.report-0.8.5.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jacoco/org\.jacoco\.report@.*$</packageUrl>
-        <cve>CVE-2021-21275</cve>
-    </suppress>
-
-    <suppress>
-        <notes>https://gitlab.mx.com/mx/money-experiences/path/path-issues/-/issues/804</notes>
+        <notes>https://github.com/mxenabled/path-sdk/issues/1</notes>
         <cve>CVE-2020-36518</cve>
     </suppress>
 </suppressions>

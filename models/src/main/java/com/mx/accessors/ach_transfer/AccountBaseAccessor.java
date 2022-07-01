@@ -16,7 +16,7 @@ import com.mx.models.ach_transfer.options.AccountListOptions;
  * Accessor base for ACH held-account operations
  */
 @GatewayClass
-@API(specificationUrl = "https://developer.internal.mx/drafts/mdx/ach_transfer/#ach-account-list-held-accounts")
+@API(specificationUrl = "https://developer.mx.com/drafts/mdx/ach_transfer/#ach-account-list-held-accounts")
 public abstract class AccountBaseAccessor extends Accessor {
   public AccountBaseAccessor(AccessorConfiguration configuration) {
     super(configuration);

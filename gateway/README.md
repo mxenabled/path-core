@@ -1,14 +1,12 @@
-# mx-path-gateway
+# Gateway
 
-[Path SDK Issues](https://gitlab.mx.com/groups/mx/money-experiences/path/path-issues/-/issues?scope=all&utf8=%E2%9C%93&state=opened&label_name[]=Path%20SDK)
-
-Interfaces and orchestration classes for MX Path Gateway.
+Interfaces and orchestration classes for the Path SDK.
 
 ## Concepts
 
 ### Accessors
 
-An accessor is responsible for translating between MDX models and third-party APIs. To enable a model and it's available operations, an accessor needs to be provided. A required BaseAccessors needs to extend [com.mx.accessors.BaseAccessor](https://gitlab.mx.com/mx/java-mdx-models/-/blob/master/src/main/java/com/mx/accessors/BaseAccessor.java). Other referenced accessors can be implemented and embedded in the BaseAccessor.
+Accessors provide translation between the MDX models and operations and external systems. These are the primary functional input to the Path system. All other inputs provide support for these. Each accessor extends a "Base" accessor. The Base Accessors define and organize the MDX models and their operations. The accessors are nested to represent the domain and features each model belongs to.
 
 ### Behaviors
 
@@ -16,7 +14,7 @@ Behaviors are chainable modules that can modify the call stack before invoking t
 
 ### Facilities
 
-Facilities provide a pre-determined set of functions such as key-value store access, encryption/decryption, messaging. Currently, the set of facilities is defined in [com.mx.path.gateway.facility.Facilities](https://gitlab.mx.com/middleware/java-path-gateway/-/blob/master/src/main/java/com/mx/path/gateway/facility/Facilities.java)
+Facilities provide infrastructure abstractions via a pre-determined set of functions such as key-value store access, encryption/decryption, messaging, and more. Currently, the set of facilities is defined in [com.mx.path.gateway.facility.Facilities](https://gitlab.mx.com/middleware/java-path-gateway/-/blob/master/src/main/java/com/mx/path/gateway/facility/Facilities.java)
 
 ### Services
 
@@ -29,9 +27,9 @@ client that a gateway belongs to.
 
 ## Configuration
 
-A useable gateway can be generated from a configuration file.
+A gateway can be generated from a configuration file.
 
-_config.yaml_ or _config.yml_
+_gateway.yaml_ or _gateway.yml_
 
 ```yaml
 ---
@@ -39,19 +37,19 @@ _config.yaml_ or _config.yml_
 # This block gets stripped out before the gateway gets built, so make sure to only place
 # anchors that get referenced in actual gateway config below.
 definitions: 
-  - &RedisStore
-    class: com.mx.redis.RedisStore
+  - &MemoryStore
+    class: com.mx.store.MemoryStore
     configurations:
       host: localhost
       port: 6379
       connectionTimeoutSeconds: 10
       computationThreadPoolSize: 5
       ioThreadPoolSize: 5
-  - &EnsentaKeystore
+  - &Keystore
     keystorePath: "./src/main/resources/certificates/keystore.jks"
     keystorePassword: "${env:KEYSTORE_PASSWORD}"
-  - &AccountCacheInvalidationBehavior
-    class: com.mx.web.mdx.behaviors.AccountCacheInvalidationBehavior
+  - &RelationCacheInvalidationBehavior
+    class: com.mx.behaviors.RelationCacheInvalidationBehavior
     configurations:
       scope: user
       'on':
@@ -59,32 +57,35 @@ definitions:
 
 clientID:
   rootBehaviors:
-  - class: com.mx.web.mdx.behaviors.MdxExceptionBehavior
+  - class: com.mx.behaviors.MdxExceptionBehavior
   facilities:
     # You can reuse a configuration block by adding a reference
-    cacheStore: *RedisStore
-    sessionStore: *RedisStore
+    cacheStore: *MemoryStore
+    sessionStore: *MemoryStore
   accessor:
-    class: abagnale.repositories.EnsentaAccessor
+    class: service.accessors.SomeBankBaseAccessor
     scope: singleton
     connections:
-      ensenta:
-        baseUrl: https://webdeposit.test.ensenta.com
-        certificateAlias: afcu_ensenta
+      thirdParty:
+        baseUrl: https://example.com/third-party-api
+        certificateAlias: some_alias
         # You can also merge a configuration block into another block if there is some
         # common configuration you'd like to reuse, but there's parts you'd like to add/change.
-        <<: *EnsentaKeystore 
+        <<: *Keystore 
     configurations:
-      partnerId: '8260'
+      specialValue: '123abc'
   gateways:
     accounts:
       behaviors:
-      - class: com.mx.web.mdx.behaviors.AccountCacheBehavior
+      - class: com.mx.behaviors.CachingBehavior
         configurations:
-          scope: session|global
-          manager: com.mx.web.mdx.behaviors.AccountCache
+            'on':
+              models:
+                - com.mx.models.account.Account
+            scope: user
+            expirySeconds: 15
       # You can also reuse common configuration in lists.
-      - <<: *AccountCacheInvalidationBehavior
+      - <<: *RelationCacheInvalidationBehavior
       gateways:
         transactions: {}
     remoteDeposits: {}
@@ -92,17 +93,19 @@ clientID:
 
 Additionally, JSON can be used:
 
-_config.json_
+_gateway.json_
 
 ```json
 {
   "clientID": {
     "rootBehaviors": [
-      { "class": "com.mx.web.mdx.behaviors.MdxExceptionBehavior" }
+      {
+        "class": "com.mx.behaviors.MdxExceptionBehavior"
+      }
     ],
     "facilities": {
       "cacheStore": {
-        "class": "com.mx.redis.RedisStore",
+        "class": "com.mx.store.MemoryStore",
         "configurations": {
           "host": "localhost",
           "port": 6379,
@@ -112,10 +115,10 @@ _config.json_
         }
       },
       "sessionStore": {
-        "class": "com.mx.redis.RedisStore",
+        "class": "com.mx.store.MemoryStore",
         "configurations": {
           "host": "localhost",
-          "port": 9379,
+          "port": 6379,
           "connectionTimeoutSeconds": 10,
           "computationThreadPoolSize": 5,
           "ioThreadPoolSize": 5
@@ -123,36 +126,50 @@ _config.json_
       }
     },
     "accessor": {
-      "class": "abagnale.repositories.EnsentaAccessor",
+      "class": "service.accessors.SomeBankBaseAccessor",
       "scope": "singleton",
       "connections": {
-        "ensenta": {
-          "baseUrl": "https://webdeposit.test.ensenta.com",
+        "thirdParty": {
+          "baseUrl": "https://example.com/third-party-api",
+          "certificateAlias": "some_alias",
           "keystorePath": "./src/main/resources/certificates/keystore.jks",
-          "keystorePassword": "${env:KEYSTORE_PASSWORD}",
-          "certificateAlias": "afcu_ensenta"
+          "keystorePassword": "${env:KEYSTORE_PASSWORD}"
         }
       },
       "configurations": {
-        "partnerId": "8260"
+        "specialValue": "123abc"
       }
     },
     "gateways": {
       "accounts": {
         "behaviors": [
           {
-            "class": "com.mx.web.mdx.behaviors.AccountCacheBehavior",
+            "class": "com.mx.behaviors.CachingBehavior",
             "configurations": {
-              "scope": "session|global",
-              "manager": "com.mx.web.mdx.behaviors.AccountCache"
+              "on": {
+                "models": [
+                  "com.mx.models.account.Account"
+                ]
+              },
+              "scope": "user",
+              "expirySeconds": 15
+            }
+          },
+          {
+            "class": "com.mx.behaviors.RelationCacheInvalidationBehavior",
+            "configurations": {
+              "scope": "user",
+              "on": [
+                "create"
+              ]
             }
           }
         ],
         "gateways": {
-          "transactions": { }
+          "transactions": {}
         }
       },
-      "remoteDeposits": { }
+      "remoteDeposits": {}
     }
   }
 }

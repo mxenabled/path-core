@@ -19,7 +19,7 @@ import com.mx.models.ach_transfer.options.AchScheduledTransferListOptions;
  * Accessor base for ACH scheduled transfer operations
  */
 @GatewayClass
-@API(specificationUrl = "https://developer.internal.mx/drafts/mdx/ach_transfer/#ach-scheduled-transfers")
+@API(specificationUrl = "https://developer.mx.com/drafts/mdx/ach_transfer/#ach-scheduled-transfers")
 public abstract class AchScheduledTransferBaseAccessor extends Accessor {
 
   @GatewayAPI

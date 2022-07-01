@@ -1,12 +1,14 @@
-[Path SDK Issues](https://gitlab.mx.com/mx/money-experiences/path/path-issues/-/issues?scope=all&utf8=%E2%9C%93&state=opened&label_name[]=Path%20SDK)
+# Common
 
-# Path Common
+A subproject containing common utility classes and interface definitions.
 
-Java jar containing common utility classes and dependency interface definitions.
+### What belongs in this subproject?
 
-## What belongs in this jar?
+This subproject should only include the following:
 
-This jar should only include the following:
+* Interfaces
+* Annotations
+* General data structures
 
 ### Dependency Interface definitions
 
@@ -14,4 +16,4 @@ Interfaces for pluggable external dependencies and their configuration classes. 
 
 ### Truly common utility
 
-These should have only very light or no dependencies. The utilities should have general purpose application across all middleware applications. They should never be client or application specific.
+These should have only very light or no dependencies. The utilities should have general purpose application across all Path SDK applications. They should never be client or application specific.

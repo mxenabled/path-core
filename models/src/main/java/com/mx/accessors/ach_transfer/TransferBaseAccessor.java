@@ -21,7 +21,7 @@ import com.mx.models.ach_transfer.Transfer;
  */
 @GatewayClass
 @API(specificationUrl = "https://developer.mx.com/drafts/mdx/ach_transfer/")
-@Deprecated // This is being replaced by: https://developer.internal.mx/drafts/mdx/ach_transfer/#mdx-ach-transfer
+@Deprecated // This is being replaced by: https://developer.mx.com/drafts/mdx/ach_transfer/#mdx-ach-transfer
 public abstract class TransferBaseAccessor extends Accessor {
 
   @GatewayAPI
