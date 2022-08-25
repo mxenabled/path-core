@@ -7,7 +7,12 @@ import com.mx.path.gateway.net.Response;
  * Runs callbacks
  * <p>
  * Runs runs next, records duration, runs complete callback, runs process callback
+ * </p>
+ * <p>
+ * @deprecated Use {@link com.mx.path.gateway.connect.filters.CallbacksFilter}
+ * </p>
  */
+@Deprecated
 public class CallbacksExecutor extends RequestExecutorBase {
   public CallbacksExecutor(RequestExecutor next) {
     super(next);

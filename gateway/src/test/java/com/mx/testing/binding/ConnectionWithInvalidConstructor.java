@@ -1,8 +1,8 @@
 package com.mx.testing.binding;
 
-import com.mx.accessors.AccessorConnection;
+import com.mx.common.connect.AccessorConnectionSettings;
 
-public class ConnectionWithInvalidConstructor extends AccessorConnection {
+public class ConnectionWithInvalidConstructor extends AccessorConnectionSettings {
   private int garbage;
 
   public ConnectionWithInvalidConstructor(int garbage) {

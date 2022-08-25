@@ -1,6 +1,6 @@
 package com.mx.path.gateway.configuration
 
-import com.mx.accessors.AccessorConnection
+import com.mx.common.connect.AccessorConnectionSettings
 import com.mx.testing.binding.BasicConnection
 import com.mx.testing.binding.ConnectionWithBoundConfiguration
 import com.mx.testing.binding.ConnectionWithInvalidConstructor
@@ -20,7 +20,7 @@ class ConnectionConstructionContextTest extends Specification {
 
   def "binds connection attributes"() {
     given:
-    def connection = AccessorConnection.builder()
+    def connection = AccessorConnectionSettings.builder()
         .certificateAlias("alias")
         .configuration("key1", "value1")
         .keystorePath("/right/here")
@@ -41,7 +41,7 @@ class ConnectionConstructionContextTest extends Specification {
 
   def "binds connection with configuration"() {
     given:
-    def connection = AccessorConnection.builder()
+    def connection = AccessorConnectionSettings.builder()
         .certificateAlias("alias")
         .configuration("key1", "value1")
         .keystorePath("/right/here")
@@ -65,11 +65,11 @@ class ConnectionConstructionContextTest extends Specification {
   def "fails on connection with invalid constructor"() {
     given:
     state.pushLevel("connection1")
-    def accessorConnection = AccessorConnection.builder()
+    def accessorConnectionSettings = AccessorConnectionSettings.builder()
         .build()
 
     when:
-    new ConnectionConstructionContext("client1", state, ConnectionWithInvalidConstructor .class, accessorConnection)
+    new ConnectionConstructionContext("client1", state, ConnectionWithInvalidConstructor .class, accessorConnectionSettings)
 
     then:
     def error = thrown(ConfigurationError)

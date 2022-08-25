@@ -9,6 +9,10 @@ import com.mx.path.gateway.net.executors.RequestFinishedExecutor;
 import com.mx.path.gateway.net.executors.TracingExecutor;
 import com.mx.path.gateway.net.executors.UpstreamRequestEventExecutor;
 
+/**
+ * @deprecated functionality moved to connect package
+ */
+@Deprecated
 public class HttpClientRequestProcessor implements RequestProcessor {
 
   private static RequestExecutor executor;

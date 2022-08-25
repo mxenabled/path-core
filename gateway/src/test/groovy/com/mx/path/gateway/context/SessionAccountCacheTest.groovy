@@ -9,7 +9,6 @@ import com.mx.models.MdxList
 import com.mx.models.account.Account
 import com.mx.path.model.context.AccountBehavior
 import com.mx.path.model.context.Session
-import com.mx.testing.TestEncryptionService
 import com.mx.testing.Utils
 import com.mx.testing.WithSessionRepository
 

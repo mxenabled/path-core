@@ -5,15 +5,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mx.common.collections.MultiValueMap;
+import com.mx.common.connect.Request;
+import com.mx.common.connect.Response;
 import com.mx.common.security.LogValueMasker;
-import com.mx.path.gateway.net.Request;
-import com.mx.path.gateway.net.Response;
 import com.mx.path.model.context.RequestContext;
 import com.mx.path.model.context.Session;
 
@@ -117,7 +118,7 @@ public class UpstreamLogger {
     MDC.put("api_call_payload", buildApiPayload(response, request));
 
     if (response.getDuration() != null) {
-      MDC.put("request_duration", response.getDuration().toString());
+      MDC.put("request_duration", String.valueOf(response.getDuration().toMillis()));
     } else {
       MDC.remove("request_duration");
     }
@@ -142,6 +143,8 @@ public class UpstreamLogger {
       MDC.remove("response_headers_json");
       MDC.remove("response_headers");
     }
+
+    MDC.put("log_guid", UUID.randomUUID().toString());
 
     if (response.getException() != null) {
       Exception exception = response.getException();
@@ -173,6 +176,7 @@ public class UpstreamLogger {
     MDC.remove("status");
     MDC.remove("span_id");
     MDC.remove("trace_id");
+    MDC.remove("log_guid");
   }
 
   private String buildHeaderString(Map<String, String> headers) {

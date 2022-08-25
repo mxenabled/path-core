@@ -102,7 +102,7 @@ public class JWTUtility {
   public static <T> T getClaimFromIdToken(String idToken, String key, Class<T> returnType, T defaultValue) {
     DecodedJWT idDecodedToken = JWT.decode(idToken);
     Claim claim = idDecodedToken.getClaim(key);
-    if (claim.isNull()) {
+    if (claim.isMissing() || claim.isNull()) {
       return defaultValue;
     }
     return claim.as(returnType);

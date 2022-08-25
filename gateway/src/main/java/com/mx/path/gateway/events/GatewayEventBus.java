@@ -8,6 +8,7 @@ import com.google.common.eventbus.Subscribe;
 import com.mx.common.collections.ObjectMap;
 import com.mx.common.events.EventBus;
 import com.mx.common.reflection.Annotations;
+import com.mx.path.gateway.util.UpstreamRequestLoggingEventListener;
 
 /**
  * Configured per client through gateway.yaml facilities.
@@ -30,6 +31,8 @@ public class GatewayEventBus implements EventBus {
   public GatewayEventBus(ObjectMap configuration) {
     eventBus = new com.google.common.eventbus.EventBus();
     eventBus.register(new DefaultEventHandler());
+    // todo: Move this registration somewhere better?
+    eventBus.register(new UpstreamRequestLoggingEventListener());
   }
 
   /**

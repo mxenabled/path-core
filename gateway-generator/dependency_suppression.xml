@@ -5,8 +5,7 @@
         <cve>CVE-2020-36518</cve>
     </suppress>
     <suppress>
-        <notes>file name: failureaccess-1.0.1.jar, guava-27.1-jre.jar CVE-2020-8908 exists in all version of Guava</notes>
-        <packageUrl regex="true">^pkg:maven/com\.google\.guava/(failureaccess|guava)@.*$</packageUrl>
+        <notes>https://gitlab.mx.com/mx/money-experiences/path/path-issues/-/issues/981</notes>
         <cve>CVE-2020-8908</cve>
     </suppress>
 </suppressions>

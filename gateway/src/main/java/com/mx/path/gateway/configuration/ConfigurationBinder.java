@@ -10,12 +10,12 @@ import java.util.stream.Collectors;
 import com.google.common.base.Supplier;
 import com.mx.common.collections.ObjectArray;
 import com.mx.common.collections.ObjectMap;
+import com.mx.common.configuration.ConfigurationField;
 import com.mx.common.lang.Strings;
 import com.mx.common.reflection.Annotations;
 import com.mx.common.reflection.Constructors;
 import com.mx.common.reflection.Fields;
 import com.mx.path.gateway.configuration.annotations.ClientID;
-import com.mx.path.gateway.configuration.annotations.ConfigurationField;
 import com.mx.path.utilities.reflection.ClassHelper;
 
 /**

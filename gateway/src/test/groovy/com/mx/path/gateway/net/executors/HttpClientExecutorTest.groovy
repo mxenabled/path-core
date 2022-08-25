@@ -64,7 +64,7 @@ class HttpClientExecutorTest extends Specification {
 
     when: "Both String and raw body are preferred"
     request = new Request().tap {
-      withPreferredResponseBodyType(Request.PreferredResponseBodyType.BOTH)
+      withPreferredResponseBodyType(Request.PreferredResponseBodyType.STRING_AND_RAW)
     }
     response = new Response()
     subject.setResponseBody(request, response, responseHeaders, httpEntity)

@@ -6,8 +6,9 @@ import static org.mockito.Mockito.when
 import java.time.Duration
 
 import com.google.common.collect.LinkedListMultimap
-import com.mx.accessors.ConnectionSettings
 import com.mx.common.collections.SingleValueMap
+import com.mx.common.connect.ConnectionSettings
+import com.mx.common.connect.RequestFilter
 import com.mx.common.request.Feature
 
 import io.opentracing.Span
@@ -142,6 +143,21 @@ class RequestTest extends Specification {
 
     @Override
     char[] getKeystorePassword() {
+      return null
+    }
+
+    @Override
+    List<RequestFilter> getBaseRequestFilters() {
+      return null
+    }
+
+    @Override
+    boolean getSkipHostNameVerify() {
+      return false
+    }
+
+    @Override
+    String getBaseUrl() {
       return null
     }
 

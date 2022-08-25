@@ -21,6 +21,7 @@ import com.netflix.hystrix.exception.HystrixRuntimeException;
  * Wraps the upstream call in a FaultTolerantExecutor if one is configured. Otherwise, uses the configured hystrix wrapper
  * (if enabled) and calls next.
  */
+@Deprecated
 public class FaultTolerantRequestExecutor extends RequestExecutorBase {
   public FaultTolerantRequestExecutor(RequestExecutor next) {
     super(next);

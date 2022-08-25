@@ -2,11 +2,11 @@ package com.mx.testing.binding;
 
 import lombok.Getter;
 
-import com.mx.accessors.AccessorConnection;
+import com.mx.common.configuration.Configuration;
+import com.mx.common.connect.AccessorConnectionSettings;
 import com.mx.path.gateway.configuration.annotations.ClientID;
-import com.mx.path.gateway.configuration.annotations.Configuration;
 
-public class ConnectionWithBoundConfiguration extends AccessorConnection {
+public class ConnectionWithBoundConfiguration extends AccessorConnectionSettings {
   @Getter
   private final BasicConfigurationObj configs;
 

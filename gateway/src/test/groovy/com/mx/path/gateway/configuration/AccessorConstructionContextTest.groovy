@@ -1,8 +1,8 @@
 package com.mx.path.gateway.configuration
 
 import com.mx.accessors.AccessorConfiguration
-import com.mx.accessors.AccessorConnection
 import com.mx.common.collections.ObjectMap
+import com.mx.common.connect.AccessorConnectionSettings
 import com.mx.testing.AccountAccessorImpl
 import com.mx.testing.binding.AccessorWithBoundConfiguration
 import com.mx.testing.binding.AccessorWithBoundConnections
@@ -43,8 +43,8 @@ class AccessorConstructionContextTest extends Specification {
     def configuration = AccessorConfiguration.builder()
         .clientId("client1")
         .configuration("key1", "value1")
-        .connection("connection1", AccessorConnection.builder().baseUrl("http://connection1/api").configuration("key1", "connection1Value1").build())
-        .connection("connection2", AccessorConnection.builder().baseUrl("http://connection2/api").configuration("key1", "connection2Value1").build())
+        .connection("connection1", AccessorConnectionSettings.builder().baseUrl("http://connection1/api").configuration("key1", "connection1Value1").build())
+        .connection("connection2", AccessorConnectionSettings.builder().baseUrl("http://connection2/api").configuration("key1", "connection2Value1").build())
         .build()
     AccessorConstructionContext<AccessorWithBoundConnections> subject = new AccessorConstructionContext<>(AccessorWithBoundConnections, configuration)
 
@@ -62,8 +62,8 @@ class AccessorConstructionContextTest extends Specification {
     def configuration = AccessorConfiguration.builder()
         .clientId("client1")
         .configuration("key1", "value1")
-        .connection("connection1", AccessorConnection.builder().baseUrl("http://connection1/api").configuration("key1", "connection1Value1").build())
-        .connection("connection2", AccessorConnection.builder().baseUrl("http://connection2/api").configuration("key1", "connection2Value1").build())
+        .connection("connection1", AccessorConnectionSettings.builder().baseUrl("http://connection1/api").configuration("key1", "connection1Value1").build())
+        .connection("connection2", AccessorConnectionSettings.builder().baseUrl("http://connection2/api").configuration("key1", "connection2Value1").build())
         .build()
 
     AccessorConstructionContext<AccessorWithBoundConnections> subject = new AccessorConstructionContext<>(AccessorWithBoundConnections, configuration)

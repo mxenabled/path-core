@@ -11,7 +11,11 @@ import com.mx.path.gateway.net.Response;
  * Provides handle to next item in chain.
  * NOTE: RequestExecutors are expected to be stateless
  * </p>
+ * <p>
+ * @deprecated functionality moved to connect package
+ * </p>
  */
+@Deprecated
 public abstract class RequestExecutorBase implements RequestExecutor {
   @Getter
   private RequestExecutor next;

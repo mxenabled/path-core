@@ -11,7 +11,10 @@ import com.mx.common.lang.Strings;
  * <p>
  * Requests with the same base_url and feature use the same request
  * processor. Request processors are expected to be thread safe and stateless.
+ * </p>
+ * @deprecated functionality moved to connect library
  */
+@Deprecated
 public class RequestProcessorFactory {
   /**
    * Cache request processors by baseUrl and feature.

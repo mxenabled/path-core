@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.util.Map;
 
-import com.mx.accessors.ConnectionSettings;
+import com.mx.common.connect.ConnectionSettings;
 
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.ssl.PrivateKeyDetails;
@@ -16,7 +16,9 @@ import org.apache.http.ssl.SSLContextBuilder;
 
 /**
  * Provides SslContext given a Java Keystore
+ * @deprecated moved to com.mx.path.api.connect.http
  */
+@Deprecated
 public class MutualAuthProviderKeystore implements MutualAuthProvider {
 
   private KeyStoreBuilder keyStoreBuilder;

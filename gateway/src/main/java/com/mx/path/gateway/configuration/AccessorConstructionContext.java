@@ -15,13 +15,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mx.accessors.Accessor;
 import com.mx.accessors.AccessorConfiguration;
-import com.mx.accessors.AccessorConnection;
 import com.mx.adapters.JsonObjectMapDeserializer;
 import com.mx.common.collections.ObjectArray;
 import com.mx.common.collections.ObjectMap;
+import com.mx.common.configuration.Configuration;
+import com.mx.common.connect.AccessorConnectionSettings;
 import com.mx.path.gateway.GatewayException;
 import com.mx.path.gateway.configuration.annotations.ClientID;
-import com.mx.path.gateway.configuration.annotations.Configuration;
 import com.mx.path.gateway.configuration.annotations.Connection;
 
 /**
@@ -80,11 +80,11 @@ public class AccessorConstructionContext<T extends Accessor> {
 
             state.withLevel("connections." + connectionAnnotation.value(), () -> {
 
-              AccessorConnection accessorConnection = getAccessorConfiguration().getConnections().getConnection(connectionAnnotation.value());
-              if (accessorConnection == null) {
+              AccessorConnectionSettings accessorConnectionSettings = getAccessorConfiguration().getConnections().getConnection(connectionAnnotation.value());
+              if (accessorConnectionSettings == null) {
                 throw new ConfigurationError("No connection configuration provided for " + connectionAnnotation.value(), state);
               }
-              ConnectionConstructionContext connectionConstructionContext = new ConnectionConstructionContext(accessorConfiguration.getClientId(), state, param.getType(), accessorConnection);
+              ConnectionConstructionContext connectionConstructionContext = new ConnectionConstructionContext(accessorConfiguration.getClientId(), state, param.getType(), accessorConnectionSettings);
               constructorArgs.add(connectionConstructionContext);
               connections.put(connectionAnnotation.value(), connectionConstructionContext);
 
@@ -118,7 +118,7 @@ public class AccessorConstructionContext<T extends Accessor> {
     getAccessorConfiguration().describe(description);
 
     List<Object> configurationArguments = constructorArgs.stream()
-        .filter((arg) -> !AccessorConfiguration.class.isAssignableFrom(arg.getClass()) && !AccessorConnection.class.isAssignableFrom(arg.getClass()))
+        .filter((arg) -> !AccessorConfiguration.class.isAssignableFrom(arg.getClass()) && !AccessorConnectionSettings.class.isAssignableFrom(arg.getClass()))
         .collect(Collectors.toList());
 
     if (!configurationArguments.isEmpty()) {

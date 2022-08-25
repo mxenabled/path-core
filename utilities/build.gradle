@@ -1,7 +1,12 @@
 group "com.mx.path.core"
 jar.archiveBaseName = "utilities"
 
-coppuccino { coverage { minimumCoverage = 0.96 } }
+coppuccino {
+  coverage {
+    minimumCoverage = 0.96
+  }
+}
 
-dependencies { api "com.auth0:java-jwt:3.+" // For JWT Parsing Library
+dependencies {
+  api "com.auth0:java-jwt:4.+" // For JWT Parsing Library
 }

@@ -3,7 +3,10 @@ package com.mx.path.model.context.store
 import static org.mockito.Mockito.mock
 import static org.mockito.Mockito.verify
 
-import com.google.gson.Gson
+import java.time.LocalDateTime
+
+import com.google.gson.GsonBuilder
+import com.mx.common.serialization.LocalDateTimeDeserializer
 import com.mx.common.store.Store
 import com.mx.path.model.context.Session
 
@@ -54,7 +57,11 @@ class SessionRepositoryImplTest extends Specification {
 
   def "load"() {
     given:
-    Mockito.doReturn(new Gson().toJson(session)).when(store).get("sessionId")
+    GsonBuilder gsonBuilder = new GsonBuilder();
+    def json = gsonBuilder.registerTypeAdapter(LocalDateTime.class, LocalDateTimeDeserializer.builder()
+        .build()).create()
+        .toJson(session)
+    Mockito.doReturn(json).when(store).get("sessionId")
 
     when:
     def loadedSession = subject.load("sessionId")
@@ -66,7 +73,10 @@ class SessionRepositoryImplTest extends Specification {
 
   def "save"() {
     given:
-    def json = new Gson().toJson(session)
+    GsonBuilder gsonBuilder = new GsonBuilder();
+    def json = gsonBuilder.registerTypeAdapter(LocalDateTime.class, LocalDateTimeDeserializer.builder()
+        .build()).create()
+        .toJson(session)
 
     when:
     subject.save(session)

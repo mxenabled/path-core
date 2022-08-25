@@ -8,27 +8,27 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 
-import com.mx.accessors.AccessorConnection;
+import com.mx.common.configuration.Configuration;
+import com.mx.common.connect.AccessorConnectionSettings;
 import com.mx.common.reflection.Constructors;
 import com.mx.common.reflection.Fields;
 import com.mx.path.gateway.GatewayException;
 import com.mx.path.gateway.configuration.annotations.ClientID;
-import com.mx.path.gateway.configuration.annotations.Configuration;
 import com.mx.path.gateway.configuration.annotations.Connection;
 
 public class ConnectionConstructionContext {
 
   @Getter
-  private final AccessorConnection accessorConnection;
+  private final AccessorConnectionSettings accessorConnectionSettings;
 
   @Getter
   private final String clientId;
 
   @Getter
-  private final Class<? extends AccessorConnection> connectionClass;
+  private final Class<? extends AccessorConnectionSettings> connectionClass;
 
   @Getter
-  private final Constructor<? extends AccessorConnection> connectionConstructor;
+  private final Constructor<? extends AccessorConnectionSettings> connectionConstructor;
 
   @Getter
   private final List<Object> constructorArgs;
@@ -37,16 +37,16 @@ public class ConnectionConstructionContext {
   private final ConfigurationState state;
 
   @SuppressWarnings("unchecked")
-  public ConnectionConstructionContext(String clientId, ConfigurationState state, Class<?> connectionClass, AccessorConnection accessorConnection) {
+  public ConnectionConstructionContext(String clientId, ConfigurationState state, Class<?> connectionClass, AccessorConnectionSettings accessorConnectionSettings) {
     this.clientId = clientId;
     this.state = state;
 
-    if (!AccessorConnection.class.isAssignableFrom(connectionClass)) {
-      throw new ConfigurationError("Connection does not implement AccessorConnection: " + connectionClass.getCanonicalName(), state);
+    if (!AccessorConnectionSettings.class.isAssignableFrom(connectionClass)) {
+      throw new ConfigurationError("Connection does not implement AccessorConnectionSettings: " + connectionClass.getCanonicalName(), state);
     }
 
-    this.connectionClass = (Class<? extends AccessorConnection>) connectionClass;
-    this.accessorConnection = accessorConnection;
+    this.connectionClass = (Class<? extends AccessorConnectionSettings>) connectionClass;
+    this.accessorConnectionSettings = accessorConnectionSettings;
     this.connectionConstructor = findBestConstructor(this.connectionClass);
 
     ConfigurationBinder configurationBinder = new ConfigurationBinder(clientId, state);
@@ -59,7 +59,7 @@ public class ConnectionConstructionContext {
               if (parameter.isAnnotationPresent(ClientID.class)) {
                 return clientId;
               } else {
-                return configurationBinder.build(parameter.getType(), accessorConnection.getConfigurations());
+                return configurationBinder.build(parameter.getType(), accessorConnectionSettings.getConfigurations());
               }
             } finally {
               state.popLevel();
@@ -72,22 +72,22 @@ public class ConnectionConstructionContext {
     }
   }
 
-  public final AccessorConnection build() {
+  public final AccessorConnectionSettings build() {
     try {
-      AccessorConnection newAccessorConnection = getConnectionConstructor().newInstance(getConstructorArgs().toArray());
+      AccessorConnectionSettings newAccessorConnectionSettings = getConnectionConstructor().newInstance(getConstructorArgs().toArray());
 
       // Clone the fields
-      Arrays.stream(AccessorConnection.class.getDeclaredFields()).forEach((field) -> {
-        state.withField(field.getName(), () -> Fields.setFieldValue(field, newAccessorConnection, Fields.getFieldValue(field, accessorConnection)));
+      Arrays.stream(AccessorConnectionSettings.class.getDeclaredFields()).forEach((field) -> {
+        state.withField(field.getName(), () -> Fields.setFieldValue(field, newAccessorConnectionSettings, Fields.getFieldValue(field, accessorConnectionSettings)));
       });
 
-      return newAccessorConnection;
+      return newAccessorConnectionSettings;
     } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
       throw new GatewayException("Unable to construct connection " + getConnectionClass().getCanonicalName(), e);
     }
   }
 
-  private <T extends AccessorConnection> Constructor<T> findBestConstructor(Class<T> klass) {
+  private <T extends AccessorConnectionSettings> Constructor<T> findBestConstructor(Class<T> klass) {
     List<Constructor<T>> constructors = getConstructors(klass);
 
     // Find a constructor that has only ClientID, Configuration and Connection annotated params
@@ -114,7 +114,7 @@ public class ConnectionConstructionContext {
   }
 
   @SuppressWarnings("unchecked")
-  private <T extends AccessorConnection> List<Constructor<T>> getConstructors(Class<T> klass) {
+  private <T extends AccessorConnectionSettings> List<Constructor<T>> getConstructors(Class<T> klass) {
     return Arrays.stream(klass.getConstructors())
         .map(constructor -> (Constructor<T>) constructor)
         .collect(Collectors.toList());

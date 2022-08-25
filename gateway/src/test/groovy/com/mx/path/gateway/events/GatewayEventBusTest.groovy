@@ -4,6 +4,7 @@ import static org.mockito.Mockito.spy
 
 import com.google.common.eventbus.Subscribe
 import com.mx.path.model.context.RequestContext
+import com.mx.path.model.context.Session
 import com.mx.path.model.context.facility.Facilities
 
 import spock.lang.Specification
@@ -22,6 +23,11 @@ class GatewayEventBusTest extends Specification {
     RequestContext getRequestContext() {
       return null
     }
+
+    @Override
+    Session getSession() {
+      return null
+    }
   }
 
   def cleanup() {
@@ -33,11 +39,11 @@ class GatewayEventBusTest extends Specification {
     def subject = new GatewayEventBus()
     def subscriber = spy(new TestSubscriber())
     subject.register(subscriber)
-    def event = new BeforeAccessorEvent(null, null, null)
+    def event = new BeforeAccessorEvent(null, null, null, null)
 
     when:
     subject.post(event)
-    subject.post(new AfterAccessorEvent(null, null, null))
+    subject.post(new AfterAccessorEvent(null, null, null, null))
 
     then:
     subscriber.triggered

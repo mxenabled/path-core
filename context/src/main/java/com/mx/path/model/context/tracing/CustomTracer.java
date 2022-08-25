@@ -52,9 +52,12 @@ public class CustomTracer {
    * @return child span
    */
   public static Span startSpan(String name) {
-    return tracer
-        .buildSpan(name)
-        .start();
+    if (tracer != null) {
+      return tracer
+          .buildSpan(name)
+          .start();
+    }
+    return null;
   }
 
   /**

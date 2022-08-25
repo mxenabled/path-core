@@ -9,6 +9,7 @@ import com.mx.accessors.AccessorResponseStatus;
 import com.mx.common.gateway.GatewayAPI;
 import com.mx.common.gateway.GatewayClass;
 import com.mx.models.check.CheckImage;
+import com.mx.models.check.options.CheckImageGetOptions;
 
 /**
  * Accessor for check image operations
@@ -26,11 +27,12 @@ public abstract class CheckImageBaseAccessor extends Accessor {
    * @param accountId
    * @param transactionId
    * @param checkNumber
+   * @param options
    * @return
    */
   @GatewayAPI
   @API(description = "Get a check image")
-  public AccessorResponse<CheckImage> get(String accountId, String transactionId, String checkNumber) {
+  public AccessorResponse<CheckImage> get(String accountId, String transactionId, String checkNumber, CheckImageGetOptions options) {
     throw new AccessorException(AccessorResponseStatus.NOT_IMPLEMENTED);
   }
 

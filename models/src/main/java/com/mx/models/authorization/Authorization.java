@@ -4,17 +4,27 @@ import com.mx.models.MdxBase;
 
 public class Authorization extends MdxBase<Authorization> {
 
+  private String accountId;
   private NameValuePair[] cookies;
+  private String deviceId;
   private Long expiresAt;
   private NameValuePair[] headers;
   private JavaScript javascript;
   private String token;
   private String type;
   private String url;
-  private String accountId;
+  private String vendorId;
 
   public Authorization() {
 
+  }
+
+  public final String getAccountId() {
+    return accountId;
+  }
+
+  public final void setAccountId(String newAccountId) {
+    accountId = newAccountId;
   }
 
   public final NameValuePair[] getCookies() {
@@ -23,6 +33,14 @@ public class Authorization extends MdxBase<Authorization> {
 
   public final void setCookies(NameValuePair[] newCookies) {
     this.cookies = newCookies;
+  }
+
+  public final String getDeviceId() {
+    return deviceId;
+  }
+
+  public final void setDeviceId(String newDeviceId) {
+    accountId = newDeviceId;
   }
 
   public final Long getExpiresAt() {
@@ -73,11 +91,11 @@ public class Authorization extends MdxBase<Authorization> {
     url = newUrl;
   }
 
-  public final String getAccountId() {
-    return accountId;
+  public final String getVendorId() {
+    return vendorId;
   }
 
-  public final void setAccountId(String newAccountId) {
-    accountId = newAccountId;
+  public final void setVendorId(String newVendorId) {
+    accountId = newVendorId;
   }
 }

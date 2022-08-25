@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.mx.common.collections.ObjectMap;
+import com.mx.common.configuration.Configuration;
 import com.mx.path.gateway.configuration.annotations.ClientID;
-import com.mx.path.gateway.configuration.annotations.Configuration;
 import com.mx.path.utilities.reflection.ClassHelper;
 
 /**

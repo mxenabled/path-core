@@ -4,8 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mx.accessors.ConnectionSettings;
+import com.mx.common.connect.ConnectionSettings;
 
+/**
+ * @deprecated moved to com.mx.path.api.connect.http
+ */
+@Deprecated
 public class KeyStoreBuilder {
 
   // Fields

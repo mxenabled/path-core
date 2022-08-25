@@ -6,10 +6,7 @@ import com.mx.common.security.EncryptionService
 import com.mx.path.model.context.Session
 
 import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.BeforeEach
-
 
 trait WithEncryptionService {
   Supplier<EncryptionService> previousEncryptionServiceSupplier
