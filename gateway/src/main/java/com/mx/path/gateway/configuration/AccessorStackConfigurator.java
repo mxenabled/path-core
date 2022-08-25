@@ -14,10 +14,10 @@ import lombok.Setter;
 
 import com.mx.accessors.Accessor;
 import com.mx.accessors.AccessorConfiguration;
-import com.mx.accessors.AccessorConnection;
 import com.mx.accessors.AccessorConnections;
 import com.mx.accessors.BaseAccessor;
 import com.mx.common.collections.ObjectMap;
+import com.mx.common.connect.AccessorConnectionSettings;
 import com.mx.common.lang.Strings;
 import com.mx.common.reflection.Fields;
 import com.mx.common.session.ServiceScope;
@@ -28,6 +28,12 @@ import com.mx.path.gateway.configuration.annotations.AccessorScope;
 import com.mx.path.gateway.configuration.annotations.ChildAccessor;
 import com.mx.path.gateway.configuration.annotations.ChildAccessors;
 import com.mx.path.gateway.configuration.annotations.MaxScope;
+import com.mx.path.gateway.connect.filters.CallbacksFilter;
+import com.mx.path.gateway.connect.filters.ErrorHandlerFilter;
+import com.mx.path.gateway.connect.filters.FaultTolerantRequestFilter;
+import com.mx.path.gateway.connect.filters.RequestFinishedFilter;
+import com.mx.path.gateway.connect.filters.TracingFilter;
+import com.mx.path.gateway.connect.filters.UpstreamRequestEventFilter;
 import com.mx.path.utilities.reflection.ClassHelper;
 
 import org.slf4j.Logger;
@@ -175,7 +181,7 @@ public class AccessorStackConfigurator {
   private void buildConnections(ObjectMap map, AccessorConfiguration.AccessorConfigurationBuilder builder) {
     AccessorConnections connections = new AccessorConnections();
     map.keySet().forEach(connectionName -> {
-      AccessorConnection.AccessorConnectionBuilder connection = AccessorConnection.builder();
+      AccessorConnectionSettings.AccessorConnectionSettingsBuilder connection = AccessorConnectionSettings.builder();
       connection.baseUrl(map.getMap(connectionName).getAsString("baseUrl"));
       connection.certificateAlias(map.getMap(connectionName).getAsString("certificateAlias"));
       connection.keystorePath(map.getMap(connectionName).getAsString("keystorePath"));
@@ -184,7 +190,17 @@ public class AccessorStackConfigurator {
         connection.keystorePassword(passwordString.toCharArray());
       }
       connection.skipHostNameVerify(Boolean.parseBoolean(String.valueOf(map.getMap(connectionName).get("skipHostNameVerify"))));
-      AccessorConnection conn = connection.build();
+
+      // Default request filters
+      // todo: Provide way to configure the request filters in connection block
+      connection.baseRequestFilter(new TracingFilter());
+      connection.baseRequestFilter(new UpstreamRequestEventFilter());
+      connection.baseRequestFilter(new ErrorHandlerFilter());
+      connection.baseRequestFilter(new CallbacksFilter());
+      connection.baseRequestFilter(new RequestFinishedFilter());
+      connection.baseRequestFilter(new FaultTolerantRequestFilter());
+
+      AccessorConnectionSettings conn = connection.build();
       validateConnection(conn);
       connections.addConnection(connectionName, conn);
       if (map.getMap(connectionName).getMap("configurations") != null) {
@@ -264,7 +280,7 @@ public class AccessorStackConfigurator {
     return accessorField;
   }
 
-  private void validateConnection(AccessorConnection conn) {
+  private void validateConnection(AccessorConnectionSettings conn) {
     String keystorePassword = "";
     if (conn.getKeystorePassword() != null) {
       keystorePassword = new String(conn.getKeystorePassword());

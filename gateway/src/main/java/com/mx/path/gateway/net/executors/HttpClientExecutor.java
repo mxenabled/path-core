@@ -39,7 +39,11 @@ import org.apache.http.util.EntityUtils;
  * <p>
  * Makes API call for given <class>Request</class> using Apache HttpClient
  * </p>
+ * <p>
+ * @deprecated moved to connection-specific library
+ * </p>
  */
+@Deprecated
 public class HttpClientExecutor extends RequestExecutorBase {
   /**
    * String hints that may show up in a Content-Type header, hinting to us that we should return the raw body
@@ -119,7 +123,7 @@ public class HttpClientExecutor extends RequestExecutorBase {
             setResponseBody(request, response, headers, httpEntity);
           }
 
-          return response
+          return (Response) response
               .withStatus(HttpStatus.resolve(resp.getStatusLine().getStatusCode()))
               .withHeaders(headers)
               .withCookies(cookies);
@@ -192,7 +196,7 @@ public class HttpClientExecutor extends RequestExecutorBase {
           bodyString = getHttpEntityBodyAsString(httpEntity);
         }
         break;
-      case BOTH:
+      case STRING_AND_RAW:
         bodyData = getHttpEntityBodyAsBytes(httpEntity);
         bodyString = getHttpEntityBodyAsString(httpEntity);
         break;

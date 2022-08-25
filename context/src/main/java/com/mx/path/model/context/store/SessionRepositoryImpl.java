@@ -1,12 +1,18 @@
 package com.mx.path.model.context.store;
 
+import java.time.LocalDateTime;
+
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.mx.common.serialization.LocalDateTimeDeserializer;
 import com.mx.common.store.Store;
 import com.mx.path.model.context.Session;
 
 public class SessionRepositoryImpl implements SessionRepository {
 
-  private Gson gson = new Gson();
+  private static final Gson GSON = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, LocalDateTimeDeserializer.builder()
+      .build()).create();
+
   private Store store;
 
   public SessionRepositoryImpl(Store store) {
@@ -31,12 +37,12 @@ public class SessionRepositoryImpl implements SessionRepository {
   @Override
   public final Session load(String sessionId) {
     String json = store.get(sessionId);
-    return (json != null) ? gson.fromJson(json, Session.class) : null;
+    return (json != null) ? GSON.fromJson(json, Session.class) : null;
   }
 
   @Override
   public final void save(Session session) {
-    String json = gson.toJson(session);
+    String json = GSON.toJson(session);
     store.put(session.getId(), json, session.getExpiresIn());
   }
 

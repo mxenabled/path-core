@@ -6,6 +6,7 @@ import lombok.Getter;
 import com.mx.accessors.Accessor;
 import com.mx.path.gateway.api.Gateway;
 import com.mx.path.model.context.RequestContext;
+import com.mx.path.model.context.Session;
 
 /**
  * Event - Fires before accessor method is invoked.
@@ -17,5 +18,6 @@ public class BeforeAccessorEvent implements GatewayEvent, AccessorEvent {
   private final Accessor currentAccessor;
   private final Gateway gateway;
   private final RequestContext requestContext;
+  private final Session session;
 
 }

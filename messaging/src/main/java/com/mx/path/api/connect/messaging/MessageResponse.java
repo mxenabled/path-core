@@ -1,6 +1,7 @@
 package com.mx.path.api.connect.messaging;
 
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,13 +11,15 @@ import lombok.NoArgsConstructor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mx.common.messaging.MessageStatus;
+import com.mx.common.serialization.LocalDateDeserializer;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class MessageResponse {
-  private static final Gson GSON = new GsonBuilder().registerTypeAdapter(Throwable.class, new MessageErrorThrowableSerializer()).create();
+  private static GsonBuilder gsonBuilder = new GsonBuilder();
+  private static Gson gson = gsonBuilder.registerTypeAdapter(LocalDate.class, LocalDateDeserializer.builder().build()).registerTypeAdapter(Throwable.class, new MessageErrorThrowableSerializer()).create();
 
   @SuppressWarnings("checkstyle:HiddenField")
   public static class MessageResponseBuilder {
@@ -28,7 +31,7 @@ public class MessageResponse {
     }
 
     public final MessageResponseBuilder body(Object body) {
-      this.body = GSON.toJson(body);
+      this.body = gson.toJson(body);
       return this;
     }
   }
@@ -38,7 +41,7 @@ public class MessageResponse {
    * @return deserialized object
    */
   public static MessageResponse fromJson(String json) {
-    return GSON.fromJson(json, MessageResponse.class);
+    return gson.fromJson(json, MessageResponse.class);
   }
 
   private String body;
@@ -63,7 +66,7 @@ public class MessageResponse {
    * @param body as Object
    */
   public final void setBody(Object body) {
-    this.body = GSON.toJson(body);
+    this.body = gson.toJson(body);
   }
 
   /**
@@ -72,7 +75,7 @@ public class MessageResponse {
    * @return body cast to classOfT
    */
   public final <T> T getBodyAs(Class<T> classOfT) {
-    return GSON.fromJson(body, classOfT);
+    return gson.fromJson(body, classOfT);
   }
 
   /**
@@ -82,13 +85,13 @@ public class MessageResponse {
    * @return body cast to typeOfT
    */
   public final <T> T getBodyAs(Type typeOfT) {
-    return GSON.fromJson(body, typeOfT);
+    return gson.fromJson(body, typeOfT);
   }
 
   /**
    * @return Json representation of this
    */
   public final String toJson() {
-    return GSON.toJson(this);
+    return gson.toJson(this);
   }
 }

@@ -16,6 +16,10 @@ import java.util.Map;
 
 import com.mx.common.lang.Strings;
 
+/**
+ * @deprecated moved to com.mx.path.api.connect.http
+ */
+@Deprecated
 public final class LoadedKeystore {
 
   public static class KeyPair {

@@ -8,7 +8,11 @@ import com.mx.path.gateway.net.Response;
  * <p>
  * Interface for all executors in decorator chain.
  * </p>
+ * <p>
+ * @deprecated functionality moved to connect package
+ * </p>
  */
+@Deprecated
 public interface RequestExecutor {
   void execute(Request request, Response response);
 

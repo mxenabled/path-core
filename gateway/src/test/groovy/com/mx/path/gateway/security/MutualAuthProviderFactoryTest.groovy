@@ -1,6 +1,7 @@
 package com.mx.path.gateway.security
 
-import com.mx.accessors.ConnectionSettings
+import com.mx.common.connect.ConnectionSettings
+import com.mx.common.connect.RequestFilter
 
 import spock.lang.Specification
 
@@ -31,8 +32,23 @@ class MutualAuthProviderFactoryTest extends Specification {
       return keystorePassword
     }
 
+    @Override
+    List<RequestFilter> getBaseRequestFilters() {
+      return null
+    }
+
+    @Override
+    boolean getSkipHostNameVerify() {
+      return false
+    }
+
     final void setKeystorePassword(char[] keystorePassword) {
       this.keystorePassword = keystorePassword
+    }
+
+    @Override
+    String getBaseUrl() {
+      return null
     }
 
     @Override

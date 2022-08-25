@@ -2,9 +2,13 @@ package com.mx.path.gateway.accessor.remote.account
 
 import static org.mockito.Mockito.*
 
+import java.time.LocalDate
+
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.mx.common.messaging.MessageError
 import com.mx.common.messaging.MessageStatus
+import com.mx.common.serialization.LocalDateDeserializer
 import com.mx.models.MdxList
 import com.mx.models.account.Account
 import com.mx.path.api.connect.messaging.MessageHeaders
@@ -17,6 +21,9 @@ import spock.lang.Specification
 
 class RemoteAccountAccessorTest extends Specification {
   RemoteAccountAccessor subject
+  private static GsonBuilder gsonBuilder = new GsonBuilder();
+  private static Gson gson = gsonBuilder.registerTypeAdapter(LocalDate.class, LocalDateDeserializer.builder()
+  .build()).create();
 
   def setup() {
     subject = spy(new RemoteAccountAccessor())
@@ -42,7 +49,7 @@ class RemoteAccountAccessorTest extends Specification {
   def "Deserializes an MdxList<Account> response and builds a valid MessageRequest"() {
     given:
     def response = new MessageResponse().tap {
-      setBody(new Gson().toJson(new MdxList().tap {
+      setBody(gson.toJson(new MdxList().tap {
         add(new Account().tap { setId("1234") })
       }))
       setStatus(MessageStatus.SUCCESS)
@@ -67,7 +74,7 @@ class RemoteAccountAccessorTest extends Specification {
     given:
     def account = new Account().tap { setId("12435") }
     def response = new MessageResponse().tap {
-      setBody(new Gson().toJson(account))
+      setBody(gson.toJson(account))
       setStatus(MessageStatus.SUCCESS)
     }
     doReturn(response).when(subject).executeRequest(any(String), any(MessageRequest))
@@ -90,7 +97,7 @@ class RemoteAccountAccessorTest extends Specification {
     given:
     def account = new Account().tap { setId("12435") }
     def response = new MessageResponse().tap {
-      setBody(new Gson().toJson(account))
+      setBody(gson.toJson(account))
       setStatus(MessageStatus.SUCCESS)
     }
     doReturn(response).when(subject).executeRequest(any(String), any(MessageRequest))

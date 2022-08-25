@@ -3,12 +3,12 @@ package com.mx.testing;
 import lombok.Data;
 import lombok.Getter;
 
+import com.mx.common.configuration.Configuration;
+import com.mx.common.configuration.ConfigurationField;
 import com.mx.common.messaging.EventListener;
 import com.mx.common.messaging.MessageBroker;
 import com.mx.common.messaging.MessageResponder;
 import com.mx.path.gateway.configuration.annotations.ClientID;
-import com.mx.path.gateway.configuration.annotations.Configuration;
-import com.mx.path.gateway.configuration.annotations.ConfigurationField;
 
 public class MessageBrokerImpl implements MessageBroker {
   @Data

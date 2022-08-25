@@ -1,18 +1,24 @@
 package com.mx.path.api.connect.messaging;
 
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.mx.common.serialization.LocalDateDeserializer;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class MessageRequest implements Message {
-  private static final Gson GSON = new Gson();
+  private static GsonBuilder gsonBuilder = new GsonBuilder();
+  private static Gson gson = gsonBuilder.registerTypeAdapter(LocalDate.class, LocalDateDeserializer.builder()
+      .build()).create();
   public static final Integer NANO_TO_SECONDS = 1000000;
 
   @SuppressWarnings("checkstyle:HiddenField")
@@ -25,7 +31,7 @@ public class MessageRequest implements Message {
     }
 
     public final MessageRequestBuilder body(Object body) {
-      this.body = GSON.toJson(body);
+      this.body = gson.toJson(body);
       return this;
     }
   }
@@ -35,7 +41,7 @@ public class MessageRequest implements Message {
    * @return deserialized object
    */
   public static MessageRequest fromJson(String json) {
-    return GSON.fromJson(json, MessageRequest.class);
+    return gson.fromJson(json, MessageRequest.class);
   }
 
   private String body;
@@ -62,7 +68,7 @@ public class MessageRequest implements Message {
    * @param body as Object
    */
   public final void setBody(Object body) {
-    this.body = GSON.toJson(body);
+    this.body = gson.toJson(body);
   }
 
   /**
@@ -71,7 +77,7 @@ public class MessageRequest implements Message {
    * @return body cast to classOfT
    */
   public final <T> T getBodyAs(Class<T> classOfT) {
-    return GSON.fromJson(body, classOfT);
+    return gson.fromJson(body, classOfT);
   }
 
   public final long getDuration() {
@@ -97,7 +103,7 @@ public class MessageRequest implements Message {
    * @return Json representation of this
    */
   public final String toJson() {
-    return GSON.toJson(this);
+    return gson.toJson(this);
   }
 
   /**

@@ -54,7 +54,6 @@ public class SessionRepositoryMutex extends SessionMutex {
   @Override
   public final LockState acquire(long milliseconds) {
     long start = System.currentTimeMillis();
-
     while (!acquired()) {
       if (milliseconds > 0 && (System.currentTimeMillis() - start) >= milliseconds) {
         return acquired() ? LockState.Acquired : LockState.Timeout;

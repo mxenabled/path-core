@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation used to bind current ClientID to any configuration POJO, AccessorConnection, or Accessor
+ * Annotation used to bind current ClientID to any configuration POJO, AccessorConnectionSettings, or Accessor
  *
  * <p>
  * <b>Configuration POJO</b>
@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
  * }
  * </pre>
  *
- * <b>Accessor and AccessorConnection</b>
+ * <b>Accessor and AccessorConnectionSettings</b>
  *
  * <p>
  * <pre>

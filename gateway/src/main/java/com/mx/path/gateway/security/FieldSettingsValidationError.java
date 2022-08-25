@@ -2,6 +2,10 @@ package com.mx.path.gateway.security;
 
 import java.util.List;
 
+/**
+ * @deprecated moved to com.mx.path.api.connect.http
+ */
+@Deprecated
 public class FieldSettingsValidationError extends Exception {
   private static final long serialVersionUID = 1L;
 

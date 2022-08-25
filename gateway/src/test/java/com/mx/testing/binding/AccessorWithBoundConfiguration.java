@@ -4,7 +4,7 @@ import lombok.Getter;
 
 import com.mx.accessors.AccessorConfiguration;
 import com.mx.accessors.account.AccountBaseAccessor;
-import com.mx.path.gateway.configuration.annotations.Configuration;
+import com.mx.common.configuration.Configuration;
 
 public class AccessorWithBoundConfiguration extends AccountBaseAccessor {
 

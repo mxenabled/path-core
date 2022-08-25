@@ -6,6 +6,7 @@ import com.mx.path.gateway.events.BeforeUpstreamRequestEvent;
 import com.mx.path.gateway.net.Request;
 import com.mx.path.gateway.net.Response;
 import com.mx.path.model.context.RequestContext;
+import com.mx.path.model.context.Session;
 import com.mx.path.model.context.facility.Facilities;
 
 /**
@@ -15,7 +16,11 @@ import com.mx.path.model.context.facility.Facilities;
  * These events can be used for logging, request/response inspection, etc.
  * Uses the client-configured EventBus facility to post the events
  * </p>
+ * <p>
+ * @deprecated moved to {@link com.mx.path.gateway.connect.filters.UpstreamRequestEventFilter}
+ * </p>
  */
+@Deprecated
 public class UpstreamRequestEventExecutor extends RequestExecutorBase {
   public UpstreamRequestEventExecutor(RequestExecutor next) {
     super(next);
@@ -37,7 +42,11 @@ public class UpstreamRequestEventExecutor extends RequestExecutorBase {
     next(request, response);
 
     if (eventBus != null) {
-      eventBus.post(AfterUpstreamRequestEvent.builder().response(response).build());
+      eventBus.post(AfterUpstreamRequestEvent.builder()
+          .response(response)
+          .requestContext(requestContext)
+          .session(Session.current())
+          .build());
     }
   }
 

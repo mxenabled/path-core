@@ -1,6 +1,7 @@
 package com.mx.path.gateway.context;
 
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -8,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.mx.common.lang.Strings;
+import com.mx.common.serialization.LocalDateDeserializer;
 import com.mx.models.MdxList;
 import com.mx.models.account.Account;
 import com.mx.path.model.context.Session;
@@ -19,8 +21,9 @@ public class SessionAccountCache<T extends Account> {
 
   private static final String ACCOUNT_CACHE_KEY = "sessionAccountCache";
   private static final String ACCOUNT_CACHE_STATE_KEY = "sessionAccountCacheState";
-  private static final Gson GSON = new GsonBuilder().create();
-
+  private static GsonBuilder gsonBuilder = new GsonBuilder();
+  private static Gson gson = gsonBuilder.registerTypeAdapter(LocalDate.class, LocalDateDeserializer.builder()
+      .build()).create();
   // Fields
 
   private Session session;
@@ -76,7 +79,7 @@ public class SessionAccountCache<T extends Account> {
       String accountsJson = session.get(Session.ServiceIdentifier.Session, ACCOUNT_CACHE_KEY);
 
       if (Strings.isNotBlank(accountsJson)) {
-        MdxList<T> result = GSON.fromJson(accountsJson, accountListType);
+        MdxList<T> result = gson.fromJson(accountsJson, accountListType);
         if (Objects.nonNull(result)) {
           return result;
         }
@@ -113,7 +116,7 @@ public class SessionAccountCache<T extends Account> {
    * @param accounts
    */
   public final void setAccounts(MdxList<T> accounts) {
-    session.sput(Session.ServiceIdentifier.Session, ACCOUNT_CACHE_KEY, GSON.toJson(accounts));
+    session.sput(Session.ServiceIdentifier.Session, ACCOUNT_CACHE_KEY, gson.toJson(accounts));
     setValid(true);
   }
 

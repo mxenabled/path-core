@@ -9,6 +9,7 @@ pluginManagement {
 
 rootProject.name = 'path-sdk'
 include 'common'
+include 'http'
 include 'models'
 include 'utilities'
 include 'context'
@@ -16,3 +17,4 @@ include 'messaging'
 include 'gateway'
 include 'gateway-generator'
 include 'realtime'
+include 'testing'

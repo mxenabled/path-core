@@ -1,10 +1,13 @@
 package com.mx.testing;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mx.common.lang.Strings;
+import com.mx.common.serialization.LocalDateTimeDeserializer;
 import com.mx.path.model.context.Session;
 import com.mx.path.model.context.store.SessionRepository;
 
@@ -18,6 +21,12 @@ public class HashSessionRepository implements SessionRepository {
   }
 
   private Map<String, String> values = new HashMap<>();
+  private GsonBuilder gsonBuilder = new GsonBuilder();
+  private static final Gson GSON = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, LocalDateTimeDeserializer.builder()
+      .format("yyyy-MM-dd'T'HH:mm:ss.SSS")
+      .format("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
+      .format("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")
+      .build()).create();
 
   @Override
   public final void delete(Session session) {
@@ -40,13 +49,12 @@ public class HashSessionRepository implements SessionRepository {
     if (Strings.isBlank(json)) {
       return null;
     }
-
-    return new Gson().fromJson(json, Session.class);
+    return GSON.fromJson(json, Session.class);
   }
 
   @Override
   public final void save(Session session) {
-    values.put(session.getId(), new Gson().toJson(session));
+    values.put(session.getId(), GSON.toJson(session));
   }
 
   @Override

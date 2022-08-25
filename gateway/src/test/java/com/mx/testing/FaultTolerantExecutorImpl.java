@@ -3,12 +3,12 @@ package com.mx.testing;
 import lombok.Data;
 import lombok.Getter;
 
+import com.mx.common.configuration.Configuration;
+import com.mx.common.configuration.ConfigurationField;
 import com.mx.common.process.FaultTolerantExecutor;
 import com.mx.common.process.FaultTolerantScopeConfiguration;
 import com.mx.common.process.FaultTolerantTask;
 import com.mx.path.gateway.configuration.annotations.ClientID;
-import com.mx.path.gateway.configuration.annotations.Configuration;
-import com.mx.path.gateway.configuration.annotations.ConfigurationField;
 
 public class FaultTolerantExecutorImpl implements FaultTolerantExecutor {
   @Data

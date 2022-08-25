@@ -19,11 +19,14 @@ public final class ConfigurationState {
 
   private static ConfigurationState current = new ConfigurationState();
 
-  public static ConfigurationState getCurrent() {
+  static ConfigurationState getCurrent() {
     return current;
   }
 
-  public static void resetCurrent() {
+  /**
+   * Used for testing
+   */
+  static void resetCurrent() {
     current = new ConfigurationState();
   }
 

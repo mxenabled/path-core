@@ -4,8 +4,8 @@ import java.util.List;
 
 import lombok.Data;
 
+import com.mx.common.configuration.ConfigurationField;
 import com.mx.path.gateway.configuration.annotations.ClientID;
-import com.mx.path.gateway.configuration.annotations.ConfigurationField;
 
 @Data
 public class BasicConfigurationObj {

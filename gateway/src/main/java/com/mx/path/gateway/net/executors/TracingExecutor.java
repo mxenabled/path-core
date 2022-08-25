@@ -12,7 +12,11 @@ import io.opentracing.Span;
  * <p>
  * Starts new span, sets propagation headers, runs next, closes span.
  * </p>
+ * <p>
+ * @deprecated moved to {@link com.mx.path.gateway.connect.filters.TracingFilter}
+ * </p>
  */
+@Deprecated
 public class TracingExecutor extends RequestExecutorBase {
 
   public TracingExecutor(RequestExecutor next) {

@@ -3,8 +3,9 @@ package com.mx.path.gateway.util
 import static org.mockito.Mockito.mock
 import static org.mockito.Mockito.verify
 
+import java.time.Duration
+
 import com.mx.common.collections.MultiValueMap
-import com.mx.common.collections.SingleValueMap
 import com.mx.common.http.HttpStatus
 import com.mx.path.gateway.net.Request
 import com.mx.path.gateway.net.Response
@@ -50,7 +51,7 @@ class UpstreamLoggerTest extends Specification implements WithSessionRepository 
     response
         .withBody("hi")
         .withStatus(HttpStatus.OK)
-        .withDuration(100)
+        .withDuration(Duration.ofMillis(100))
         .withHeaders(new MultiValueMap<String, String>())
   }
 
@@ -68,6 +69,7 @@ class UpstreamLoggerTest extends Specification implements WithSessionRepository 
     then:
     MDC.get("api_request_payload") == null
     MDC.get("device_trace_id") == null
+    MDC.get("log_guid") == null
   }
 
   def "with empty request context and response"() {

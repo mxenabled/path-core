@@ -1,7 +1,11 @@
 group "com.mx.path.api.connect"
 jar.archiveBaseName = "messaging"
 
-coppuccino { coverage { minimumCoverage = 0.79 } }
+coppuccino {
+  coverage {
+    minimumCoverage = 0.79
+  }
+}
 
 dependencies {
   implementation project(":models")

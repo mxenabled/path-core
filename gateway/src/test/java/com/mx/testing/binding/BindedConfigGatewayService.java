@@ -4,9 +4,9 @@ import lombok.Data;
 import lombok.Getter;
 
 import com.mx.common.collections.ObjectMap;
+import com.mx.common.configuration.Configuration;
+import com.mx.common.configuration.ConfigurationField;
 import com.mx.path.gateway.configuration.annotations.ClientID;
-import com.mx.path.gateway.configuration.annotations.Configuration;
-import com.mx.path.gateway.configuration.annotations.ConfigurationField;
 import com.mx.path.gateway.service.GatewayService;
 
 public class BindedConfigGatewayService extends GatewayService {

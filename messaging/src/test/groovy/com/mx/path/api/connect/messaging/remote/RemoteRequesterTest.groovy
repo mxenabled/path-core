@@ -3,10 +3,15 @@ package com.mx.path.api.connect.messaging.remote
 import static org.mockito.ArgumentMatchers.any
 import static org.mockito.Mockito.*
 
+import java.time.LocalDate
+import java.time.LocalDateTime
+
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.mx.common.messaging.MessageBroker
 import com.mx.common.messaging.MessageError
 import com.mx.common.messaging.MessageStatus
+import com.mx.common.serialization.LocalDateDeserializer
 import com.mx.models.account.Account
 import com.mx.path.api.connect.messaging.MessageEvent
 import com.mx.path.api.connect.messaging.MessageHeaders
@@ -24,7 +29,10 @@ import spock.lang.Specification
 
 class RemoteRequesterTest extends Specification {
 
-  Gson gson
+  GsonBuilder gsonBuilder = new GsonBuilder();
+  Gson gson = gsonBuilder.registerTypeAdapter(LocalDate.class, LocalDateDeserializer.builder()
+  .build()).create();
+
   RemoteRequester subject
   SessionRepository sessionRepository
 
@@ -32,7 +40,6 @@ class RemoteRequesterTest extends Specification {
     TestUtils.startFakedSession()
     sessionRepository = spy(Session.getRepositorySupplier().get())
     Session.setRepositorySupplier({ -> sessionRepository })
-    gson = new Gson()
     subject = new RemoteRequesterImpl()
     RequestContext.builder().clientId("client1").userId("user1").build().register()
   }
@@ -59,7 +66,9 @@ class RemoteRequesterTest extends Specification {
     def accountsJson = gson.toJson(accounts)
 
     MessageRequest payload = MessageRequest.builder()
-        .messageHeaders(new MessageHeaders().tap { setSessionId("153df0bc-5dfb-48e0-b366-6fe062fdf47d") }
+        .messageHeaders(new MessageHeaders().tap {
+          setSessionId("153df0bc-5dfb-48e0-b366-6fe062fdf47d")
+        }
         )
         .operation("list")
         .build()

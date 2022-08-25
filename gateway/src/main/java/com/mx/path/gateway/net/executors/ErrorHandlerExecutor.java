@@ -12,7 +12,9 @@ import com.netflix.hystrix.exception.HystrixRuntimeException;
  * If Connection Failure, log call and rethrow
  * All other exceptions, placed in response
  * </p>
+ * @deprecated Use {@link ErrorHandlerFilter}
  */
+@Deprecated
 public class ErrorHandlerExecutor extends RequestExecutorBase {
 
   // Statics

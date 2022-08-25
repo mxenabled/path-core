@@ -4,9 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import com.mx.accessors.ConnectionSettings;
+import com.mx.common.connect.ConnectionSettings;
 import com.mx.common.lang.Strings;
 
+/**
+ * @deprecated moved to com.mx.path.api.connect.http
+ */
+@Deprecated
 public class MutualAuthProviderFactory {
   private static Map<ConnectionSettings, MutualAuthProvider> mutualAuthProviderInstances = new HashMap<>();
 
