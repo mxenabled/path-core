@@ -146,16 +146,3 @@ task subdependencies {
 }
 
 project.tasks.getByPath("dependencies").finalizedBy("subdependencies")
-
-task install {
-    configure {
-        description "Publishes all subprojects to local maven repo"
-        setProperty("group", "Publishing")
-    }
-    subprojects.each {
-        it.afterEvaluate {
-            def publishToMavenLocalTask = it.tasks.findByName("publishToMavenLocal")
-            dependsOn(publishToMavenLocalTask)
-        }
-    }
-}
