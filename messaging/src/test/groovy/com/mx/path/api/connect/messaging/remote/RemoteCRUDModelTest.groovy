@@ -10,9 +10,9 @@ import com.mx.common.messaging.MessageError
 import com.mx.common.messaging.MessageStatus
 import com.mx.models.MdxList
 import com.mx.path.api.connect.messaging.MessageResponse
-import com.mx.path.api.connect.messaging.remote.models.RemoteAccount
 import com.mx.path.model.context.RequestContext
 import com.mx.path.model.context.facility.Facilities
+import com.mx.testing.RemoteAccount
 
 import spock.lang.Specification
 

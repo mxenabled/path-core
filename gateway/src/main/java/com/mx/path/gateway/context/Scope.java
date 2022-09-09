@@ -1,10 +1,8 @@
 package com.mx.path.gateway.context;
 
 import com.mx.accessors.Accessor;
-import com.mx.accessors.BaseAccessor;
 import com.mx.common.session.ServiceScope;
 import com.mx.path.gateway.GatewayException;
-import com.mx.path.gateway.accessor.proxy.BaseAccessorProxy;
 import com.mx.path.gateway.configuration.AccessorProxy;
 import com.mx.path.model.context.ScopeKeyGenerator;
 import com.mx.path.utilities.reflection.ClassHelper;
@@ -34,12 +32,12 @@ public enum Scope implements ScopeKeyGenerator {
         return accessor.getClass().getAnnotation(ServiceScope.class).value();
       }
 
-      BaseAccessor baseAccessor = requestContext
+      Accessor baseAccessor = requestContext
           .getGateway()
           .getBaseAccessor();
 
-      if (baseAccessor instanceof BaseAccessorProxy) {
-        baseAccessor = ((BaseAccessorProxy) baseAccessor).build();
+      if (AccessorProxy.class.isAssignableFrom(baseAccessor.getClass())) {
+        baseAccessor = ((AccessorProxy) baseAccessor).build();
       }
 
       if (!baseAccessor.getClass().isAnnotationPresent(ServiceScope.class)) {

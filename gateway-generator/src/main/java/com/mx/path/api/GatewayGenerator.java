@@ -12,8 +12,10 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.MirroredTypeException;
 
 import com.mx.common.collections.ObjectMap;
+import com.mx.path.gateway.configuration.RootGateway;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
@@ -24,17 +26,26 @@ public class GatewayGenerator {
 
   private final Filer filer;
   private final ProcessingEnvironment roundEnvironment;
+  private final CodeBlock accessorProxyMappingCodeBlock;
 
-  public GatewayGenerator(ProcessingEnvironment processingEnvironment) {
+  public GatewayGenerator(ProcessingEnvironment processingEnvironment, CodeBlock accessorProxyMappingCodeBlock) {
     this.roundEnvironment = processingEnvironment;
+    this.accessorProxyMappingCodeBlock = accessorProxyMappingCodeBlock;
     this.filer = processingEnvironment.getFiler();
   }
 
+  @SuppressWarnings("MethodLength")
   public final void generate(GatewayClassElement gatewayClassElement) throws IOException {
 
     TypeSpec.Builder classBuilder = TypeSpec.classBuilder(gatewayClassElement.getSimpleName())
         .addModifiers(Modifier.PUBLIC)
         .superclass(gatewayClassElement.getBaseClass().asType());
+
+    if (gatewayClassElement.isRootGateway()) {
+      classBuilder.addAnnotation(RootGateway.class);
+
+      classBuilder.addStaticBlock(accessorProxyMappingCodeBlock);
+    }
 
     try {
       Class clazz = gatewayClassElement.getAnnotation().annotation();
@@ -175,5 +186,4 @@ public class GatewayGenerator {
 
     javaFile.writeTo(filer);
   }
-
 }

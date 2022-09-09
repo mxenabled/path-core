@@ -5,18 +5,18 @@ import static org.mockito.Mockito.*
 import com.google.gson.Gson
 import com.mx.accessors.Accessor
 import com.mx.accessors.AccessorConfiguration
-import com.mx.accessors.BaseAccessor
-import com.mx.accessors.account.AccountBaseAccessor
 import com.mx.common.collections.ObjectMap
 import com.mx.common.session.ServiceScope
+import com.mx.path.gateway.Gateway
 import com.mx.path.gateway.GatewayException
-import com.mx.path.gateway.accessor.proxy.BaseAccessorProxySingleton
-import com.mx.path.gateway.accessor.proxy.account.AccountBaseAccessorProxySingleton
-import com.mx.path.gateway.api.Gateway
 import com.mx.path.model.context.Session
 import com.mx.path.model.context.store.SessionRepository
 import com.mx.testing.TestEncryptionService
 import com.mx.testing.TestSessionRepository
+import com.mx.testing.accessors.AccountBaseAccessor
+import com.mx.testing.accessors.BaseAccessor
+import com.mx.testing.accessors.proxy.BaseAccessorProxySingleton
+import com.mx.testing.accessors.proxy.account.AccountBaseAccessorProxySingleton
 
 import spock.lang.Specification
 

@@ -6,10 +6,10 @@ import lombok.Data;
 import com.mx.common.connect.Request;
 
 /**
- * Fires before connection make a request
+ * Fires before a request is executed
  */
 @Builder
 @Data
-public class BeforeUpstreamRequestEvent {
+public class BeforeUpstreamRequestEvent implements UpstreamRequestEvent {
   private Request request;
 }

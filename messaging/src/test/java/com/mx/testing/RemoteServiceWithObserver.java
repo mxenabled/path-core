@@ -7,7 +7,6 @@ import com.mx.path.api.connect.messaging.MessageEvent;
 import com.mx.path.api.connect.messaging.MessageRequest;
 import com.mx.path.api.connect.messaging.MessageResponse;
 import com.mx.path.api.connect.messaging.remote.RemoteService;
-import com.mx.path.api.connect.messaging.remote.models.RemoteAccount;
 
 public class RemoteServiceWithObserver extends RemoteService<RemoteAccount> {
 

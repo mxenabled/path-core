@@ -1,6 +1,6 @@
 package com.mx.path.api
 
-import com.mx.models.account.Account
+import com.mx.testing.Account
 import com.mx.testing.MethodTest
 
 import spock.lang.Specification

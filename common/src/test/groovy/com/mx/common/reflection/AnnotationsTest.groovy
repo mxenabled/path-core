@@ -2,6 +2,9 @@ package com.mx.common.reflection
 
 import javax.annotation.Nullable
 
+import com.mx.common.gateway.GatewayAPI
+import com.mx.common.gateway.GatewayBaseClass
+import com.mx.common.gateway.GatewayClass
 import com.mx.testing.WithAnnotations
 
 import spock.lang.Specification
@@ -36,6 +39,15 @@ class AnnotationsTest extends Specification {
 
     fields.get(1).getField().getName() == "unannotatedField"
     fields.get(1).getAnnotation(Nullable.class) == null
+  }
+
+  def "hasAnnotation"()  {
+    when:
+    true == true
+
+    then:
+    !Annotations.hasAnnotation(WithAnnotations, GatewayBaseClass)
+    Annotations.hasAnnotation(WithAnnotations, GatewayClass)
   }
 
   def "parametersWithAnnotation"() {

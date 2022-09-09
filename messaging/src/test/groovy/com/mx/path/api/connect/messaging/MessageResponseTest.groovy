@@ -1,7 +1,7 @@
 package com.mx.path.api.connect.messaging
 
 import com.mx.common.messaging.MessageStatus
-import com.mx.path.api.connect.messaging.remote.models.RemoteAccount
+import com.mx.testing.RemoteAccount
 
 import spock.lang.Specification
 

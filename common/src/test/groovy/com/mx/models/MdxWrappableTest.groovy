@@ -1,6 +1,5 @@
 package com.mx.models
 
-import com.mx.models.MdxList
 import com.mx.testing.Account
 
 import spock.lang.Specification

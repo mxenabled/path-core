@@ -19,7 +19,6 @@ import lombok.Setter;
 
 import com.mx.accessors.Accessor;
 import com.mx.accessors.AccessorResponse;
-import com.mx.accessors.BaseAccessor;
 import com.mx.common.gateway.GatewayAPI;
 import com.mx.common.lang.Strings;
 import com.mx.common.messaging.MessageError;
@@ -59,8 +58,8 @@ public final class RemoteAccessorGenerator {
     this.filer = processingEnvironment.getFiler();
   }
 
-  public void generate() {
-    generateRemoteAccessor(BaseAccessor.class);
+  public void generate(Class<? extends Accessor> rootAccessorClass) {
+    generateRemoteAccessor(rootAccessorClass);
   }
 
   private void generateRemoteAccessor(Class<? extends Accessor> accessorClass) {

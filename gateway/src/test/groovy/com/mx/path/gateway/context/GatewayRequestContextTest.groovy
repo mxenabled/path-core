@@ -2,11 +2,11 @@ package com.mx.path.gateway.context
 
 import static org.mockito.Mockito.mock
 
-import com.mx.models.account.Account
-import com.mx.path.gateway.api.Gateway
+import com.mx.path.gateway.Gateway
 import com.mx.path.model.context.RequestContext
 import com.mx.testing.AccountAccessorImpl
-import com.mx.testing.BaseGatewayImpl
+import com.mx.testing.gateway.BaseGateway
+import com.mx.testing.model.Account
 
 import spock.lang.Specification
 
@@ -86,15 +86,9 @@ class GatewayRequestContextTest extends Specification {
 
   def "builder"() {
     given:
-    def baseGateway = new BaseGatewayImpl()
+    def baseGateway = new BaseGateway()
     def accountAccessor = new AccountAccessorImpl()
-    def gateway = new Gateway() {
-          @Override
-          String getClientId() {
-            return super.getClientId()
-          }
-        }
-
+    def gateway = mock(Gateway)
     when:
     def subject = GatewayRequestContext.builder()
         .clientGuid("clientAF")
@@ -165,14 +159,9 @@ class GatewayRequestContextTest extends Specification {
   def "setters"() {
     given:
     def subject = GatewayRequestContext.builder().build()
-    def baseGateway = new BaseGatewayImpl()
+    def baseGateway = new BaseGateway()
     def accountAccessor = new AccountAccessorImpl()
-    def gateway = new Gateway() {
-          @Override
-          String getClientId() {
-            return super.getClientId()
-          }
-        }
+    def gateway = mock(Gateway)
 
     when:
     subject.setClientGuid("clientAF")
@@ -216,14 +205,9 @@ class GatewayRequestContextTest extends Specification {
   def "toBuilder"() {
     given:
     def subject = GatewayRequestContext.builder().build()
-    def baseGateway = new BaseGatewayImpl()
+    def baseGateway = new BaseGateway()
     def accountAccessor = new AccountAccessorImpl()
-    def gateway = new Gateway() {
-          @Override
-          String getClientId() {
-            return super.getClientId()
-          }
-        }
+    def gateway = mock(Gateway)
 
     when:
     subject.setClientGuid("clientAF")

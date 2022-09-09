@@ -6,4 +6,6 @@ public interface AccessorProxy {
   Class<? extends Accessor> getAccessorClass();
 
   String getScope();
+
+  <T extends Accessor> T build();
 }

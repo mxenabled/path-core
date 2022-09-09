@@ -181,6 +181,16 @@ public class Annotations {
   }
 
   /**
+   * @param klass class to check
+   * @param annotation annotation searching for
+   * @return true, if the annotation is found on klass
+   * @param <T>
+   */
+  public static <T extends Annotation> boolean hasAnnotation(Class<?> klass, Class<T> annotation) {
+    return klass.getAnnotation(annotation) != null;
+  }
+
+  /**
    * Get only constructor parameters with given annotation
    * @param annotationType
    * @param constructor
@@ -215,5 +225,4 @@ public class Annotations {
       return annotation.getClass();
     }
   }
-
 }

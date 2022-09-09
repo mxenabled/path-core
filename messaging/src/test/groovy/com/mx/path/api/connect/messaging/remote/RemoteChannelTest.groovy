@@ -1,9 +1,9 @@
 package com.mx.path.api.connect.messaging.remote
 
-import com.mx.models.account.Account
 import com.mx.path.api.connect.messaging.MessageEvent
 import com.mx.path.api.connect.messaging.MessageRequest
-import com.mx.path.api.connect.messaging.remote.models.RemoteAccount
+import com.mx.testing.Account
+import com.mx.testing.RemoteAccount
 
 import spock.lang.Specification
 

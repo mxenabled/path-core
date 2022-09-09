@@ -6,23 +6,23 @@ import lombok.experimental.SuperBuilder;
 
 import com.mx.accessors.Accessor;
 import com.mx.models.MdxBase;
-import com.mx.path.gateway.BaseGateway;
-import com.mx.path.gateway.api.Gateway;
+import com.mx.path.gateway.Gateway;
 import com.mx.path.model.context.RequestContext;
 
 /**
  * Decorates RequestContext with Gateway-specific fields.
  *
- * Provides the same API as RequestContext, but will need to be explicitly casted to GatewayRequestContext if accessed
+ * Provides the same API as RequestContext, but will need to be explicitly cast to GatewayRequestContext if accessed
  * via GatewayRequestContext.current() or RequestContext.current()
  */
+@SuppressWarnings("RedundantModifier")
 @Data
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
 public final class GatewayRequestContext extends RequestContext {
-  private Gateway gateway;
+  private Gateway<?> gateway;
   private Accessor currentAccessor;
-  private BaseGateway currentGateway;
+  private Gateway<?> currentGateway;
   private boolean listOp;
   private Class<? extends MdxBase<?>> model;
   private String op;
@@ -51,5 +51,23 @@ public final class GatewayRequestContext extends RequestContext {
 
   private GatewayRequestContext(RequestContext requestContext) {
     super(requestContext.toBuilder());
+  }
+
+  /**
+   * @return the root gateway
+   * @param <T>
+   */
+  @SuppressWarnings("unchecked")
+  public <T extends Gateway<?>> T getGateway() {
+    return (T) gateway;
+  }
+
+  /**
+   * @return the current gateway
+   * @param <T>
+   */
+  @SuppressWarnings("unchecked")
+  public <T extends Gateway<?>> T getCurrentGateway() {
+    return (T) currentGateway;
   }
 }

@@ -29,6 +29,7 @@ public class GatewayClassElement {
   private final GatewayBaseClass annotation;
   private final String targetBasePackage;
   private final String accessorFollow;
+  private boolean rootGateway = false;
 
   public GatewayClassElement(GatewayClassElement parent, Class<?> target, String accessorFollow) {
     this.target = target;
@@ -104,6 +105,14 @@ public class GatewayClassElement {
     return fields;
   }
 
+  public final boolean isRootGateway() {
+    return this.rootGateway;
+  }
+
+  public final void setRootGateway(boolean rootGateway) {
+    this.rootGateway = rootGateway;
+  }
+
   private String calculatePackageName(String qualifiedClassName, String simpleClassName) {
     String pakage = qualifiedClassName.replace(simpleClassName, "");
     pakage = chomp(pakage, '.');
@@ -130,6 +139,11 @@ public class GatewayClassElement {
   }
 
   private void validateAnnotation(GatewayBaseClass gatewayBaseClassAnnotation) {
+    // This is a nice-to-have validation on the GatewayBaseClass annotation.
+    // todo: Figure out how to check this. Getting a TypeMirror error. Has something to do with rearranging models.
+    // if (!Accessor.class.isAssignableFrom(gatewayBaseClassAnnotation.target())) {
+    //   throw new IllegalArgumentException("GatewayBaseClass accessorClass must extend " + Accessor.class.getCanonicalName());
+    // }
     if (Strings.isBlank(gatewayBaseClassAnnotation.namespace()) || Strings.isBlank(gatewayBaseClassAnnotation.className())) {
       throw new IllegalArgumentException("GatewayBaseClass namespace and className are required");
     }
@@ -160,7 +174,7 @@ public class GatewayClassElement {
       try {
         targetClass = Class.forName(classTypeElement.getQualifiedName().toString());
       } catch (ClassNotFoundException e) {
-        throw new IllegalArgumentException("target class must be compiled. Move it to a compiled dependency and include in this project", e);
+        throw new IllegalArgumentException("target class must be compiled. Move it to a compiled dependency and include in this project. (" + classTypeElement.getQualifiedName().toString() + ")", e);
       }
     }
 
@@ -204,4 +218,5 @@ public class GatewayClassElement {
       }
     }
   }
+
 }

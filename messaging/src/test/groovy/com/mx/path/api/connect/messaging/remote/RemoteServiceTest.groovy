@@ -11,13 +11,13 @@ import com.mx.path.api.connect.messaging.MessageEvent
 import com.mx.path.api.connect.messaging.MessageHeaders
 import com.mx.path.api.connect.messaging.MessageRequest
 import com.mx.path.api.connect.messaging.MessageResponse
-import com.mx.path.api.connect.messaging.remote.models.RemoteAccount
 import com.mx.path.model.context.RequestContext
 import com.mx.path.model.context.Session
 import com.mx.path.model.context.SessionRepositorySupplier
 import com.mx.path.model.context.facility.Facilities
 import com.mx.path.model.context.store.SessionRepository
 import com.mx.path.model.context.tracing.CustomTracer
+import com.mx.testing.RemoteAccount
 import com.mx.testing.RemoteServiceValid
 import com.mx.testing.RemoteServiceWithInvalid
 import com.mx.testing.RemoteServiceWithObserver
