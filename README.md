@@ -3,9 +3,10 @@
 * [Common](common/README.md)
 * [Context](context/README.md)
 * [Gateway](gateway/README.md)
+* [Gateway Generator](gateway-generator/README.md)
+* [Http](http/README.md)
 * [Messaging](messaging/README.md)
-* [Models](models/README.md)
-* [Realtime](realtime/README.md)
+* [Testing](testing/README.md)
 * [Utilities](utilities/README.md)
 
 ## Contributing
