@@ -58,6 +58,7 @@ public class ApiMethod {
     }
 
     return true;
+
   }
 
   public final Type getModel() {

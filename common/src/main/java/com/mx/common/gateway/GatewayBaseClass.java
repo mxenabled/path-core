@@ -15,6 +15,7 @@ public @interface GatewayBaseClass {
 
   String namespace() default "";
 
+  // todo: Figure out how to constrain this to extends Accessor
   Class<?> target();
 
 }

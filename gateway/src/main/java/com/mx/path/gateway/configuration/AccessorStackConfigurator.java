@@ -15,15 +15,15 @@ import lombok.Setter;
 import com.mx.accessors.Accessor;
 import com.mx.accessors.AccessorConfiguration;
 import com.mx.accessors.AccessorConnections;
-import com.mx.accessors.BaseAccessor;
+import com.mx.accessors.RootAccessor;
 import com.mx.common.collections.ObjectMap;
 import com.mx.common.connect.AccessorConnectionSettings;
 import com.mx.common.lang.Strings;
+import com.mx.common.reflection.Annotations;
 import com.mx.common.reflection.Fields;
 import com.mx.common.session.ServiceScope;
 import com.mx.path.gateway.GatewayBuilderHelper;
 import com.mx.path.gateway.GatewayException;
-import com.mx.path.gateway.accessor.proxy.AccessorProxyMap;
 import com.mx.path.gateway.configuration.annotations.AccessorScope;
 import com.mx.path.gateway.configuration.annotations.ChildAccessor;
 import com.mx.path.gateway.configuration.annotations.ChildAccessors;
@@ -44,7 +44,7 @@ public class AccessorStackConfigurator {
   private static final Logger LOGGER = LoggerFactory.getLogger(AccessorStackConfigurator.class);
 
   @Setter
-  private BaseAccessor rootAccessor;
+  private Accessor rootAccessor;
   private final ConfigurationState state;
 
   public AccessorStackConfigurator(ConfigurationState state) {
@@ -89,9 +89,9 @@ public class AccessorStackConfigurator {
         return null;
       }
 
-      if (BaseAccessor.class.isAssignableFrom(accessor.getClass())) {
-        this.rootAccessor = (BaseAccessor) accessor;
-        GatewayBuilderHelper.setRootAccessor(builder, (BaseAccessor) accessor);
+      if (Annotations.hasAnnotation(accessor.getClass(), RootAccessor.class)) {
+        this.rootAccessor = accessor;
+        GatewayBuilderHelper.setRootAccessor(builder, accessor);
       } else {
         GatewayBuilderHelper.setRootAccessor(builder, rootAccessor);
         if (parent != null) {
@@ -129,7 +129,7 @@ public class AccessorStackConfigurator {
     Class<? extends Accessor> accessorType = (Class<? extends Accessor>) new ClassHelper().getClass(node.getAs(String.class, "class"));
     validateServiceScope(accessorType);
     AccessorScope accessorScope = determineAccessorScope(node, accessorType);
-    Class<?> proxyType = AccessorProxyMap.getProxy(accessorScope.getName(), Accessor.getAccessorBase(accessorType));
+    Class<?> proxyType = AccessorProxyMap.get(accessorScope.getName(), Accessor.getAccessorBase(accessorType));
 
     return new ClassHelper().buildInstance(Accessor.class, proxyType, configurationBuilder.build(), accessorType);
   }
@@ -172,7 +172,7 @@ public class AccessorStackConfigurator {
     }
 
     Accessor accessor;
-    Class<?> proxyType = AccessorProxyMap.getProxy(accessorScope.get(), Accessor.getAccessorBase(accessorType.get()));
+    Class<?> proxyType = AccessorProxyMap.get(accessorScope.get(), Accessor.getAccessorBase(accessorType.get()));
     accessor = new ClassHelper().buildInstance(Accessor.class, proxyType, configuration.build(), accessorType.get());
 
     return accessor;

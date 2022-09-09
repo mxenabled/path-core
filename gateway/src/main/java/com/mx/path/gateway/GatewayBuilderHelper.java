@@ -1,6 +1,6 @@
 package com.mx.path.gateway;
 
-import com.mx.accessors.BaseAccessor;
+import com.mx.accessors.Accessor;
 import com.mx.path.gateway.behavior.GatewayBehavior;
 import com.mx.path.gateway.service.GatewayService;
 import com.mx.path.utilities.reflection.ClassHelper;
@@ -29,11 +29,15 @@ public class GatewayBuilderHelper {
     return H.invokeMethod(returnType, builder, "build");
   }
 
-  public static void setRootAccessor(Object builder, BaseAccessor accessor) {
+  public static void setRootAccessor(Object builder, Accessor accessor) {
     H.invokeMethod(builder, "baseAccessor", accessor);
   }
 
   public static void setClientId(Object builder, String clientId) {
     H.invokeMethod(builder, "clientId", clientId);
+  }
+
+  public static Object getBuilder(Class<?> klass) {
+    return H.invokeStaticMethod(Object.class, klass, "builder");
   }
 }

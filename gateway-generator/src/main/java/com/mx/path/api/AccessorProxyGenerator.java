@@ -4,23 +4,22 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.rmi.ConnectException;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 
-import com.google.common.collect.ImmutableMap;
 import com.mx.accessors.API;
 import com.mx.accessors.Accessor;
 import com.mx.accessors.AccessorConfiguration;
-import com.mx.accessors.BaseAccessor;
+import com.mx.accessors.RootAccessor;
 import com.mx.common.gateway.GatewayAPI;
 import com.mx.common.lang.Strings;
+import com.mx.common.reflection.Annotations;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
@@ -44,47 +43,15 @@ public class AccessorProxyGenerator {
     this.filer = processingEnvironment.getFiler();
   }
 
-  public final void generateAll() throws IOException {
-    TypeSpec.Builder accessorProxyMap = TypeSpec.classBuilder("AccessorProxyMap").addModifiers(Modifier.PUBLIC)
-        .addField(
-            ParameterizedTypeName.get(ClassName.get(Map.class), ClassName.get(String.class),
-                ParameterizedTypeName.get(
-                    ClassName.get(Map.class),
-                    ParameterizedTypeName.get(
-                        ClassName.get(Class.class), WildcardTypeName.subtypeOf(Accessor.class)),
-                    ParameterizedTypeName.get(
-                        ClassName.get(Class.class), WildcardTypeName.subtypeOf(Accessor.class)))),
-            "proxyClassMap", Modifier.STATIC, Modifier.PRIVATE)
-        .addMethod(MethodSpec.methodBuilder("getProxy")
-            .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-            .addParameter(ClassName.get(String.class), "scope")
-            .addParameter(ParameterizedTypeName.get(ClassName.get(Class.class), WildcardTypeName.subtypeOf(Accessor.class)), "klass")
-            .returns(ParameterizedTypeName.get(ClassName.get(Class.class), WildcardTypeName.subtypeOf(Accessor.class)))
-            .addCode("if (proxyClassMap.get(scope) == null) {\n")
-            .addCode("throw new $T(\"Unsupported scope \" + scope);\n", RuntimeException.class)
-            .addCode("}\n")
-            .addStatement("return proxyClassMap.get(scope).get(klass)")
-            .build());
-    accessorProxyMappings = CodeBlock.builder()
-        .addStatement("proxyClassMap = new $T<>()", HashMap.class)
-        .addStatement("proxyClassMap.put(\"singleton\", new HashMap<>())")
-        .addStatement("proxyClassMap.put(\"prototype\", new HashMap<>())");
+  public final CodeBlock generateAll(Class<? extends Accessor> rootAccessor) throws IOException {
+    if (!Annotations.hasAnnotation(rootAccessor, RootAccessor.class)) {
+      throw new ConnectException("Accessor " + rootAccessor.getCanonicalName() + " is missing @RootAccessor annotation");
+    }
+    accessorProxyMappings = CodeBlock.builder();
+    recursiveGenerate(rootAccessor);
+    accessorProxyMappings.addStatement("$T.freeze()", ClassName.get("com.mx.path.gateway.configuration", "AccessorProxyMap"));
 
-    recursiveGenerate(BaseAccessor.class);
-
-    accessorProxyMappings.add("\n// Freeze the scope proxy mappings\n")
-        .addStatement("proxyClassMap.put(\"singleton\", $T.copyOf(proxyClassMap.get(\"singleton\")))", ImmutableMap.class)
-        .addStatement("proxyClassMap.put(\"prototype\", $T.copyOf(proxyClassMap.get(\"prototype\")))", ImmutableMap.class)
-        .addStatement("proxyClassMap = $T.copyOf(proxyClassMap)", ImmutableMap.class);
-    accessorProxyMap.addStaticBlock(accessorProxyMappings.build());
-
-    JavaFile javaFile = JavaFile.builder("com.mx.path.gateway.accessor.proxy", accessorProxyMap.build())
-        .addFileComment("---------------------------------------------------------------------------------------------------------------------\n"
-            + "  GENERATED FILE - ** Do not edit **\n"
-            + "---------------------------------------------------------------------------------------------------------------------")
-        .build();
-
-    javaFile.writeTo(filer);
+    return accessorProxyMappings.build();
   }
 
   @SuppressWarnings("unchecked")
@@ -125,6 +92,8 @@ public class AccessorProxyGenerator {
                 .returns(ParameterizedTypeName.get(ClassName.get(Class.class), WildcardTypeName.subtypeOf(klass)))
                 .addStatement("return accessorConstructionContext.getAccessorClass()")
                 .build());
+
+    propagateRootAccessorAnnotation(klass, classBuilder);
 
     /**
      * Step through the fields with types that are assignable to Accessor, and generate
@@ -242,6 +211,8 @@ public class AccessorProxyGenerator {
             .addStatement("return $S", "singleton")
             .build());
 
+    propagateRootAccessorAnnotation(accessorClass, classBuilder);
+
     TypeSpec annotationProxySpec = classBuilder.build();
     JavaFile javaFile = JavaFile.builder(packageName, annotationProxySpec)
         .addFileComment("---------------------------------------------------------------------------------------------------------------------\n"
@@ -250,7 +221,7 @@ public class AccessorProxyGenerator {
         .build();
     javaFile.writeTo(filer);
 
-    accessorProxyMappings.addStatement("proxyClassMap.get(\"singleton\").put($T.class, $T.class)", accessorClass, ClassName.get(packageName, proxyBaseClass + "Singleton"));
+    accessorProxyMappings.addStatement("$T.add(\"singleton\", $T.class, $T.class)", ClassName.get("com.mx.path.gateway.configuration", "AccessorProxyMap"), accessorClass, ClassName.get(packageName, proxyBaseClass + "Singleton"));
   }
 
   private void generatePrototypeProxy(String proxyBaseClass, Class<? extends Accessor> accessorClass) throws IOException {
@@ -277,6 +248,8 @@ public class AccessorProxyGenerator {
             .addStatement("return $S", "prototype")
             .build());
 
+    propagateRootAccessorAnnotation(accessorClass, classBuilder);
+
     TypeSpec annotationProxySpec = classBuilder.build();
     JavaFile javaFile = JavaFile.builder(packageName, annotationProxySpec)
         .addFileComment("---------------------------------------------------------------------------------------------------------------------\n"
@@ -285,7 +258,7 @@ public class AccessorProxyGenerator {
         .build();
     javaFile.writeTo(filer);
 
-    accessorProxyMappings.addStatement("proxyClassMap.get(\"prototype\").put($T.class, $T.class)", accessorClass, ClassName.get(packageName, proxyBaseClass + "Prototype"));
+    accessorProxyMappings.addStatement("$T.add(\"prototype\", $T.class, $T.class)", ClassName.get("com.mx.path.gateway.configuration", "AccessorProxyMap"), accessorClass, ClassName.get(packageName, proxyBaseClass + "Prototype"));
   }
 
   private String calculatePackageName(Class<? extends Accessor> accessorClass) {
@@ -297,4 +270,9 @@ public class AccessorProxyGenerator {
     return packageClass;
   }
 
+  private void propagateRootAccessorAnnotation(Class<? extends Accessor> klass, TypeSpec.Builder classBuilder) {
+    if (Annotations.hasAnnotation(klass, RootAccessor.class)) {
+      classBuilder.addAnnotation(RootAccessor.class);
+    }
+  }
 }

@@ -3,7 +3,7 @@ jar.archiveBaseName = "gateway"
 
 coppuccino {
   coverage {
-    minimumCoverage = 0.73
+    minimumCoverage = 0.52
     excludes = [
       "build/generated/**",
       "com/mx/path/gateway/api/**",
@@ -15,7 +15,7 @@ coppuccino {
 }
 
 dependencies {
-  api project(":models")
+  api project(":common")
   api project(":context")
   api project(":messaging")
   api "com.netflix.hystrix:hystrix-core:1.5.18"
@@ -28,9 +28,7 @@ dependencies {
   implementation "org.slf4j:slf4j-api:1.7.30"
   implementation "org.apache.httpcomponents:httpclient:4.5.13"
   implementation "commons-lang:commons-lang:2.6"
-
-  // SDK Gateway Generator
-  annotationProcessor project(":gateway-generator")
+  implementation "org.reflections:reflections:0.10.2"
 
   //testing dependencies
   testImplementation "org.slf4j:slf4j-simple:1.7.30"

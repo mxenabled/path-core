@@ -1,8 +1,11 @@
 group "com.mx.path.api.gateway"
+
+coppuccino {
+  dependencies { excludePreReleaseVersions = false }
+}
+
 dependencies {
-  implementation project(":models")
-  implementation project(":messaging")
-  implementation project(":context")
+  implementation project(":gateway")
 
   implementation "com.squareup:javapoet:1.13.0"
   implementation "com.google.auto.service:auto-service:1.0.1"

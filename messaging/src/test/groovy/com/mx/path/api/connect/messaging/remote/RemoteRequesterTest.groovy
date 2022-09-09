@@ -12,7 +12,6 @@ import com.mx.common.messaging.MessageBroker
 import com.mx.common.messaging.MessageError
 import com.mx.common.messaging.MessageStatus
 import com.mx.common.serialization.LocalDateDeserializer
-import com.mx.models.account.Account
 import com.mx.path.api.connect.messaging.MessageEvent
 import com.mx.path.api.connect.messaging.MessageHeaders
 import com.mx.path.api.connect.messaging.MessageParameters
@@ -22,6 +21,7 @@ import com.mx.path.model.context.RequestContext
 import com.mx.path.model.context.Session
 import com.mx.path.model.context.facility.Facilities
 import com.mx.path.model.context.store.SessionRepository
+import com.mx.testing.RemoteAccount
 import com.mx.testing.RemoteRequesterImpl
 import com.mx.testing.TestUtils
 
@@ -52,12 +52,12 @@ class RemoteRequesterTest extends Specification {
 
   def "Request interacts with messageBroker"() {
     given:
-    def accounts = new ArrayList<Account>().tap {
-      add new Account().tap {
+    def accounts = new ArrayList<RemoteAccount>().tap {
+      add new RemoteAccount().tap {
         setId "accountId"
         setType "Checking"
       }
-      add new Account().tap {
+      add new RemoteAccount().tap {
         setId "accountId2"
         setType "Loan"
       }
@@ -79,7 +79,7 @@ class RemoteRequesterTest extends Specification {
         .build()
 
     def messageBroker = mock(MessageBroker)
-    def channel = "path.request.client.Account.list"
+    def channel = "path.request.client.RemoteAccount.list"
 
     when(messageBroker.request(any(), any())).thenReturn(response.toJson())
     Facilities.MESSAGE_BROKERS.put("client", messageBroker)
@@ -100,7 +100,7 @@ class RemoteRequesterTest extends Specification {
         .build()
 
     def messageBroker = mock(MessageBroker)
-    def channel = "path.event.client.Account.changed"
+    def channel = "path.event.client.RemoteAccount.changed"
     Facilities.MESSAGE_BROKERS.put("client", messageBroker)
 
     when:

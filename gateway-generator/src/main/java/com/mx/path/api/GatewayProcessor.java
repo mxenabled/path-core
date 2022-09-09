@@ -18,9 +18,11 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 
 import com.google.auto.service.AutoService;
+import com.mx.accessors.Accessor;
 import com.mx.path.api.remote.RemoteAccessorGenerator;
 import com.mx.path.api.remote.RemoteGatewayGenerator;
 import com.mx.path.api.reporting.ClassGenerationException;
+import com.squareup.javapoet.CodeBlock;
 
 @SupportedAnnotationTypes({ "com.mx.common.gateway.GatewayBaseClass" })
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
@@ -29,6 +31,8 @@ public final class GatewayProcessor extends AbstractProcessor {
 
   private Map<String, GatewayClassElement> classes = new LinkedHashMap<>();
 
+  private CodeBlock accessorProxyMappingCodeBlock;
+
   /**
    * Capture processingEnv utilities
    * @param processingEnv
@@ -36,8 +40,6 @@ public final class GatewayProcessor extends AbstractProcessor {
   @Override
   public synchronized void init(ProcessingEnvironment processingEnv) {
     super.init(processingEnv);
-
-    generateOneOffs();
   }
 
   /**
@@ -62,6 +64,7 @@ public final class GatewayProcessor extends AbstractProcessor {
             try {
               TypeElement clazz = (TypeElement) e;
               GatewayClassElement elem = new GatewayClassElement(clazz);
+              elem.setRootGateway(true);
               classes.put(elem.getQualifiedName(), elem);
               compileClasses(classes, new GatewayClassElement(clazz));
             } catch (Exception ex) {
@@ -69,16 +72,17 @@ public final class GatewayProcessor extends AbstractProcessor {
             }
           }
         }
+        generateOneOffs();
       }
     }
 
-    GatewayGenerator generator = new GatewayGenerator(processingEnv);
+    GatewayGenerator generator = new GatewayGenerator(processingEnv, accessorProxyMappingCodeBlock);
     RemoteGatewayGenerator remoteGenerator = new RemoteGatewayGenerator(processingEnv);
     Set<String> processed = new HashSet<>();
 
     /**
      * Brute-force the classes into existence. Kind of crappy.
-     * todo: do this another ways
+     * todo: do this another way
      */
     do {
       processed.forEach(processedClass -> classes.remove(processedClass));
@@ -115,22 +119,33 @@ public final class GatewayProcessor extends AbstractProcessor {
    * If we want to generate some code that doesn't necessarily depend on an annotation, we can put the generator code
    * here to ensure that it only gets run once.
    */
+  @SuppressWarnings("unchecked")
   private void generateOneOffs() {
-    try {
-      processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Generating AccessorProxy...");
-      new AccessorProxyGenerator(processingEnv).generateAll();
-    } catch (Exception e) {
-      processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "An error occurred generating AccessorProxy: " + e.getMessage());
-      reportError(e);
-    }
+    classes.values().stream().filter(GatewayClassElement::isRootGateway).forEach(element -> {
+      try {
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Generating AccessorProxy...");
+        accessorProxyMappingCodeBlock = new AccessorProxyGenerator(processingEnv).generateAll((Class<? extends Accessor>) element.getTarget());
+      } catch (Exception e) {
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "An error occurred generating AccessorProxy: " + e.getMessage());
+        reportError(e);
+      }
 
-    try {
-      processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Generating RemoteAccessor...");
-      new RemoteAccessorGenerator(processingEnv).generate();
-    } catch (Exception e) {
-      processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "An error occurred generating RemoteAccessor: " + e.getMessage());
-      reportError(e);
-    }
+      try {
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Generating Configurator...");
+        new GatewayConfiguratorGenerator(processingEnv).generate(element);
+      } catch (Exception e) {
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "An error occurred generating AccessorProxy: " + e.getMessage());
+        reportError(e);
+      }
+
+      try {
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Generating RemoteAccessor...");
+        new RemoteAccessorGenerator(processingEnv).generate((Class<? extends Accessor>) element.getTarget());
+      } catch (Exception e) {
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "An error occurred generating RemoteAccessor: " + e.getMessage());
+        reportError(e);
+      }
+    });
   }
 
   public void reportError(Exception e) {
@@ -144,6 +159,11 @@ public final class GatewayProcessor extends AbstractProcessor {
       sb.append(" -> ").append(ansi.green("Fix: ")).append(classGenerationException.getFixInstructions());
     } else {
       sb.append("An unknown error occurred: ").append(e.getMessage());
+      e.printStackTrace();
+      if (e.getCause() != null) {
+        sb.append("An unknown error occurred: ").append(e.getCause().getMessage());
+        e.getCause().printStackTrace();
+      }
     }
 
     throw new RuntimeException("\n\n\n" + sb + "\n\n\n");

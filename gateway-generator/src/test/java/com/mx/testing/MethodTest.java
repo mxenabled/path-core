@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.mx.accessors.AccessorResponse;
 import com.mx.models.MdxList;
-import com.mx.models.account.Account;
 
 public class MethodTest {
 

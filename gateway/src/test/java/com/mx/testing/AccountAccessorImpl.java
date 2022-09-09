@@ -3,20 +3,18 @@ package com.mx.testing;
 import lombok.Setter;
 
 import com.mx.accessors.AccessorConfiguration;
-import com.mx.accessors.account.AccountBaseAccessor;
-import com.mx.accessors.account.TransactionBaseAccessor;
+import com.mx.testing.accessors.AccountBaseAccessor;
 
 public class AccountAccessorImpl extends AccountBaseAccessor {
   @Setter
-  TransactionBaseAccessor transactions;
+  TransactionAccessorImpl transactions;
 
   public AccountAccessorImpl(AccessorConfiguration configuration) {
     super(configuration);
     transactions = new TransactionAccessorImpl(configuration);
   }
 
-  @Override
-  public TransactionBaseAccessor transactions() {
+  public TransactionAccessorImpl transactions() {
     return transactions;
   }
 }

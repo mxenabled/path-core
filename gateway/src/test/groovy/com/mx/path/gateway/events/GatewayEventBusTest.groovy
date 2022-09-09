@@ -64,6 +64,6 @@ class GatewayEventBusTest extends Specification {
 
     then:
     def ex = thrown(GatewayEventBusException)
-    ex.getMessage() == "Invalid event bus subscriber - com.mx.path.gateway.events.GatewayEventBusTest.BadSubscriber.randomEvent handles event type com.mx.path.model.context.RequestContext which does not implement GatewayEvent or AccessorEvent"
+    ex.getMessage() == "Invalid event bus subscriber - com.mx.path.gateway.events.GatewayEventBusTest.BadSubscriber.randomEvent handles event type com.mx.path.model.context.RequestContext which does not implement GatewayEvent, AccessorEvent, or UpstreamRequestEvent"
   }
 }

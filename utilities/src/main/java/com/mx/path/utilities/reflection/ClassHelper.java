@@ -161,6 +161,38 @@ public class ClassHelper {
   }
 
   /**
+   * Attempts to invoke given static method on {@code target}
+   *
+   * <p>Will attempt to locate and invoke the method
+   *
+   * <p>See {@link #getMethod(Class, String, Class[])} for description of method locator strategy.
+   *
+   * @param target to invoke method on
+   * @param name of method
+   * @param args of method
+   */
+  public final void invokeStaticMethod(Class<?> target, String name, Object... args) {
+    Class<?>[] argTypes = getTypes(args);
+    Method method = getMethod(target, name, argTypes);
+    try {
+      boolean methodIsAccessible = method.isAccessible();
+      if (!methodIsAccessible && whiteListedMethods.contains(method.getName())) {
+        method.setAccessible(true);
+      }
+
+      try {
+        method.invoke(target, args);
+      } finally {
+        if (!methodIsAccessible) {
+          method.setAccessible(false);
+        }
+      }
+    } catch (IllegalAccessException | InvocationTargetException e) {
+      throw new RuntimeException("No method " + name + " on class " + target.getCanonicalName());
+    }
+  }
+
+  /**
    * Attempts to invoke given method on
    *
    * <p>Will attempt to locate and invoke the method
@@ -195,6 +227,44 @@ public class ClassHelper {
       }
     } catch (IllegalAccessException | InvocationTargetException e) {
       throw new RuntimeException("No method " + name + " on class " + target.getClass().getCanonicalName(), e);
+    }
+  }
+
+  /**
+   * Attempts to invoke given method on
+   *
+   * <p>Will attempt to locate and invoke the method
+   *
+   * <p>See {@link #getMethod(Class, String, Class[])} for description of method locator strategy.
+   *
+   * @param resultType type of result
+   * @param target to invoke method against
+   * @param name of method
+   * @param args of method
+   * @param <T> type of result
+   * @return
+   */
+  @SuppressWarnings("unchecked")
+  public final <T> T invokeStaticMethod(Class<T> resultType, Class<?> target, String name, Object... args) {
+    Class<?>[] argTypes = getTypes(args);
+    Method method = getMethod(target, name, argTypes);
+    try {
+      boolean methodIsAccessible = method.isAccessible();
+
+      if (!methodIsAccessible && whiteListedMethods.contains(method.getName())) {
+        methodIsAccessible = method.isAccessible();
+        method.setAccessible(true);
+      }
+
+      try {
+        return (T) method.invoke(target, args);
+      } finally {
+        if (!methodIsAccessible) {
+          method.setAccessible(false);
+        }
+      }
+    } catch (IllegalAccessException | InvocationTargetException e) {
+      throw new RuntimeException("No method " + name + " on class " + target.getCanonicalName(), e);
     }
   }
 

@@ -10,6 +10,18 @@ class TestClass {
   private Map<String, Double> stringToDoubleMap = new HashMap<>()
   private String nonGenericType = ""
 
+  public static String staticMethod() {
+    return "Class says \"hi!\"";
+  }
+
+  static String secretStaticMethod() {
+    return "Class says \"hi!\"";
+  }
+
+  private static String safeAndSecretStaticMethod() {
+    return "Class says \"hi!\"";
+  }
+
   Map<String, Integer> getMap() {
     return new HashMap<String, Integer>()
   }
@@ -18,7 +30,7 @@ class TestClass {
     return new ArrayList<List<Integer>>()
   }
 
-  String secretMethod()  {
+  String secretMethod() {
     throw new IllegalAccessException()
     return "Hello There!"
   }
@@ -275,6 +287,86 @@ class ClassHelperTest extends Specification {
     when: "method is whitelisted"
     subject = new ClassHelper("secretAndSafeMethod")
     subject.invokeMethod(new TestClass(), "secretAndSafeMethod")
+
+    then:
+    noExceptionThrown()
+  }
+
+  def "invokeStaticMethod with resultType"() {
+    given:
+    def subject = new ClassHelper()
+    def target = "Hi"
+
+    when:
+    def result = subject.invokeStaticMethod(String.class, TestClass.class, "staticMethod")
+
+    then:
+    result == "Class says \"hi!\""
+
+    when: "invalid method"
+    subject.invokeStaticMethod(String.class, TestClass.class, "nonExistentMethod", "junk", " There")
+
+    then:
+    def e = thrown(RuntimeException)
+    e.message == "No method nonExistentMethod on class com.mx.path.utilities.reflection.TestClass with argTypes java.lang.String, java.lang.String"
+
+    when: "invalid parameters"
+    subject.invokeStaticMethod(String.class, String.class, "valueOf", "concat", 1)
+
+    then:
+    e = thrown(RuntimeException)
+    e.message == "No method valueOf on class java.lang.String with argTypes java.lang.String, java.lang.Integer"
+
+    when: "method is not whitelisted"
+    subject.invokeStaticMethod(String.class, TestClass.class, "safeAndSecretStaticMethod")
+
+    then:
+    e = thrown(RuntimeException)
+    e.message == "No method safeAndSecretStaticMethod on class com.mx.path.utilities.reflection.TestClass"
+
+    when: "method is whitelisted"
+    subject = new ClassHelper("safeAndSecretStaticMethod")
+    result = subject.invokeStaticMethod(String.class, TestClass.class, "safeAndSecretStaticMethod")
+
+    then:
+    result == "Class says \"hi!\""
+  }
+
+  def "invokeStaticMethod without resultType"() {
+    given:
+    def subject = new ClassHelper()
+    def target = String.class
+
+    when:
+    subject.invokeStaticMethod(target, "valueOf", 1)
+
+    then:
+    notThrown(Exception)
+
+    when: "invalid method"
+    subject.invokeStaticMethod(target, "junk", "Hello, there")
+
+    then:
+    def e = thrown(RuntimeException)
+    e.message == "No method junk on class java.lang.String with argTypes java.lang.String"
+
+    when: "invalid parameters"
+    subject.invokeStaticMethod(TestClass.class, "staticMethod", 1)
+
+    then:
+    e = thrown(RuntimeException)
+    e.message == "No method staticMethod on class com.mx.path.utilities.reflection.TestClass with argTypes java.lang.Integer"
+
+    when: "method is not whitelisted"
+    subject.invokeStaticMethod(TestClass.class, "safeAndSecretStaticMethod")
+
+    then:
+    e = thrown(RuntimeException)
+    e.message == "No method safeAndSecretStaticMethod on class com.mx.path.utilities.reflection.TestClass"
+
+    when: "method is whitelisted"
+    subject = new ClassHelper("safeAndSecretStaticMethod")
+    subject.invokeStaticMethod(TestClass.class, "safeAndSecretStaticMethod")
 
     then:
     noExceptionThrown()

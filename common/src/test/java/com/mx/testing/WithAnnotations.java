@@ -2,6 +2,9 @@ package com.mx.testing;
 
 import javax.annotation.Nullable;
 
+import com.mx.common.gateway.GatewayClass;
+
+@GatewayClass
 public class WithAnnotations {
 
   @Nullable

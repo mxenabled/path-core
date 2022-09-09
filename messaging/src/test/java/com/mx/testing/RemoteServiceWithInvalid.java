@@ -7,7 +7,6 @@ import com.mx.path.api.connect.messaging.MessageResponse;
 import com.mx.path.api.connect.messaging.remote.Listener;
 import com.mx.path.api.connect.messaging.remote.RemoteService;
 import com.mx.path.api.connect.messaging.remote.Responder;
-import com.mx.path.api.connect.messaging.remote.models.RemoteAccount;
 
 public class RemoteServiceWithInvalid extends RemoteService<RemoteAccount> {
   public RemoteServiceWithInvalid(String clientId) {

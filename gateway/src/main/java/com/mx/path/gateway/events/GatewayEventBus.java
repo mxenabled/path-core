@@ -87,8 +87,10 @@ public class GatewayEventBus implements EventBus {
     subscribeMethods.forEach(method -> {
       Class<?>[] parameters = method.getParameterTypes();
       Arrays.asList(parameters).forEach(parameterClass -> {
-        if (!GatewayEvent.class.isAssignableFrom(parameterClass) && !AccessorEvent.class.isAssignableFrom(parameterClass)) {
-          throw new GatewayEventBusException("Invalid event bus subscriber - " + subscriber.getClass().getCanonicalName() + "." + method.getName() + " handles event type " + parameterClass.getCanonicalName() + " which does not implement GatewayEvent or AccessorEvent");
+        if (!GatewayEvent.class.isAssignableFrom(parameterClass)
+            && !AccessorEvent.class.isAssignableFrom(parameterClass)
+            && !UpstreamRequestEvent.class.isAssignableFrom(parameterClass)) {
+          throw new GatewayEventBusException("Invalid event bus subscriber - " + subscriber.getClass().getCanonicalName() + "." + method.getName() + " handles event type " + parameterClass.getCanonicalName() + " which does not implement GatewayEvent, AccessorEvent, or UpstreamRequestEvent");
         }
       });
     });

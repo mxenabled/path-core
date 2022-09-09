@@ -4,16 +4,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 import com.mx.common.collections.ObjectMap;
-import com.mx.path.gateway.BaseGateway;
+import com.mx.path.gateway.Gateway;
 
 public abstract class GatewayService {
 
   @Getter
   private final ObjectMap configurations;
 
-  @Getter
   @Setter
-  private BaseGateway gateway;
+  private Gateway gateway;
 
   public GatewayService(ObjectMap configurations) {
     this.configurations = configurations;
@@ -45,4 +44,8 @@ public abstract class GatewayService {
     }
   }
 
+  @SuppressWarnings("unchecked")
+  public final <T extends Gateway> T getGateway() {
+    return (T) gateway;
+  }
 }
