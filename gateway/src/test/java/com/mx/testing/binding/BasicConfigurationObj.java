@@ -1,9 +1,11 @@
 package com.mx.testing.binding;
 
+import java.util.HashMap;
 import java.util.List;
 
 import lombok.Data;
 
+import com.mx.common.collections.ObjectMap;
 import com.mx.common.configuration.ConfigurationField;
 import com.mx.path.gateway.configuration.annotations.ClientID;
 
@@ -32,6 +34,9 @@ public class BasicConfigurationObj {
 
   @ConfigurationField(value = "complexArray1", elementType = SubConfigurationObj.class)
   private List<SubConfigurationObj> complexArray1;
+
+  @ConfigurationField(value = "deposit", elementType = HashMap.class)
+  private HashMap<String, ObjectMap> deposit;
 
   @ClientID
   private String clientId;

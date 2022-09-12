@@ -112,6 +112,22 @@ class ConfigurationBinderTest extends Specification {
     configurationObj.getComplexArray1().get(1).getSubkey1() == "subkeyValue2"
   }
 
+  def "binds complex maps"() {
+    given:
+    configuration.put("deposit", new ObjectMap().tap{
+      put("C", "checking")
+      put("S", "savings")
+    })
+
+    when:
+    BasicConfigurationObj configurationObj = subject.build(BasicConfigurationObj.class, configuration)
+
+    then:
+    configurationObj.getDeposit().size() == 2
+    configurationObj.getDeposit().get("C") == "checking"
+    configurationObj.getDeposit().get("S") == "savings"
+  }
+
   def "validates required string field"() {
     given:
     state.pushLevel("test.configuration")

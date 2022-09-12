@@ -3,6 +3,7 @@ package com.mx.path.gateway.configuration;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -169,13 +170,16 @@ public class ConfigurationBinder {
       Annotations.AnnotatedField<ConfigurationField> configurationAnnotatedField = configurationFieldMap.get(fieldName);
 
       state.withField(fieldName, () -> {
+        Object value;
         if (configurationAnnotatedField == null) {
           throw new ConfigurationError("Unknown field", state);
         }
-
         Field field = configurationAnnotatedField.getField();
-
-        Object value = buildValue(fieldValue, configurationAnnotatedField);
+        if (field.getType() == HashMap.class) {
+          value = fieldValue;
+        } else {
+          value = this.buildValue(fieldValue, configurationAnnotatedField);
+        }
         if (value != null) {
           Fields.setFieldValue(field, obj, value);
         }
