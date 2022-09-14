@@ -1,3 +1,5 @@
+[![Release](https://jitpack.io/v/mxenabled/path-sdk.svg)](https://jitpack.io/p/mxenabled/path-sdk)
+
 # Path SDK - Subprojects
 
 * [Common](common/README.md)
