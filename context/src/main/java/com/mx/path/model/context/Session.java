@@ -1,5 +1,6 @@
 package com.mx.path.model.context;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -15,6 +16,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mx.common.lang.Strings;
 import com.mx.common.security.EncryptionService;
+import com.mx.common.serialization.LocalDateDeserializer;
+import com.mx.common.serialization.LocalDateTimeDeserializer;
 import com.mx.common.session.SessionInfo;
 import com.mx.path.model.context.store.SessionRepository;
 import com.mx.path.model.context.util.XMLGregorianCalendarConverter;
@@ -102,6 +105,8 @@ public class Session implements SessionInfo {
   private static Gson gson = new GsonBuilder()
       .registerTypeAdapter(XMLGregorianCalendar.class, new XMLGregorianCalendarConverter.Deserializer())
       .registerTypeAdapter(XMLGregorianCalendar.class, new XMLGregorianCalendarConverter.Serializer())
+      .registerTypeAdapter(LocalDateTime.class, LocalDateTimeDeserializer.builder().build())
+      .registerTypeAdapter(LocalDate.class, LocalDateDeserializer.builder().build())
       .create();
 
   public static SessionRepository getRepository() {
