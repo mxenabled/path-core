@@ -1,2 +1,6 @@
 jdk:
   - openjdk17
+before_install:
+  - sdk update
+# install:
+#   - ./gradlew --info clean -Pgroup=com.github.mxenabled -x test assemble publishToMavenLocal
