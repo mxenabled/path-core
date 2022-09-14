@@ -2,3 +2,4 @@ jdk:
   - openjdk17
 before_install:
   - sdk update
+  - rm -f gradle.properties
