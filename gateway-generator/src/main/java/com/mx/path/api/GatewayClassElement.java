@@ -13,7 +13,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.MirroredTypeException;
 
-import com.mx.accessors.Accessor;
+import com.mx.common.accessors.Accessor;
 import com.mx.common.gateway.GatewayAPI;
 import com.mx.common.gateway.GatewayBaseClass;
 import com.mx.common.lang.Strings;

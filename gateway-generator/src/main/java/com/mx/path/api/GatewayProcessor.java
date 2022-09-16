@@ -18,7 +18,7 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 
 import com.google.auto.service.AutoService;
-import com.mx.accessors.Accessor;
+import com.mx.common.accessors.Accessor;
 import com.mx.path.api.remote.RemoteAccessorGenerator;
 import com.mx.path.api.remote.RemoteGatewayGenerator;
 import com.mx.path.api.reporting.ClassGenerationException;

@@ -6,7 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.mx.accessors.Accessor;
+import com.mx.common.accessors.Accessor;
 
 /**
  * Attach to Accessor class to indicate child accessor types.

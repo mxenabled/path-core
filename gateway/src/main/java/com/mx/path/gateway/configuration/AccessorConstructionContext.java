@@ -13,14 +13,14 @@ import lombok.Getter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mx.accessors.Accessor;
-import com.mx.accessors.AccessorConfiguration;
-import com.mx.adapters.JsonObjectMapDeserializer;
+import com.mx.common.accessors.Accessor;
+import com.mx.common.accessors.AccessorConfiguration;
 import com.mx.common.collections.ObjectArray;
 import com.mx.common.collections.ObjectMap;
 import com.mx.common.configuration.Configuration;
 import com.mx.common.connect.AccessorConnectionSettings;
-import com.mx.path.gateway.GatewayException;
+import com.mx.common.exception.GatewayException;
+import com.mx.common.serialization.ObjectMapJsonDeserializer;
 import com.mx.path.gateway.configuration.annotations.ClientID;
 import com.mx.path.gateway.configuration.annotations.Connection;
 
@@ -112,7 +112,7 @@ public class AccessorConstructionContext<T extends Accessor> {
   }
 
   public final void describe(ObjectMap description) {
-    GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(ObjectMap.class, new JsonObjectMapDeserializer());
+    GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(ObjectMap.class, new ObjectMapJsonDeserializer());
     Gson gson = gsonBuilder.create();
 
     getAccessorConfiguration().describe(description);

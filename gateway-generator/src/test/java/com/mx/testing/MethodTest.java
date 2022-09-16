@@ -2,8 +2,8 @@ package com.mx.testing;
 
 import java.util.List;
 
-import com.mx.accessors.AccessorResponse;
-import com.mx.models.MdxList;
+import com.mx.common.accessors.AccessorResponse;
+import com.mx.common.models.MdxList;
 
 public class MethodTest {
 

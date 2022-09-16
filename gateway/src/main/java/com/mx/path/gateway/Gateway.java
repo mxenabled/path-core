@@ -14,8 +14,8 @@ import lombok.Singular;
 import lombok.experimental.SuperBuilder;
 
 import com.google.common.collect.ImmutableList;
-import com.mx.accessors.Accessor;
-import com.mx.accessors.AccessorResponse;
+import com.mx.common.accessors.Accessor;
+import com.mx.common.accessors.AccessorResponse;
 import com.mx.common.collections.ObjectMap;
 import com.mx.common.events.EventBus;
 import com.mx.common.reflection.Annotations;
