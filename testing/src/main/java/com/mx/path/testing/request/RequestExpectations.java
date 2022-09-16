@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.mx.accessors.AccessorConnectionBase;
+import com.mx.common.accessors.AccessorConnectionBase;
 import com.mx.common.connect.Request;
 import com.mx.common.connect.RequestFilter;
 import com.mx.path.gateway.connect.filters.CallbacksFilter;

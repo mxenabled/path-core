@@ -2,7 +2,7 @@ package com.mx.testing.binding;
 
 import lombok.Getter;
 
-import com.mx.accessors.AccessorConfiguration;
+import com.mx.common.accessors.AccessorConfiguration;
 import com.mx.common.configuration.Configuration;
 import com.mx.path.gateway.configuration.annotations.Connection;
 import com.mx.testing.accessors.AccountBaseAccessor;

@@ -1,8 +1,16 @@
 package com.mx.path.gateway.net.executors
 
-import static com.mx.common.process.FaultTolerantExecutionFailureStatus.*
-import static org.mockito.Mockito.*
+import static org.mockito.Mockito.any
+import static org.mockito.Mockito.doAnswer
+import static org.mockito.Mockito.doThrow
+import static org.mockito.Mockito.eq
+import static org.mockito.Mockito.mock
+import static org.mockito.Mockito.never
+import static org.mockito.Mockito.spy
+import static org.mockito.Mockito.verify
+import static org.mockito.Mockito.when
 
+import com.mx.common.accessors.PathResponseStatus
 import com.mx.common.http.HttpStatus
 import com.mx.common.process.FaultTolerantExecutionException
 import com.mx.common.process.FaultTolerantExecutor
@@ -92,14 +100,14 @@ class FaultTolerantRequestExecutorTest extends Specification {
 
     where:
     exception                                                                          || status
-    new FaultTolerantExecutionException(INTERNAL_ERROR)                                || HttpStatus.INTERNAL_SERVER_ERROR
-    new FaultTolerantExecutionException(TASK_LIMIT_EXCEEDED)                           || HttpStatus.TOO_MANY_REQUESTS
-    new FaultTolerantExecutionException(TASK_EXECUTION_UNAVAILABLE)                    || HttpStatus.SERVICE_UNAVAILABLE
-    new FaultTolerantExecutionException(TASK_TIMEOUT)                                  || HttpStatus.GATEWAY_TIMEOUT
+    new FaultTolerantExecutionException(PathResponseStatus.INTERNAL_ERROR)             || HttpStatus.INTERNAL_SERVER_ERROR
+    new FaultTolerantExecutionException(PathResponseStatus.TOO_MANY_REQUESTS)          || HttpStatus.TOO_MANY_REQUESTS
+    new FaultTolerantExecutionException(PathResponseStatus.UNAVAILABLE)                || HttpStatus.SERVICE_UNAVAILABLE
+    new FaultTolerantExecutionException(PathResponseStatus.TIMEOUT)                    || HttpStatus.GATEWAY_TIMEOUT
     new FaultTolerantExecutionException("Uh oh.",
-        new UpstreamConnectionException(new SocketTimeoutException()), INTERNAL_ERROR) || HttpStatus.GATEWAY_TIMEOUT
+        new UpstreamConnectionException(new SocketTimeoutException()), PathResponseStatus.INTERNAL_ERROR) || HttpStatus.GATEWAY_TIMEOUT
     new FaultTolerantExecutionException("Uh oh.",
-        new MdxApiException(HttpStatus.BAD_REQUEST), INTERNAL_ERROR)                   || HttpStatus.BAD_REQUEST
+        new MdxApiException(HttpStatus.BAD_REQUEST), PathResponseStatus.INTERNAL_ERROR)                   || HttpStatus.BAD_REQUEST
     new RuntimeException("Uh oh.")                                                     || HttpStatus.INTERNAL_SERVER_ERROR
   }
 
@@ -111,7 +119,7 @@ class FaultTolerantRequestExecutorTest extends Specification {
 
     when: "an unknown error occurred"
     subject = spy(new FaultTolerantRequestExecutor(nextExecutor))
-    doThrow(new FaultTolerantExecutionException(new RuntimeException("Uh oh!"), INTERNAL_ERROR)).when(faultTolerantExecutor).submit(any(String), any(FaultTolerantTask))
+    doThrow(new FaultTolerantExecutionException(new RuntimeException("Uh oh!"), PathResponseStatus.INTERNAL_ERROR)).when(faultTolerantExecutor).submit(any(String), any(FaultTolerantTask))
     subject.execute(request, response)
 
     then:
@@ -121,13 +129,13 @@ class FaultTolerantRequestExecutorTest extends Specification {
 
     when: "a known error occurred"
     subject = spy(new FaultTolerantRequestExecutor(nextExecutor))
-    doThrow(new FaultTolerantExecutionException(TASK_TIMEOUT)).when(faultTolerantExecutor).submit(any(String), any(FaultTolerantTask))
+    doThrow(new FaultTolerantExecutionException(PathResponseStatus.TIMEOUT)).when(faultTolerantExecutor).submit(any(String), any(FaultTolerantTask))
     subject.execute(request, response)
 
     then:
     e = thrown(MdxApiException)
     e.cause.class == FaultTolerantExecutionException
-    e.cause.status == TASK_TIMEOUT
+    e.cause.status == PathResponseStatus.TIMEOUT
   }
 
   def "interacts with request and calls next (Hystrix fallback)"() {

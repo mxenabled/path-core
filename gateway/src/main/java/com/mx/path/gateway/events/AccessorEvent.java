@@ -1,6 +1,6 @@
 package com.mx.path.gateway.events;
 
-import com.mx.accessors.Accessor;
+import com.mx.common.accessors.Accessor;
 
 /**
  * Interface for all Accessor-emitted events

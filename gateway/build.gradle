@@ -1,6 +1,6 @@
 coppuccino {
   coverage {
-    minimumCoverage = 0.52
+    minimumCoverage = 0.51
     excludes = [
       "build/generated/**",
       "com/mx/path/gateway/api/**",

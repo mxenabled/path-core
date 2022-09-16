@@ -1,9 +1,7 @@
 package com.mx.gateway
 
-import static org.mockito.Mockito.mock
-import static org.mockito.Mockito.verify
 
-import com.mx.accessors.AccessorConfiguration
+import com.mx.common.accessors.AccessorConfiguration
 import com.mx.path.gateway.accessor.proxy.BaseAccessorProxySingleton
 import com.mx.testing.BaseAccessorImpl
 import com.mx.testing.accessors.BaseAccessor
