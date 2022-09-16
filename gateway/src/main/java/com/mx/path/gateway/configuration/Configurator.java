@@ -13,25 +13,25 @@ import lombok.Getter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mx.accessors.Accessor;
-import com.mx.adapters.JsonObjectMapDeserializer;
+import com.mx.common.accessors.Accessor;
 import com.mx.common.collections.ObjectArray;
 import com.mx.common.collections.ObjectMap;
 import com.mx.common.events.EventBus;
+import com.mx.common.exception.GatewayException;
 import com.mx.common.lang.Strings;
 import com.mx.common.messaging.MessageBroker;
 import com.mx.common.process.FaultTolerantExecutor;
 import com.mx.common.security.EncryptionService;
+import com.mx.common.serialization.ObjectMapJsonDeserializer;
+import com.mx.common.serialization.ObjectMapYamlDeserializer;
 import com.mx.common.store.Store;
 import com.mx.path.api.connect.messaging.remote.RemoteService;
 import com.mx.path.gateway.Gateway;
 import com.mx.path.gateway.GatewayBuilderHelper;
-import com.mx.path.gateway.GatewayException;
 import com.mx.path.gateway.behavior.GatewayBehavior;
 import com.mx.path.gateway.service.GatewayService;
 import com.mx.path.model.context.facility.Facilities;
 import com.mx.path.utilities.reflection.ClassHelper;
-import com.mx.serializers.YamlSerializer;
 
 import org.apache.commons.text.StringSubstitutor;
 
@@ -78,7 +78,7 @@ public abstract class Configurator<T extends Gateway<?>> {
    * @return T
    */
   public final Map<String, T> buildFromJson(String json) {
-    GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(ObjectMap.class, new JsonObjectMapDeserializer());
+    GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(ObjectMap.class, new ObjectMapJsonDeserializer());
     Gson gson = gsonBuilder.create();
 
     json = StringSubstitutor.createInterpolator().replace(json);
@@ -93,7 +93,7 @@ public abstract class Configurator<T extends Gateway<?>> {
     }
     document = StringSubstitutor.createInterpolator().replace(document);
 
-    YamlSerializer yamlSerializer = new YamlSerializer(YamlSerializer.Parameters.builder()
+    ObjectMapYamlDeserializer yamlSerializer = new ObjectMapYamlDeserializer(ObjectMapYamlDeserializer.Parameters.builder()
         .maxYamlAliases(MAX_YAML_ALIASES)
         .build());
     Object root = yamlSerializer.fromYaml(document);

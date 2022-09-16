@@ -10,7 +10,7 @@ import com.mx.common.http.HttpStatus;
 import com.mx.common.lang.Strings;
 
 /**
- * @deprecated This is moved here for backward compatibility. It will be removed. Use {@link com.mx.common.connect.ConnectException}
+ * @deprecated This is moved here for backward compatibility. It will be removed. Use {@link ConnectException}
  */
 @Deprecated
 public class MdxApiException extends RuntimeException {

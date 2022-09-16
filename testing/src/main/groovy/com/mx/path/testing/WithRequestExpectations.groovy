@@ -1,6 +1,6 @@
 package com.mx.path.testing
 
-import com.mx.accessors.AccessorConnectionBase
+import com.mx.common.accessors.AccessorConnectionBase
 import com.mx.common.connect.Request
 import com.mx.path.testing.request.RequestExpectation
 import com.mx.path.testing.request.RequestExpectations

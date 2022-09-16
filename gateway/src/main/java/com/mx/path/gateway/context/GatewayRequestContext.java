@@ -4,8 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 
-import com.mx.accessors.Accessor;
-import com.mx.models.MdxBase;
+import com.mx.common.accessors.Accessor;
+import com.mx.common.models.MdxBase;
 import com.mx.path.gateway.Gateway;
 import com.mx.path.model.context.RequestContext;
 

@@ -1,6 +1,6 @@
 package com.mx.path.gateway.behavior;
 
-import com.mx.accessors.AccessorResponse;
+import com.mx.common.accessors.AccessorResponse;
 import com.mx.common.collections.ObjectMap;
 import com.mx.path.gateway.context.GatewayRequestContext;
 

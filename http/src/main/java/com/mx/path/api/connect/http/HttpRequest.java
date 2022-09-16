@@ -2,7 +2,7 @@ package com.mx.path.api.connect.http;
 
 import com.mx.common.connect.Request;
 import com.mx.common.connect.RequestFilter;
-import com.mx.common.exception.PathException;
+import com.mx.common.exception.AccessorSystemException;
 
 public class HttpRequest extends Request<HttpRequest, HttpResponse> {
 
@@ -12,7 +12,7 @@ public class HttpRequest extends Request<HttpRequest, HttpResponse> {
    */
   public HttpRequest(RequestFilter filterChain) {
     if (filterChain == null) {
-      throw new PathException("Misconfigured HttpRequest. filterChain is null");
+      throw new AccessorSystemException("Mis-configured HttpRequest. filterChain is null");
     }
     getHeaders().put("Accept", "application/json");
     getHeaders().put("Content-Type", "application/json");

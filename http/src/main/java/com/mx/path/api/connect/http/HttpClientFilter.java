@@ -10,10 +10,10 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.mx.common.collections.MultiValueMap;
 import com.mx.common.collections.SingleValueMap;
-import com.mx.common.connect.ConnectException;
 import com.mx.common.connect.Request;
 import com.mx.common.connect.RequestFilterBase;
 import com.mx.common.connect.Response;
+import com.mx.common.exception.ConnectException;
 import com.mx.common.http.HttpStatus;
 import com.mx.path.api.connect.http.certificates.MutualAuthProvider;
 import com.mx.path.api.connect.http.certificates.MutualAuthProviderFactory;
@@ -133,11 +133,11 @@ public class HttpClientFilter extends RequestFilterBase {
             response.finish();
           }
         } catch (IOException e) {
-          throw new ConnectException(e);
+          throw new ConnectException("HttpClient Execute failed", e);
         }
       }
     } catch (RuntimeException | IOException | URISyntaxException e) {
-      throw new ConnectException(e);
+      throw new ConnectException("HttpClient Setup failed", e);
     }
 
     next(request, response);

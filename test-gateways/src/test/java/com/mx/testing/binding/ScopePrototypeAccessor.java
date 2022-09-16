@@ -1,6 +1,6 @@
 package com.mx.testing.binding;
 
-import com.mx.accessors.AccessorConfiguration;
+import com.mx.common.accessors.AccessorConfiguration;
 import com.mx.path.gateway.configuration.annotations.AccessorScope;
 import com.mx.path.gateway.configuration.annotations.MaxScope;
 import com.mx.testing.accessors.AccountBaseAccessor;
