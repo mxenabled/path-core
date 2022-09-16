@@ -3,7 +3,7 @@ package com.mx.testing;
 import java.util.Collections;
 import java.util.List;
 
-import com.mx.accessors.AccessorConnectionBase;
+import com.mx.common.accessors.AccessorConnectionBase;
 import com.mx.common.connect.RequestFilter;
 
 public class TestConnection extends AccessorConnectionBase<TestConnection.Request> {

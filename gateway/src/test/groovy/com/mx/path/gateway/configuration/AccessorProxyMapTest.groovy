@@ -1,6 +1,6 @@
 package com.mx.path.gateway.configuration
 
-import com.mx.path.gateway.GatewayException
+import com.mx.common.exception.GatewayException
 import com.mx.testing.AccountAccessorImpl
 import com.mx.testing.BaseAccessorImpl
 import com.mx.testing.ChildAccessorAccount

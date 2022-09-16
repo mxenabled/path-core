@@ -17,11 +17,11 @@ import javax.annotation.Nonnull;
 import lombok.Builder;
 import lombok.Data;
 
-import com.mx.accessors.API;
-import com.mx.accessors.Accessor;
-import com.mx.accessors.AccessorConfiguration;
-import com.mx.accessors.AccessorMethodDefinition;
-import com.mx.accessors.AccessorResponse;
+import com.mx.common.accessors.API;
+import com.mx.common.accessors.Accessor;
+import com.mx.common.accessors.AccessorConfiguration;
+import com.mx.common.accessors.AccessorMethodDefinition;
+import com.mx.common.accessors.AccessorResponse;
 import com.mx.common.collections.ObjectMap;
 import com.mx.common.lang.Strings;
 import com.mx.common.reflection.Annotations;

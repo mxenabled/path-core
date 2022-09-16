@@ -3,8 +3,8 @@
 // ---------------------------------------------------------------------------------------------------------------------
 package com.mx.testing.accessors.proxy;
 
-import com.mx.accessors.AccessorConfiguration;
-import com.mx.accessors.RootAccessor;
+import com.mx.common.accessors.AccessorConfiguration;
+import com.mx.common.accessors.RootAccessor;
 import com.mx.testing.accessors.BaseAccessor;
 
 @RootAccessor

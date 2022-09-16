@@ -2,7 +2,7 @@ package com.mx.testing.model;
 
 import lombok.Data;
 
-import com.mx.models.MdxBase;
+import com.mx.common.models.MdxBase;
 
 @Data
 public class Account extends MdxBase<Account> {

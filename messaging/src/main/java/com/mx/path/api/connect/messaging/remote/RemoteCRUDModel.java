@@ -2,8 +2,9 @@ package com.mx.path.api.connect.messaging.remote;
 
 import com.mx.common.messaging.MessageError;
 import com.mx.common.messaging.MessageStatus;
-import com.mx.models.MdxBase;
-import com.mx.models.MdxList;
+import com.mx.common.models.MdxBase;
+import com.mx.common.models.MdxList;
+import com.mx.common.remote.MdxListOfJson;
 import com.mx.path.api.connect.messaging.MessageHeaders;
 import com.mx.path.api.connect.messaging.MessageParameters;
 import com.mx.path.api.connect.messaging.MessageRequest;

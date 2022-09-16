@@ -1,23 +1,17 @@
 package com.mx.path.gateway.process
 
-import static org.mockito.ArgumentMatchers.any
-import static org.mockito.Mockito.doReturn
+
 import static org.mockito.Mockito.mock
 import static org.mockito.Mockito.spy
 import static org.mockito.Mockito.verify
 
-import java.util.concurrent.Callable
-import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import java.util.concurrent.Future
 
-import com.mx.path.gateway.GatewayException
+import com.mx.common.exception.GatewayException
 import com.mx.path.model.context.RequestContext
 import com.mx.path.model.context.Session
 import com.mx.path.model.context.store.SessionRepository
 import com.mx.path.model.context.tracing.CustomTracer
-
-import org.mockito.ArgumentMatchers
 
 import io.opentracing.Tracer
 

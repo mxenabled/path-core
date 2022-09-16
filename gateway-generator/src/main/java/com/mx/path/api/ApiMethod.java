@@ -7,9 +7,9 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
-import com.mx.accessors.AccessorResponse;
-import com.mx.models.MdxBase;
-import com.mx.models.MdxList;
+import com.mx.common.accessors.AccessorResponse;
+import com.mx.common.models.MdxBase;
+import com.mx.common.models.MdxList;
 
 @SuppressWarnings("checkstyle:IllegalImport")
 public class ApiMethod {

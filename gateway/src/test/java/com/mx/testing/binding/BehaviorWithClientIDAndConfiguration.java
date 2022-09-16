@@ -2,7 +2,7 @@ package com.mx.testing.binding;
 
 import lombok.Getter;
 
-import com.mx.accessors.AccessorResponse;
+import com.mx.common.accessors.AccessorResponse;
 import com.mx.common.collections.ObjectMap;
 import com.mx.common.configuration.Configuration;
 import com.mx.common.configuration.ConfigurationField;

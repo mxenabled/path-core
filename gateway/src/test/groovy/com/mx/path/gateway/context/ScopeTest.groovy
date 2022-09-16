@@ -1,14 +1,17 @@
 package com.mx.path.gateway.context
 
-import static org.mockito.Mockito.*
+import static org.mockito.Mockito.doReturn
+import static org.mockito.Mockito.mock
+import static org.mockito.Mockito.spy
+import static org.mockito.Mockito.verify
 
 import com.google.gson.Gson
-import com.mx.accessors.Accessor
-import com.mx.accessors.AccessorConfiguration
+import com.mx.common.accessors.Accessor
+import com.mx.common.accessors.AccessorConfiguration
 import com.mx.common.collections.ObjectMap
+import com.mx.common.exception.GatewayException
 import com.mx.common.session.ServiceScope
 import com.mx.path.gateway.Gateway
-import com.mx.path.gateway.GatewayException
 import com.mx.path.model.context.Session
 import com.mx.path.model.context.store.SessionRepository
 import com.mx.testing.TestEncryptionService
