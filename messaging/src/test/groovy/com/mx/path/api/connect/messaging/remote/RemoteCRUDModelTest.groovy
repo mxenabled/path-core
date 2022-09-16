@@ -4,11 +4,10 @@ import static org.mockito.ArgumentMatchers.any
 import static org.mockito.ArgumentMatchers.eq
 import static org.mockito.Mockito.*
 
-import com.mx.common.http.HttpStatus
 import com.mx.common.messaging.MessageBroker
 import com.mx.common.messaging.MessageError
 import com.mx.common.messaging.MessageStatus
-import com.mx.models.MdxList
+import com.mx.common.models.MdxList
 import com.mx.path.api.connect.messaging.MessageResponse
 import com.mx.path.model.context.RequestContext
 import com.mx.path.model.context.facility.Facilities

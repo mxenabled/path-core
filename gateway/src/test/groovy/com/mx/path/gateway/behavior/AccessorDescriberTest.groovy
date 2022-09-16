@@ -1,16 +1,11 @@
 package com.mx.path.gateway.behavior
 
-import lombok.Data
-import lombok.Getter
-import lombok.Setter
 
 import com.google.gson.GsonBuilder
-import com.mx.accessors.API
-import com.mx.accessors.Accessor
-import com.mx.accessors.AccessorConfiguration
-import com.mx.accessors.AccessorException
-import com.mx.accessors.AccessorResponse
-import com.mx.accessors.AccessorResponseStatus
+import com.mx.common.accessors.API
+import com.mx.common.accessors.AccessorConfiguration
+import com.mx.common.accessors.AccessorResponse
+import com.mx.common.exception.AccessorMethodNotImplementedException
 import com.mx.common.gateway.GatewayAPI
 import com.mx.path.gateway.configuration.AccessorDescriber
 import com.mx.testing.AccountAccessorImpl
@@ -47,7 +42,7 @@ class AccessorDescriberTest extends Specification {
         return accounts;
       }
 
-      throw new AccessorException(AccessorResponseStatus.NOT_IMPLEMENTED);
+      throw new AccessorMethodNotImplementedException();
     }
   }
 

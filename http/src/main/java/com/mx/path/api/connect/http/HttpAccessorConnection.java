@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import com.mx.accessors.AccessorConnectionBase;
+import com.mx.common.accessors.AccessorConnectionBase;
 import com.mx.common.connect.RequestFilter;
 import com.mx.common.lang.Strings;
 import com.mx.common.request.Feature;

@@ -2,9 +2,9 @@ package com.mx.path.gateway.net.executors;
 
 import java.net.SocketTimeoutException;
 
+import com.mx.common.accessors.PathResponseStatus;
 import com.mx.common.http.HttpStatus;
 import com.mx.common.process.FaultTolerantExecutionException;
-import com.mx.common.process.FaultTolerantExecutionFailureStatus;
 import com.mx.common.process.FaultTolerantExecutor;
 import com.mx.path.gateway.context.GatewayRequestContext;
 import com.mx.path.gateway.net.HystrixConfigurations;
@@ -58,7 +58,7 @@ public class FaultTolerantRequestExecutor extends RequestExecutorBase {
         }
 
         response.withStatus(e.getStatus().toHttpStatus());
-        if (e.getStatus() == FaultTolerantExecutionFailureStatus.INTERNAL_ERROR) {
+        if (e.getStatus() == PathResponseStatus.INTERNAL_ERROR) {
           throw new MdxApiException("Upstream API request failure", e.getStatus().toHttpStatus(), false, e.getCause());
         } else {
           throw new MdxApiException("Upstream API request failure", e.getStatus().toHttpStatus(), false, e);

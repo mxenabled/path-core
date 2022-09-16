@@ -1,6 +1,6 @@
 package com.mx.path.gateway.configuration
 
-import com.mx.accessors.AccessorConfiguration
+import com.mx.common.accessors.AccessorConfiguration
 import com.mx.common.collections.ObjectMap
 import com.mx.common.connect.AccessorConnectionSettings
 import com.mx.testing.AccountAccessorImpl

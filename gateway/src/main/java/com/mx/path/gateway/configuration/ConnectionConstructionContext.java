@@ -10,9 +10,9 @@ import lombok.Getter;
 
 import com.mx.common.configuration.Configuration;
 import com.mx.common.connect.AccessorConnectionSettings;
+import com.mx.common.exception.GatewayException;
 import com.mx.common.reflection.Constructors;
 import com.mx.common.reflection.Fields;
-import com.mx.path.gateway.GatewayException;
 import com.mx.path.gateway.configuration.annotations.ClientID;
 import com.mx.path.gateway.configuration.annotations.Connection;
 

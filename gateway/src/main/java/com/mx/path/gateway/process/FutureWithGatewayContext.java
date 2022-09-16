@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 
-import com.mx.path.gateway.GatewayException;
+import com.mx.common.exception.GatewayException;
 
 /**
  * This class can be used to easily spin off an asynchronous future that handle Gateway context propagation. By default,

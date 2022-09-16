@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import com.mx.accessors.Accessor;
-import com.mx.path.gateway.GatewayException;
+import com.mx.common.accessors.Accessor;
+import com.mx.common.exception.GatewayException;
 import com.mx.path.gateway.configuration.annotations.AccessorScope;
 
 public class AccessorProxyMap {

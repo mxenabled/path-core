@@ -1,6 +1,6 @@
 package com.mx.gateway.configuration
 
-import com.mx.accessors.AccessorConfiguration
+import com.mx.common.accessors.AccessorConfiguration
 import com.mx.common.collections.ObjectMap
 import com.mx.path.gateway.accessor.proxy.AccountBaseAccessorProxyPrototype
 import com.mx.path.gateway.accessor.proxy.AccountBaseAccessorProxySingleton

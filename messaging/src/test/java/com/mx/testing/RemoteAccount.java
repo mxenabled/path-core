@@ -2,7 +2,7 @@ package com.mx.testing;
 
 import lombok.Data;
 
-import com.mx.models.MdxBase;
+import com.mx.common.models.MdxBase;
 
 @Data
 public class RemoteAccount extends MdxBase<RemoteAccount> {

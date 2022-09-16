@@ -2,7 +2,7 @@ package com.mx.testing;
 
 import lombok.Setter;
 
-import com.mx.accessors.AccessorConfiguration;
+import com.mx.common.accessors.AccessorConfiguration;
 import com.mx.testing.accessors.AccountBaseAccessor;
 import com.mx.testing.accessors.TransactionBaseAccessor;
 

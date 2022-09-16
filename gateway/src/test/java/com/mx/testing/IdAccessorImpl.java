@@ -1,7 +1,7 @@
 package com.mx.testing;
 
-import com.mx.accessors.AccessorConfiguration;
-import com.mx.accessors.AccessorResponse;
+import com.mx.common.accessors.AccessorConfiguration;
+import com.mx.common.accessors.AccessorResponse;
 import com.mx.testing.accessors.IdBaseAccessor;
 import com.mx.testing.model.Authentication;
 
