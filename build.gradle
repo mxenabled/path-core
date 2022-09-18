@@ -4,7 +4,6 @@ plugins {
   id "com.github.mxenabled.vogue" version "1.0.1"
   id "com.github.mxenabled.coppuccino" version "3.0.4" apply false
   id "com.github.mxenabled.hush" version "2.2.0" apply false
-  id "com.jfrog.artifactory" version "4.29.0" apply false
   id "io.freefair.lombok" version "6.5.1" apply false
 }
 
@@ -48,7 +47,6 @@ configure(project.subprojects) {
     apply plugin: "com.mx.hush"
     apply plugin: "com.mx.coppuccino"
     apply plugin: "com.mx.vogue"
-    apply plugin: "com.jfrog.artifactory"
     apply plugin: "io.freefair.lombok"
 
     dependencies {
@@ -86,36 +84,11 @@ configure(project.subprojects) {
         archives jar
     }
 
-    artifactory {
-        contextUrl = "https://artifactory.internal.mx:443"
-        publish {
-            repository {
-                repoKey = "gradle-local"
-                username = "gradle-write"
-                password = System.getenv("GRADLE_ARTIFACTORY_API_KEY")
-                maven = true
-            }
-            defaults { publications("mavenJava") }
-            publishBuildInfo = true
-            publishArtifacts = true
-            publishPom = true
-        }
-        resolve {
-            repository {
-                repoKey = "maven-local"
-                username = "maven-read"
-                maven = true
-            }
-        }
-    }
-
     publishing {
         publications {
             mavenJava(MavenPublication) { from components.java }
         }
     }
-
-    artifactoryPublish { dependsOn jar }
 }
 
 task spotlessApply {
