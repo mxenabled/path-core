@@ -30,10 +30,8 @@ public interface FaultTolerantExecutor {
    * none of the custom configurations should be selected and the defaults should be used.
    * </p>
    *
-   * @throws FaultTolerantExecutionException on failure.
-   *
    * @param scope
    * @param task
    */
-  void submit(String scope, FaultTolerantTask task) throws FaultTolerantExecutionException;
+  void submit(String scope, FaultTolerantTask task);
 }

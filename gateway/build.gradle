@@ -15,7 +15,6 @@ dependencies {
   api project(":common")
   api project(":context")
   api project(":messaging")
-  api "com.netflix.hystrix:hystrix-core:1.5.18"
   api "io.opentracing:opentracing-api:0.33.0"
   api "${project.property('xmlbindapi')}"
   api "${project.property('xmlsoapapi')}"
