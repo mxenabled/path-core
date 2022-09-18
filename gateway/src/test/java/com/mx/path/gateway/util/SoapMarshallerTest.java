@@ -11,6 +11,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 
+import com.mx.common.exception.RequestPayloadException;
+
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("checkstyle:magicnumber")
@@ -81,7 +83,7 @@ public class SoapMarshallerTest {
     try {
       SoapMarshaller.toEnvelope(wrappedRequestObject);
       fail("Should have thrown MdxApiException");
-    } catch (MdxApiException ex) {
+    } catch (RequestPayloadException ex) {
       assertEquals("Trying to marshall JAXBElement without specifying class. Use toEnvelope(Object requestObj, Class<?> klass) instead.", ex.getMessage());
     }
   }

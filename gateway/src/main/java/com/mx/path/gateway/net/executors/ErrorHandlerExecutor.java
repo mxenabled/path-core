@@ -1,9 +1,9 @@
 package com.mx.path.gateway.net.executors;
 
+import com.mx.common.exception.ConnectException;
 import com.mx.path.gateway.net.Request;
 import com.mx.path.gateway.net.Response;
 import com.mx.path.gateway.util.UpstreamLogger;
-import com.netflix.hystrix.exception.HystrixRuntimeException;
 
 /**
  * Handles request exceptions
@@ -12,7 +12,7 @@ import com.netflix.hystrix.exception.HystrixRuntimeException;
  * If Connection Failure, log call and rethrow
  * All other exceptions, placed in response
  * </p>
- * @deprecated Use {@link ErrorHandlerFilter}
+ * @deprecated Use {@link com.mx.path.gateway.connect.filters.ErrorHandlerFilter}
  */
 @Deprecated
 public class ErrorHandlerExecutor extends RequestExecutorBase {
@@ -41,7 +41,7 @@ public class ErrorHandlerExecutor extends RequestExecutorBase {
   public final void execute(Request request, Response response) {
     try {
       next(request, response);
-    } catch (HystrixRuntimeException e) {
+    } catch (ConnectException e) {
       response.withException(e);
 
       upstreamLogger.logRequest(response);
