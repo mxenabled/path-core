@@ -9,10 +9,10 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.mx.common.collections.MultiValueMap;
+import com.mx.common.exception.ConnectException;
 import com.mx.common.http.HttpStatus;
 import com.mx.path.gateway.net.Request;
 import com.mx.path.gateway.net.Response;
-import com.mx.path.gateway.net.UpstreamConnectionException;
 import com.mx.path.gateway.security.MutualAuthProvider;
 import com.mx.path.gateway.security.MutualAuthProviderFactory;
 
@@ -137,13 +137,13 @@ public class HttpClientExecutor extends RequestExecutorBase {
             response.finish();
           }
         } catch (IOException e) {
-          throw new UpstreamConnectionException(e);
+          throw new ConnectException("Unable to execute HttpClient connection", e);
         }
       }
-    } catch (UpstreamConnectionException e) {
+    } catch (ConnectException e) {
       throw e;
     } catch (RuntimeException | IOException | URISyntaxException e) {
-      throw new UpstreamConnectionException(e);
+      throw new ConnectException("Unable to build HttpClient connection", e);
     }
 
     next(request, response);

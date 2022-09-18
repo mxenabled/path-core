@@ -1,24 +1,20 @@
 package com.mx.path.gateway.util;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import lombok.Getter;
 import lombok.Setter;
 
+import com.mx.common.accessors.PathResponseStatus;
+import com.mx.common.exception.PathRequestException;
 import com.mx.common.http.HttpStatus;
 import com.mx.common.lang.Strings;
 
 /**
- * @deprecated This is moved here for backward compatibility. It will be removed. Use {@link ConnectException}
+ * @deprecated This will be removed in future update. See {@link PathRequestException} for details
  */
 @Deprecated
-public class MdxApiException extends RuntimeException {
+public class MdxApiException extends PathRequestException {
   private static final long serialVersionUID = 1L;
 
-  @Getter
-  @Setter
-  private HttpStatus status;
   @Getter
   @Setter
   private String clientId;
@@ -31,22 +27,6 @@ public class MdxApiException extends RuntimeException {
   @Getter
   @Setter
   private String errorKey;
-  @Getter
-  @Setter
-  private String userMessage;
-  @Setter
-  private boolean report;
-  @Getter
-  @Setter
-  private String reason;
-  @Setter
-  private String message;
-  @Getter
-  @Setter
-  private String errorTitle;
-
-  @Getter
-  private final Map<String, String> headers = new LinkedHashMap<>();
 
   /**
    * Exception used for stubbing methods that are not implemented in base interfaces
@@ -98,15 +78,14 @@ public class MdxApiException extends RuntimeException {
    * @param cause       - Throwable that MdxApiException wraps
    */
   public MdxApiException(String message, String clientId, HttpStatus status, String endpointKey, String errorKey, boolean reportError, Throwable cause) {
-    super(cause);
+    super(message, cause);
     this.setClientId(clientId);
     this.setEndpointKey(endpointKey);
     this.setErrorKey(errorKey);
-    this.setStatus(status);
-    this.setReport(reportError);
-    if (Strings.isNotBlank(message)) {
-      this.setMessage(message);
+    if (status != null) {
+      this.setStatus(status.toPathResponseStatus(PathResponseStatus.USER_ERROR));
     }
+    this.setReport(reportError);
   }
 
   /**
@@ -123,72 +102,14 @@ public class MdxApiException extends RuntimeException {
    */
   @SuppressWarnings("checkstyle:ParameterNumber")
   public MdxApiException(String message, String clientId, HttpStatus status, String errorTitle, String endpointKey, String errorKey, boolean reportError, Throwable cause) {
-    super(cause);
+    super(message, cause);
     this.setClientId(clientId);
     this.setEndpointKey(endpointKey);
     this.setErrorKey(errorKey);
-    this.setStatus(status);
+    this.setStatus(status.toPathResponseStatus(PathResponseStatus.USER_ERROR));
     this.setReport(reportError);
     if (Strings.isNotBlank(errorTitle)) {
       this.setErrorTitle(errorTitle);
     }
-    if (Strings.isNotBlank(message)) {
-      this.setMessage(message);
-    }
-  }
-
-  /**
-   * Used to add a header to be sent with error
-   * @param name
-   * @param value
-   * @return
-   */
-  public final MdxApiException withHeader(String name, String value) {
-    this.headers.put(name, value);
-
-    return this;
-  }
-
-  /**
-   * Used to append reason to userMessage
-   *
-   * @param newReason - String newReason for exception (for userMessage)
-   * @return - MdxApiException with newReason
-   */
-  public final MdxApiException withReason(String newReason) {
-    this.setReason(newReason);
-
-    return this;
-  }
-
-  /**
-   * Used to append MDX API error code to exception
-   *
-   * @param newCode - String api error code
-   * @return - MdxApiException with newCode
-   */
-  public final MdxApiException withCode(String newCode) {
-    setCode(newCode);
-
-    return this;
-  }
-
-  /**
-   * Report accessor fct for boolean
-   *
-   * @return boolean report
-   */
-  public final boolean shouldReport() {
-    return report;
-  }
-
-  /**
-   * Get internal MdxApiException message
-   *
-   * @return String message
-   */
-  @Override
-  public final String getMessage() {
-    return message;
   }
 }

@@ -1,39 +1,49 @@
-package com.mx.path.gateway.net.executors
+package com.mx.path.gateway.connect.filters
 
 import static org.mockito.Mockito.mock
 import static org.mockito.Mockito.verify
 import static org.mockito.Mockito.when
 
+import com.mx.common.connect.Request
+import com.mx.common.connect.RequestFilter
+import com.mx.common.connect.Response
 import com.mx.common.exception.TimeoutException
-import com.mx.path.gateway.net.Request
-import com.mx.path.gateway.net.Response
 import com.mx.path.gateway.util.UpstreamLogger
 
 import spock.lang.Specification
 
+class ErrorHandlerFilterTest extends Specification {
+  class TestRequest extends Request<TestRequest, TestResponse> {
+    @Override
+    TestResponse execute() {
+      return null
+    }
+  }
+  class TestResponse extends Response<TestRequest, TestResponse> {
+  }
 
-class ErrorHandlerExecutorTest extends Specification {
-  RequestExecutor nextExecutor
+  RequestFilter nextExecutor
   Request request
   Response response
-  ErrorHandlerExecutor subject
+  ErrorHandlerFilter subject
   UpstreamLogger upstreamLogger
 
   def setup() {
     upstreamLogger = mock(UpstreamLogger.class)
-    ErrorHandlerExecutor.setUpstreamLogger(upstreamLogger)
+    ErrorHandlerFilter.setUpstreamLogger(upstreamLogger)
   }
 
   def cleanup() {
-    ErrorHandlerExecutor.resetUpstreamLogger()
+    ErrorHandlerFilter.resetUpstreamLogger()
   }
 
   def "thrown exception sets response exception"() {
     given:
-    nextExecutor = mock(RequestExecutor.class)
+    nextExecutor = mock(RequestFilter.class)
     request = mock(Request.class)
-    response = new Response()
-    subject = new ErrorHandlerExecutor(nextExecutor)
+    response = new TestResponse()
+    subject = new ErrorHandlerFilter()
+    subject.setNext(nextExecutor)
     when(nextExecutor.execute(request, response)).thenThrow(new RuntimeException())
 
     when:
@@ -45,10 +55,11 @@ class ErrorHandlerExecutorTest extends Specification {
 
   def "ConnectException thrown exception bubbles up"() {
     given:
-    nextExecutor = mock(RequestExecutor.class)
+    nextExecutor = mock(RequestFilter.class)
     request = mock(Request.class)
-    response = new Response()
-    subject = new ErrorHandlerExecutor(nextExecutor)
+    response = new TestResponse()
+    subject = new ErrorHandlerFilter()
+    subject.setNext(nextExecutor)
     when(nextExecutor.execute(request, response)).thenThrow(new TimeoutException("bad robot!", new RuntimeException()))
 
     when:
