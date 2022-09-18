@@ -22,9 +22,16 @@ import com.mx.common.accessors.PathResponseStatus;
  *     {@link BehaviorException}
  *   {@link AccessorException}
  *     {@link AccessorUserException}
+ *       {@link ResourceNotFoundException}
+ *       {@link UnauthorizedException}
  *     {@link AccessorSystemException}
  *       {@link AccessorMethodNotImplementedException}
  *     {@link ConnectException}
+ *       {@link TimeoutException}
+ *       {@link ServiceUnavailableException}
+ *         {@link CircuitOpenException}
+ *       {@link TooManyRequestsException}
+ *       {@link UpstreamErrorException}
  *   {@link FacilityException}
  * </pre>
  * </p>
@@ -46,22 +53,7 @@ import com.mx.common.accessors.PathResponseStatus;
 public abstract class PathRequestException extends RuntimeException {
   @Getter
   @Setter
-  private PathResponseStatus status;
-
-  @Getter
-  @Setter
   private String code;
-
-  @Getter
-  @Setter
-  private String userMessage;
-
-  @Setter
-  private boolean report;
-
-  @Getter
-  @Setter
-  private String reason;
 
   @Getter
   @Setter
@@ -69,6 +61,21 @@ public abstract class PathRequestException extends RuntimeException {
 
   @Getter
   private final Map<String, String> headers = new LinkedHashMap<>();
+
+  @Getter
+  @Setter
+  private String reason;
+
+  @Setter
+  private boolean report;
+
+  @Getter
+  @Setter
+  private PathResponseStatus status;
+
+  @Getter
+  @Setter
+  private String userMessage;
 
   public PathRequestException() {
     super();
@@ -87,18 +94,6 @@ public abstract class PathRequestException extends RuntimeException {
   }
 
   /**
-   * Used to append reason to userMessage
-   *
-   * @param newReason - String newReason for exception (for userMessage)
-   * @return - AccessorException with newReason
-   */
-  public final PathRequestException withReason(String newReason) {
-    this.setReason(newReason);
-
-    return this;
-  }
-
-  /**
    * Used to append MDX API error code to exception
    *
    * @param newCode - String api error code
@@ -106,6 +101,12 @@ public abstract class PathRequestException extends RuntimeException {
    */
   public final PathRequestException withCode(String newCode) {
     setCode(newCode);
+
+    return this;
+  }
+
+  public final PathRequestException withErrorTitle(String newErrorTitle) {
+    setErrorTitle(newErrorTitle);
 
     return this;
   }
@@ -118,6 +119,36 @@ public abstract class PathRequestException extends RuntimeException {
    */
   public final PathRequestException withHeader(String name, String value) {
     this.headers.put(name, value);
+
+    return this;
+  }
+
+  /**
+   * Used to append reason to userMessage
+   *
+   * @param newReason - String newReason for exception (for userMessage)
+   * @return - AccessorException with newReason
+   */
+  public final PathRequestException withReason(String newReason) {
+    this.setReason(newReason);
+
+    return this;
+  }
+
+  public final PathRequestException withReport(boolean shouldReport) {
+    this.setReport(shouldReport);
+
+    return this;
+  }
+
+  public final PathRequestException withStatus(PathResponseStatus newStatus) {
+    this.setStatus(newStatus);
+
+    return this;
+  }
+
+  public final PathRequestException withUserMessage(String newUserMessage) {
+    this.setUserMessage(newUserMessage);
 
     return this;
   }

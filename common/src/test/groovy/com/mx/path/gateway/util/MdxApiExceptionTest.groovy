@@ -18,8 +18,8 @@ class MdxApiExceptionTest extends Specification {
 
     then: "status is saved, all else null"
     subject.getCause() == null
-    subject.getStatus() == HttpStatus.UNPROCESSABLE_ENTITY
-    subject.getMessage() == null
+    subject.getStatus().toHttpStatus() == HttpStatus.UNPROCESSABLE_ENTITY
+    subject.getMessage() == ""
     subject.getUserMessage() == null
     subject.getClientId() == null
     subject.getEndpointKey() == null
@@ -32,7 +32,7 @@ class MdxApiExceptionTest extends Specification {
 
     then: "given field values are saved and reporting is turned on"
     subject.getMessage() == "the message"
-    subject.getStatus() == HttpStatus.BAD_REQUEST
+    subject.getStatus().toHttpStatus() == HttpStatus.BAD_REQUEST
     subject.getCause() == cause
     subject.getEndpointKey() == null
     subject.getErrorKey() == null
@@ -56,7 +56,7 @@ class MdxApiExceptionTest extends Specification {
     subject.getMessage() == "the message"
     subject.cause == cause
     subject.shouldReport()
-    subject.getStatus() == HttpStatus.BAD_REQUEST
+    subject.getStatus().toHttpStatus() == HttpStatus.BAD_REQUEST
     subject.getEndpointKey() == "feature"
     subject.getClientId() == "testClient"
     subject.getErrorKey() == "errorCode"
@@ -84,7 +84,7 @@ class MdxApiExceptionTest extends Specification {
     expect:
     subject.getMessage() == "Internal err msg"
     subject.getUserMessage() == "External err msg"
-    subject.getStatus() == HttpStatus.BAD_REQUEST
+    subject.getStatus().toHttpStatus() == HttpStatus.BAD_REQUEST
     subject.shouldReport()
     subject.getCause().getMessage() == "some throwable"
     subject.getErrorKey() == null

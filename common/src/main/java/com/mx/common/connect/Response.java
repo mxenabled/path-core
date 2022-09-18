@@ -55,6 +55,15 @@ public abstract class Response<REQ extends Request<?, ?>, RESP extends Response<
   @Setter
   private HttpStatus status;
 
+  /**
+   * Throw existing exception or throw new exception if response status is an error
+   * @deprecated It is a bad practice to just re-raise an exception with the status of an upstream response. The error
+   * should be translated and an appropriate exception should be thrown. If this behavior needs to be maintained
+   * it can be added to the connection code where it is needed. This will be removed in future release.
+   *
+   * @throws MdxApiException
+   */
+  @Deprecated
   public final void checkStatus() throws MdxApiException {
     if (exception != null || getStatus() == null) {
       throw new MdxApiException("Request threw an exception", HttpStatus.INTERNAL_SERVER_ERROR, true, exception);
@@ -64,7 +73,16 @@ public abstract class Response<REQ extends Request<?, ?>, RESP extends Response<
     }
   }
 
-  // The execFunc was expected to throw MDXApi Exception with its own implementation
+  /**
+   * Throw existing exception or throw new exception if response status is an error
+   * @deprecated It is a bad practice to just re-raise an exception with the status of an upstream response. The error
+   * should be translated and an appropriate exception should be thrown. If this behavior needs to be maintained
+   * it can be added to the connection code where it is needed. This will be removed in future release.
+   *
+   * @param execFunc was expected to throw MDXApi Exception with its own implementation
+   * @throws MdxApiException
+   */
+  @Deprecated
   public final void checkStatus(Supplier execFunc) throws MdxApiException {
     if (exception != null || getStatus() == null) {
       throw new MdxApiException("Request threw an exception", HttpStatus.INTERNAL_SERVER_ERROR, true, exception);
