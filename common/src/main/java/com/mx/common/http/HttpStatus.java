@@ -19,7 +19,14 @@
 
 package com.mx.common.http;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Nullable;
+
+import com.mx.common.accessors.PathResponseStatus;
+import com.mx.common.exception.InvalidStateException;
 
 /**
  * Enumeration of HTTP status codes.
@@ -527,6 +534,117 @@ public enum HttpStatus {
   @Override
   public String toString() {
     return this.value + " " + name();
+  }
+
+  /**
+   * Attempt to coerce this HttpStatus to a PathResponseStatus.
+   * @param defaultStatus Value to return if value does not resolve to a PathResponseStatus
+   * @return
+   */
+  public PathResponseStatus toPathResponseStatus(PathResponseStatus defaultStatus) {
+    PathResponseStatus resolved = PathResponseStatus.resolve(value());
+    if (resolved == null) {
+      return defaultStatus;
+    }
+    return resolved;
+  }
+
+  /**
+   * Attempt to coerce this HttpStatus to a PathResponseStatus using pre-determined approximate mappings.
+   * @return approximately equivalent
+   */
+  public PathResponseStatus toPathResponseStatus() {
+    PathResponseStatus resolved = PathResponseStatus.resolve(value());
+    if (resolved == null) {
+      resolved = HTTP_STATUS_PATH_RESPONSE_STATUS_MAP.get(this);
+    }
+    return resolved;
+  }
+
+  /**
+   * Mapping used to convert HttpStatus to a reasonable PathResponseStatus
+   */
+  private static final Map<HttpStatus, PathResponseStatus> HTTP_STATUS_PATH_RESPONSE_STATUS_MAP;
+  static {
+    Map<HttpStatus, PathResponseStatus> map = new HashMap<>();
+    map.put(HttpStatus.CONTINUE, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.SWITCHING_PROTOCOLS, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.PROCESSING, PathResponseStatus.OK);
+    map.put(HttpStatus.CHECKPOINT, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.OK, PathResponseStatus.OK);
+    map.put(HttpStatus.CREATED, PathResponseStatus.OK);
+    map.put(HttpStatus.ACCEPTED, PathResponseStatus.ACCEPTED);
+    map.put(HttpStatus.NON_AUTHORITATIVE_INFORMATION, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.NO_CONTENT, PathResponseStatus.NO_CONTENT);
+    map.put(HttpStatus.RESET_CONTENT, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.PARTIAL_CONTENT, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.MULTI_STATUS, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.ALREADY_REPORTED, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.IM_USED, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.MULTIPLE_CHOICES, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.MOVED_PERMANENTLY, PathResponseStatus.NOT_FOUND);
+    map.put(HttpStatus.FOUND, PathResponseStatus.OK);
+    map.put(HttpStatus.MOVED_TEMPORARILY, PathResponseStatus.NOT_FOUND);
+    map.put(HttpStatus.SEE_OTHER, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.NOT_MODIFIED, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.USE_PROXY, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.TEMPORARY_REDIRECT, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.PERMANENT_REDIRECT, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.BAD_REQUEST, PathResponseStatus.BAD_REQUEST);
+    map.put(HttpStatus.UNAUTHORIZED, PathResponseStatus.UNAUTHORIZED);
+    map.put(HttpStatus.PAYMENT_REQUIRED, PathResponseStatus.UNAUTHORIZED);
+    map.put(HttpStatus.FORBIDDEN, PathResponseStatus.NOT_ALLOWED);
+    map.put(HttpStatus.NOT_FOUND, PathResponseStatus.NOT_FOUND);
+    map.put(HttpStatus.METHOD_NOT_ALLOWED, PathResponseStatus.NOT_ALLOWED);
+    map.put(HttpStatus.NOT_ACCEPTABLE, PathResponseStatus.USER_ERROR);
+    map.put(HttpStatus.PROXY_AUTHENTICATION_REQUIRED, PathResponseStatus.UNAUTHORIZED);
+    map.put(HttpStatus.REQUEST_TIMEOUT, PathResponseStatus.TIMEOUT);
+    map.put(HttpStatus.CONFLICT, PathResponseStatus.NOT_ALLOWED);
+    map.put(HttpStatus.GONE, PathResponseStatus.NOT_FOUND);
+    map.put(HttpStatus.LENGTH_REQUIRED, PathResponseStatus.BAD_REQUEST);
+    map.put(HttpStatus.PRECONDITION_FAILED, PathResponseStatus.USER_ERROR);
+    map.put(HttpStatus.PAYLOAD_TOO_LARGE, PathResponseStatus.BAD_REQUEST);
+    map.put(HttpStatus.REQUEST_ENTITY_TOO_LARGE, PathResponseStatus.BAD_REQUEST);
+    map.put(HttpStatus.URI_TOO_LONG, PathResponseStatus.BAD_REQUEST);
+    map.put(HttpStatus.REQUEST_URI_TOO_LONG, PathResponseStatus.BAD_REQUEST);
+    map.put(HttpStatus.UNSUPPORTED_MEDIA_TYPE, PathResponseStatus.BAD_REQUEST);
+    map.put(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE, PathResponseStatus.USER_ERROR);
+    map.put(HttpStatus.EXPECTATION_FAILED, PathResponseStatus.USER_ERROR);
+    map.put(HttpStatus.I_AM_A_TEAPOT, PathResponseStatus.OK);
+    map.put(HttpStatus.INSUFFICIENT_SPACE_ON_RESOURCE, PathResponseStatus.INTERNAL_ERROR);
+    map.put(HttpStatus.METHOD_FAILURE, PathResponseStatus.INTERNAL_ERROR);
+    map.put(HttpStatus.DESTINATION_LOCKED, PathResponseStatus.NOT_ALLOWED);
+    map.put(HttpStatus.UNPROCESSABLE_ENTITY, PathResponseStatus.USER_ERROR);
+    map.put(HttpStatus.LOCKED, PathResponseStatus.NOT_ALLOWED);
+    map.put(HttpStatus.FAILED_DEPENDENCY, PathResponseStatus.USER_ERROR);
+    map.put(HttpStatus.TOO_EARLY, PathResponseStatus.NOT_ALLOWED);
+    map.put(HttpStatus.UPGRADE_REQUIRED, PathResponseStatus.USER_ERROR);
+    map.put(HttpStatus.PRECONDITION_REQUIRED, PathResponseStatus.USER_ERROR);
+    map.put(HttpStatus.TOO_MANY_REQUESTS, PathResponseStatus.TOO_MANY_REQUESTS);
+    map.put(HttpStatus.REQUEST_HEADER_FIELDS_TOO_LARGE, PathResponseStatus.BAD_REQUEST);
+    map.put(HttpStatus.UNAVAILABLE_FOR_LEGAL_REASONS, PathResponseStatus.NOT_ALLOWED);
+    map.put(HttpStatus.INTERNAL_SERVER_ERROR, PathResponseStatus.INTERNAL_ERROR);
+    map.put(HttpStatus.NOT_IMPLEMENTED, PathResponseStatus.NOT_IMPLEMENTED);
+    map.put(HttpStatus.BAD_GATEWAY, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.SERVICE_UNAVAILABLE, PathResponseStatus.UNAVAILABLE);
+    map.put(HttpStatus.GATEWAY_TIMEOUT, PathResponseStatus.TIMEOUT);
+    map.put(HttpStatus.HTTP_VERSION_NOT_SUPPORTED, PathResponseStatus.BAD_REQUEST);
+    map.put(HttpStatus.VARIANT_ALSO_NEGOTIATES, PathResponseStatus.NOT_ALLOWED);
+    map.put(HttpStatus.INSUFFICIENT_STORAGE, PathResponseStatus.INTERNAL_ERROR);
+    map.put(HttpStatus.LOOP_DETECTED, PathResponseStatus.INTERNAL_ERROR);
+    map.put(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED, PathResponseStatus.OK);
+    map.put(HttpStatus.NOT_EXTENDED, PathResponseStatus.INTERNAL_ERROR);
+    map.put(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED, PathResponseStatus.NOT_ALLOWED);
+
+    // This is just a sanity check to make sure we don't accidentally create a bad mapping.
+    map.forEach((httpStatus, pathResponseStatus) -> {
+      PathResponseStatus resolved = PathResponseStatus.resolve(httpStatus.value);
+      if (resolved != null && resolved != pathResponseStatus) {
+        throw new InvalidStateException("HttpStatus to PathResponseStatus mappings incorrect. Value for existing PathResponseStatus(" + pathResponseStatus.name() + ") must match value for mapped HttpStatus(" + httpStatus.name() + ")");
+      }
+    });
+
+    HTTP_STATUS_PATH_RESPONSE_STATUS_MAP = Collections.unmodifiableMap(map);
   }
 
   /**

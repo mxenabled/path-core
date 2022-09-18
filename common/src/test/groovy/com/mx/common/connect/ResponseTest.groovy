@@ -154,7 +154,7 @@ class ResponseTest extends Specification {
     def ex = thrown(MdxApiException)
     ex == exception
     ex.getCause() == cause
-    ex.getStatus() == HttpStatus.INTERNAL_SERVER_ERROR
+    ex.getStatus().toHttpStatus() == HttpStatus.INTERNAL_SERVER_ERROR
     ex.getMessage() == "Something happened"
     ex.shouldReport()
   }

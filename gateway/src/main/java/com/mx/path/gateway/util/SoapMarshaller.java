@@ -16,7 +16,8 @@ import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
-import com.mx.common.http.HttpStatus;
+import com.mx.common.exception.RequestPayloadException;
+import com.mx.common.exception.ResponsePayloadException;
 
 /**
  * Static methods for marshalling to and from SOAP Envelopes
@@ -39,7 +40,7 @@ public class SoapMarshaller {
    */
   public static String toEnvelope(Object requestObj) {
     if (requestObj instanceof JAXBElement) {
-      throw new MdxApiException("Trying to marshall JAXBElement without specifying class. Use toEnvelope(Object requestObj, Class<?> klass) instead.", HttpStatus.INTERNAL_SERVER_ERROR, true, null);
+      throw new RequestPayloadException("Trying to marshall JAXBElement without specifying class. Use toEnvelope(Object requestObj, Class<?> klass) instead.", null);
     }
     return toEnvelope(requestObj, requestObj.getClass());
   }
@@ -98,7 +99,7 @@ public class SoapMarshaller {
 
       return new String(outputStream.toByteArray(), StandardCharsets.UTF_8);
     } catch (IOException | JAXBException | SOAPException ex) {
-      throw new MdxApiException(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, true, ex);
+      throw new RequestPayloadException(ex.getMessage(), ex);
     }
   }
 
@@ -123,7 +124,7 @@ public class SoapMarshaller {
 
       return response.getValue();
     } catch (JAXBException | IOException | SOAPException ex) {
-      throw new MdxApiException(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, true, ex);
+      throw new ResponsePayloadException(ex.getMessage(), ex);
     }
   }
 
