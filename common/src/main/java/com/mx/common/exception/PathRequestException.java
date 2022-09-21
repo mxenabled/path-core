@@ -62,27 +62,31 @@ public abstract class PathRequestException extends RuntimeException {
   @Getter
   private final Map<String, String> headers = new LinkedHashMap<>();
 
+  @Setter
+  private String message = "Unknown error";
+
   @Getter
   @Setter
   private String reason;
 
   @Setter
-  private boolean report;
+  private boolean report = true;
 
   @Getter
   @Setter
-  private PathResponseStatus status;
+  private PathResponseStatus status = PathResponseStatus.INTERNAL_ERROR;
 
   @Getter
   @Setter
   private String userMessage;
 
   public PathRequestException() {
-    super();
+    this("Unknown error");
   }
 
   public PathRequestException(String message) {
-    super(message == null ? "" : message);
+    super(message);
+    setMessage(message);
   }
 
   public PathRequestException(Throwable cause) {
@@ -90,7 +94,20 @@ public abstract class PathRequestException extends RuntimeException {
   }
 
   public PathRequestException(String message, Throwable cause) {
-    super(message == null ? "" : message, cause);
+    super(message, cause);
+    setMessage(message);
+  }
+
+  /**
+   * Set message
+   * <p>
+   *   Note: {@link PathRequestException} overrides base exception message to allow it to be overridden.
+   * </p>
+   * @return
+   */
+  @Override
+  public String getMessage() {
+    return this.message;
   }
 
   /**
@@ -113,12 +130,25 @@ public abstract class PathRequestException extends RuntimeException {
 
   /**
    * Used to add a header to be sent with error
+   *
    * @param name
    * @param value
    * @return
    */
   public final PathRequestException withHeader(String name, String value) {
     this.headers.put(name, value);
+
+    return this;
+  }
+
+  /**
+   * Used to override message on exception
+   *
+   * @param newMessage
+   * @return
+   */
+  public final PathRequestException withMessage(String newMessage) {
+    this.setMessage(newMessage);
 
     return this;
   }
