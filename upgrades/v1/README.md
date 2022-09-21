@@ -39,3 +39,7 @@ There wasn't a perfect way to do this without making a bigger mess. To fix this 
 ```java
   import com.mx.common.exception.AccessorMethodNotImplementedException;
 ```
+
+#### cannot find symbol StoreMutex or SessionRepositoryMutex
+
+StoreMutex and SessionRepositoryMutex have been removed. See com.mx.path.model.context.store.StoreLock for replacement.

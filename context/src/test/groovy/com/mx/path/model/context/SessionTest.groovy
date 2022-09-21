@@ -390,13 +390,4 @@ class SessionTest extends Specification {
     expect:
     1 == subject.getAccountBehaviors().getAccountBehaviors().size()
   }
-
-  def "lock returns a SessionMutex for the given key"() {
-    when:
-    SessionRepositoryMutex lock = subject.lock("key1")
-
-    then:
-    lock instanceof SessionRepositoryMutex
-    lock.getKey() == "key1"
-  }
 }
