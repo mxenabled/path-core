@@ -641,13 +641,6 @@ public class Session implements SessionInfo {
     return gson.fromJson(get(scope, key), klass);
   }
 
-  public final SessionMutex lock(String key) {
-    SessionRepositoryMutex lock = new SessionRepositoryMutex(getRepository(), key);
-    lock.request();
-
-    return lock;
-  }
-
   /**
    * Put a key/value pair
    * @param key
