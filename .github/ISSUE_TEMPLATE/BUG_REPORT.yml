@@ -1,0 +1,51 @@
+name: "🐛 Bug Report"
+description: Create a new ticket for a bug.
+title: "🐛 [BUG] - <title>"
+labels: [
+  "bug"
+]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: Please enter an explicit description of your issue
+      placeholder: Short and explicit description of your incident...
+    validations:
+      required: true
+  - type: input
+    id: jdk
+    attributes:
+      label: "JDK Distro and Version"
+      description: Please enter the JDK distrobution and version you are use (output of "java -version")
+      placeholder: ex. openjdk version "1.8.0_272"
+    validations:
+      required: true
+  - type: textarea
+    id: code
+    attributes:
+      label: "Code"
+      description: Provide a snippet of code that demonstrates how the Path SDK is being used
+      render: java
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: "Logs"
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: bash
+    validations:
+      required: false
+  - type: dropdown
+    id: os
+    attributes:
+      label: "OS"
+      description: What is the impacted environment ?
+      multiple: true
+      options:
+        - Windows
+        - Linux
+        - Mac
+    validations:
+      required: false
