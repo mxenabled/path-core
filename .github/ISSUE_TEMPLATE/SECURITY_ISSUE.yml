@@ -2,7 +2,7 @@ name: "🐛 Security Report"
 description: Create a new ticket for a security issue.
 title: "🐛 [SECURITY] - <title>"
 labels: [
-  "security"
+  "CVE"
 ]
 assignees:
   - mxenabled/infosec
