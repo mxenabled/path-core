@@ -19,7 +19,7 @@ class MdxApiExceptionTest extends Specification {
     then: "status is saved, all else null"
     subject.getCause() == null
     subject.getStatus().toHttpStatus() == HttpStatus.UNPROCESSABLE_ENTITY
-    subject.getMessage() == ""
+    subject.getMessage() == null
     subject.getUserMessage() == null
     subject.getClientId() == null
     subject.getEndpointKey() == null
@@ -102,5 +102,19 @@ class MdxApiExceptionTest extends Specification {
     subject.headers.size() == 2
     subject.headers.get("header1") == "value1"
     subject.headers.get("header2") == "value2"
+  }
+
+  def "setMessage"() {
+    when:
+    def subject = new MdxApiException("Original message", "User message", HttpStatus.OK, false, null)
+
+    then:
+    subject.getMessage() == "Original message"
+
+    when:
+    subject.setMessage("New message")
+
+    then:
+    subject.getMessage() == "New message"
   }
 }
