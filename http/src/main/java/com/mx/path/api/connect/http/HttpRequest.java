@@ -1,8 +1,8 @@
 package com.mx.path.api.connect.http;
 
+import com.mx.common.accessors.AccessorSystemException;
 import com.mx.common.connect.Request;
 import com.mx.common.connect.RequestFilter;
-import com.mx.common.exception.AccessorSystemException;
 
 public class HttpRequest extends Request<HttpRequest, HttpResponse> {
 

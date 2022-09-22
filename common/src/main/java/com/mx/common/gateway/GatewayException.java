@@ -1,6 +1,7 @@
-package com.mx.common.exception;
+package com.mx.common.gateway;
 
 import com.mx.common.accessors.PathResponseStatus;
+import com.mx.common.exception.PathRequestException;
 
 /**
  * Thrown on unrecoverable error in Gateway code.

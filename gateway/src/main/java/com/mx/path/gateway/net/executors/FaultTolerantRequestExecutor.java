@@ -1,6 +1,6 @@
 package com.mx.path.gateway.net.executors;
 
-import com.mx.common.exception.ConnectException;
+import com.mx.common.connect.ConnectException;
 import com.mx.common.http.HttpStatus;
 import com.mx.common.process.FaultTolerantExecutor;
 import com.mx.path.gateway.context.GatewayRequestContext;

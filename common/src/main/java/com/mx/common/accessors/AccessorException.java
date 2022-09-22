@@ -1,6 +1,6 @@
-package com.mx.common.exception;
+package com.mx.common.accessors;
 
-import com.mx.common.accessors.PathResponseStatus;
+import com.mx.common.exception.PathRequestException;
 
 /**
  * Base class for exceptions thrown by accessors

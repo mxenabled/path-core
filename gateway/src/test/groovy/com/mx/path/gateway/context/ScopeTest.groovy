@@ -9,7 +9,7 @@ import com.google.gson.Gson
 import com.mx.common.accessors.Accessor
 import com.mx.common.accessors.AccessorConfiguration
 import com.mx.common.collections.ObjectMap
-import com.mx.common.exception.GatewayException
+import com.mx.common.gateway.GatewayException
 import com.mx.common.session.ServiceScope
 import com.mx.path.gateway.Gateway
 import com.mx.path.model.context.Session

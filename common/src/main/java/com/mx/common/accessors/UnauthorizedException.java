@@ -1,6 +1,6 @@
-package com.mx.common.exception;
+package com.mx.common.accessors;
 
-import com.mx.common.accessors.PathResponseStatus;
+import com.mx.common.exception.PathRequestException;
 
 /**
  * Thrown when a user attempts an operation when they are not authenticated, the session is expired, or the session is

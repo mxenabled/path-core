@@ -1,6 +1,7 @@
-package com.mx.common.exception;
+package com.mx.common.connect;
 
 import com.mx.common.accessors.PathResponseStatus;
+import com.mx.common.exception.PathRequestException;
 
 /**
  * Thrown on error in connection code
@@ -13,7 +14,7 @@ import com.mx.common.accessors.PathResponseStatus;
  *   See {@link PathRequestException} for usage details
  * </p>
  */
-public class ConnectException extends AccessorException {
+public class ConnectException extends PathRequestException {
   private static final long serialVersionUID = 1L;
 
   public ConnectException(String message, Throwable cause) {
