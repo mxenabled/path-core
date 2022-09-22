@@ -1,4 +1,6 @@
-package com.mx.common.exception;
+package com.mx.common.exception.request.accessor;
+
+import com.mx.common.exception.request.PathRequestException;
 
 /**
  * Thrown when request payload cannot be built

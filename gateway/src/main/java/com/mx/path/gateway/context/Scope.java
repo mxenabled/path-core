@@ -1,7 +1,7 @@
 package com.mx.path.gateway.context;
 
 import com.mx.common.accessors.Accessor;
-import com.mx.common.exception.GatewayException;
+import com.mx.common.exception.request.gateway.GatewayException;
 import com.mx.common.session.ServiceScope;
 import com.mx.path.gateway.configuration.AccessorProxy;
 import com.mx.path.model.context.ScopeKeyGenerator;

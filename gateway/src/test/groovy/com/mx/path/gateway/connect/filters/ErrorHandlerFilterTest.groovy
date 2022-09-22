@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when
 import com.mx.common.connect.Request
 import com.mx.common.connect.RequestFilter
 import com.mx.common.connect.Response
-import com.mx.common.exception.TimeoutException
+import com.mx.common.exception.request.accessor.connect.TimeoutException
 import com.mx.path.gateway.util.UpstreamLogger
 
 import spock.lang.Specification

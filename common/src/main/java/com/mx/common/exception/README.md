@@ -6,7 +6,7 @@ Throwing the correct exception is vital for the Path system to behave in an expe
 
 ### System
 
-[PathSystemException](./PathSystemException.java) type exceptions are typically thrown at application boot time, when the Path gateway is being configured for use. It is mostly used to convey configuration issues or unexpected states.
+[PathSystemException](./system/PathSystemException.java) type exceptions are typically thrown at application boot time, when the Path gateway is being configured for use. It is mostly used to convey configuration issues or unexpected states.
 
 Example:
 
@@ -21,7 +21,7 @@ try {
 
 ### Request
 
-[PathRequestException](./PathRequestException.java) type exceptions are thrown on errors when _using_ the Path Gateway.
+[PathRequestException](./request/PathRequestException.java) type exceptions are thrown on errors when _using_ the Path Gateway.
 
 Example:
 
@@ -33,13 +33,13 @@ try{
 }
 ```
 
-All request-type exceptions are children of [PathRequestException](./PathRequestException.java). When choosing the correct exception to throw in a given situation, it is better to use the more specific exceptions and avoid using the high-level exceptions like `PathRequestException` or `AccessorException`. If an appropriate exception does not exist, the creation of a new exception is encouraged, and the new exception should derive from the appropriate, existing exception. If the situation is likely to appear in other accessors, we may want to add the exception to the SDK for use in other accessors. If the situation is very specific to the current accessor, a custom exception can be created and kept in accessor repo.
+All request-type exceptions are children of [PathRequestException](./request/PathRequestException.java). When choosing the correct exception to throw in a given situation, it is better to use the more specific exceptions and avoid using the high-level exceptions like `PathRequestException` or `AccessorException`. If an appropriate exception does not exist, the creation of a new exception is encouraged, and the new exception should derive from the appropriate, existing exception. If the situation is likely to appear in other accessors, we may want to add the exception to the SDK for use in other accessors. If the situation is very specific to the current accessor, a custom exception can be created and kept in accessor repo.
 
 Example:
 
 ```java
 import com.mx.common.accessors.PathResponseStatus;
-import com.mx.common.exception.AccessorUserException;
+import com.mx.common.exception.request.accessor.AccessorUserException;
 
 public class AccountLockedException extends AccessorUserException {
   public AccountLockedException() {

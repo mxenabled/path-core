@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder
 import com.mx.common.accessors.API
 import com.mx.common.accessors.AccessorConfiguration
 import com.mx.common.accessors.AccessorResponse
-import com.mx.common.exception.AccessorMethodNotImplementedException
+import com.mx.common.exception.request.accessor.AccessorMethodNotImplementedException
 import com.mx.common.gateway.GatewayAPI
 import com.mx.path.gateway.configuration.AccessorDescriber
 import com.mx.testing.AccountAccessorImpl

@@ -19,7 +19,7 @@ import com.mx.common.collections.ObjectArray;
 import com.mx.common.collections.ObjectMap;
 import com.mx.common.configuration.Configuration;
 import com.mx.common.connect.AccessorConnectionSettings;
-import com.mx.common.exception.GatewayException;
+import com.mx.common.exception.request.gateway.GatewayException;
 import com.mx.common.serialization.ObjectMapJsonDeserializer;
 import com.mx.path.gateway.configuration.annotations.ClientID;
 import com.mx.path.gateway.configuration.annotations.Connection;

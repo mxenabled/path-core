@@ -7,7 +7,7 @@ import static org.mockito.Mockito.verify
 
 import java.util.concurrent.Executors
 
-import com.mx.common.exception.GatewayException
+import com.mx.common.exception.request.gateway.GatewayException
 import com.mx.path.model.context.RequestContext
 import com.mx.path.model.context.Session
 import com.mx.path.model.context.store.SessionRepository

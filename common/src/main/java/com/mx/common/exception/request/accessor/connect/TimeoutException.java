@@ -1,6 +1,7 @@
-package com.mx.common.exception;
+package com.mx.common.exception.request.accessor.connect;
 
 import com.mx.common.accessors.PathResponseStatus;
+import com.mx.common.exception.request.PathRequestException;
 
 /**
  * Thrown on a connection/request timeout

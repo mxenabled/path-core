@@ -13,7 +13,7 @@ import com.mx.common.collections.SingleValueMap;
 import com.mx.common.connect.Request;
 import com.mx.common.connect.RequestFilterBase;
 import com.mx.common.connect.Response;
-import com.mx.common.exception.ConnectException;
+import com.mx.common.exception.request.accessor.connect.ConnectException;
 import com.mx.common.http.HttpStatus;
 import com.mx.path.api.connect.http.certificates.MutualAuthProvider;
 import com.mx.path.api.connect.http.certificates.MutualAuthProviderFactory;

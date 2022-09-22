@@ -1,6 +1,8 @@
-package com.mx.common.exception;
+package com.mx.common.exception.request.accessor.connect;
 
 import com.mx.common.accessors.PathResponseStatus;
+import com.mx.common.exception.request.PathRequestException;
+import com.mx.common.exception.request.accessor.AccessorException;
 
 /**
  * Thrown on error in connection code

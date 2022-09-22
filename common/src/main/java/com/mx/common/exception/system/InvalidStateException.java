@@ -1,4 +1,4 @@
-package com.mx.common.exception;
+package com.mx.common.exception.system;
 
 /**
  * Thrown when invalid code state is detected, at boot time.

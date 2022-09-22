@@ -1,6 +1,6 @@
 package com.mx.path.gateway.net.executors;
 
-import com.mx.common.exception.ConnectException;
+import com.mx.common.exception.request.accessor.connect.ConnectException;
 import com.mx.path.gateway.net.Request;
 import com.mx.path.gateway.net.Response;
 import com.mx.path.gateway.util.UpstreamLogger;

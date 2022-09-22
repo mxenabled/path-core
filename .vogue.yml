@@ -1,2 +1,6 @@
 ---
 defaultRules: {}
+packageRules:
+  -
+    package: "com.github.mxenabled.*"
+    suppressUntil: 2022-10-01

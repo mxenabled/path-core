@@ -1,4 +1,4 @@
-package com.mx.common.exception;
+package com.mx.common.exception.request;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -7,6 +7,22 @@ import lombok.Getter;
 import lombok.Setter;
 
 import com.mx.common.accessors.PathResponseStatus;
+import com.mx.common.exception.request.accessor.AccessorException;
+import com.mx.common.exception.request.accessor.AccessorMethodNotImplementedException;
+import com.mx.common.exception.request.accessor.AccessorSystemException;
+import com.mx.common.exception.request.accessor.AccessorUserException;
+import com.mx.common.exception.request.accessor.ResourceNotFoundException;
+import com.mx.common.exception.request.accessor.UnauthorizedException;
+import com.mx.common.exception.request.accessor.connect.CircuitOpenException;
+import com.mx.common.exception.request.accessor.connect.ConnectException;
+import com.mx.common.exception.request.accessor.connect.ServiceUnavailableException;
+import com.mx.common.exception.request.accessor.connect.TimeoutException;
+import com.mx.common.exception.request.accessor.connect.TooManyRequestsException;
+import com.mx.common.exception.request.accessor.connect.UpstreamErrorException;
+import com.mx.common.exception.request.facility.FacilityException;
+import com.mx.common.exception.request.gateway.BehaviorException;
+import com.mx.common.exception.request.gateway.GatewayException;
+import com.mx.common.exception.system.PathSystemException;
 
 /**
  * Base exception for any request-based error. These are errors that occur at any level during a request.

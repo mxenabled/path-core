@@ -1,6 +1,7 @@
-package com.mx.common.exception;
+package com.mx.common.exception.request.accessor;
 
 import com.mx.common.accessors.PathResponseStatus;
+import com.mx.common.exception.request.PathRequestException;
 
 /**
  * Thrown when an accessor method is invoked that has no implementation.

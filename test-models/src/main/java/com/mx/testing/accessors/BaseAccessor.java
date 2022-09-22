@@ -7,7 +7,7 @@ import com.mx.common.accessors.API;
 import com.mx.common.accessors.Accessor;
 import com.mx.common.accessors.AccessorConfiguration;
 import com.mx.common.accessors.RootAccessor;
-import com.mx.common.exception.AccessorMethodNotImplementedException;
+import com.mx.common.exception.request.accessor.AccessorMethodNotImplementedException;
 import com.mx.common.gateway.GatewayAPI;
 
 @API(description = "Base Gateway Accessor that serves as the main entrypoint to all other Gateway Accessors", specificationUrl = "https://developer.mx.com/drafts/mdx/overview/#what-is-helios")

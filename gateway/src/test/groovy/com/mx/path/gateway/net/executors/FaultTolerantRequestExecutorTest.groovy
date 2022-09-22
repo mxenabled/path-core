@@ -1,33 +1,26 @@
 package com.mx.path.gateway.net.executors
 
 import static org.mockito.Mockito.any
-import static org.mockito.Mockito.doAnswer
 import static org.mockito.Mockito.doThrow
 import static org.mockito.Mockito.eq
 import static org.mockito.Mockito.mock
-import static org.mockito.Mockito.never
 import static org.mockito.Mockito.spy
 import static org.mockito.Mockito.verify
 import static org.mockito.Mockito.when
 
-import com.mx.common.accessors.PathResponseStatus
-import com.mx.common.exception.ConnectException
-import com.mx.common.exception.PathRequestException
-import com.mx.common.exception.TimeoutException
-import com.mx.common.http.HttpStatus
+import com.mx.common.exception.request.accessor.connect.ConnectException
+import com.mx.common.exception.request.accessor.connect.TimeoutException
 import com.mx.common.process.FaultTolerantExecutor
 import com.mx.common.process.FaultTolerantTask
 import com.mx.common.request.Feature
 import com.mx.path.gateway.context.GatewayRequestContext
 import com.mx.path.gateway.net.Request
 import com.mx.path.gateway.net.Response
-import com.mx.path.gateway.util.MdxApiException
 import com.mx.path.model.context.RequestContext
 import com.mx.path.model.context.facility.Facilities
 import com.mx.testing.FaultTolerantExecutorImpl
 
 import spock.lang.Specification
-import spock.lang.Unroll
 
 class FaultTolerantRequestExecutorTest extends Specification {
   RequestExecutor nextExecutor

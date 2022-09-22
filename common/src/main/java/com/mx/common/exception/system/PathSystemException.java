@@ -1,4 +1,4 @@
-package com.mx.common.exception;
+package com.mx.common.exception.system;
 
 /**
  * Base exception for any system-based error. These errors occur on incorrect application state or configuration,

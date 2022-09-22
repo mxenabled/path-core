@@ -4,7 +4,7 @@ import static org.mockito.Mockito.mock
 import static org.mockito.Mockito.verify
 import static org.mockito.Mockito.when
 
-import com.mx.common.exception.TimeoutException
+import com.mx.common.exception.request.accessor.connect.TimeoutException
 import com.mx.path.gateway.net.Request
 import com.mx.path.gateway.net.Response
 import com.mx.path.gateway.util.UpstreamLogger

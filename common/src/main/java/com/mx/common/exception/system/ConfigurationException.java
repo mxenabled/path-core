@@ -1,4 +1,4 @@
-package com.mx.common.exception;
+package com.mx.common.exception.system;
 
 /**
  * Thrown on gateway configuration error

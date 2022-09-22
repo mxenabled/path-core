@@ -1,22 +1,23 @@
-package com.mx.common.exception;
+package com.mx.common.exception.request.gateway;
 
 import com.mx.common.accessors.PathResponseStatus;
+import com.mx.common.exception.request.PathRequestException;
 
 /**
- * Thrown on unrecoverable error in facility code
+ * Thrown on unrecoverable error in Gateway code.
  *
  * <p>
  *   See {@link PathRequestException} for usage details
  * </p>
  */
-public class FacilityException extends PathRequestException {
-  public FacilityException(String message) {
+public class GatewayException extends PathRequestException {
+  public GatewayException(String message) {
     super(message);
     setReport(true);
     setStatus(PathResponseStatus.INTERNAL_ERROR);
   }
 
-  public FacilityException(String message, Throwable cause) {
+  public GatewayException(String message, Throwable cause) {
     super(message, cause);
     setReport(true);
     setStatus(PathResponseStatus.INTERNAL_ERROR);

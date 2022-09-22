@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import com.mx.common.accessors.PathResponseStatus;
-import com.mx.common.exception.PathRequestException;
+import com.mx.common.exception.request.PathRequestException;
 import com.mx.common.http.HttpStatus;
 import com.mx.common.lang.Strings;
 

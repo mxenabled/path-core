@@ -17,7 +17,7 @@ import com.mx.common.accessors.Accessor;
 import com.mx.common.collections.ObjectArray;
 import com.mx.common.collections.ObjectMap;
 import com.mx.common.events.EventBus;
-import com.mx.common.exception.GatewayException;
+import com.mx.common.exception.request.gateway.GatewayException;
 import com.mx.common.lang.Strings;
 import com.mx.common.messaging.MessageBroker;
 import com.mx.common.process.FaultTolerantExecutor;

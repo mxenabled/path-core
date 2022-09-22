@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 
-import com.mx.common.exception.RequestPayloadException;
+import com.mx.common.exception.request.accessor.RequestPayloadException;
 
 import org.junit.jupiter.api.Test;
 
