@@ -9,10 +9,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import com.mx.common.accessors.AccessorSystemException;
 import com.mx.common.collections.MultiValueMap;
 import com.mx.common.collections.MultiValueMappable;
 import com.mx.common.collections.SingleValueMap;
-import com.mx.common.exception.AccessorSystemException;
 import com.mx.common.request.Feature;
 
 /**

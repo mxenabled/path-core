@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
-import com.mx.common.exception.AccessorException;
 import com.mx.common.gateway.GatewayAPI;
 
 /**

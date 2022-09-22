@@ -1,8 +1,9 @@
-package com.mx.common.exception;
+package com.mx.common.connect;
 
 import lombok.Getter;
 import lombok.Setter;
 
+import com.mx.common.accessors.AccessorUserException;
 import com.mx.common.accessors.PathResponseStatus;
 import com.mx.common.http.HttpStatus;
 
