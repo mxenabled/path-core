@@ -1,6 +1,7 @@
-package com.mx.common.exception;
+package com.mx.common.connect;
 
 import com.mx.common.accessors.PathResponseStatus;
+import com.mx.common.exception.PathRequestException;
 
 /**
  * Thrown in situation where too many concurrent requests are being sent to a service. These constraints are usually

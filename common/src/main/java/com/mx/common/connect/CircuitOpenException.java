@@ -1,4 +1,6 @@
-package com.mx.common.exception;
+package com.mx.common.connect;
+
+import com.mx.common.exception.PathRequestException;
 
 /**
  * Thrown on open circuit condition

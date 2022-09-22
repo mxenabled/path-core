@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.mx.common.collections.MultiValueMap;
-import com.mx.common.exception.ConnectException;
+import com.mx.common.connect.ConnectException;
 import com.mx.common.http.HttpStatus;
 import com.mx.path.gateway.net.Request;
 import com.mx.path.gateway.net.Response;

@@ -39,7 +39,7 @@ Example:
 
 ```java
 import com.mx.common.accessors.PathResponseStatus;
-import com.mx.common.exception.AccessorUserException;
+import com.mx.common.accessors.AccessorUserException;
 
 public class AccountLockedException extends AccessorUserException {
   public AccountLockedException() {

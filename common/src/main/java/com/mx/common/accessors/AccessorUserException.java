@@ -1,6 +1,6 @@
-package com.mx.common.exception;
+package com.mx.common.accessors;
 
-import com.mx.common.accessors.PathResponseStatus;
+import com.mx.common.exception.PathRequestException;
 
 /**
  * Thrown on user-related errors in accessor code
