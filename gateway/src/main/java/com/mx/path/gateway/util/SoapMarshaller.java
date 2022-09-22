@@ -16,8 +16,8 @@ import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
-import com.mx.common.exception.RequestPayloadException;
-import com.mx.common.exception.ResponsePayloadException;
+import com.mx.common.accessors.RequestPayloadException;
+import com.mx.common.accessors.ResponsePayloadException;
 
 /**
  * Static methods for marshalling to and from SOAP Envelopes

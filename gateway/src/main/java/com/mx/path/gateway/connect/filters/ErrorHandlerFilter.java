@@ -1,9 +1,9 @@
 package com.mx.path.gateway.connect.filters;
 
+import com.mx.common.connect.ConnectException;
 import com.mx.common.connect.Request;
 import com.mx.common.connect.RequestFilterBase;
 import com.mx.common.connect.Response;
-import com.mx.common.exception.ConnectException;
 import com.mx.path.gateway.util.UpstreamLogger;
 
 /**

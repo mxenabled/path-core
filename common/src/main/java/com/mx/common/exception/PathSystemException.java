@@ -1,5 +1,8 @@
 package com.mx.common.exception;
 
+import com.mx.common.configuration.ConfigurationException;
+import com.mx.common.configuration.InvalidStateException;
+
 /**
  * Base exception for any system-based error. These errors occur on incorrect application state or configuration,
  * typically at application boot time.

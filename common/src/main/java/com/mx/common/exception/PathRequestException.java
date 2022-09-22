@@ -6,7 +6,22 @@ import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 
+import com.mx.common.accessors.AccessorException;
+import com.mx.common.accessors.AccessorMethodNotImplementedException;
+import com.mx.common.accessors.AccessorSystemException;
+import com.mx.common.accessors.AccessorUserException;
 import com.mx.common.accessors.PathResponseStatus;
+import com.mx.common.accessors.ResourceNotFoundException;
+import com.mx.common.accessors.UnauthorizedException;
+import com.mx.common.connect.CircuitOpenException;
+import com.mx.common.connect.ConnectException;
+import com.mx.common.connect.ServiceUnavailableException;
+import com.mx.common.connect.TimeoutException;
+import com.mx.common.connect.TooManyRequestsException;
+import com.mx.common.connect.UpstreamErrorException;
+import com.mx.common.facility.FacilityException;
+import com.mx.common.gateway.BehaviorException;
+import com.mx.common.gateway.GatewayException;
 
 /**
  * Base exception for any request-based error. These are errors that occur at any level during a request.
@@ -26,12 +41,12 @@ import com.mx.common.accessors.PathResponseStatus;
  *       {@link UnauthorizedException}
  *     {@link AccessorSystemException}
  *       {@link AccessorMethodNotImplementedException}
- *     {@link ConnectException}
- *       {@link TimeoutException}
- *       {@link ServiceUnavailableException}
- *         {@link CircuitOpenException}
- *       {@link TooManyRequestsException}
- *       {@link UpstreamErrorException}
+ *   {@link ConnectException}
+ *     {@link TimeoutException}
+ *     {@link ServiceUnavailableException}
+ *       {@link CircuitOpenException}
+ *     {@link TooManyRequestsException}
+ *     {@link UpstreamErrorException}
  *   {@link FacilityException}
  * </pre>
  * </p>

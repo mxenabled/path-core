@@ -18,7 +18,7 @@ import com.mx.common.accessors.AccessorConnections;
 import com.mx.common.accessors.RootAccessor;
 import com.mx.common.collections.ObjectMap;
 import com.mx.common.connect.AccessorConnectionSettings;
-import com.mx.common.exception.GatewayException;
+import com.mx.common.gateway.GatewayException;
 import com.mx.common.lang.Strings;
 import com.mx.common.reflection.Annotations;
 import com.mx.common.reflection.Fields;
