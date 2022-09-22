@@ -1,4 +1,6 @@
-package com.mx.common.exception;
+package com.mx.common.configuration;
+
+import com.mx.common.exception.PathSystemException;
 
 /**
  * Thrown on gateway configuration error

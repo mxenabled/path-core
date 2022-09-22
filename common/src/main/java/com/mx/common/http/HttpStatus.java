@@ -26,7 +26,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import com.mx.common.accessors.PathResponseStatus;
-import com.mx.common.exception.InvalidStateException;
+import com.mx.common.configuration.InvalidStateException;
 
 /**
  * Enumeration of HTTP status codes.
