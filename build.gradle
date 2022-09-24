@@ -2,7 +2,7 @@ plugins {
   id "idea"
   id "com.github.mxenabled.binks" version "0.0.1"
   id "com.github.mxenabled.vogue" version "1.0.1"
-  id "com.github.mxenabled.coppuccino" version "enable_unused_import_javadoc-SNAPSHOT" apply false
+  id "com.github.mxenabled.coppuccino" version "3.1.2" apply false
   id "com.github.mxenabled.hush" version "2.3.0" apply false
   id "io.freefair.lombok" version "6.5.1" apply false
 }
