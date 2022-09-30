@@ -1,6 +1,3 @@
-group "com.mx.path.core"
-jar.archiveBaseName = "utilities"
-
 coppuccino {
   coverage {
     minimumCoverage = 0.96
@@ -9,4 +6,10 @@ coppuccino {
 
 dependencies {
   api "com.auth0:java-jwt:4.+" // For JWT Parsing Library
+
+  constraints {
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.0-rc1") {
+      because "previous versions are vulnerable to CVE-2022-42003 and CVE-2022-42004"
+    }
+  }
 }

@@ -1,6 +1,3 @@
-group "com.mx.path.api.connect"
-jar.archiveBaseName = "messaging"
-
 coppuccino {
   coverage {
     minimumCoverage = 0.79
@@ -8,9 +5,9 @@ coppuccino {
 }
 
 dependencies {
-  //  implementation project(":models")
   implementation project(":context")
   implementation project(":common")
+
   implementation "io.opentracing:opentracing-api:0.33.0"
   compileOnly "org.slf4j:slf4j-api:1.7.30"
 

@@ -3,19 +3,19 @@ pluginManagement {
     mavenCentral()
     gradlePluginPortal()
     mavenLocal()
-    maven { url 'https://jitpack.io' }
+    maven { url "https://jitpack.io" }
   }
 }
 
-rootProject.name = 'path-sdk'
-include 'common'
-include 'http'
-include 'utilities'
-include 'context'
-include 'messaging'
-include 'gateway'
-include 'gateway-generator'
-include 'testing'
-include 'test-models'
-include 'test-gateways'
-include 'test-gateway-generator'
+rootProject.name = "path-sdk"
+include "common"
+include "http"
+include "utilities"
+include "context"
+include "messaging"
+include "gateway"
+include "gateway-generator"
+include "testing"
+include "test-models"
+include "test-gateways"
+include "test-gateway-generator"

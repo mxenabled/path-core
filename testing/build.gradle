@@ -1,12 +1,9 @@
-group "com.mx.path.api"
-jar.archiveBaseName = "testing"
-
 dependencies {
-  api "org.spockframework:spock-junit4:2.2-M1-groovy-4.0"
+  api "org.spockframework:spock-junit4:2.+"
 
   implementation project(":gateway")
   implementation "org.spockframework:spock-core:2.+"
   implementation "org.mockito:mockito-inline:4.+"
-  implementation"org.junit.jupiter:junit-jupiter-api:5.9.+"
-  runtimeOnly "org.junit.jupiter:junit-jupiter-engine:5.9.+"
+  implementation"org.junit.jupiter:junit-jupiter-api:5.+"
+  runtimeOnly "org.junit.jupiter:junit-jupiter-engine:5.+"
 }

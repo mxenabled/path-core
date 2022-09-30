@@ -1,6 +1,3 @@
-group "com.mx.path.api.gateway"
-jar.archiveBaseName = "gateway"
-
 coppuccino {
   coverage {
     minimumCoverage = 0.52

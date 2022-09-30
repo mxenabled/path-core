@@ -1,10 +1,8 @@
-group "com.mx.path.model.context"
-jar.archiveBaseName = "context"
-
 dependencies {
-  api "com.google.code.gson:gson:2.9.+"
   api project(":utilities")
+  api "com.google.code.gson:gson:2.9.+"
+
   implementation project(":common")
   implementation "io.opentracing:opentracing-api:0.33.0"
-  implementation group: 'commons-lang', name: 'commons-lang', version: '2.6'
+  implementation "commons-lang:commons-lang:2.6"
 }

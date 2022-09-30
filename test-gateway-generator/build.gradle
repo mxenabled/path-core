@@ -1,6 +1,3 @@
-group "com.mx.path.test"
-jar.archiveBaseName = "test-gateway-generator"
-
 dependencies {
   api project(":test-models")
   api project(":gateway-generator")

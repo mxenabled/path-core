@@ -2,120 +2,118 @@ plugins {
   id "idea"
   id "com.github.mxenabled.binks" version "0.0.1"
   id "com.github.mxenabled.vogue" version "1.0.1"
-  id "com.github.mxenabled.coppuccino" version "3.1.0" apply false
-  id "com.github.mxenabled.hush" version "2.2.0" apply false
+  id "com.github.mxenabled.coppuccino" version "3.1.2" apply false
+  id "com.github.mxenabled.hush" version "2.3.1" apply false
   id "io.freefair.lombok" version "6.5.1" apply false
 }
 
 version "0.0.1"
 
 allprojects {
-    group "com.mx.path.sdk"
-    description "The Path SDK"
-    version rootProject.version
-    apply plugin: 'java'
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+  group "com.github.mxenabled.path-sdk"
+  description "The Path SDK"
+  version rootProject.version
+  apply plugin: "java"
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
 
-    repositories {
-        mavenCentral()
-        mavenLocal()
-        maven { url "https://jitpack.io" }
-    }
+  repositories {
+    mavenCentral()
+    mavenLocal()
+    maven { url "https://jitpack.io" }
+  }
 }
 
 subprojects {
-    ext {
-        // -----------------------------------------------------------------
-        // These re-add JAXB classes needed for SOAP interaction.
-        // Version changes to any of these need to be tested (not just built)
-        //   with an apps that use SOAP.
-        // -----------------------------------------------------------------
-        xmlbindapi = "jakarta.xml.bind:jakarta.xml.bind-api:2.3.3"
-        xmlsoapapi = "jakarta.xml.soap:jakarta.xml.soap-api:1.4.2"
-        jaxbimpl = "com.sun.xml.bind:jaxb-impl:2.3.1"
-        jaxbruntime = "org.glassfish.jaxb:jaxb-runtime:2.3.3"
-        // -----------------------------------------------------------------
+  apply plugin: "java"
+  apply plugin: "java-library"
+  apply plugin: "maven-publish"
+  apply plugin: "groovy"
+  apply plugin: "com.github.mxenabled.hush"
+  apply plugin: "com.github.mxenabled.coppuccino"
+  apply plugin: "com.github.mxenabled.vogue"
+  apply plugin: "io.freefair.lombok"
+
+  ext {
+    // -----------------------------------------------------------------
+    // These re-add JAXB classes needed for SOAP interaction.
+    // Version changes to any of these need to be tested (not just built)
+    //   with an apps that use SOAP.
+    // -----------------------------------------------------------------
+    xmlbindapi = "jakarta.xml.bind:jakarta.xml.bind-api:2.3.3"
+    xmlsoapapi = "jakarta.xml.soap:jakarta.xml.soap-api:1.4.2"
+    jaxbimpl = "com.sun.xml.bind:jaxb-impl:2.3.1"
+    jaxbruntime = "org.glassfish.jaxb:jaxb-runtime:2.3.3"
+    // -----------------------------------------------------------------
+  }
+
+  dependencies {
+    testImplementation "org.mockito:mockito-inline:4.+"
+    testImplementation "org.spockframework:spock-core:2.+"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.+"
+  }
+
+  test { useJUnitPlatform() }
+
+  compileJava { options.compilerArgs << "-parameters" }
+
+  sourceSets {
+    test {
+      groovy { srcDirs "src/test/groovy" }
+      java { srcDirs "src/test/java" }
     }
-}
+  }
 
-configure(project.subprojects) {
-    apply plugin: "java"
-    apply plugin: "java-library"
-    apply plugin: "maven-publish"
-    apply plugin: "groovy"
-    apply plugin: "com.mx.hush"
-    apply plugin: "com.mx.coppuccino"
-    apply plugin: "com.mx.vogue"
-    apply plugin: "io.freefair.lombok"
+  coppuccino {
+    rootDir = "${projectDir}/"
+  }
 
-    dependencies {
-        testImplementation "org.mockito:mockito-inline:4.+"
-        testImplementation "org.spockframework:spock-core:2.+"
-        testImplementation "org.junit.jupiter:junit-jupiter-api:5.9.+"
+  vogue {
+    dependencyUpdatesOutputDir = "${projectDir}/build/dependencyUpdates"
+  }
+
+  task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = "sources"
+    from sourceSets.main.allSource
+  }
+
+  artifacts {
+    archives sourcesJar
+    archives jar
+  }
+
+  publishing {
+    publications {
+      mavenJava(MavenPublication) { from components.java }
     }
-
-    test { useJUnitPlatform() }
-
-    compileJava { options.compilerArgs << "-parameters" }
-
-    sourceSets {
-        test {
-            groovy { srcDirs "src/test/groovy" }
-            java { srcDirs "src/test/java" }
-        }
-    }
-
-    coppuccino {
-        rootDir = "${projectDir}/"
-    }
-
-    vogue {
-        dependencyUpdatesOutputDir = "${projectDir}/build/dependencyUpdates"
-    }
-
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = "sources"
-        from sourceSets.main.allSource
-    }
-
-    artifacts {
-        archives sourcesJar
-        archives jar
-    }
-
-    publishing {
-        publications {
-            mavenJava(MavenPublication) { from components.java }
-        }
-    }
+  }
 }
 
 task spotlessApply {
-    subprojects.each {
-        it.afterEvaluate {
-            def spotlessApplyTask = it.tasks.findByName("spotlessApply")
-            dependsOn(spotlessApplyTask)
-        }
+  subprojects.each {
+    it.afterEvaluate {
+      def spotlessApplyTask = it.tasks.findByName("spotlessApply")
+      dependsOn(spotlessApplyTask)
     }
+  }
 }
 
 task dependencyCheckAnalyze {
-    subprojects.each {
-        it.afterEvaluate {
-            def dependencyCheckAnalyzeTask = it.tasks.findByName("dependencyCheckAnalyze")
-            dependsOn(dependencyCheckAnalyzeTask)
-        }
+  subprojects.each {
+    it.afterEvaluate {
+      def dependencyCheckAnalyzeTask = it.tasks.findByName("dependencyCheckAnalyze")
+      dependsOn(dependencyCheckAnalyzeTask)
     }
+  }
 }
 
 task subdependencies {
-    subprojects.each {
-        it.afterEvaluate {
-            def dependenciesTask = it.tasks.findByName("dependencies")
-            dependsOn(dependenciesTask)
-        }
+  subprojects.each {
+    it.afterEvaluate {
+      def dependenciesTask = it.tasks.findByName("dependencies")
+      dependsOn(dependenciesTask)
     }
+  }
 }
 
 project.tasks.getByPath("dependencies").finalizedBy("subdependencies")
