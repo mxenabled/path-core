@@ -124,5 +124,5 @@ org.ow2.asm:asm:9.2=spotbugs
 org.projectlombok:lombok:1.18.24=annotationProcessor,compileClasspath,lombok,testAnnotationProcessor,testCompileClasspath
 org.slf4j:slf4j-api:1.8.0-beta4=spotbugs,spotbugsSlf4j
 org.slf4j:slf4j-simple:1.8.0-beta4=spotbugsSlf4j
-org.spockframework:spock-core:2.2-groovy-4.0=testCompileClasspath,testRuntimeClasspath
+org.spockframework:spock-core:2.3-groovy-4.0=testCompileClasspath,testRuntimeClasspath
 empty=spotbugsPlugins
