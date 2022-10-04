@@ -1,21 +1,5 @@
-group "com.mx.path.test"
-jar.archiveBaseName = "models"
-
 dependencies {
   api project(":gateway")
   api project(":test-models")
   annotationProcessor project(":test-gateway-generator")
-
-  //  api "org.apache.commons:commons-text:+" // For string manipulation utilities. There is a very small overlap with Guava's strings class, but adds many more features.
-  //  api "com.google.guava:guava:31.+" // For google utilities
-  //  api "com.github.spotbugs:spotbugs-annotations:4.7.0" // For annotating classes and methods to suppress SpotBugs violations
-  //  api "com.google.code.gson:gson:2.9.+"
-  //  api "org.yaml:snakeyaml:1.30"
-}
-
-sourceSets {
-  test {
-    groovy { srcDirs "src/test/groovy" }
-    java { srcDirs "src/test/java" }
-  }
 }

@@ -1,6 +1,3 @@
-group "com.mx.path.api.connect"
-jar.archiveBaseName = "http"
-
 coppuccino {
   coverage {
     minimumCoverage = 0.45
