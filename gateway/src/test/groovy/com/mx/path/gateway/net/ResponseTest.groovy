@@ -1,6 +1,6 @@
 package com.mx.path.gateway.net
 
-
+import com.mx.common.accessors.AccessorSystemException
 import com.mx.common.collections.MultiValueMap
 import com.mx.common.collections.SingleValueMap
 import com.mx.common.http.HttpStatus
@@ -136,7 +136,7 @@ class ResponseTest extends Specification {
     subject.throwException()
 
     then:
-    def ex = thrown(MdxApiException)
+    def ex = thrown(AccessorSystemException)
     ex.getCause() == exception
   }
 

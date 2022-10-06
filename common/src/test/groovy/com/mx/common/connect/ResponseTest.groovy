@@ -1,5 +1,7 @@
 package com.mx.common.connect
 
+import com.mx.common.accessors.AccessorSystemException
+import com.mx.common.accessors.ResponsePayloadException
 import com.mx.common.collections.MultiValueMap
 import com.mx.common.http.HttpStatus
 import com.mx.path.gateway.util.MdxApiException
@@ -137,7 +139,7 @@ class ResponseTest extends Specification {
     subject.throwException()
 
     then:
-    def ex = thrown(MdxApiException)
+    def ex = thrown(AccessorSystemException)
     ex.getCause() == exception
   }
 
@@ -152,6 +154,24 @@ class ResponseTest extends Specification {
 
     then:
     def ex = thrown(MdxApiException)
+    ex == exception
+    ex.getCause() == cause
+    ex.getStatus().toHttpStatus() == HttpStatus.INTERNAL_SERVER_ERROR
+    ex.getMessage() == "Something happened"
+    ex.shouldReport()
+  }
+
+  def "throwException throws PathRequestException"() {
+    setup:
+    def cause = new Exception()
+    def exception = new ResponsePayloadException("Something happened", cause)
+    subject.withException(exception)
+
+    when:
+    subject.throwException()
+
+    then:
+    def ex = thrown(ResponsePayloadException)
     ex == exception
     ex.getCause() == cause
     ex.getStatus().toHttpStatus() == HttpStatus.INTERNAL_SERVER_ERROR

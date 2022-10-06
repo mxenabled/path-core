@@ -10,9 +10,11 @@ import lombok.Setter;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mx.common.accessors.AccessorSystemException;
 import com.mx.common.collections.MultiValueMap;
 import com.mx.common.collections.MultiValueMappable;
 import com.mx.common.collections.SingleValueMap;
+import com.mx.common.exception.PathRequestException;
 import com.mx.common.http.HttpStatus;
 import com.mx.path.gateway.util.MdxApiException;
 
@@ -153,13 +155,18 @@ public abstract class Response<REQ extends Request<?, ?>, RESP extends Response<
     this.headers = new MultiValueMap<>(multiValueMappable);
   }
 
+  @SuppressWarnings("unchecked")
   public final RESP throwException() {
     if (Objects.nonNull(exception)) {
       if (exception instanceof MdxApiException) {
         throw (MdxApiException) exception;
       }
 
-      throw new MdxApiException("Unprocessed request exception", HttpStatus.INTERNAL_SERVER_ERROR, true, exception);
+      if (exception instanceof PathRequestException) {
+        throw (PathRequestException) exception;
+      }
+
+      throw new AccessorSystemException("Unprocessed request exception", exception);
     }
     return (RESP) this;
   }
