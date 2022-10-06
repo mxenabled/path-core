@@ -11,7 +11,9 @@ import com.mx.common.accessors.AccessorMethodNotImplementedException;
 import com.mx.common.accessors.AccessorSystemException;
 import com.mx.common.accessors.AccessorUserException;
 import com.mx.common.accessors.PathResponseStatus;
+import com.mx.common.accessors.RequestPayloadException;
 import com.mx.common.accessors.ResourceNotFoundException;
+import com.mx.common.accessors.ResponsePayloadException;
 import com.mx.common.accessors.UnauthorizedException;
 import com.mx.common.connect.CircuitOpenException;
 import com.mx.common.connect.ConnectException;
@@ -41,6 +43,8 @@ import com.mx.common.gateway.GatewayException;
  *       {@link UnauthorizedException}
  *     {@link AccessorSystemException}
  *       {@link AccessorMethodNotImplementedException}
+ *       {@link RequestPayloadException}
+ *       {@link ResponsePayloadException}
  *   {@link ConnectException}
  *     {@link TimeoutException}
  *     {@link ServiceUnavailableException}
