@@ -1,4 +1,6 @@
 [![Release](https://jitpack.io/v/mxenabled/path-sdk.svg)](https://jitpack.io/p/mxenabled/path-sdk)
+![img](https://img.shields.io/badge/semver-2.0.0-green)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 
 # Path SDK - Subprojects
 
@@ -10,6 +12,25 @@
 * [Messaging](messaging/README.md)
 * [Testing](testing/README.md)
 * [Utilities](utilities/README.md)
+
+## Usage
+
+_Gradle_
+<!-- x-release-please-start-version -->
+```groovy
+dependencies {
+  implementation 'com.github.mxenabled.path-sdk:common:0.0.2'
+  implementation 'com.github.mxenabled.path-sdk:context:0.0.2'
+  implementation 'com.github.mxenabled.path-sdk:gateway:0.0.2'
+  implementation 'com.github.mxenabled.path-sdk:gateway-generator:0.0.2'
+  implementation 'com.github.mxenabled.path-sdk:http:0.0.2'
+  implementation 'com.github.mxenabled.path-sdk:messaging:0.0.2'
+  implementation 'com.github.mxenabled.path-sdk:utilities:0.0.2'
+
+  testImplementation 'com.github.mxenabled.path-sdk:testing:0.0.2'
+}
+```
+<!-- x-release-please-end -->
 
 ## Contributing
 Create a topic branch, make your changes, and create an PR.

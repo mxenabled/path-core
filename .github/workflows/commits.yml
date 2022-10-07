@@ -1,0 +1,27 @@
+on:
+  push:
+
+name: conventional-commits
+
+jobs:
+  conventional-commits:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: gentleseal/action-conventional-commits@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          valid-commit-types: >
+            [
+              "feat",
+              "fix",
+              "docs",
+              "style",
+              "refactor",
+              "test",
+              "build",
+              "ci",
+              "chore",
+              "revert"
+            ]
