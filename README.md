@@ -13,6 +13,8 @@
 * [Testing](testing/README.md)
 * [Utilities](utilities/README.md)
 
+[Documentation](https://docs.mx.com/path-sdk#overview_getting_started)
+
 ## Usage
 
 _Gradle_
