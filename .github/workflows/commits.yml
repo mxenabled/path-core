@@ -14,14 +14,14 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           valid-commit-types: >
             [
+              "build",
+              "chore",
+              "docs",
               "feat",
               "fix",
-              "docs",
-              "style",
+              "perf",
               "refactor",
-              "test",
-              "build",
-              "ci",
-              "chore",
               "revert"
+              "style",
+              "test"
             ]

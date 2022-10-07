@@ -74,7 +74,28 @@ Regardless of the type, when a major version is ready to be published, a release
 
 Commits must conform to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification. The commit types are used to automate version bumps, using [release-please](https://github.com/googleapis/release-please).
 
-To contribute a change, create a feature branch off of master or the current release branch. Commit changes to branch. Push branch up and create a pull request.
+#### Clone the repository
+
+`git clone git@github.com:mxenabled/path-sdk.git`
+
+`cd path-sdk`
+
+#### Install git conventional commit tools (optional)
+
+This will install commitizen and commitlint to help ensure your commits are formatted correctly before you push them up to Github:
+
+`bin/setup`
+
+(To remove commitizen and githooks use `bin/reset`)
+
+#### Contribute changes
+
+To contribute changes:
+
+  1. create a feature branch off of master or the current release branch (`git checkout -b feature/name_of_feature`)
+  2. Commit changes to branch (use `git cz` for help with conventional commit)
+  3. Push branch up `git push origin master`
+  4. create a pull request
 
 ## Building everything
 

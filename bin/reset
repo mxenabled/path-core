@@ -1,0 +1,4 @@
+#! /bin/sh
+
+git clean -fdx node_modules .husky
+git config --unset core.hooksPath
