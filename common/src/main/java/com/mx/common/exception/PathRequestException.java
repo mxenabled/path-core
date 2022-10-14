@@ -24,6 +24,7 @@ import com.mx.common.connect.UpstreamErrorException;
 import com.mx.common.facility.FacilityException;
 import com.mx.common.gateway.BehaviorException;
 import com.mx.common.gateway.GatewayException;
+import com.mx.common.messaging.MessageError;
 
 /**
  * Base exception for any request-based error. These are errors that occur at any level during a request.
@@ -52,6 +53,7 @@ import com.mx.common.gateway.GatewayException;
  *     {@link TooManyRequestsException}
  *     {@link UpstreamErrorException}
  *   {@link FacilityException}
+ *   {@link MessageError}
  * </pre>
  * </p>
  * <p>
