@@ -1,0 +1,13 @@
+client1:
+  rootBehaviors:
+    - class: com.mx.testing.StaticContextCaptureBehavior
+
+  accessor:
+    class: com.mx.testing.BaseAccessorImpl
+    scope: prototype
+
+  gateways:
+    accounts:
+      accessor:
+        class: com.mx.testing.AccountAccessorImpl
+        scope: prototype
