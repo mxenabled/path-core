@@ -135,6 +135,9 @@ public class GatewayGenerator {
           .addStatement("$T.withSelfClearing(getClientId(), (requestContext) -> {", ClassName.get("com.mx.path.gateway.context", "GatewayRequestContext"))
           .addStatement("  $T gatewayRequestContext = (GatewayRequestContext) requestContext", ClassName.get("com.mx.path.gateway.context", "GatewayRequestContext"));
 
+      methodBuilder.addCode("  if (gatewayRequestContext.getClientId() == null) {\n");
+      methodBuilder.addStatement("    gatewayRequestContext.setClientId(getClientId())");
+      methodBuilder.addCode("  }\n");
       if (method.getModel() != Void.class) {
         methodBuilder.addStatement("  gatewayRequestContext.setModel($T.class)", method.getModel());
       }
