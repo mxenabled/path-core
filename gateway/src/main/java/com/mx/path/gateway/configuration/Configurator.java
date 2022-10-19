@@ -29,6 +29,7 @@ import com.mx.path.api.connect.messaging.remote.RemoteService;
 import com.mx.path.gateway.Gateway;
 import com.mx.path.gateway.GatewayBuilderHelper;
 import com.mx.path.gateway.behavior.GatewayBehavior;
+import com.mx.path.gateway.events.GatewayEventBus;
 import com.mx.path.gateway.service.GatewayService;
 import com.mx.path.model.context.facility.Facilities;
 import com.mx.path.utilities.reflection.ClassHelper;
@@ -37,7 +38,7 @@ import org.apache.commons.text.StringSubstitutor;
 
 /**
  * Stand up a Gateway from configuration
- *
+ * <p>
  * Instance is NOT multi-thread-safe. Create a new configurator instance per thread if needed.
  */
 public abstract class Configurator<T extends Gateway<?>> {
@@ -73,7 +74,6 @@ public abstract class Configurator<T extends Gateway<?>> {
 
   /**
    * Build gateway from json string
-   *
    * @param json string
    * @return T
    */
@@ -172,7 +172,6 @@ public abstract class Configurator<T extends Gateway<?>> {
 
   /**
    * Build sub-gateways
-   *
    * @param map definition
    * @param clientId of owning client
    * @param builder Current GatewayBuilder
@@ -257,6 +256,22 @@ public abstract class Configurator<T extends Gateway<?>> {
         }
       });
     });
+
+    ensureDefaultFacilities(clientId);
   }
 
+  private void ensureDefaultFacilities(String clientId) {
+    //Default Event Bus
+    if (Facilities.getEventBus(clientId) == null) {
+      Facilities.addEventBus(
+          clientId,
+          gatewayObjectConfigurator.buildFromClass(
+              GatewayEventBus.class,
+              null,
+              clientId,
+              EventBus.class));
+    }
+
+    //Future defaults added here **
+  }
 }
