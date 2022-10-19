@@ -74,17 +74,4 @@ class GatewayObjectConfiguratorTest extends Specification {
     ((MessageBrokerImpl) result).configurations.testField == "value1"
     ((MessageBrokerImpl) result).configurations.clientId == "client1"
   }
-
-  def "builds and binds a Facility by class"() {
-    given:
-    def configurations = new ObjectMap().tap { put("key1", "value1") }
-
-    when:
-    def result = subject.buildFromClass(MessageBrokerImpl.class, configurations, "client1", MessageBroker)
-
-    then:
-    result instanceof MessageBrokerImpl
-    ((MessageBrokerImpl) result).configurations.testField == "value1"
-    ((MessageBrokerImpl) result).configurations.clientId == "client1"
-  }
 }

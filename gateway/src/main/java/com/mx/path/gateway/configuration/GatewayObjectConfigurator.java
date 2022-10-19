@@ -49,14 +49,10 @@ public final class GatewayObjectConfigurator {
   }
 
   public <T> T buildFromNode(ObjectMap map, String clientId, Class<T> klass) {
+    ConfigurationBinder binder = new ConfigurationBinder(clientId, state);
+
     Class<?> targetClass = new ClassHelper().getClass(map.getAsString("class"));
     ObjectMap configurations = map.getMap("configurations");
-
-    return buildFromClass(targetClass, configurations, clientId, klass);
-  }
-
-  public <T> T buildFromClass(Class<?> targetClass, ObjectMap configurations, String clientId, Class<T> klass) {
-    ConfigurationBinder binder = new ConfigurationBinder(clientId, state);
 
     if (!klass.isAssignableFrom(targetClass)) {
       throw new ConfigurationError(klass.getCanonicalName() + " is not assignable from " + targetClass.getCanonicalName(), state);
