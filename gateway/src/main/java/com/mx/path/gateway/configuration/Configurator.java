@@ -265,7 +265,7 @@ public abstract class Configurator<T extends Gateway<?>> {
     if (Facilities.getEventBus(clientId) == null) {
       Facilities.addEventBus(
           clientId,
-          new GatewayEventBus(null));
+          new GatewayEventBus(new ObjectMap()));
     }
 
     //Future defaults added here **
