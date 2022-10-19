@@ -265,11 +265,7 @@ public abstract class Configurator<T extends Gateway<?>> {
     if (Facilities.getEventBus(clientId) == null) {
       Facilities.addEventBus(
           clientId,
-          gatewayObjectConfigurator.buildFromClass(
-              GatewayEventBus.class,
-              null,
-              clientId,
-              EventBus.class));
+          new GatewayEventBus(null));
     }
 
     //Future defaults added here **
