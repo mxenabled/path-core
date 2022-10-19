@@ -1,6 +1,6 @@
 package com.mx.path.gateway.util
 
-
+import com.google.gson.Gson
 import com.mx.common.http.HttpStatus
 
 import spock.lang.Specification
@@ -66,7 +66,18 @@ class MdxApiExceptionTest extends Specification {
     subject.getReason() == null
   }
 
-  def "withReason()" () {
+  def "withCode()"() {
+    given:
+    def subject = new MdxApiException(HttpStatus.OK)
+
+    when:
+    subject.withCode("4001")
+
+    then:
+    subject.getCode() == "4001"
+  }
+
+  def "withReason()"() {
     given:
     def subject = new MdxApiException(HttpStatus.OK)
 
@@ -116,5 +127,22 @@ class MdxApiExceptionTest extends Specification {
 
     then:
     subject.getMessage() == "New message"
+  }
+
+  def "serializes"() {
+    given:
+    def ex = new MdxApiException("message1", "client1", HttpStatus.BAD_REQUEST, "title1", "endpoint1", "errorKey1", true, null)
+
+    when:
+    def json = new Gson().toJson(ex)
+
+    then:
+    verifyAll(json) {
+      contains("message1")
+      contains("client1")
+      contains("title1")
+      contains("endpoint1")
+      contains("errorKey1")
+    }
   }
 }

@@ -20,9 +20,6 @@ public class MdxApiException extends PathRequestException {
   private String clientId;
   @Getter
   @Setter
-  private String code;
-  @Getter
-  @Setter
   private String endpointKey;
   @Getter
   @Setter
