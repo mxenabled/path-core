@@ -10,15 +10,15 @@ Accessors provide translation between the MDX models and operations and external
 
 ### Behaviors
 
-Behaviors are chainable modules that can modify the call stack before invoking the target accessor. A behavior can add value to a call by performing functions that do not belong in an accessor, allowing the accessors to stay as simple as possible. Examples are logging, caching, filtering. All behaviors implement [com.mx.path.gateway.behavior.GatewayBehavior](https://gitlab.mx.com/middleware/java-path-gateway/-/blob/master/src/main/java/com/mx/path/gateway/behavior/GatewayBehavior.java)
+Behaviors are chainable modules that can modify the call stack before invoking the target accessor. A behavior can add value to a call by performing functions that do not belong in an accessor, allowing the accessors to stay as simple as possible. Examples are logging, caching, filtering. All behaviors implement [com.mx.path.gateway.behavior.GatewayBehavior](https://github.com/mxenabled/path-sdk/blob/master/gateway/src/main/java/com/mx/path/gateway/behavior/GatewayBehavior.java)
 
 ### Facilities
 
-Facilities provide infrastructure abstractions via a pre-determined set of functions such as key-value store access, encryption/decryption, messaging, and more. Currently, the set of facilities is defined in [com.mx.path.gateway.facility.Facilities](https://gitlab.mx.com/middleware/java-path-gateway/-/blob/master/src/main/java/com/mx/path/gateway/facility/Facilities.java)
+Facilities provide infrastructure abstractions via a pre-determined set of functions such as key-value store access, encryption/decryption, messaging, and more. Currently, the set of facilities is defined in [com.mx.path.model.context.facility.Facilities](https://github.com/mxenabled/path-sdk/blob/master/context/src/main/java/com/mx/path/model/context/facility/Facilities.java)
 
 ### Services
 
-Services are background processes. The most common use for a service is a message broker listener/responder. Services implement [com.mx.path.gateway.service.GatewayService](https://gitlab.mx.com/middleware/java-path-gateway/-/blob/master/src/main/java/com/mx/path/gateway/service/GatewayService.java)
+Services are background processes. The most common use for a service is a message broker listener/responder. Services implement [com.mx.path.gateway.service.GatewayService](https://github.com/mxenabled/path-sdk/blob/master/gateway/src/main/java/com/mx/path/gateway/service/GatewayService.java)
 
 ## Client
 
