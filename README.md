@@ -21,15 +21,15 @@ _Gradle_
 <!-- x-release-please-start-version -->
 ```groovy
 dependencies {
-  implementation 'com.github.mxenabled.path-sdk:common:1.1.0'
-  implementation 'com.github.mxenabled.path-sdk:context:1.1.0'
-  implementation 'com.github.mxenabled.path-sdk:gateway:1.1.0'
-  implementation 'com.github.mxenabled.path-sdk:gateway-generator:1.1.0'
-  implementation 'com.github.mxenabled.path-sdk:http:1.1.0'
-  implementation 'com.github.mxenabled.path-sdk:messaging:1.1.0'
-  implementation 'com.github.mxenabled.path-sdk:utilities:1.1.0'
+  implementation 'com.github.mxenabled.path-sdk:common:1.1.1'
+  implementation 'com.github.mxenabled.path-sdk:context:1.1.1'
+  implementation 'com.github.mxenabled.path-sdk:gateway:1.1.1'
+  implementation 'com.github.mxenabled.path-sdk:gateway-generator:1.1.1'
+  implementation 'com.github.mxenabled.path-sdk:http:1.1.1'
+  implementation 'com.github.mxenabled.path-sdk:messaging:1.1.1'
+  implementation 'com.github.mxenabled.path-sdk:utilities:1.1.1'
 
-  testImplementation 'com.github.mxenabled.path-sdk:testing:1.1.0'
+  testImplementation 'com.github.mxenabled.path-sdk:testing:1.1.1'
 }
 ```
 <!-- x-release-please-end -->
