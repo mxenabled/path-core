@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/mxenabled/path-sdk/compare/v1.0.2...v1.1.0) (2022-10-20)
+
+
+### Features
+
+* Adding GatewayEventBus as a default ([#38](https://github.com/mxenabled/path-sdk/issues/38)) ([84eecd5](https://github.com/mxenabled/path-sdk/commit/84eecd5635f3e32141c36fa6d03110191c320b73))
+
+
+### Bug Fixes
+
+* set clientid in request context if not present ([1f5d5eb](https://github.com/mxenabled/path-sdk/commit/1f5d5eb6bd9e963d145e96b8827aaf7fe2f03bb8))
+
 ## [1.0.2](https://github.com/mxenabled/path-sdk/compare/v1.0.1...v1.0.2) (2022-10-19)
 
 
