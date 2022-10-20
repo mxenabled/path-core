@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/mxenabled/path-sdk/compare/v1.1.0...v1.1.1) (2022-10-20)
+
+
+### Bug Fixes
+
+* force minor version bump to fix stuck publish ([1e24895](https://github.com/mxenabled/path-sdk/commit/1e24895fa689431dfa2a3632557fe23fdcb5e887))
+
 ## [1.1.0](https://github.com/mxenabled/path-sdk/compare/v1.0.2...v1.1.0) (2022-10-20)
 
 
