@@ -5,12 +5,10 @@ import com.mx.path.gateway.net.Response;
 
 /**
  * Request decorator executor
- * <p>
- * Interface for all executors in decorator chain.
- * </p>
- * <p>
+ *
+ * <p>Interface for all executors in decorator chain.
+ *
  * @deprecated functionality moved to connect package
- * </p>
  */
 @Deprecated
 public interface RequestExecutor {

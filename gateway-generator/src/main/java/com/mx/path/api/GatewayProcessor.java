@@ -35,6 +35,7 @@ public final class GatewayProcessor extends AbstractProcessor {
 
   /**
    * Capture processingEnv utilities
+   *
    * @param processingEnv
    */
   @Override
@@ -44,7 +45,7 @@ public final class GatewayProcessor extends AbstractProcessor {
 
   /**
    * Annotation processor
-   * <p>
+   *
    * @param annotations
    * @param roundEnv
    * @return
@@ -81,7 +82,7 @@ public final class GatewayProcessor extends AbstractProcessor {
     Set<String> processed = new HashSet<>();
 
     /**
-     * Brute-force the classes into existence. Kind of crappy.
+     * Brute-force the classes into existence.
      * todo: do this another way
      */
     do {
@@ -168,5 +169,4 @@ public final class GatewayProcessor extends AbstractProcessor {
 
     throw new RuntimeException("\n\n\n" + sb + "\n\n\n");
   }
-
 }

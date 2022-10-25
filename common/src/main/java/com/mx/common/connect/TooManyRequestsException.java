@@ -8,9 +8,7 @@ import com.mx.common.exception.PathRequestException;
  * stipulated by the Client to ensure their systems can handle the traffic being sent. See {@link com.mx.common.process.FaultTolerantExecutor}
  * facility documentation for details.
  *
- * <p>
- *   See {@link PathRequestException} for usage details
- * </p>
+ * <p>See {@link PathRequestException} for usage details
  */
 public class TooManyRequestsException extends ConnectException {
   public TooManyRequestsException(String message, Throwable cause) {

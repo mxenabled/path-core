@@ -6,8 +6,8 @@ import com.mx.common.connect.Response;
 
 /**
  * Runs callbacks
- * <p>
- * Runs runs next, records duration, runs complete callback, runs process callback
+ *
+ * <p>Runs runs next, records duration, runs complete callback, runs process callback
  */
 public class CallbacksFilter extends RequestFilterBase {
   @Override

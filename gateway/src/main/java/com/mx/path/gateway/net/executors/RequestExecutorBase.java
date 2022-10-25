@@ -7,13 +7,12 @@ import com.mx.path.gateway.net.Response;
 
 /**
  * Base class for all executors
- * <p>
- * Provides handle to next item in chain.
- * NOTE: RequestExecutors are expected to be stateless
- * </p>
- * <p>
+ *
+ * <p>Provides handle to next item in chain.
+ *
+ * <p>NOTE: RequestExecutors are expected to be stateless
+ *
  * @deprecated functionality moved to connect package
- * </p>
  */
 @Deprecated
 public abstract class RequestExecutorBase implements RequestExecutor {

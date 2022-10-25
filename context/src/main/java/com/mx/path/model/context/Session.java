@@ -35,7 +35,7 @@ public class Session implements SessionInfo {
   /**
    * Used to scope session data by service.
    *
-   * @deprecated Use {@link com.mx.path.gateway.context.Scope}
+   * @deprecated Use com.mx.path.gateway.context.Scope
    */
   @Deprecated
   public enum ServiceIdentifier implements ScopeKeyGenerator {
@@ -693,7 +693,7 @@ public class Session implements SessionInfo {
    * Encrypts the value before writing to value hash
    *
    * @param scope
-   * @pram key
+   * @param key
    * @param value
    */
   public final void sputObj(ScopeKeyGenerator scope, String key, Object value) {

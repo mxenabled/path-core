@@ -15,10 +15,9 @@ public class LogValueMasker {
 
   /**
    * Masked Header Keys
-   * <p>
-   * Description:
-   * <p>
-   * The values for headers that match these names (case-insensitive) will be
+   * <p>Description:
+   *
+   * <p>The values for headers that match these names (case-insensitive) will be
    * replaced with MASK
    */
   private static final String[] HEADERKEYS = {
@@ -30,18 +29,20 @@ public class LogValueMasker {
 
   /**
    * Payload Masking Regex collection
-   * <p>
-   * Description:
-   * <p>
-   * These regexes will all be applied in order. For each match all groups will
+   *
+   * <p>Description:
+   *
+   * <p>These regexes will all be applied in order. For each match all groups will
    * be replaced with MASK.
-   * <p>
-   * Example:
-   * <p>
+   *
+   * <p>Example:
+   *
+   * <pre>
    * Mask Regex: /\"password\":\"([^\"]+)\"/
-   * >> portion to be masked ^^^^^^
-   * <p>
-   * Using ` for "" here for readability. These are replaced with \" at load time.
+   *      >> portion to be masked ^^^^^^
+   * </pre>
+   *
+   * <p>Using ` for "" here for readability. These are replaced with \" at load time.
    */
   private static final String[] PAYLOADPATTERNS = {
       "`antiforgerytoken`\\s*:\\s*`([^`]+)`".replaceAll("`", "\\\\\""),
@@ -73,16 +74,18 @@ public class LogValueMasker {
 
   /**
    * Register new regex pattern for masking request/response payloads
-   * <p>
-   * Description:
-   * <p>
-   * These regexes will all be applied in order. For each match the 1st group will
+   *
+   * <p>Description:
+   *
+   * <p>These regexes will all be applied in order. For each match the 1st group will
    * be replaced with MASK.
-   * <p>
-   * Example:
-   * <p>
+   *
+   * <p>Example:
+   *
+   * <pre>
    * Mask Regex: /\"password\":\"([^\"]+)\"/
-   * >> portion to be masked ^^^^^^
+   *      >> portion to be masked ^^^^^^
+   * </pre>
    *
    * @param pattern
    */

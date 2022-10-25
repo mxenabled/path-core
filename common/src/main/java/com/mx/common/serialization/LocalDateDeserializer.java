@@ -22,20 +22,18 @@ import com.mx.common.lang.Strings;
 
 /**
  * LocalDate deserializer for use with Gson
- * <p>
- *   Default Behavior:
- *   <ul>
- *     <li>Serialize LocalDate to Object</li>
- *     <li>Allow deserialization of LocalDate from object Object</li>
- *     <li>Allow deserialization of LocalDate from from string format "yyyy-MM-dd"</li>
- *   </ul>
- *   <br/>
  *
- * </p>
- *   Examples:
+ * <p>Default Behavior:
  *
- * <pre>
- *   {@code
+ * <ul>
+ *   <li>Serialize LocalDate to Object</li>
+ *   <li>Allow deserialization of LocalDate from object Object</li>
+ *   <li>Allow deserialization of LocalDate from from string format "yyyy-MM-dd"</li>
+ * </ul>
+ *
+ * <p>Examples:
+ *
+ * <pre>{@code
  *   // Take default behavior
  *   Gson gson = new GsonBuilder().registerTypeAdapter(
  *     LocalDate.class,
@@ -60,9 +58,7 @@ import com.mx.common.lang.Strings;
  *       .format("yyyy-MM-dd")
  *       .build()
  *   ).create();
- *   }
- * </pre>
- *
+ * }</pre>
  */
 @Builder
 public class LocalDateDeserializer implements JsonDeserializer<LocalDate>, JsonSerializer<LocalDate> {
@@ -91,12 +87,11 @@ public class LocalDateDeserializer implements JsonDeserializer<LocalDate>, JsonS
 
     /**
      * Provide a LocalDate string format that is accepted. (default: "yyyy-MM-dd")
-     * <p>
-     *   The formats need to be provided according to {@link DateTimeFormatter} specs.
-     * </p>
-     * <p>
-     *   Providing any formats will remove the default format.
-     * </p>
+     *
+     * <p>The formats need to be provided according to {@link DateTimeFormatter} specs.
+     *
+     * <p>Providing any formats will remove the default format.
+     *
      * @param format Format string of acceptable LocalDate format
      * @return
      */

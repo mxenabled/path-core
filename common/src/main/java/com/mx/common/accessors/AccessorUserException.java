@@ -5,9 +5,7 @@ import com.mx.common.exception.PathRequestException;
 /**
  * Thrown on user-related errors in accessor code
  *
- * <p>
- *   See {@link PathRequestException} for usage details
- * </p>
+ * <p>See {@link PathRequestException} for usage details
  */
 public class AccessorUserException extends AccessorException {
   public AccessorUserException(String message, String userMessage, PathResponseStatus status) {

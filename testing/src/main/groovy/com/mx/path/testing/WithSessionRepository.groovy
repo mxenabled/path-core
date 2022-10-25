@@ -33,8 +33,8 @@ trait WithSessionRepository extends BaseTestingTrait {
 
   /**
    * Sets clean session repository
-   * <p>
-   * Invoked after each test
+   *
+   * <p>Invoked after each test
    */
   def clearSessionRepository() {
     SessionRepository repository = new TestSessionRepository()
@@ -43,8 +43,8 @@ trait WithSessionRepository extends BaseTestingTrait {
 
   /**
    * Removes fake session repository and encryption service
-   * <p>
-   * Invoked once after class's last test
+   *
+   * <p>Invoked once after class's last test
    */
   def cleanupSessionRepository() {
     Session.clearSession()

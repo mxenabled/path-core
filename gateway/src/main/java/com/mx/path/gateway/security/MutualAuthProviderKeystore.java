@@ -16,6 +16,7 @@ import org.apache.http.ssl.SSLContextBuilder;
 
 /**
  * Provides SslContext given a Java Keystore
+ *
  * @deprecated moved to com.mx.path.api.connect.http
  */
 @Deprecated
@@ -31,8 +32,8 @@ public class MutualAuthProviderKeystore implements MutualAuthProvider {
 
   /**
    * Add keystores to webclient.
-   * <p>
-   * For more info, see https://stackoverflow.com/questions/45418523/spring-5-webclient-using-ssl
+   *
+   * <p>For more info, see https://stackoverflow.com/questions/45418523/spring-5-webclient-using-ssl
    *
    * @param builder
    * @return Builder

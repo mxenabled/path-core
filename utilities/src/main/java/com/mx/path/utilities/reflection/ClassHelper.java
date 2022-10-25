@@ -112,6 +112,7 @@ public class ClassHelper {
 
   /**
    * Collect and return the types of given Object array.
+   *
    * @param objs array
    * @return array of types
    */
@@ -204,7 +205,7 @@ public class ClassHelper {
    * @param name of method
    * @param args of method
    * @param <T> type of result
-   * @return
+   * @return result as T
    */
   @SuppressWarnings("unchecked")
   public final <T> T invokeMethod(Class<T> resultType, Object target, String name, Object... args) {
@@ -241,8 +242,7 @@ public class ClassHelper {
    * @param target to invoke method against
    * @param name of method
    * @param args of method
-   * @param <T> type of result
-   * @return
+   * @return result as T
    */
   @SuppressWarnings("unchecked")
   public final <T> T invokeStaticMethod(Class<T> resultType, Class<?> target, String name, Object... args) {
@@ -272,7 +272,7 @@ public class ClassHelper {
    * Takes in a field and returns a list of resolved generic types.
    *
    * @param field
-   * @return List<Type> a list of types for each generic field parameter
+   * @return list of {@link Type} for each generic field parameter
    */
   public final List<Type> resolveParameterizedFieldTypes(Field field) {
     return resolveParameterizedTypes(field.getGenericType());
@@ -280,10 +280,11 @@ public class ClassHelper {
 
   /**
    * Takes in a method and returns a list of the parameterized types in the generic return type.
-   * <p> i.e. List<String> would return [String] and Map<String, Integer> would return [String, Integer]
+   *
+   * <p>i.e. {@code List<String>} would return [String] and {@code Map<String, Integer>} would return [String, Integer]
    *
    * @param method
-   * @return List<Type> a list of types
+   * @return list of types
    */
   public final List<Type> resolveParameterizedMethodReturnTypes(Method method) {
     return resolveParameterizedTypes(method.getGenericReturnType());
@@ -293,7 +294,7 @@ public class ClassHelper {
    * Takes in a parameterized type and resolves the actual type arguments.
    *
    * @param parameterizedType
-   * @return List<Type> a list of types
+   * @return list of types
    */
   public final List<Type> resolveParameterizedTypes(Type parameterizedType) {
     if (!(parameterizedType instanceof ParameterizedType)) {
@@ -302,5 +303,4 @@ public class ClassHelper {
     Type[] actualTypeArguments = ((ParameterizedType) parameterizedType).getActualTypeArguments();
     return Arrays.asList(actualTypeArguments);
   }
-
 }

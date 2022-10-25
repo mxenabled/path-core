@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Used to keep track of the current configuration tree state.
- * <p>
- * Can be referenced to give configuration state when an error is encountered.
+ *
+ * <p>Can be referenced to give configuration state when an error is encountered.
  */
 public final class ConfigurationState {
 
@@ -120,5 +120,4 @@ public final class ConfigurationState {
       popLevel();
     }
   }
-
 }

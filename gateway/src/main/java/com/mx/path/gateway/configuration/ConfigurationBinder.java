@@ -21,8 +21,8 @@ import com.mx.path.utilities.reflection.ClassHelper;
 
 /**
  * Build and bind configuration POJO from ObjectMap
- * <p>
- * The POJO must have a no-argument constructor. Fields to be populated must
+ *
+ * <p>The POJO must have a no-argument constructor. Fields to be populated must
  * be annotated with {@link ConfigurationField}
  */
 public class ConfigurationBinder {
@@ -51,6 +51,7 @@ public class ConfigurationBinder {
 
   /**
    * Populate fields of given configuration POJO with given {@link ObjectMap}
+   *
    * @param configuration Configuration POJO instance
    * @param configurationMap Configuration ObjectMap
    */
@@ -60,6 +61,7 @@ public class ConfigurationBinder {
 
   /**
    * Constructs array for given configuration map
+   *
    * @param configurationValue
    * @param annotatedField
    * @param inArray
@@ -90,6 +92,7 @@ public class ConfigurationBinder {
 
   /**
    * Pushes and pops given level around executing supplier when populating an array
+   *
    * @param inArray
    * @param level
    * @param supplier
@@ -112,6 +115,7 @@ public class ConfigurationBinder {
 
   /**
    * Construct Object for given configuration map
+   *
    * @param configurationMap
    * @param annotatedField
    * @param inArray
@@ -130,6 +134,7 @@ public class ConfigurationBinder {
 
   /**
    * Coerces given, raw value from configuration map to expected type
+   *
    * @param configurationValue
    * @param annotatedField
    * @return
@@ -238,6 +243,7 @@ public class ConfigurationBinder {
 
   /**
    * Apply annotation validations to given object
+   *
    * @param obj
    */
   private void validate(Object obj) {
@@ -250,6 +256,7 @@ public class ConfigurationBinder {
 
   /**
    * Apply annotation validations to given field value
+   *
    * @param annotatedField
    * @param value
    */
@@ -267,5 +274,4 @@ public class ConfigurationBinder {
       }
     }
   }
-
 }

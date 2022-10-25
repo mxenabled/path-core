@@ -22,20 +22,18 @@ import com.mx.common.lang.Strings;
 
 /**
  * LocalDateTime deserializer for use with Gson
- * <p>
- *   Default Behavior:
- *   <ul>
- *     <li>Serialize LocalDateTime to Object</li>
- *     <li>Allow deserialization of LocalDateTime from object Object</li>
- *     <li>Allow deserialization of LocalDateTime from from string format "yyyy-MM-dd'T'HH:mm:ss.SSS"</li>
- *   </ul>
- *   <br/>
  *
- * </p>
- *   Examples:
+ * <p>Default Behavior:
  *
- * <pre>
- *   {@code
+ * <ul>
+ *   <li>Serialize LocalDateTime to Object</li>
+ *   <li>Allow deserialization of LocalDateTime from object Object</li>
+ *   <li>Allow deserialization of LocalDateTime from from string format "yyyy-MM-dd'T'HH:mm:ss.SSS"</li>
+ * </ul>
+ *
+ * <p>Examples:
+ *
+ * <pre>{@code
  *   // Take default behavior
  *   Gson gson = new GsonBuilder().registerTypeAdapter(
  *     LocalDateTime.class,
@@ -60,9 +58,7 @@ import com.mx.common.lang.Strings;
  *       .format("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
  *       .build()
  *   ).create();
- *   }
- * </pre>
- *
+ * }</pre>
  */
 @Builder
 public class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime>, JsonSerializer<LocalDateTime> {
@@ -90,9 +86,9 @@ public class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime
 
     /**
      * Provide a LocalDateTime string format that is accepted
-     * <p>
-     *   The formats need to be provided according to {@link DateTimeFormatter} specs.
-     * </p>
+     *
+     * <p>The formats need to be provided according to {@link DateTimeFormatter} specs.
+     *
      * @param format Format string of acceptable DateTime format
      * @return builder
      */
@@ -103,6 +99,7 @@ public class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime
 
     /**
      * Provide format for serializing a LocalDateTime object to JSON
+     *
      * @param format A DateTimeFormatter format String or
      *               OBJECT to serialize as an object (default)
      * @return builder

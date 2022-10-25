@@ -9,7 +9,7 @@ import java.util.Set;
 
 /**
  * A multi-value backed collection that acts like a multi-value map. This can be used interchangeably with other {@link MultiValueMappable} classes.
- * <p>
+ *
  * <pre>
  * The copy constructor will copy the reference to the backing collection (does not copy the collection).
  * Example:
@@ -22,6 +22,7 @@ import java.util.Set;
  *   singleValue.get("key1"); // => "value1"
  * }
  * </pre>
+ *
  * @param <K> key type
  * @param <V> value type
  */
@@ -31,6 +32,7 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
 
   /**
    * Convenience method for constructing a MultiValueMap for an existing Map
+   *
    * @param rawMap the raw map
    * @param <K> key type
    * @param <V> value type
@@ -59,6 +61,7 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
 
   /**
    * Set raw map
+   *
    * @param rawMap the map
    */
   @Override
@@ -74,6 +77,7 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
 
   /**
    * Copy constructor to move raw map from any MultiValueMappable object.
+   *
    * @param multiValueMappable
    */
   public MultiValueMap(MultiValueMappable<K, V> multiValueMappable) {
@@ -84,6 +88,7 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
 
   /**
    * Add the given single value to the current list of values for the given key.
+   *
    * @param key the key
    * @param value the value to be added
    */
@@ -94,6 +99,7 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
 
   /**
    * Add all the values of the given list to the current list of values for the given key.
+   *
    * @param key they key
    * @param values the values to be added
    */
@@ -105,6 +111,7 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
   /**
    * Add the given value, only when the map does not
    * contain the given key.
+   *
    * @param key the key
    * @param value the value to be added
    */
@@ -124,6 +131,7 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
 
   /**
    * True if the key exists. Considered true even if the key's list of values is empty.
+   *
    * @param key
    * @return
    */
@@ -138,6 +146,7 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
    *   <li>{@code value} is a {@link List} and {@code value.equals()} any key's list</li>
    *   <li>{@code value} is a {@link V} and the value exists in any keys' list</li>
    * </ol>
+   *
    * @param value the value
    * @return true, if found
    */

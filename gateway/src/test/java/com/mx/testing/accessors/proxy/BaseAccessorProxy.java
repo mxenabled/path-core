@@ -15,8 +15,8 @@ import com.mx.testing.accessors.BaseAccessor;
 
 /**
  * Base class for wrapping com.mx.accessors.BaseAccessor.
- * <p>
- * Used to provide scoped construction strategies.
+ *
+ * <p>Used to provide scoped construction strategies.
  */
 @RootAccessor
 public abstract class BaseAccessorProxy extends BaseAccessor implements AccessorProxy {
@@ -49,6 +49,7 @@ public abstract class BaseAccessorProxy extends BaseAccessor implements Accessor
    * Create an instance of Accessor type klass
    *
    * <p>Override to change how the accessor is constructed.
+   *
    * @return Accessor
    */
   protected BaseAccessor buildAccessor() {

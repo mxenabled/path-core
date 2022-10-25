@@ -29,12 +29,10 @@ import com.mx.common.messaging.MessageError;
 /**
  * Base exception for any request-based error. These are errors that occur at any level during a request.
  *
- * <p>
- * For Path system startup errors, use {@link PathSystemException}
- * </p>
+ * <p>For Path system startup errors, use {@link PathSystemException}
  *
- * <p>
- * Hierarchy:
+ * <p>Hierarchy:
+ *
  * <pre>
  *   {@link GatewayException}
  *     {@link BehaviorException}
@@ -55,21 +53,18 @@ import com.mx.common.messaging.MessageError;
  *   {@link FacilityException}
  *   {@link MessageError}
  * </pre>
- * </p>
- * <p>
- *   Each exception sets its own default Report and Status attributes. Most have constructors that allow setting
- *   fields common for their type. {@link PathRequestException} provides fluent setters for all attributes that will
- *   allow defaults to be overridden or additional attributes to be set.
  *
- *   Example:
- *   <pre>
- *     {@code
- *       throw new AccessorUserException("Identity unknown", "Username and/or password did not match system", PathResponseStatus.UNAUTHORIZED)
- *         .withReason("Bad password")
- *         .withCode("1401");
- *     }
- *   </pre>
- * </p>
+ * <p>Each exception sets its own default Report and Status attributes. Most have constructors that allow setting
+ * fields common for their type. {@link PathRequestException} provides fluent setters for all attributes that will
+ * allow defaults to be overridden or additional attributes to be set.
+ *
+ * <p>Example:
+ *
+ * <pre>{@code
+ *     throw new AccessorUserException("Identity unknown", "Username and/or password did not match system", PathResponseStatus.UNAUTHORIZED)
+ *       .withReason("Bad password")
+ *       .withCode("1401");
+ * }</pre>
  */
 public abstract class PathRequestException extends RuntimeException {
   @Getter
@@ -121,9 +116,9 @@ public abstract class PathRequestException extends RuntimeException {
 
   /**
    * Set message
-   * <p>
-   *   Note: {@link PathRequestException} overrides base exception message to allow it to be overridden.
-   * </p>
+   *
+   * <p>Note: {@link PathRequestException} overrides base exception message to allow it to be overridden.
+   *
    * @return
    */
   @Override

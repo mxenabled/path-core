@@ -6,14 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <b>Defines account behaviors and attributes.</b>
+ * Defines account behaviors and attributes
  *
- * <p>
- * Used to inform child services of account attributes, behaviors and capabilities.
+ * <p>Used to inform child services of account attributes, behaviors and capabilities.
  * Loaded into session by primary service (usually at authentication time).
  * These can be inspected and the behaviors can be discovered/applied
  * applied via this class.
- * </p>
  *
  * @deprecated AccountBehavior is no longer supported. Applications using the SDK should build the functionality they
  *             need from this class into the Accessor code.
@@ -80,6 +78,7 @@ public class AccountBehavior {
 
   /**
    * This account can participate in remote deposits
+   *
    * @return
    */
   public final boolean canReceiveRemoteDeposit() {

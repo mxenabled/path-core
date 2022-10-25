@@ -6,39 +6,34 @@ import lombok.Data;
 
 /**
  * Java 8 compatible LocalDateTime (de)serialization class.
- * <p>
- * Java 8 (Gson) serializes LocalDateTime as an object like this:
- * </p>
  *
- * <pre>
- * {@code
- * {
- *   "expiresAt": 1659984648,
- *   "id": "2d2c6f7b-f0b2-41fb-bfa5-e043d08fa8d7",
- *   "jointOwners": [],
- *   "sessionState": "UNAUTHENTICATED",
- *   "startedAt": {
- *     "date": {
- *       "year": 2022,
- *       "month": 8,
- *       "day": 8
- *     },
- *     "time": {
- *       "hour": 18,
- *       "minute": 20,
- *       "second": 48,
- *       "nano": 878000000
+ * <p>Java 8 (Gson) serializes LocalDateTime as an object like this:
+ *
+ * <pre>{@code
+ *   {
+ *     "expiresAt": 1659984648,
+ *     "id": "2d2c6f7b-f0b2-41fb-bfa5-e043d08fa8d7",
+ *     "jointOwners": [],
+ *     "sessionState": "UNAUTHENTICATED",
+ *     "startedAt": {
+ *       "date": {
+ *         "year": 2022,
+ *         "month": 8,
+ *         "day": 8
+ *       },
+ *       "time": {
+ *         "hour": 18,
+ *         "minute": 20,
+ *         "second": 48,
+ *         "nano": 878000000
+ *       }
  *     }
  *   }
- * }
- * }
- * </pre>
+ * }</pre>
  *
- * <p>
- * This class is used to (de)serialize LocalDateTime to/from the Java 8 object format.
- *</p><p>
- * It is used by {@link LocalDateTimeDeserializer}
- * </p>
+ * <p>This class is used to (de)serialize LocalDateTime to/from the Java 8 object format.
+ *
+ * <p>It is used by {@link LocalDateTimeDeserializer}
  */
 @Data
 class LocalDateTimeJava8 {

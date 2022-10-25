@@ -18,6 +18,7 @@ import com.mx.path.gateway.security.MutualAuthProviderFactory;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -36,12 +37,10 @@ import org.apache.http.util.EntityUtils;
 
 /**
  * HttpClient web request executor
- * <p>
- * Makes API call for given <class>Request</class> using Apache HttpClient
- * </p>
- * <p>
+ *
+ * <p>Makes API call for given {@link Request} using Apache {@link HttpClient}
+ *
  * @deprecated moved to connection-specific library
- * </p>
  */
 @Deprecated
 public class HttpClientExecutor extends RequestExecutorBase {

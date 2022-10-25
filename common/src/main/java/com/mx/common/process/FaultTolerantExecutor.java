@@ -9,26 +9,22 @@ public interface FaultTolerantExecutor {
    * Submits a task to be executed with configurable fault-tolerant protections. The scope parameter allows the
    * facility to select a specific set of configurations for the given task.
    *
-   * <p>
-   * The scope parameter should be formatted as a dot-delimited string so that a fallback scope can be selected
+   * <p>The scope parameter should be formatted as a dot-delimited string so that a fallback scope can be selected
    * if the fully-qualified scope doesn't have a custom configuration.
-   * </p>
    *
-   * <p>
-   * For example, imagine the following scopes have custom configurations:
+   * <p>For example, imagine the following scopes have custom configurations:
    *
-   *  - http
-   *  - http.accounts
-   *  - http.accounts.create
-   * </p>
+   * <ul>
+   *   <li>http
+   *   <li>http.accounts
+   *   <li>http.accounts.create
+   * </ul>
    *
-   * <p>
-   * Now imagine that `submit(...)` gets called with the scope `http.accounts.list`. There is no custom configuration
-   * for `http.accounts.list`, but there is a custom configuration for `http.accounts`. In this case, the `http.accounts`
-   * configuration should be selected. Similarly, if the scope `http.profiles.get` is provided, the `http` scope
-   * configurations should be selected for the provided task. Finally, if the scope `remote.payouts.update` is provided,
+   * <p>Now imagine that {@code submit(...)} gets called with the scope {@code http.accounts.list}. There is no custom configuration
+   * for {@code http.accounts.list}, but there is a custom configuration for {@code http.accounts}. In this case, the {@code http.accounts}
+   * configuration should be selected. Similarly, if the scope {@code http.profiles.get} is provided, the {@code http} scope
+   * configurations should be selected for the provided task. Finally, if the scope {@code remote.payouts.update} is provided,
    * none of the custom configurations should be selected and the defaults should be used.
-   * </p>
    *
    * @param scope
    * @param task

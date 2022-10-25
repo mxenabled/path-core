@@ -6,9 +6,8 @@ import com.mx.common.connect.Response;
 
 /**
  * Request finisher
- * <p>
- * Ensures that the request is set to finished so all timing is set before exceptions go further up the stack.
- * </p>
+ *
+ * <p>Ensures that the request is set to finished so all timing is set before exceptions go further up the stack.
  */
 public class RequestFinishedFilter extends RequestFilterBase {
   @Override

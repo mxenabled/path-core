@@ -38,8 +38,8 @@ import org.apache.commons.text.StringSubstitutor;
 
 /**
  * Stand up a Gateway from configuration
- * <p>
- * Instance is NOT multi-thread-safe. Create a new configurator instance per thread if needed.
+ *
+ * <p>Instance is NOT multi-thread-safe. Create a new configurator instance per thread if needed.
  */
 public abstract class Configurator<T extends Gateway<?>> {
   private static final int MAX_YAML_ALIASES = 100;
@@ -61,6 +61,7 @@ public abstract class Configurator<T extends Gateway<?>> {
 
   /**
    * Build gateway from a configuration ObjectMap
+   *
    * @param map ObjectMap of configuration
    * @param clientId Client ID
    * @return Configured gateway
@@ -74,6 +75,7 @@ public abstract class Configurator<T extends Gateway<?>> {
 
   /**
    * Build gateway from json string
+   *
    * @param json string
    * @return T
    */
@@ -172,6 +174,7 @@ public abstract class Configurator<T extends Gateway<?>> {
 
   /**
    * Build sub-gateways
+   *
    * @param map definition
    * @param clientId of owning client
    * @param builder Current GatewayBuilder

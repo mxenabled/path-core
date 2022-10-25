@@ -5,9 +5,7 @@ import com.mx.common.exception.PathSystemException;
 /**
  * Thrown when invalid code state is detected, at boot time.
  *
- * <p>
- *   See {@link PathSystemException} for usage details
- * </p>
+ * <p>See {@link PathSystemException} for usage details
  */
 public class InvalidStateException extends PathSystemException {
   public InvalidStateException(String message) {

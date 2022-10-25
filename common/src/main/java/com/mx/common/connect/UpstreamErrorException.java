@@ -9,11 +9,10 @@ import com.mx.common.http.HttpStatus;
 
 /**
  * Thrown when an unexpected response status is returned from an upstream system call.
- * <p>
- *   Note: This is not a typical exception. It is not good form to bubble up response statuses from upstream calls
- *   The status should be translated to the appropriate {@link PathResponseStatus} and raised in an appropriate
- *   exception, like {@link AccessorUserException}.
- * </p>
+ *
+ * <p>Note: This is not a typical exception. It is not good form to bubble up response statuses from upstream calls
+ * The status should be translated to the appropriate {@link PathResponseStatus} and raised in an appropriate
+ * exception, like {@link AccessorUserException}.
  */
 public class UpstreamErrorException extends ConnectException {
   @Setter

@@ -8,10 +8,10 @@ import com.mx.common.lang.Strings;
 
 /**
  * Creates and manages request processors.
- * <p>
- * Requests with the same base_url and feature use the same request
+ *
+ * <p>Requests with the same base_url and feature use the same request
  * processor. Request processors are expected to be thread safe and stateless.
- * </p>
+ *
  * @deprecated functionality moved to connect library
  */
 @Deprecated
@@ -19,7 +19,7 @@ public class RequestProcessorFactory {
   /**
    * Cache request processors by baseUrl and feature.
    *
-   * This is being done to avoid excessive object creation. Stored based on hashcode of baseUrl and feature because
+   * <p>This is being done to avoid excessive object creation. Stored based on hashcode of baseUrl and feature because
    * because this is how the critical connection attributes differ as well.
    */
   private static Map<Long, RequestProcessor> processors = new HashMap<>();

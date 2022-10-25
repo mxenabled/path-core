@@ -75,8 +75,7 @@ public abstract class Accessor {
 
   /**
    * Get implemented accessors
-   * <p>
-   *   Finds methods from {@link Accessor} annotated with {@link API} and have been overriden in this instance.
+   * <p>Finds methods from {@link Accessor} annotated with {@link API} and have been overriden in this instance.
    *
    * @return list of implemented accessors
    */

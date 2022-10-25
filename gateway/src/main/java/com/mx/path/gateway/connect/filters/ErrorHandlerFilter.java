@@ -8,11 +8,12 @@ import com.mx.path.gateway.util.UpstreamLogger;
 
 /**
  * Handles request exceptions
- * <p>
- * Runs next
- * If Connection Failure, log call and rethrow
- * All other exceptions, placed in response
- * </p>
+ *
+ * <pre>
+ *   Runs next
+ *     If Connection Failure, log call and rethrow
+ *     All other exceptions, placed in response
+ * </pre>
  */
 public class ErrorHandlerFilter extends RequestFilterBase {
 

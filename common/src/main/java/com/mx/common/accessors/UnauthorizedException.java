@@ -6,9 +6,7 @@ import com.mx.common.exception.PathRequestException;
  * Thrown when a user attempts an operation when they are not authenticated, the session is expired, or the session is
  * in a bad state.
  *
- * <p>
- *   See {@link PathRequestException} for usage details
- * </p>
+ * <p>See {@link PathRequestException} for usage details
  */
 public class UnauthorizedException extends AccessorUserException {
   public UnauthorizedException(String message, String userMessage) {

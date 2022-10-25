@@ -5,10 +5,10 @@ import lombok.Setter;
 
 /**
  * Base class for all executors
- * <p>
- * Provides handle to next item in chain.
- * NOTE: RequestExecutors are expected to be stateless
- * </p>
+ *
+ * <p>Provides handle to next item in chain.
+ *
+ * <p>NOTE: RequestExecutors are expected to be stateless
  */
 public abstract class RequestFilterBase implements RequestFilter {
   @Getter

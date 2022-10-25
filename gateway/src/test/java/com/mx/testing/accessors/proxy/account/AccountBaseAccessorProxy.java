@@ -17,8 +17,8 @@ import com.mx.testing.model.Account;
 
 /**
  * Base class for wrapping com.mx.accessors.account.AccountBaseAccessor.
- * <p>
- * Used to provide scoped construction strategies.
+ *
+ * <p>Used to provide scoped construction strategies.
  */
 public abstract class AccountBaseAccessorProxy extends AccountBaseAccessor implements AccessorProxy {
   @Getter
@@ -66,6 +66,7 @@ public abstract class AccountBaseAccessorProxy extends AccountBaseAccessor imple
    * Create an instance of Accessor type klass
    *
    * <p>Override to change how the accessor is constructed.
+   *
    * @param klass
    * @return Accessor
    */

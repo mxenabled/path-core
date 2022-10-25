@@ -15,6 +15,7 @@ public abstract class ScopedStore implements Store {
 
   /**
    * Wrap given store in a store scope
+   *
    * @param store
    * @param scope
    * @return scoped store
@@ -33,13 +34,15 @@ public abstract class ScopedStore implements Store {
 
   /**
    * Add scope to given key
+   *
    * @param key
-   * @return
+   * @return scoped key
    */
   protected abstract String buildKey(String key);
 
   /**
    * Delete key
+   *
    * @param key
    */
   @Override
@@ -49,8 +52,9 @@ public abstract class ScopedStore implements Store {
 
   /**
    * Get value for key
+   *
    * @param key
-   * @return
+   * @return value
    */
   @Override
   public final String get(String key) {
@@ -59,6 +63,7 @@ public abstract class ScopedStore implements Store {
 
   /**
    * Put value
+   *
    * @param key
    * @param value
    * @param expirySeconds
@@ -70,6 +75,7 @@ public abstract class ScopedStore implements Store {
 
   /**
    * Put value, without a TTL
+   *
    * @param key
    * @param value
    */
@@ -80,6 +86,7 @@ public abstract class ScopedStore implements Store {
 
   /**
    * Add value to set
+   *
    * @param key
    * @param value
    * @param expirySeconds
@@ -91,6 +98,7 @@ public abstract class ScopedStore implements Store {
 
   /**
    * Add value to set, without a TTL
+   *
    * @param key
    * @param value
    */
@@ -101,6 +109,7 @@ public abstract class ScopedStore implements Store {
 
   /**
    * Delete value from set
+   *
    * @param key
    * @param value
    */
@@ -111,9 +120,10 @@ public abstract class ScopedStore implements Store {
 
   /**
    * Query whether value is in set
+   *
    * @param key
    * @param value
-   * @return
+   * @return true, if value in set
    */
   @Override
   public boolean inSet(String key, String value) {
@@ -122,8 +132,9 @@ public abstract class ScopedStore implements Store {
 
   /**
    * Get set
+   *
    * @param key
-   * @return
+   * @return set
    */
   @Override
   public Set<String> getSet(String key) {
@@ -132,10 +143,11 @@ public abstract class ScopedStore implements Store {
 
   /**
    * Set value if key does not already exist
+   *
    * @param key
    * @param value
    * @param expirySeconds
-   * @return
+   * @return true, if a value was set
    */
   @Override
   public final boolean putIfNotExist(String key, String value, long expirySeconds) {
@@ -144,13 +156,13 @@ public abstract class ScopedStore implements Store {
 
   /**
    * Set value if key does not already exist, without a TTL
+   *
    * @param key
    * @param value
-   * @return
+   * @return true, if a value was set
    */
   @Override
   public final boolean putIfNotExist(String key, String value) {
     return store.putIfNotExist(buildKey(key), value);
   }
-
 }

@@ -11,14 +11,12 @@ import com.mx.path.model.context.facility.Facilities;
 
 /**
  * UpstreamRequestEventExecutor posts request and response events
- * <p>
- * This executor posts an event before and after the rest of the executor stack executes.
+ *
+ * <p>This executor posts an event before and after the rest of the executor stack executes.
  * These events can be used for logging, request/response inspection, etc.
  * Uses the client-configured EventBus facility to post the events
- * </p>
- * <p>
+ *
  * @deprecated moved to {@link com.mx.path.gateway.connect.filters.UpstreamRequestEventFilter}
- * </p>
  */
 @Deprecated
 public class UpstreamRequestEventExecutor extends RequestExecutorBase {

@@ -5,9 +5,7 @@ import com.mx.common.exception.PathRequestException;
 /**
  * Thrown when response payload is unrecognizable or un-processable
  *
- * <p>
- *   See {@link PathRequestException} for usage details
- * </p>
+ * <p>See {@link PathRequestException} for usage details
  */
 public class ResponsePayloadException extends AccessorSystemException {
   public ResponsePayloadException(String message) {
