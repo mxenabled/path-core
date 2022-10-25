@@ -1,0 +1,6 @@
+src:
+- '**/src/**'
+- '**/build.gradle'
+- '**/gradle.lockfile'
+- '**/gradle.settings'
+- '.github/**'
