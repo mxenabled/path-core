@@ -22,7 +22,7 @@ import com.mx.common.accessors.ResponsePayloadException;
 /**
  * Static methods for marshalling to and from SOAP Envelopes
  *
- * NOTE: This should be moved to Common or Models with the other serializer utilities.
+ * <p>NOTE: This should be moved to Common or Models with the other serializer utilities.
  */
 public class SoapMarshaller {
 
@@ -31,9 +31,7 @@ public class SoapMarshaller {
   /**
    * Object to SOAP envelope. Marshalls to requestObject.getClass().
    *
-   * <p>
-   * The class must have an XmlRoot annotation. If it does not (because it is generated), wrap in a {@link javax.xml.bind.JAXBElement} proxy and use {@code toEnvelope(Object requestObj, Class<?> klass)}
-   * </p>
+   * <p>The class must have an XmlRoot annotation. If it does not (because it is generated), wrap in a {@link javax.xml.bind.JAXBElement} proxy and use {@code toEnvelope(Object requestObj, Class<?> klass)}
    *
    * @param requestObj
    * @return SOAP Envelope
@@ -48,10 +46,9 @@ public class SoapMarshaller {
   /**
    * Object to SOAP envelope. Allows the desired object marshalling type to be specified.
    *
-   * <p>
-   * Use this if the request object is wrapped in a {@link javax.xml.bind.JAXBElement} proxy.
-   * </p>
-   * @param requestObj
+   * <p>Use this if the request object is wrapped in a {@link javax.xml.bind.JAXBElement} proxy.
+   *
+   * @param requestObj request object
    * @param klass convert to this type.
    * @return SOAP Envelope
    */
@@ -61,14 +58,14 @@ public class SoapMarshaller {
 
   /**
    * Object to SOAP envelope. Allows the desired object marshalling type to be specified.
-   * Allows SOAP headers to also be set
-   * Expects you to have a Map of classes to static JAXBContexts
+   * <p>Allows SOAP headers to also be set
+   * <p>Expects you to have a Map of classes to static JAXBContexts
    *
-   * @param requestHeaderObj
-   * @param headerKlass
-   * @param requestBodyObj
-   * @param bodyKlass
-   * @return
+   * @param requestHeaderObj request headers
+   * @param headerKlass header type
+   * @param requestBodyObj request body
+   * @param bodyKlass body type
+   * @return SOAP Envelope
    */
   public static String toEnvelope(Object requestHeaderObj, Class headerKlass, Object requestBodyObj, Class bodyKlass) {
     try {
@@ -105,10 +102,10 @@ public class SoapMarshaller {
 
   /**
    * Marshall SOAP envelope to object
-   * @param <T> type to marshall to
+   *
    * @param envelopeXml of SOAP response
    * @param klass type to marshall to
-   * @return marshalled object of type <T>
+   * @return marshalled object of type T
    */
   public static <T> T toResponse(String envelopeXml, Class<T> klass) {
     try {
@@ -127,5 +124,4 @@ public class SoapMarshaller {
       throw new ResponsePayloadException(ex.getMessage(), ex);
     }
   }
-
 }

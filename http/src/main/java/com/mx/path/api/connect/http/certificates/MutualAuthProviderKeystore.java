@@ -29,8 +29,7 @@ public class MutualAuthProviderKeystore implements MutualAuthProvider {
 
   /**
    * Add keystores to webclient.
-   * <p>
-   * For more info, see https://stackoverflow.com/questions/45418523/spring-5-webclient-using-ssl
+   * <p>For more info, see https://stackoverflow.com/questions/45418523/spring-5-webclient-using-ssl
    *
    * @param builder
    * @return Builder

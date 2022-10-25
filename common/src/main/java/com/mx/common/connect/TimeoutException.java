@@ -6,9 +6,7 @@ import com.mx.common.exception.PathRequestException;
 /**
  * Thrown on a connection/request timeout
  *
- * <p>
- *   See {@link PathRequestException} for usage details
- * </p>
+ * <p>See {@link PathRequestException} for usage details
  */
 public class TimeoutException extends ConnectException {
   public TimeoutException() {

@@ -9,29 +9,26 @@ import java.util.Set;
 
 /**
  * A multi-value backed collection that acts like a single-value map. This can be used interchangeably with other {@link MultiValueMappable} classes.
- * <p>
- * <pre>
- * The copy constructor will copy the reference to the backing collection (does not copy the collection).
- * Example:
- * {@code
+ *
+ * <p>The copy constructor will copy the reference to the backing collection (does not copy the collection).
+ *
+ * <p>Example:
+ * <pre>{@code
  *   SingleValueMap<String, String> singleValue = new SingleValueMap<>();
  *   singleValue.put("key1", "value1");
  *   singleValue.get("key1"); // => "value1"
  *
  *   MultiValueMap<String, String> multiValue = new MultiValueMap<String, String>(singleValue);
  *   multiValue.get("key1"); // => [ "value1" ]
- * }
- * </pre>
+ * }</pre>
  *
  * <i>Multi-Value support:</i>
- * This map will preserve key multi-values with all read operations. Write operations will replace the list of values with a new list.
- * <p>
- * If multi-value support is needed, use {@link MultiValueMap}.
- * @param <K> key type
- * @param <V> value type
- */
-/**
- * Interface for map of single values
+ * <p>This map will preserve key multi-values with all read operations. Write operations will replace the list of values with a new list.
+ *
+ * <p>If multi-value support is needed, use {@link MultiValueMap}.
+ *
+ * <p>Interface for map of single values
+ *
  * @param <K> Key type
  * @param <V> Value type
  */
@@ -41,6 +38,7 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
 
   /**
    * Convenience method for constructing a SingleValueMap for an existing Map
+   *
    * @param rawMap the raw map
    * @param <K> key type
    * @param <V> value type
@@ -69,6 +67,7 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
 
   /**
    * Set raw map
+   *
    * @param rawMap the map
    */
   @Override
@@ -84,6 +83,7 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
 
   /**
    * Copy constructor to move raw map from any MultiValueMappable object.
+   *
    * @param multiValueMap
    */
   public SingleValueMap(MultiValueMappable<K, V> multiValueMap) {
@@ -128,6 +128,7 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
 
   /**
    * Compares this with other. Will compare the rawMap's if other is MultiValueMappable
+   *
    * @param other
    * @return true if they are equal
    */
@@ -164,6 +165,7 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
 
   /**
    * hashCode of rawMap
+   *
    * @return
    */
   @Override
@@ -173,6 +175,7 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
 
   /**
    * isEmpty of rawMap
+   *
    * @return
    */
   @Override
@@ -182,6 +185,7 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
 
   /**
    * keySet of rawMap
+   *
    * @return
    */
   @Override
@@ -191,9 +195,10 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
 
   /**
    * Sets first value for key.
-   * <p>
-   * <i>Multi-value Support:</i>
-   * This operation will remove all other values associated with key. If multi-value support is needed, convert this collection to a {@link MultiValueMap}
+   *
+   * <p><i>Multi-value Support:</i>
+   * <p>This operation will remove all other values associated with key. If multi-value support is needed, convert this collection to a {@link MultiValueMap}
+   *
    * @param key the key
    * @param value the value
    * @return
@@ -205,9 +210,10 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
 
   /**
    * Sets first value for all keys given.
-   * <p>
-   * <i>Multi-value Support:</i>
-   * This operation will remove all other values associated with provided keys. If multi-value support is needed, convert this collection to a {@link MultiValueMap}
+   *
+   * <p><i>Multi-value Support:</i>
+   * <p>This operation will remove all other values associated with provided keys. If multi-value support is needed, convert this collection to a {@link MultiValueMap}
+   *
    * @param map Map of key-values
    */
   @Override
@@ -217,9 +223,10 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
 
   /**
    * Remove key
-   * <p>
-   * <i>Multi-value Support:</i>
-   * This operation will remove all other values associated with provided key. If multi-value support is needed, convert this collection to a {@link MultiValueMap}
+   *
+   * <p><i>Multi-value Support:</i>
+   * <p>This operation will remove all other values associated with provided key. If multi-value support is needed, convert this collection to a {@link MultiValueMap}
+   *
    * @param key the key
    * @return the first value associated with the removed key.
    */
@@ -241,6 +248,7 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
 
   /**
    * Convert to regular Map
+   *
    * @return map of key first-value pairs
    */
   public Map<K, V> toMap() {
@@ -273,9 +281,10 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
 
   /**
    * Collection of first values to all keys.
-   * <p>
-   * <i>Multi-value Support:</i>
-   * This operation will remove all other values associated with provided key. If multi-value support is needed, convert this collection to a {@link MultiValueMap}
+   *
+   * <p><i>Multi-value Support:</i>
+   * <p>This operation will remove all other values associated with provided key. If multi-value support is needed, convert this collection to a {@link MultiValueMap}
+   *
    * @return first values for all keys
    */
   @Override

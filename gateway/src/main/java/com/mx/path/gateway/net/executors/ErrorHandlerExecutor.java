@@ -7,11 +7,13 @@ import com.mx.path.gateway.util.UpstreamLogger;
 
 /**
  * Handles request exceptions
- * <p>
- * Runs next
- * If Connection Failure, log call and rethrow
- * All other exceptions, placed in response
- * </p>
+ *
+ * <ul>
+ * <li>Runs next
+ * <li>If Connection Failure, log call and rethrow
+ * <li>All other exceptions, placed in response
+ * </ul>
+ *
  * @deprecated Use {@link com.mx.path.gateway.connect.filters.ErrorHandlerFilter}
  */
 @Deprecated

@@ -53,6 +53,7 @@ public class AccessorStackConfigurator {
 
   /**
    * Build accessor proxy
+   *
    * @param name
    * @param map
    * @param clientId
@@ -212,13 +213,13 @@ public class AccessorStackConfigurator {
 
   /**
    * Determine the scope for this accessor
-   * <p>
-   *   This is determined in the following order (highest precedence on top):
-   *   <ol>
-   *     <li>configuration's 'scope' key</li>
-   *     <li>class MaxScope annotation</li>
-   *   </ol>
-   * </p>
+   *
+   * <p>This is determined in the following order (highest precedence on top):
+   * <ol>
+   *   <li>configuration's 'scope' key</li>
+   *   <li>class MaxScope annotation</li>
+   * </ol>
+   *
    * @param node
    * @param accessorType
    * @return

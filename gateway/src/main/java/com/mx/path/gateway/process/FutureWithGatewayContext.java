@@ -12,24 +12,28 @@ import com.mx.common.gateway.GatewayException;
 
 /**
  * This class can be used to easily spin off an asynchronous future that handle Gateway context propagation. By default,
- * this class will also handle submitting the future to a default executor service and handle catching & translating
+ * this class will also handle submitting the future to a default executor service and handle catching &amp; translating
  * thread exceptions into Gateway exceptions. This class is backed by the AsyncWithGatewayContext class.
  *
  * Note: the future begins executing immediately after object creation. This means you can spin off N async tasks that
  *       will run in parallel until you want to wait for them to finish.
  *
  * Usage:
+ * <pre>{@code
+ *
  * // begins the API call immediately (takes ~2 seconds)
  * FutureWithGatewayContext<RemoteStrings> remoteStrings = new FutureWithGatewayContext<>(() -> api.getRemoteStrings());
+ *
  * // begins the API call immediately (takes ~2 seconds)
  * FutureWithGatewayContext<RemoteInt> remoteInt = new FutureWithGatewayContext<>(() -> api.getRemoteInt());
  *
  * RemoteStrings strings = remoteStrings.get(); // blocks
  * RemoteInt int = remoteInt.get(); // blocks
  *
- * Total request time: ~2 seconds instead of ~4.
+ * // Total request time: ~2 seconds instead of ~4.
+ * }</pre>
  *
- * @param <T>
+ * @param <T> result type
  */
 public final class FutureWithGatewayContext<T> {
   private static final long DEFAULT_RETRIEVAL_TIMEOUT_MILLIS = 10000;

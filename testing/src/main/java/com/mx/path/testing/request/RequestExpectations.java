@@ -17,8 +17,8 @@ import org.mockito.Mockito;
 public class RequestExpectations {
 
   /**
-   -   * Allowed requests (not verified)
-   -   */
+   * Allowed requests (not verified)
+   */
   private static final ThreadLocal<List<RequestExpectation>> REQUEST_ALLOWANCES = ThreadLocal.withInitial(ArrayList::new);
 
   /**
@@ -62,6 +62,7 @@ public class RequestExpectations {
 
   /**
    * Create a request expectation. Will fail verification if not invoked.
+   *
    * @param requestMatcher matching rules
    * @return self
    */
@@ -71,6 +72,7 @@ public class RequestExpectations {
 
   /**
    * Get the first request executed against expectations.
+   *
    * @return first request
    */
   public static Request<?, ?> request() {
@@ -79,6 +81,7 @@ public class RequestExpectations {
 
   /**
    * Get the first matching request executed against expectations.
+   *
    * @param requestMatcher matching rules
    * @return first request
    */
@@ -88,6 +91,7 @@ public class RequestExpectations {
 
   /**
    * Get the requests received by expectations (does not include allowances). Requests are in the order they were received.
+   *
    * @return list of requests
    */
   public static List<Request<?, ?>> requests() {
@@ -96,6 +100,7 @@ public class RequestExpectations {
 
   /**
    * Get the filtered requests received by expectations (does not include allowances). Requests are in the order they were received.
+   *
    * @return list of requests
    */
   public static List<Request<?, ?>> requests(RequestMatcher requestMatcher) {
@@ -113,6 +118,7 @@ public class RequestExpectations {
 
   /**
    * Creates a request expectation that is not expected to be invoked
+   *
    * @param requestMatcher
    * @return new expectation
    */
@@ -122,6 +128,7 @@ public class RequestExpectations {
 
   /**
    * Verifies that all expected requests were made. Raises exception if expectations are not met.
+   *
    * @return true if all requests were made. (this return value allows this to be invoked in {@code then:} section of Spock test.)
    */
   public static boolean verifyConnectionExpectations() {
@@ -139,6 +146,7 @@ public class RequestExpectations {
 
     /**
      * Create a request expectation.Will fail verification if not invoked.
+     *
      * @param requestMatcher
      * @return
      */

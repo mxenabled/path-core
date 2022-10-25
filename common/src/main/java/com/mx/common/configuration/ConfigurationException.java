@@ -5,9 +5,7 @@ import com.mx.common.exception.PathSystemException;
 /**
  * Thrown on gateway configuration error
  *
- * <p>
- *   See {@link PathSystemException} for usage details
- * </p>
+ * <p>See {@link PathSystemException} for usage details
  */
 public class ConfigurationException extends PathSystemException {
   public ConfigurationException(String message) {

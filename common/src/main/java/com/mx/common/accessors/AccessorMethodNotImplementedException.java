@@ -5,9 +5,7 @@ import com.mx.common.exception.PathRequestException;
 /**
  * Thrown when an accessor method is invoked that has no implementation.
  *
- * <p>
- *   See {@link PathRequestException} for usage details
- * </p>
+ * <p>See {@link PathRequestException} for usage details
  */
 public class AccessorMethodNotImplementedException extends AccessorSystemException {
   public AccessorMethodNotImplementedException() {

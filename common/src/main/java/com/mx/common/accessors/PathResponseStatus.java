@@ -7,10 +7,8 @@ import com.mx.common.http.HttpStatus;
 /**
  * Status codes for Path responses.
  *
- * <p>
- *   These statuses map loosely to HTTP status. Some of the names have been changed to clarify their
- *   intended use in Path.
- * </p>
+ * <p>These statuses map loosely to HTTP status. Some of the names have been changed to clarify their
+ * intended use in Path.
  */
 @SuppressWarnings("checkstyle:magicnumber")
 public enum PathResponseStatus {
@@ -47,25 +45,21 @@ public enum PathResponseStatus {
 
   /**
    * The requested resource does not exist or does not belong to the user
-   * <p>
-   *   This should <i>not</i> be used in the case a list is requested and the list is empty. In that case,
-   *   the response status should be OK with an empty list.
-   * </p>
+   * <p>This should <i>not</i> be used in the case a list is requested and the list is empty. In that case,
+   * the response status should be OK with an empty list.
    */
   NOT_FOUND(404, "Resource not found", true),
 
   /**
    * The request cannot be performed because of some user-correctable reason.
    *
-   * <p>
-   *   Example reasons:
-   *   <ul>
-   *     <li>Transfer amount too large, because not enough money in source account. Please decrease the amount or choose a different account</li>
-   *     <li>Payment amount is greater than allowed amount. Please decrease the amount to below $500</li>
-   *     <li>Remote Deposit cannot be completed because the user has not signed up for Remote Deposits. Please visit the online banking site to sign up.</li>
-   *     <li>User cannot log in because the account is not properly provisioned. Please call customer service to get the problem corrected.</li>
-   *   </ul>
-   * </p>
+   * Example reasons:
+   * <ul>
+   *   <li>Transfer amount too large, because not enough money in source account. Please decrease the amount or choose a different account</li>
+   *   <li>Payment amount is greater than allowed amount. Please decrease the amount to below $500</li>
+   *   <li>Remote Deposit cannot be completed because the user has not signed up for Remote Deposits. Please visit the online banking site to sign up.</li>
+   *   <li>User cannot log in because the account is not properly provisioned. Please call customer service to get the problem corrected.</li>
+   * </ul>
    */
   USER_ERROR(422, "User-correctable error", true),
 
@@ -77,19 +71,16 @@ public enum PathResponseStatus {
   /**
    * Something went wrong while processing request.
    *
-   * <p>
-   *   This should be reserved for situations that can only be corrected by the developer. In other words,
+   * <p>This should be reserved for situations that can only be corrected by the developer. In other words,
    *   the code or environment are broken.
-   * </p>
-   * <p>
-   *   Examples:
-   *   <ul>
-   *     <li>The configured certificate and private key do not match</li>
-   *     <li>A JWT could not be parsed</li>
-   *     <li>Failed to store value in key-value-store due to network failure</li>
-   *     <li>Got a null value, where a non-null was expected (not user-provided)</li>
-   *   </ul>
-   * </p>
+   *
+   * Examples:
+   * <ul>
+   *   <li>The configured certificate and private key do not match</li>
+   *   <li>A JWT could not be parsed</li>
+   *   <li>Failed to store value in key-value-store due to network failure</li>
+   *   <li>Got a null value, where a non-null was expected (not user-provided)</li>
+   * </ul>
    */
   INTERNAL_ERROR(500, "Internal error", true),
 
@@ -100,9 +91,7 @@ public enum PathResponseStatus {
 
   /**
    * Request encountered an upstream system that is unavailable. Not typically used directly.
-   * <p>
-   *   This is used to indicate a open circuit.
-   * </p>
+   * <p>This is used to indicate a open circuit.
    */
   UNAVAILABLE(503, "Service unavailable", true),
 

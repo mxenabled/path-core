@@ -67,8 +67,8 @@ public abstract class Gateway<T extends Accessor> {
 
   /**
    * Use reflection to discover all child gateways belonging to this
-   * <p>
-   * Gateways must be exposed via a getter
+   *
+   * <p>Gateways must be exposed via a getter
    *
    * @return List of BaseGateway
    */
@@ -113,7 +113,7 @@ public abstract class Gateway<T extends Accessor> {
   /**
    * Describe this gateway
    *
-   * @return description
+   * @return new description
    */
   public final ObjectMap describe() {
     ObjectMap description = new ObjectMap();
@@ -124,9 +124,10 @@ public abstract class Gateway<T extends Accessor> {
 
   /**
    * Fill in description
-   * Override and call super to get complete description.
    *
-   * @param description
+   * <p>Override and call super to get complete description.
+   *
+   * @param description description object
    */
   public void describe(ObjectMap description) {
     if (isTopLevel()) {
@@ -152,8 +153,8 @@ public abstract class Gateway<T extends Accessor> {
   /**
    * Generate description for all accessors in given
    *
-   * @param accessorToDescribe
-   * @return
+   * @param accessorToDescribe accessor to describe
+   * @param description description being built
    */
   public void describeAccessors(Accessor accessorToDescribe, ObjectMap description) {
     AccessorDescriber accessorDescriber = new AccessorDescriber();
@@ -167,14 +168,14 @@ public abstract class Gateway<T extends Accessor> {
 
   /**
    * Build the behavior call stack (decorator).
-   * <p>
+   *
    * todo: We had this setup as a lazy loaded singleton to avoid rebuilding it with every request.
    *       It was causing collisions. Not sure why. Just building fresh, with every request, for now.
    *       The collision exposed itself when behaviors "cross-called" other gateway actions.
    *       Seemed like the first gateway to execute had it's behavior set in stone. Doesn't seem like that should
    *       have happened. ¯\_(ツ)_/¯
    *
-   * @return
+   * @return head of behavior stack
    */
   protected final GatewayBehavior buildStack() {
     GatewayBehavior stack = new StartBehavior();
@@ -203,9 +204,9 @@ public abstract class Gateway<T extends Accessor> {
   /**
    * Emit afterAccessorEvent
    *
-   * @param gateway
-   * @param callingAccessor
-   * @param requestContext
+   * @param gateway current gateway
+   * @param callingAccessor the current accessor
+   * @param requestContext request context
    */
   public final void afterAccessor(Gateway gateway, Accessor callingAccessor, RequestContext requestContext) {
     if (requestContext.getClientId() == null) {
@@ -226,9 +227,9 @@ public abstract class Gateway<T extends Accessor> {
   /**
    * Emit beforeAccessorEvent
    *
-   * @param gateway
-   * @param callingAccessor
-   * @param requestContext
+   * @param gateway current gateway
+   * @param callingAccessor current accessor
+   * @param requestContext request context
    */
   public final void beforeAccessor(Gateway gateway, Accessor callingAccessor, RequestContext requestContext) {
     if (requestContext.getClientId() == null) {

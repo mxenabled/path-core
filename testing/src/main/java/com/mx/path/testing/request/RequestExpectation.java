@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,12 +28,10 @@ public class RequestExpectation {
 
   @Setter
   @Getter
-  @Builder.Default
   private int invokeCount = 0;
 
   @Setter
   @Getter
-  @Builder.Default
   private int expectedInvokeCount = 1;
 
   private final List<Request<?, ?>> receivedRequests = new ArrayList<>();

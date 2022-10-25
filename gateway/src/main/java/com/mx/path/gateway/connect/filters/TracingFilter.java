@@ -14,9 +14,8 @@ import io.opentracing.Span;
 
 /**
  * Sets up and finalizes tracing.
- * <p>
- * Starts new span, sets propagation headers, runs next, closes span.
- * </p>
+ *
+ * <p>Starts new span, sets propagation headers, runs next, closes span.
  */
 public class TracingFilter extends RequestFilterBase {
   @Override

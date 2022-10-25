@@ -5,12 +5,10 @@ import com.mx.path.gateway.net.Response;
 
 /**
  * Request finisher
- * <p>
- * Ensures that the request is set to finished so all timing is set before exceptions go further up the stack.
- * </p>
- * <p>
+ *
+ * <p>Ensures that the request is set to finished so all timing is set before exceptions go further up the stack.
+ *
  * @deprecated moved to {@link com.mx.path.gateway.connect.filters.RequestFinishedFilter}
- * </p>
  */
 @Deprecated
 public class RequestFinishedExecutor extends RequestExecutorBase {

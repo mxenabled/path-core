@@ -462,7 +462,7 @@ public enum HttpStatus {
 
   /**
    * Whether this status code is in the HTTP series
-   * {@link org.springframework.http.HttpStatus.Series#INFORMATIONAL}.
+   * {@link Series#INFORMATIONAL}.
    * This is a shortcut for checking the value of {@link #series()}.
    * @since 4.0
    * @see #series()
@@ -473,7 +473,7 @@ public enum HttpStatus {
 
   /**
    * Whether this status code is in the HTTP series
-   * {@link org.springframework.http.HttpStatus.Series#SUCCESSFUL}.
+   * {@link Series#SUCCESSFUL}.
    * This is a shortcut for checking the value of {@link #series()}.
    * @since 4.0
    * @see #series()
@@ -484,7 +484,7 @@ public enum HttpStatus {
 
   /**
    * Whether this status code is in the HTTP series
-   * {@link org.springframework.http.HttpStatus.Series#REDIRECTION}.
+   * {@link Series#REDIRECTION}.
    * This is a shortcut for checking the value of {@link #series()}.
    * @since 4.0
    * @see #series()
@@ -495,7 +495,7 @@ public enum HttpStatus {
 
   /**
    * Whether this status code is in the HTTP series
-   * {@link org.springframework.http.HttpStatus.Series#CLIENT_ERROR}.
+   * {@link Series#CLIENT_ERROR}.
    * This is a shortcut for checking the value of {@link #series()}.
    * @since 4.0
    * @see #series()
@@ -506,7 +506,7 @@ public enum HttpStatus {
 
   /**
    * Whether this status code is in the HTTP series
-   * {@link org.springframework.http.HttpStatus.Series#SERVER_ERROR}.
+   * {@link Series#SERVER_ERROR}.
    * This is a shortcut for checking the value of {@link #series()}.
    * @since 4.0
    * @see #series()
@@ -517,8 +517,8 @@ public enum HttpStatus {
 
   /**
    * Whether this status code is in the HTTP series
-   * {@link org.springframework.http.HttpStatus.Series#CLIENT_ERROR} or
-   * {@link org.springframework.http.HttpStatus.Series#SERVER_ERROR}.
+   * {@link Series#CLIENT_ERROR} or
+   * {@link Series#SERVER_ERROR}.
    * This is a shortcut for checking the value of {@link #series()}.
    * @since 5.0
    * @see #is4xxClientError()

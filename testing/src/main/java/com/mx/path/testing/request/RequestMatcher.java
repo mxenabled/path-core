@@ -9,11 +9,9 @@ import com.mx.common.connect.Request;
 /**
  * Allows rules to be defined for matching incoming requests
  *
- * <p>
- * Examples:
- * </p>
- * <pre>
- * {@code
+ * <p>Examples:
+ *
+ * <pre>{@code
  *   # Matches any request where request.getPath() == "account"
  *   RequestMatcher.withPath("accounts")
  *
@@ -23,8 +21,7 @@ import com.mx.common.connect.Request;
  *
  *   # Matches any request where request.equals(exactMatchRequest)
  *   RequestMatcher.withPath(exactMatchRequest)
- * }
- * </pre>
+ * }</pre>
  */
 public class RequestMatcher {
   private final List<Function<Request<?, ?>, Boolean>> assertions = new ArrayList<>();

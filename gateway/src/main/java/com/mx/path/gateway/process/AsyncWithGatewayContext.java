@@ -9,12 +9,15 @@ import lombok.Getter;
  * Wraps a lambda in a thread with Gateway context propagation. Allows you to run some code asynchronously without
  * having to create classes to capture the thread logic and thread result.
  *
- * Usage:
+ * <p>Usage:
+ *
+ * <pre>{@code
  * AsyncWithGatewayContext<List<String>> getStringsThread = new AsyncWithGatewayContext<>(() -> api.getStrings());
  * Future<List<String>> stringsFuture = executorService.submit(getStringsThread);
  * List<String> strings = stringsFuture.get();
+ * }</pre>
  *
- * @param <T>
+ * @param <T> result type
  */
 public final class AsyncWithGatewayContext<T> extends CallableWithGatewayContext<T> {
   @Getter(AccessLevel.PACKAGE)

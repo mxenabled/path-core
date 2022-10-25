@@ -5,9 +5,7 @@ import com.mx.common.exception.PathRequestException;
 /**
  * Base class for exceptions thrown by accessors
  *
- * <p>
- * See {@link PathRequestException} for usage instructions
- * </p>
+ * <p>See {@link PathRequestException} for usage instructions
  */
 public abstract class AccessorException extends PathRequestException {
   private static final long serialVersionUID = 1L;

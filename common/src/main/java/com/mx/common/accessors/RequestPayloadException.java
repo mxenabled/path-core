@@ -5,9 +5,7 @@ import com.mx.common.exception.PathRequestException;
 /**
  * Thrown when request payload cannot be built
  *
- * <p>
- *   See {@link PathRequestException} for usage details
- * </p>
+ * <p>See {@link PathRequestException} for usage details
  */
 public class RequestPayloadException extends AccessorSystemException {
   public RequestPayloadException(String message) {

@@ -9,13 +9,14 @@ import java.util.stream.Collectors;
 
 import com.mx.common.collections.ObjectMap;
 import com.mx.common.configuration.Configuration;
+import com.mx.common.configuration.ConfigurationField;
 import com.mx.path.gateway.configuration.annotations.ClientID;
 import com.mx.path.utilities.reflection.ClassHelper;
 
 /**
  * General purpose object configurator. Given an ObjectMap of configurations, this class will instantiate an object with
- * (optional) configuration binding using the {@link com.mx.path.gateway.configuration.annotations.Configuration}
- * and {@link com.mx.path.gateway.configuration.annotations.ConfigurationField} annotations.
+ * (optional) configuration binding using the {@link Configuration}
+ * and {@link ConfigurationField} annotations.
  *
  * Example:
  *

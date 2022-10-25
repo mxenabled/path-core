@@ -6,9 +6,7 @@ import com.mx.common.exception.PathRequestException;
 /**
  * Thrown on unrecoverable error in behavior code
  *
- * <p>
- *   See {@link PathRequestException} for usage details
- * </p>
+ * <p>See {@link PathRequestException} for usage details
  */
 public class BehaviorException extends GatewayException {
   public BehaviorException(String message) {

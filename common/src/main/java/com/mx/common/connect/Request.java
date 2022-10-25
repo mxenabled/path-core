@@ -18,32 +18,28 @@ import com.mx.common.request.Feature;
 /**
  * Base class for requests.
  *
- * Implements a fluent programming interface. We need the type of the extender in {@param REQ}.
+ * <p>Implements a fluent programming interface. We need the type of the extender in {@param REQ}.
  * This allows us to maintain the true type in the call chain without reverting to {@link Request}.
- * <p>
- * Example:
  *
- * <pre>
- * {@code
+ * <p>Example:
+ *
+ * <pre>{@code
  *   public class SocketRequest extends Request<SocketRequest, SocketResponse> {
  *     public SocketResponse send() {
  *       // ...
  *     }
  *   }
- * }
- * </pre>
- * </p>
- * <p>
- * Usage:
- * <pre>
- * {@code
+ * }</pre>
+ *
+ * <p>Usage:
+ *
+ * <pre>{@code
  * new SocketRequest()
  *   .withBaseUrl("127.0.0.1")
  *   .withBody("ACK")
  *   .send(); // still have SocketRequest type!
- * }
- * </pre>
- * </p>
+ * }</pre>
+ *
  * @param <REQ> The type of the request. (self-reference)
  * @param <RESP> Type of the associated response
  */
@@ -174,7 +170,7 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   // Public Methods
 
   /**
-   * Called when request is complete. Executes {@link #getOnComplete()}
+   * Called when request is complete. Executes #getOnComplete()
    * @param currentResponse
    * @throws RuntimeException
    */
@@ -207,7 +203,7 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   }
 
   /**
-   * @deprecated Use {@link #getConnectionSettings()}
+   * @deprecated Use #getConnectionSettings()
    */
   @Deprecated
   public final ConnectionSettings getMutualAuthSettings() {

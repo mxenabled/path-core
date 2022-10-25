@@ -5,9 +5,7 @@ import com.mx.common.exception.PathRequestException;
 /**
  * Thrown on unrecoverable error in accessor code
  *
- * <p>
- *   See {@link PathRequestException} for usage details
- * </p>
+ * <p>See {@link PathRequestException} for usage details
  */
 public class AccessorSystemException extends AccessorException {
   public AccessorSystemException(String message) {

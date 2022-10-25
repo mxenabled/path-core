@@ -104,10 +104,9 @@ public abstract class RemoteService<T> implements MessageResponder, EventListene
 
   /**
    * Implement to respond to messages
-   * <p>
-   * Default behavior finds implementation of operation matching:
-   * <p>
-   * public MessageResponse [operation name](MessageRequest request)
+   *
+   * <p>Default behavior finds implementation of operation matching:
+   * {@code public MessageResponse [operation name](MessageRequest request)}
    *
    * @param channel        of request
    * @param messageRequest the request
@@ -143,8 +142,8 @@ public abstract class RemoteService<T> implements MessageResponder, EventListene
 
   /**
    * Register annotated service methods
-   * <p>
-   * Override to perform custom registration. Must override if dispatch is overriden.
+   *
+   * <p>Override to perform custom registration. Must override if dispatch is overriden.
    */
   public void register() {
     if (!implementsListenerDispatch()) {
