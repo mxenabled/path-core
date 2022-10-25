@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/mxenabled/path-sdk/compare/v1.1.1...v1.2.0) (2022-10-25)
+
+
+### Features
+
+* add statement_closed_on to Account ([1b924c5](https://github.com/mxenabled/path-sdk/commit/1b924c5a5517d6cfcd5e0c068db9483b22c80aa7))
+
 ## [1.1.1](https://github.com/mxenabled/path-sdk/compare/v1.1.0...v1.1.1) (2022-10-20)
 
 
