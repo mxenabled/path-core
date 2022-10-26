@@ -3,7 +3,7 @@ package com.mx.common.accessors;
 import com.mx.common.exception.PathRequestException;
 
 /**
- * Thrown when request payload cannot be built
+ * Thrown when an upstream request payload cannot be built
  *
  * <p>See {@link PathRequestException} for usage details
  */
