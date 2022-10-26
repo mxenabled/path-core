@@ -2,7 +2,7 @@
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
 antlr:antlr:2.7.7=checkstyle
-com.auth0:java-jwt:4.1.0=annotationProcessor,compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+com.auth0:java-jwt:4.2.1=annotationProcessor,compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 com.beust:jcommander:1.48=pmd
 com.fasterxml.jackson.core:jackson-annotations:2.14.0-rc1=annotationProcessor,runtimeClasspath,testRuntimeClasspath
 com.fasterxml.jackson.core:jackson-core:2.14.0-rc1=annotationProcessor,runtimeClasspath,testRuntimeClasspath
