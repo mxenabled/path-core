@@ -4,7 +4,7 @@ import com.mx.common.accessors.PathResponseStatus;
 import com.mx.common.exception.PathRequestException;
 
 /**
- * Thrown on unrecoverable error in Gateway code.
+ * Thrown on unrecoverable error in Gateway code
  *
  * <p>See {@link PathRequestException} for usage details
  */

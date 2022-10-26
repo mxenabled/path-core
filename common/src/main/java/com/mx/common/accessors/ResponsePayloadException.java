@@ -3,7 +3,7 @@ package com.mx.common.accessors;
 import com.mx.common.exception.PathRequestException;
 
 /**
- * Thrown when response payload is unrecognizable or un-processable
+ * Thrown when an upstream response payload is unrecognizable or un-processable
  *
  * <p>See {@link PathRequestException} for usage details
  */
