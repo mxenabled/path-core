@@ -9,8 +9,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface GatewayBaseClass {
 
-  Class annotation();
-
   String className() default "Gateway";
 
   String namespace() default "";

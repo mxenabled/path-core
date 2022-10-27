@@ -8,8 +8,8 @@ import javax.annotation.processing.Filer;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.MirroredTypeException;
+
+import lombok.experimental.SuperBuilder;
 
 import com.mx.common.collections.ObjectMap;
 import com.mx.path.gateway.configuration.RootGateway;
@@ -39,26 +39,13 @@ public class GatewayGenerator {
 
     TypeSpec.Builder classBuilder = TypeSpec.classBuilder(gatewayClassElement.getSimpleName())
         .addModifiers(Modifier.PUBLIC)
-        .superclass(gatewayClassElement.getBaseClass().asType());
+        .superclass(gatewayClassElement.getBaseClass().asType())
+        .addAnnotation(SuperBuilder.class);
 
     if (gatewayClassElement.isRootGateway()) {
       classBuilder.addAnnotation(RootGateway.class);
 
       classBuilder.addStaticBlock(accessorProxyMappingCodeBlock);
-    }
-
-    try {
-      Class clazz = gatewayClassElement.getAnnotation().annotation();
-
-      ClassName annotationName = ClassName.bestGuess(clazz.toString());
-      AnnotationSpec.Builder annotationBuilder = AnnotationSpec.builder(annotationName);
-      classBuilder.addAnnotation(annotationBuilder.build());
-    } catch (MirroredTypeException mte) {
-      DeclaredType classTypeMirror = (DeclaredType) mte.getTypeMirror();
-      TypeElement classTypeElement = (TypeElement) classTypeMirror.asElement();
-      ClassName annotationName = ClassName.bestGuess(classTypeElement.getQualifiedName().toString());
-      AnnotationSpec.Builder annotationBuilder = AnnotationSpec.builder(annotationName);
-      classBuilder.addAnnotation(annotationBuilder.build());
     }
 
     classBuilder.addMethod(
