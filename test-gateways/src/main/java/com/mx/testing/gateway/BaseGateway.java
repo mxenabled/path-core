@@ -9,7 +9,7 @@ import com.mx.testing.accessors.BaseAccessor;
 
 @RootGateway
 @SuperBuilder
-@GatewayBaseClass(target = BaseAccessor.class, namespace = "com.mx.testing.gateway.api", className = "Gateway", annotation = SuperBuilder.class)
+@GatewayBaseClass(target = BaseAccessor.class, namespace = "com.mx.testing.gateway.api", className = "Gateway")
 public class BaseGateway extends Gateway<BaseAccessor> {
   public BaseGateway() {
   }

@@ -2,7 +2,7 @@
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
 antlr:antlr:2.7.7=checkstyle
-com.auth0:java-jwt:4.1.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+com.auth0:java-jwt:4.2.1=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 com.beust:jcommander:1.48=pmd
 com.fasterxml.jackson.core:jackson-annotations:2.14.0-rc1=runtimeClasspath,testRuntimeClasspath
 com.fasterxml.jackson.core:jackson-core:2.14.0-rc1=runtimeClasspath,testRuntimeClasspath
@@ -91,9 +91,10 @@ org.ow2.asm:asm:9.2=jacocoAnt,spotbugs
 org.projectlombok:lombok:1.18.24=annotationProcessor,compileClasspath,lombok,testAnnotationProcessor,testCompileClasspath
 org.reflections:reflections:0.10.2=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 org.slf4j:slf4j-api:1.7.32=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
-org.slf4j:slf4j-api:1.8.0-beta4=spotbugs,spotbugsSlf4j
+org.slf4j:slf4j-api:1.8.0-beta4=spotbugs
+org.slf4j:slf4j-api:2.0.0=spotbugsSlf4j
 org.slf4j:slf4j-simple:1.7.30=testCompileClasspath,testRuntimeClasspath
-org.slf4j:slf4j-simple:1.8.0-beta4=spotbugsSlf4j
+org.slf4j:slf4j-simple:2.0.0=spotbugsSlf4j
 org.spockframework:spock-core:2.3-groovy-4.0=testCompileClasspath,testRuntimeClasspath
 org.yaml:snakeyaml:1.33=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 empty=spotbugsPlugins
