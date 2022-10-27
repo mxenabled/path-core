@@ -64,7 +64,6 @@ subprojects {
   }
 
   javadoc {
-    source = sourceSets.main.allJava
     classpath = configurations.compileClasspath
     options {
       setMemberLevel JavadocMemberLevel.PUBLIC
