@@ -11,7 +11,7 @@ import com.mx.common.accessors.AccessorMethodNotImplementedException;
 import com.mx.common.accessors.AccessorSystemException;
 import com.mx.common.accessors.AccessorUserException;
 import com.mx.common.accessors.BadRequestException;
-import com.mx.common.accessors.InvalidDataException;
+import com.mx.common.accessors.RequestValidationException;
 import com.mx.common.accessors.PathResponseStatus;
 import com.mx.common.accessors.RequestPayloadException;
 import com.mx.common.accessors.ResourceNotFoundException;
@@ -43,7 +43,7 @@ import com.mx.common.messaging.MessageError;
  *       {@link ResourceNotFoundException} - Thrown when a resource is requested that does not exist
  *       {@link UnauthorizedException} - Thrown when a user attempts an operation when they are not authenticated, the session is expired, or the session is in a bad state
  *       {@link BadRequestException} - Thrown when a request is malformed or missing required data
- *       {@link InvalidDataException} - Thrown when a request is correctly formed, but the data is invalid for some reason
+ *       {@link RequestValidationException} - Thrown when a request is correctly formed, but the data is invalid for some reason
  *     {@link AccessorSystemException} - Thrown on unrecoverable error in accessor code
  *       {@link AccessorMethodNotImplementedException} - Thrown when an accessor method is invoked that has no implementation
  *       {@link RequestPayloadException} - Thrown when an upstream request payload cannot be built
