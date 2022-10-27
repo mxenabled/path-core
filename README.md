@@ -1,4 +1,4 @@
-[![Release](https://jitpack.io/v/mxenabled/path-sdk.svg)](https://jitpack.io/p/mxenabled/path-sdk)
+[![Release](https://jitpack.io/v/mxenabled/path-core.svg)](https://jitpack.io/p/mxenabled/path-core)
 ![img](https://img.shields.io/badge/semver-2.0.0-green)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 
@@ -37,7 +37,7 @@ dependencies {
 
 ## Releases
 
-The Path SDK is published via [JitPack](https://jitpack.io/#mxenabled/path-sdk).
+The Path SDK is published via [JitPack](https://jitpack.io/#mxenabled/path-core) ([Old Group Id JitPack](https://jitpack.io/#mxenabled/path-sdk)).
 
 ### Branching Strategy
 
@@ -76,9 +76,9 @@ Commits must conform to the [Conventional Commits](https://www.conventionalcommi
 
 #### Clone the repository
 
-`git clone git@github.com:mxenabled/path-sdk.git`
+`git clone git@github.com:mxenabled/path-core.git`
 
-`cd path-sdk`
+`cd path-core`
 
 #### Install git conventional commit tools (optional)
 
