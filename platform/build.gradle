@@ -1,0 +1,25 @@
+plugins {
+  id "java-platform"
+  id "maven-publish"
+}
+
+dependencies {
+  constraints {
+    api(project(":common"))
+    api(project(":context"))
+    api(project(":gateway"))
+    api(project(":gateway-generator"))
+    api(project(":http"))
+    api(project(":messaging"))
+    api(project(":testing"))
+    api(project(":utilities"))
+  }
+}
+
+publishing {
+  publications {
+    bom(MavenPublication) {
+      from components.javaPlatform
+    }
+  }
+}

@@ -17,6 +17,29 @@
 
 ## Usage
 
+### Using platform (preferred)
+
+_Gradle_
+<!-- x-release-please-start-version -->
+```groovy
+dependencies {
+  api platform('com.github.mxenabled.path-core:platform:1.2.0')
+
+  implementation 'com.github.mxenabled.path-core:common'
+  implementation 'com.github.mxenabled.path-core:context'
+  implementation 'com.github.mxenabled.path-core:gateway'
+  implementation 'com.github.mxenabled.path-core:gateway-generator'
+  implementation 'com.github.mxenabled.path-core:http'
+  implementation 'com.github.mxenabled.path-core:messaging'
+  implementation 'com.github.mxenabled.path-core:utilities'
+
+  testImplementation 'com.github.mxenabled.path-core:testing'
+}
+```
+<!-- x-release-please-end -->
+
+### Using without platform
+
 _Gradle_
 <!-- x-release-please-start-version -->
 ```groovy
@@ -33,7 +56,6 @@ dependencies {
 }
 ```
 <!-- x-release-please-end -->
-
 
 ## Releases
 
