@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.0](https://github.com/mxenabled/path-core/compare/v1.1.1...1.2.0) (2022-10-27)
+
+
+### Features
+
+* adding two new AccessorUserExceptions ([30613f8](https://github.com/mxenabled/path-core/commit/30613f81e4dcb6e206558fbd6e9168dfe15b52ec))
+* publish javadocs jar ([42901d8](https://github.com/mxenabled/path-core/commit/42901d8647f8970dc87b7eb84ba3583dbf6d1aaa))
+* publish sources jar ([42901d8](https://github.com/mxenabled/path-core/commit/42901d8647f8970dc87b7eb84ba3583dbf6d1aaa))
+
+
+### Bug Fixes
+
+* remove unneeded annotations attribute from GatewayBaseClass ([98cbe04](https://github.com/mxenabled/path-core/commit/98cbe0489ad258fa542d12b238c788152cc87453))
+
 ## [1.1.1](https://github.com/mxenabled/path-sdk/compare/v1.1.0...v1.1.1) (2022-10-20)
 
 
