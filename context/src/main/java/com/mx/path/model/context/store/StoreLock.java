@@ -17,29 +17,27 @@ import org.apache.commons.lang.RandomStringUtils;
  * Uses a {@link Store} to provide global mutex operations.
  *
  * Example:
- * <pre>
- *   {@code
- *     try (Lock mutex = new StoreLock(store, "account_cache", configurations)) {
- *       Lock.LockState state = mutex.request();
- *       if (state == Lock.LockState.NotAcquired) {
- *         state = mutex.acquireOr(() -> conditionMet());
- *         switch(state) {
- *           Lock.LockState.ConditionMet:
- *             // The condition was met
- *             break;
+ * <pre>{@code
+ *   try (Lock mutex = new StoreLock(store, "account_cache", configurations)) {
+ *     Lock.LockState state = mutex.request();
+ *     if (state == Lock.LockState.NotAcquired) {
+ *       state = mutex.acquireOr(() -> conditionMet());
+ *       switch(state) {
+ *         Lock.LockState.ConditionMet:
+ *           // The condition was met
+ *           break;
  *
- *           case Lock.LockState.Acquired:
- *             // Lock was acquired
- *             break;
+ *         case Lock.LockState.Acquired:
+ *           // Lock was acquired
+ *           break;
  *
- *           case Lock.LockState.Timeout:
- *             // Timeout exceeded before lock acquired or condition met
- *             break;
- *         }
+ *         case Lock.LockState.Timeout:
+ *           // Timeout exceeded before lock acquired or condition met
+ *           break;
  *       }
  *     }
  *   }
- * </pre>
+ * }</pre>
  *
  * NOT Thread-safe, NOT reusable. New instance required per request.
  */
