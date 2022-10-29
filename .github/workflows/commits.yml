@@ -1,10 +1,17 @@
+# ---------------------------------------------------------------
+# workflow: commits
+#
+# Perform on all push events
+#
+# Checks all commits for compliance with conventional commit formatting
+#
 on:
   push:
 
-name: conventional-commits
+name: commits
 
 jobs:
-  conventional-commits:
+  commits:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,7 +28,7 @@ jobs:
               "fix",
               "perf",
               "refactor",
-              "revert"
+              "revert",
               "style",
               "test"
             ]
