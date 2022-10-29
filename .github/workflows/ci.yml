@@ -12,16 +12,11 @@
 # * Checks dependencies for vulnerabilities
 #
 # See: https://github.com/dorny/paths-filter
-##
-#on:
-#  workflow_run:
-#    workflows: [ commits ]
-#    types: [ completed ]
 #
 on:
   push:
 
-name: build
+name: ci
 
 permissions:
   contents: read
@@ -66,7 +61,6 @@ jobs:
     if: ${{ needs.changes.outputs.src == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: ahmadnassri/action-workflow-run-wait@v1 # wait for worflow_run workflows to succeed
       - uses: actions/checkout@v3
       - uses: gradle/wrapper-validation-action@v1
       - name: Set up JDK 17
@@ -82,7 +76,6 @@ jobs:
     if: ${{ needs.changes.outputs.src == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: ahmadnassri/action-workflow-run-wait@v1 # wait for worflow_run workflows to succeed
       - uses: actions/checkout@v3
       - uses: gradle/wrapper-validation-action@v1
       - name: Set up JDK 17
@@ -98,7 +91,6 @@ jobs:
     if: ${{ needs.changes.outputs.src == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: ahmadnassri/action-workflow-run-wait@v1 # wait for worflow_run workflows to succeed
       - uses: actions/checkout@v3
       - uses: gradle/wrapper-validation-action@v1
       - name: Set up JDK 17
@@ -119,14 +111,12 @@ jobs:
   #
   # See: https://github.com/google-github-actions/release-please-action
   # See: https://github.com/googleapis/release-please
-  # See: https://github.com/ahmadnassri/action-workflow-run-wait
   #
   release:
     needs: [build, validate, scan]
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
-      - uses: ahmadnassri/action-workflow-run-wait@v1 # wait for worflow_run workflows to succeed
       - uses: google-github-actions/release-please-action@v3.5.0
         with:
           include-v-in-tag: false
