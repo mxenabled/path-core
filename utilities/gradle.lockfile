@@ -68,4 +68,4 @@ org.slf4j:slf4j-api:1.8.0-beta4=spotbugs
 org.slf4j:slf4j-api:2.0.0=spotbugsSlf4j
 org.slf4j:slf4j-simple:2.0.0=spotbugsSlf4j
 org.spockframework:spock-core:2.3-groovy-4.0=testCompileClasspath,testRuntimeClasspath
-empty=spotbugsPlugins
+empty=signatures,spotbugsPlugins

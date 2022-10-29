@@ -7,7 +7,7 @@ pluginManagement {
   }
 }
 
-rootProject.name = "path-sdk"
+rootProject.name = "path-core"
 include "common"
 include "http"
 include "utilities"

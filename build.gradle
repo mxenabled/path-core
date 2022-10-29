@@ -27,7 +27,7 @@ allprojects {
   }
 
   group "com.github.mxenabled.path-core"
-  description "The Path SDK"
+  description "MX Path Core"
   version rootProject.version
   sourceCompatibility = 1.8
   targetCompatibility = 1.8
@@ -112,14 +112,51 @@ subprojects {
 
     if (publishedProjects.contains(it.name)) {
       apply plugin: "maven-publish"
+      apply plugin: "signing"
 
       publishing {
         publications {
-          mavenJava(MavenPublication) {
+          maven(MavenPublication) {
+            artifactId = project.name
             from components.java
             artifact sourcesJar
             artifact packageJavadoc
+            pom {
+              developers {
+                developer {
+                  name.set("MX")
+                  email.set("path@mx.com")
+                  organization.set("MX Technologies Inc.")
+                  url.set("http://www.mx.com")
+                }
+
+                licenses {
+                    license {
+                        name.set("Proprietary")
+                        url.set("https://github.com/mxenabled/path-core/blob/master/LICENSE")
+                        distribution.set("repo")
+                    }
+                }
+
+                scm {
+                  connection.set("scm:git:git@github.com:mxenabled/path-core.git")
+                  url.set("https://github.com/mxenabled/path-core/tree/master")
+                }
+              }
+            }
           }
+        }
+      }
+
+      signing {
+        def signingKey = findProperty("signingKey")
+        def signingPassword = findProperty("signingKeyPassword")
+        if (signingKey != null && signingKey != "") {
+          useInMemoryPgpKeys(signingKey, signingPassword)
+          sign publishing.publications.maven
+          logger.lifecycle("Configuring signing for ${project.name}")
+        } else {
+          logger.lifecycle("Skipping artifact signing for ${project.name} - missing signing key")
         }
       }
     }
