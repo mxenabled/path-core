@@ -50,7 +50,6 @@ jobs:
             ]
 
   changes:
-    needs: commits
     runs-on: ubuntu-latest
     # Set job outputs to values from filter step
     outputs:
@@ -63,7 +62,7 @@ jobs:
           filters: .github/src_filters.yml
 
   validate:
-    needs: changes
+    needs: [commits, changes]
     if: ${{ needs.changes.outputs.src == 'true' }}
     runs-on: ubuntu-latest
     steps:
@@ -79,7 +78,7 @@ jobs:
         run: ./gradlew vogueReport
 
   scan:
-    needs: changes
+    needs: [commits, changes]
     if: ${{ needs.changes.outputs.src == 'true' }}
     runs-on: ubuntu-latest
     steps:
@@ -95,7 +94,7 @@ jobs:
         run: ./gradlew dependencyCheckAnalyze --info
 
   build:
-    needs: [changes, validate, scan]
+    needs: [commits, changes]
     if: ${{ needs.changes.outputs.src == 'true' }}
     runs-on: ubuntu-latest
     steps:
@@ -123,7 +122,7 @@ jobs:
   # See: https://github.com/ahmadnassri/action-workflow-run-wait
   #
   release:
-    needs: build
+    needs: [build, validate, scan]
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
