@@ -83,4 +83,4 @@ org.slf4j:slf4j-simple:1.7.30=testCompileClasspath,testRuntimeClasspath
 org.slf4j:slf4j-simple:2.0.0=spotbugsSlf4j
 org.spockframework:spock-core:2.3-groovy-4.0=testCompileClasspath,testRuntimeClasspath
 org.yaml:snakeyaml:1.33=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
-empty=spotbugsPlugins
+empty=signatures,spotbugsPlugins
