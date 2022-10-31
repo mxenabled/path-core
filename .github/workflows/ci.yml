@@ -59,7 +59,7 @@ jobs:
 
   validate:
     needs: [commits, changes]
-    if: ${{ needs.changes.outputs.src == 'true' && !startsWith(github.ref, 'refs/heads/release-please--') }}
+    if: ${{ needs.changes.outputs.src == 'true' &&  github.ref != 'refs/heads/master' && !startsWith(github.ref, 'refs/heads/release-please--') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -74,7 +74,7 @@ jobs:
 
   scan:
     needs: [commits, changes]
-    if: ${{ needs.changes.outputs.src == 'true' && !startsWith(github.ref, 'refs/heads/release-please--') }}
+    if: ${{ needs.changes.outputs.src == 'true' && github.ref != 'refs/heads/master' && !startsWith(github.ref, 'refs/heads/release-please--') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
