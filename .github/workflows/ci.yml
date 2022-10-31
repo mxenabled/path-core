@@ -45,7 +45,7 @@ jobs:
             ]
 
   changes:
-    if: ${{ !startsWith(github.ref, 'refs/heads/release-please--') }}
+    if: ${{ !startsWith(github.ref_name, 'release-please--') }}
     runs-on: ubuntu-latest
     # Set job outputs to values from filter step
     outputs:
@@ -59,7 +59,7 @@ jobs:
 
   validate:
     needs: [commits, changes]
-    if: ${{ needs.changes.outputs.src == 'true' &&  github.ref != 'refs/heads/master' && !startsWith(github.ref, 'refs/heads/release-please--') }}
+    if: ${{ needs.changes.outputs.src == 'true' &&  github.ref_name != 'master' && !startsWith(github.ref_name, 'release-please--') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -74,7 +74,7 @@ jobs:
 
   scan:
     needs: [commits, changes]
-    if: ${{ needs.changes.outputs.src == 'true' && github.ref != 'refs/heads/master' && !startsWith(github.ref, 'refs/heads/release-please--') }}
+    if: ${{ needs.changes.outputs.src == 'true' && github.ref_name != 'master' && !startsWith(github.ref_name, 'release-please--') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -89,7 +89,7 @@ jobs:
 
   build:
     needs: [commits, changes]
-    if: ${{ needs.changes.outputs.src == 'true' && !startsWith(github.ref, 'refs/heads/release-please--') }}
+    if: ${{ needs.changes.outputs.src == 'true' && !startsWith(github.ref_name, 'release-please--') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -115,7 +115,7 @@ jobs:
   #
   release:
     needs: [build, validate, scan]
-    if: github.ref == 'refs/heads/master'
+    if: ${{ github.ref_name == 'master' }}
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3.5.0
