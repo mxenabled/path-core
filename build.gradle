@@ -4,8 +4,6 @@ plugins {
   id "com.github.mxenabled.coppuccino" version "3.1.3" apply false
   id "com.github.mxenabled.hush" version "2.3.1" apply false
   id "io.freefair.lombok" version "6.5.1" apply false
-
-  //id "maven-publish"
   id "io.github.gradle-nexus.publish-plugin" version "1.1.0"
 }
 
@@ -65,9 +63,30 @@ subprojects {
     }
 
     dependencies {
-      testImplementation "org.mockito:mockito-inline:4.+"
-      testImplementation "org.spockframework:spock-core:2.+"
-      testImplementation "org.junit.jupiter:junit-jupiter-api:5.+"
+      constraints {
+        api("com.google.code.gson:gson") {
+          version {
+            require "[2.9,2.10["
+          }
+        }
+        api("io.opentracing:opentracing-api") {
+          version {
+            require "[0.33,0.34["
+          }
+        }
+        api("com.google.guava:guava") {
+          version {
+            require "[31.0,32.0["
+          }
+        }
+        api "commons-lang:commons-lang:2.6"
+        api "org.slf4j:slf4j-api:1.7.30"
+        api "org.apache.httpcomponents:httpclient:4.5.13"
+      }
+
+      testImplementation "org.mockito:mockito-inline:[4.0,5.0["
+      testImplementation "org.spockframework:spock-core:[2.0,3.0["
+      testImplementation "org.junit.jupiter:junit-jupiter-api:[5.0,6.0["
     }
 
     test { useJUnitPlatform() }
@@ -185,6 +204,7 @@ nexusPublishing {
     }
   }
 }
+
 
 task spotlessApply {
   subprojects.each {

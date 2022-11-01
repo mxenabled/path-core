@@ -1,6 +1,7 @@
 plugins {
   id "java-platform"
   id "maven-publish"
+  id "signing"
 }
 
 dependencies {
@@ -37,11 +38,11 @@ publishing {
         }
 
         licenses {
-            license {
-                name = "Proprietary"
-                url = "https://github.com/mxenabled/path-core/blob/master/LICENSE"
-                distribution = "repo"
-            }
+          license {
+            name = "Proprietary"
+            url = "https://github.com/mxenabled/path-core/blob/master/LICENSE"
+            distribution = "repo"
+          }
         }
 
         scm {
@@ -50,5 +51,17 @@ publishing {
         }
       }
     }
+  }
+}
+
+signing {
+  def signingKey = findProperty("signingKey")
+  def signingPassword = findProperty("signingKeyPassword")
+  if (signingKey != null && signingKey != "") {
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign publishing.publications.bom
+    logger.lifecycle("Configuring signing for ${project.name}")
+  } else {
+    logger.lifecycle("Skipping artifact signing for ${project.name} - missing signing key")
   }
 }

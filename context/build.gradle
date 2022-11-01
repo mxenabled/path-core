@@ -1,8 +1,8 @@
 dependencies {
   api project(":utilities")
-  api "com.google.code.gson:gson:2.9.+"
+  api "com.google.code.gson:gson"
 
   implementation project(":common")
-  implementation "io.opentracing:opentracing-api:0.33.0"
-  implementation "commons-lang:commons-lang:2.6"
+  implementation "io.opentracing:opentracing-api"
+  implementation "commons-lang:commons-lang"
 }

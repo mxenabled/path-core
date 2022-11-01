@@ -8,8 +8,8 @@ dependencies {
   implementation project(":context")
   implementation project(":common")
 
-  implementation "io.opentracing:opentracing-api:0.33.0"
-  compileOnly "org.slf4j:slf4j-api:1.7.30"
+  implementation "io.opentracing:opentracing-api"
+  compileOnly "org.slf4j:slf4j-api"
 
   testImplementation "io.opentracing:opentracing-mock:0.33.0"
   testImplementation "org.slf4j:slf4j-simple:1.7.30"
