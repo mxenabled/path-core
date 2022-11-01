@@ -23,17 +23,17 @@ _Gradle_
 <!-- x-release-please-start-version -->
 ```groovy
 dependencies {
-  api platform('com.github.mxenabled.path-core:platform:1.2.0')
+  api platform('com.mx.path-core:platform:1.2.0')
 
-  implementation 'com.github.mxenabled.path-core:common'
-  implementation 'com.github.mxenabled.path-core:context'
-  implementation 'com.github.mxenabled.path-core:gateway'
-  implementation 'com.github.mxenabled.path-core:gateway-generator'
-  implementation 'com.github.mxenabled.path-core:http'
-  implementation 'com.github.mxenabled.path-core:messaging'
-  implementation 'com.github.mxenabled.path-core:utilities'
+  implementation 'com.mx.path-core:common'
+  implementation 'com.mx.path-core:context'
+  implementation 'com.mx.path-core:gateway'
+  implementation 'com.mx.path-core:gateway-generator'
+  implementation 'com.mx.path-core:http'
+  implementation 'com.mx.path-core:messaging'
+  implementation 'com.mx.path-core:utilities'
 
-  testImplementation 'com.github.mxenabled.path-core:testing'
+  testImplementation 'com.mx.path-core:testing'
 }
 ```
 <!-- x-release-please-end -->
@@ -44,15 +44,15 @@ _Gradle_
 <!-- x-release-please-start-version -->
 ```groovy
 dependencies {
-  implementation 'com.github.mxenabled.path-core:common:1.2.0'
-  implementation 'com.github.mxenabled.path-core:context:1.2.0'
-  implementation 'com.github.mxenabled.path-core:gateway:1.2.0'
-  implementation 'com.github.mxenabled.path-core:gateway-generator:1.2.0'
-  implementation 'com.github.mxenabled.path-core:http:1.2.0'
-  implementation 'com.github.mxenabled.path-core:messaging:1.2.0'
-  implementation 'com.github.mxenabled.path-core:utilities:1.2.0'
+  implementation 'com.mx.path-core:common:1.2.0'
+  implementation 'com.mx.path-core:context:1.2.0'
+  implementation 'com.mx.path-core:gateway:1.2.0'
+  implementation 'com.mx.path-core:gateway-generator:1.2.0'
+  implementation 'com.mx.path-core:http:1.2.0'
+  implementation 'com.mx.path-core:messaging:1.2.0'
+  implementation 'com.mx.path-core:utilities:1.2.0'
 
-  testImplementation 'com.github.mxenabled.path-core:testing:1.2.0'
+  testImplementation 'com.mx.path-core:testing:1.2.0'
 }
 ```
 <!-- x-release-please-end -->
