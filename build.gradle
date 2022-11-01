@@ -4,6 +4,9 @@ plugins {
   id "com.github.mxenabled.coppuccino" version "3.1.3" apply false
   id "com.github.mxenabled.hush" version "2.3.1" apply false
   id "io.freefair.lombok" version "6.5.1" apply false
+
+  //id "maven-publish"
+  id "io.github.gradle-nexus.publish-plugin" version "1.1.0"
 }
 
 version "1.2.0" // x-release-please-version
@@ -26,7 +29,7 @@ allprojects {
     apply plugin: "java"
   }
 
-  group "com.github.mxenabled.path-core"
+  group "com.mx.path-core"
   description "MX Path Core"
   version rootProject.version
   sourceCompatibility = 1.8
@@ -100,14 +103,14 @@ subprojects {
     }
 
     task packageJavadoc(type: Jar) {
-      classifier = 'javadoc'
+      classifier = "javadoc"
       from javadoc
     }
 
     artifacts {
-      archives sourcesJar
       archives jar
       archives packageJavadoc
+      archives sourcesJar
     }
 
     if (publishedProjects.contains(it.name)) {
@@ -117,31 +120,37 @@ subprojects {
       publishing {
         publications {
           maven(MavenPublication) {
-            artifactId = project.name
             from components.java
             artifact sourcesJar
             artifact packageJavadoc
+
             pom {
+              groupId = project.group
+              artifactId = project.name
+              name = project.name
+              description = project.description
+              url = "https://github.com/mxenabled/path-core"
+
               developers {
                 developer {
-                  name.set("MX")
-                  email.set("path@mx.com")
-                  organization.set("MX Technologies Inc.")
-                  url.set("http://www.mx.com")
+                  name = "MX"
+                  email = "path@mx.com"
+                  organization = "MX Technologies Inc."
+                  url = "http://www.mx.com"
                 }
+              }
 
-                licenses {
-                    license {
-                        name.set("Proprietary")
-                        url.set("https://github.com/mxenabled/path-core/blob/master/LICENSE")
-                        distribution.set("repo")
-                    }
-                }
+              licenses {
+                  license {
+                      name = "Proprietary"
+                      url = "https://github.com/mxenabled/path-core/blob/master/LICENSE"
+                      distribution = "repo"
+                  }
+              }
 
-                scm {
-                  connection.set("scm:git:git@github.com:mxenabled/path-core.git")
-                  url.set("https://github.com/mxenabled/path-core/tree/master")
-                }
+              scm {
+                connection = "scm:git:git@github.com:mxenabled/path-core.git"
+                url = "https://github.com/mxenabled/path-core/tree/master"
               }
             }
           }
@@ -159,6 +168,20 @@ subprojects {
           logger.lifecycle("Skipping artifact signing for ${project.name} - missing signing key")
         }
       }
+    }
+  }
+}
+
+nexusPublishing {
+  def ossrhUserName = findProperty("ossrhUserName")
+  def ossrhToken = findProperty("ossrhToken")
+
+  repositories {
+    central {
+      nexusUrl = uri("https://s01.oss.sonatype.org/service/local/")
+      snapshotRepositoryUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+      username = ossrhUserName
+      password = ossrhToken
     }
   }
 }

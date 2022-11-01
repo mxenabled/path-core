@@ -28,7 +28,7 @@ jobs:
       - name: Publish Release
         run: |
           export ORG_GRADLE_PROJECT_signingKey=$(echo -n "$GPG_SIGNING_KEY_BASE64" | base64 -d)
-          ./gradlew publishToMavenLocal
+          ./gradlew publishToCentral closeAndReleaseCentralStagingRepository
         env:
           ORG_GRADLE_PROJECT_ossrhUserName: ${{ secrets.OSSRH_USERNAME }}
           ORG_GRADLE_PROJECT_ossrhToken: ${{ secrets.OSSRH_TOKEN }}

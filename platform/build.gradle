@@ -20,6 +20,35 @@ publishing {
   publications {
     bom(MavenPublication) {
       from components.javaPlatform
+      pom {
+        groupId = project.group
+        artifactId = project.name
+        name = project.name
+        description = project.description
+        url = "https://github.com/mxenabled/path-core"
+
+        developers {
+          developer {
+            name = "MX"
+            email = "path@mx.com"
+            organization = "MX Technologies Inc."
+            url = "http://www.mx.com"
+          }
+        }
+
+        licenses {
+            license {
+                name = "Proprietary"
+                url = "https://github.com/mxenabled/path-core/blob/master/LICENSE"
+                distribution = "repo"
+            }
+        }
+
+        scm {
+          connection = "scm:git:git@github.com:mxenabled/path-core.git"
+          url = "https://github.com/mxenabled/path-core/tree/master"
+        }
+      }
     }
   }
 }

@@ -114,7 +114,7 @@ jobs:
   #
   release:
     needs: [build, validate, scan]
-    if: ${{ github.ref_name == 'master' }}
+    # if: ${{ github.ref_name == 'master' }}
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3.5.0
