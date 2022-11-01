@@ -16,7 +16,6 @@ jobs:
   # See: https://github.com/googleapis/release-please
   #
   release_manual:
-    needs: [build, validate, scan]
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3.5.0
