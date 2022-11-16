@@ -90,18 +90,18 @@ public enum PathResponseStatus {
   NOT_IMPLEMENTED(501, "API not implemented", true),
 
   /**
-   * Request encountered an upstream system that is unavailable. Not typically used directly.
-   * <p>This is used to indicate a open circuit.
+   * System is unavailable and unable to process request. Not typically used directly.
+   * <p>This is used to indicate an open circuit.
    */
   UNAVAILABLE(503, "Service unavailable", true),
 
   /**
-   * A request failed to respond in less than expected time.
+   * A request failed to respond in less than expected time. Not typically used directly.
    */
   TIMEOUT(504, "Timeout", true),
 
   /**
-   * The upstream service
+   * The upstream service returned an unexpected error or is determined to be offline.
    */
   UPSTREAM_SERVICE_UNAVAILABLE(531, "Upstream service unavailable", true);
 

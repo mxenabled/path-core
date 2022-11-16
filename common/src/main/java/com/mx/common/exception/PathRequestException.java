@@ -17,6 +17,8 @@ import com.mx.common.accessors.RequestValidationException;
 import com.mx.common.accessors.ResourceNotFoundException;
 import com.mx.common.accessors.ResponsePayloadException;
 import com.mx.common.accessors.UnauthorizedException;
+import com.mx.common.accessors.UpstreamSystemMaintenance;
+import com.mx.common.accessors.UpstreamSystemUnavailable;
 import com.mx.common.connect.CircuitOpenException;
 import com.mx.common.connect.ConnectException;
 import com.mx.common.connect.ServiceUnavailableException;
@@ -48,6 +50,8 @@ import com.mx.common.messaging.MessageError;
  *       {@link AccessorMethodNotImplementedException} - Thrown when an accessor method is invoked that has no implementation
  *       {@link RequestPayloadException} - Thrown when an upstream request payload cannot be built
  *       {@link ResponsePayloadException} - Thrown when an upstream response payload is unrecognizable or un-processable
+ *       {@link UpstreamSystemUnavailable} - Thrown when an upstream request results in an unknown error or the upstream service is determined to be offline
+ *         {@link UpstreamSystemMaintenance} - Thrown when the upstream system is determined to be offline due to maintenance
  *   {@link ConnectException} - Thrown on error in connection code
  *     {@link TimeoutException} - Thrown on a connection/request timeout
  *     {@link ServiceUnavailableException} - Thrown when a service (typically upstream service) is unavailable. The unavailability could be determined by a response from the service or something on the client side
