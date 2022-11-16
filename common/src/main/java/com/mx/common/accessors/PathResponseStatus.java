@@ -98,7 +98,12 @@ public enum PathResponseStatus {
   /**
    * A request failed to respond in less than expected time.
    */
-  TIMEOUT(504, "Timeout", true);
+  TIMEOUT(504, "Timeout", true),
+
+  /**
+   * The upstream service
+   */
+  UPSTREAM_SERVICE_UNAVAILABLE(531, "Upstream service unavailable", true);
 
   private final String description;
 

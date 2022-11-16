@@ -84,5 +84,6 @@ class HttpStatusTest extends Specification {
     HttpStatus.BANDWIDTH_LIMIT_EXCEEDED                  || PathResponseStatus.OK
     HttpStatus.NOT_EXTENDED                              || PathResponseStatus.INTERNAL_ERROR
     HttpStatus.NETWORK_AUTHENTICATION_REQUIRED           || PathResponseStatus.NOT_ALLOWED
+    HttpStatus.UPSTREAM_SERVICE_UNAVAILABLE              || PathResponseStatus.UPSTREAM_SERVICE_UNAVAILABLE
   }
 }

@@ -427,7 +427,12 @@ public enum HttpStatus {
    * {@code 511 Network Authentication Required}.
    * @see <a href="https://tools.ietf.org/html/rfc6585#section-6">Additional HTTP Status Codes</a>
    */
-  NETWORK_AUTHENTICATION_REQUIRED(511, "Network Authentication Required");
+  NETWORK_AUTHENTICATION_REQUIRED(511, "Network Authentication Required"),
+  /**
+   * {@code 531 Upstream Service Unavailable}.
+   * Note: This is a custom code used to indicate that an upstream service call failed or is unavailable
+   */
+  UPSTREAM_SERVICE_UNAVAILABLE(531, "Upstream Service Unavailable");
 
   private final int value;
 
@@ -635,6 +640,7 @@ public enum HttpStatus {
     map.put(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED, PathResponseStatus.OK);
     map.put(HttpStatus.NOT_EXTENDED, PathResponseStatus.INTERNAL_ERROR);
     map.put(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED, PathResponseStatus.NOT_ALLOWED);
+    map.put(HttpStatus.UPSTREAM_SERVICE_UNAVAILABLE, PathResponseStatus.UPSTREAM_SERVICE_UNAVAILABLE);
 
     // This is just a sanity check to make sure we don't accidentally create a bad mapping.
     map.forEach((httpStatus, pathResponseStatus) -> {
