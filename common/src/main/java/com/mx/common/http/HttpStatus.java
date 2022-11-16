@@ -430,7 +430,7 @@ public enum HttpStatus {
   NETWORK_AUTHENTICATION_REQUIRED(511, "Network Authentication Required"),
   /**
    * {@code 531 Upstream Service Unavailable}.
-   * Note: This is a custom code used to indicate that an upstream service call failed or is unavailable
+   * Note: This is a custom code used to indicate that an upstream service call failed or the service is unavailable
    */
   UPSTREAM_SERVICE_UNAVAILABLE(531, "Upstream Service Unavailable");
 
