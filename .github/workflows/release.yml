@@ -1,13 +1,16 @@
-name: release_manual
+name: release
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - master
 
 jobs:
   # ---------------------------------------------------------------
   # job: release
   #
-  # Perform after commits and build successfully complete on "master"
+  # Manually invoke to rerun release-please
   #
   # * Creates and maintains "release PR"
   # * Creates release when the "release PR" is merged to "master"
@@ -15,12 +18,12 @@ jobs:
   # See: https://github.com/google-github-actions/release-please-action
   # See: https://github.com/googleapis/release-please
   #
-  release_manual:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3.5.0
         with:
-          include-v-in-tag: false
+          include-v-in-tag: true
           release-type: simple
           extra-files: |
             build.gradle

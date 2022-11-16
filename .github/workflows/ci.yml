@@ -100,26 +100,3 @@ jobs:
           distribution: 'corretto'
       - name: Build
         run: ./gradlew build
-
-  # ---------------------------------------------------------------
-  # job: release
-  #
-  # Perform after commits and build successfully complete on "master"
-  #
-  # * Creates and maintains "release PR"
-  # * Creates release when the "release PR" is merged to "master"
-  #
-  # See: https://github.com/google-github-actions/release-please-action
-  # See: https://github.com/googleapis/release-please
-  #
-  release:
-    needs: [build, validate, scan]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: google-github-actions/release-please-action@v3.5.0
-        with:
-          include-v-in-tag: false
-          release-type: simple
-          extra-files: |
-            build.gradle
-            README.md
