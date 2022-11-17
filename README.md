@@ -1,4 +1,4 @@
-[![Release](https://jitpack.io/v/mxenabled/path-core.svg)](https://jitpack.io/p/mxenabled/path-core)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mx.path-core/common/badge.svg)](https://search.maven.org/search?q=com.mx.path-core)
 ![img](https://img.shields.io/badge/semver-2.0.0-green)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 
@@ -23,17 +23,18 @@ _Gradle_
 <!-- x-release-please-start-version -->
 ```groovy
 dependencies {
-  api platform('com.mx.path-core:platform:1.2.0')
+  api platform("com.mx.path-core:platform:1.2.0")
 
-  implementation 'com.mx.path-core:common'
-  implementation 'com.mx.path-core:context'
-  implementation 'com.mx.path-core:gateway'
-  implementation 'com.mx.path-core:gateway-generator'
-  implementation 'com.mx.path-core:http'
-  implementation 'com.mx.path-core:messaging'
-  implementation 'com.mx.path-core:utilities'
+  implementation "com.mx.path-core:common"
+  implementation "com.mx.path-core:context"
+  implementation "com.mx.path-core:gateway"
+  implementation "com.mx.path-core:http"
+  implementation "com.mx.path-core:messaging"
+  implementation "com.mx.path-core:utilities"
 
-  testImplementation 'com.mx.path-core:testing'
+  annotationProcessor "com.mx.path-core:gateway-generator"
+  
+  testImplementation "com.mx.path-core:testing"
 }
 ```
 <!-- x-release-please-end -->
@@ -44,22 +45,23 @@ _Gradle_
 <!-- x-release-please-start-version -->
 ```groovy
 dependencies {
-  implementation 'com.mx.path-core:common:1.2.0'
-  implementation 'com.mx.path-core:context:1.2.0'
-  implementation 'com.mx.path-core:gateway:1.2.0'
-  implementation 'com.mx.path-core:gateway-generator:1.2.0'
-  implementation 'com.mx.path-core:http:1.2.0'
-  implementation 'com.mx.path-core:messaging:1.2.0'
-  implementation 'com.mx.path-core:utilities:1.2.0'
+  implementation "com.mx.path-core:common:1.2.0"
+  implementation "com.mx.path-core:context:1.2.0"
+  implementation "com.mx.path-core:gateway:1.2.0"
+  implementation "com.mx.path-core:http:1.2.0"
+  implementation "com.mx.path-core:messaging:1.2.0"
+  implementation "com.mx.path-core:utilities:1.2.0"
 
-  testImplementation 'com.mx.path-core:testing:1.2.0'
+  annotationProcessor "com.mx.path-core:gateway-generator:1.2.0"
+  
+  testImplementation "com.mx.path-core:testing:1.2.0"
 }
 ```
 <!-- x-release-please-end -->
 
 ## Releases
 
-The Path SDK is published via [JitPack](https://jitpack.io/#mxenabled/path-core) ([Old Group Id JitPack](https://jitpack.io/#mxenabled/path-sdk)).
+The Path SDK is published to Maven Central at https://search.maven.org/search?q=com.mx.path-core
 
 ### Branching Strategy
 
@@ -212,7 +214,7 @@ $ ./gradlew dependencies
 **Scan dependencies for vulnerabilities**
 
 ```shell
-$ ./gradlew dependencyCheckAnalyze
+$ ./gradlew hushReport
 ```
 
 To view the generated report of found vulnerabilities open `build/reports/dependency-check-report.html` in a browser.
