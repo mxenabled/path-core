@@ -10,10 +10,12 @@ jobs:
   # ---------------------------------------------------------------
   # job: release
   #
-  # Manually invoke to rerun release-please
+  # Run release-please and publish the release if release-please
+  # creates a release.
   #
   # * Creates and maintains "release PR"
   # * Creates release when the "release PR" is merged to "master"
+  # * Publishes release if release-please creates a release
   #
   # See: https://github.com/google-github-actions/release-please-action
   # See: https://github.com/googleapis/release-please
@@ -22,9 +24,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3.5.0
+        id: release
         with:
           include-v-in-tag: true
           release-type: simple
           extra-files: |
             build.gradle
             README.md
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+
+  publish:
+    needs: [ release ]
+    runs-on: ubuntu-latest
+    if: ${{ needs.release.outputs.release_created }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/publish.yml
