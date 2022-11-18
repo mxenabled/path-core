@@ -16,10 +16,10 @@ dependencies {
   api project(":context")
   api project(":messaging")
   api "io.opentracing:opentracing-api"
-  api "${project.property('xmlbindapi')}"
-  api "${project.property('xmlsoapapi')}"
-  api "${project.property('jaxbimpl')}"
-  api "${project.property('jaxbruntime')}"
+  api "jakarta.xml.bind:jakarta.xml.bind-api"
+  api "jakarta.xml.soap:jakarta.xml.soap-api"
+  api "com.sun.xml.bind:jaxb-impl"
+  api "org.glassfish.jaxb:jaxb-runtime"
 
   implementation "org.slf4j:slf4j-api"
   implementation "org.apache.httpcomponents:httpclient"
