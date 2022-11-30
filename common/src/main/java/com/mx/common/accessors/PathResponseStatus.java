@@ -14,44 +14,51 @@ import com.mx.common.http.HttpStatus;
 public enum PathResponseStatus {
 
   /**
-   * Request successful with a response body
+   * HTTP 200: Request successful with a response body
    */
   OK(200, "Successful", false),
 
   /**
-   * Request successful with a challenge response body
+   * HTTP 202: Request successful with a challenge response body
    */
   ACCEPTED(202, "Accepted", false),
 
   /**
-   * Request successful with no response body
+   * HTTP 204: Request successful with no response body
    */
   NO_CONTENT(204, "No response context", false),
 
   /**
-   * The request body is incorrect or failed validation
+   * HTTP 400: The request body is incorrect or failed validation
    */
   BAD_REQUEST(400, "Bad request", true),
 
   /**
-   * The request not allowed because user is not authenticated, the session is no longer valid
+   * HTTP 401: The request not allowed because user is not authenticated, the session is no longer valid
    */
   UNAUTHORIZED(401, "Unauthorized", true),
 
   /**
-   * The current user is not allowed to perform the requested operation
+   * HTTP 403: The current user is not allowed to perform the requested operation
    */
   NOT_ALLOWED(403, "Operation not allowed", true),
 
   /**
-   * The requested resource does not exist or does not belong to the user
+   * HTTP 404: The requested resource does not exist or does not belong to the user
    * <p>This should <i>not</i> be used in the case a list is requested and the list is empty. In that case,
    * the response status should be OK with an empty list.
    */
   NOT_FOUND(404, "Resource not found", true),
 
   /**
-   * The request cannot be performed because of some user-correctable reason.
+   * HTTP 409: This status code indicates a request conflict with the current state of the target resource.
+   * <p>Conflicts are most likely to occur in response to a PUT request. For example, you may get a 409 response
+   * when uploading a file that is older than the existing one on the server, resulting in a version control conflict.
+   */
+  CONFLICT(409, "Conflict", true),
+
+  /**
+   * HTTP 422: The request cannot be performed because of some user-correctable reason.
    *
    * Example reasons:
    * <ul>
@@ -64,12 +71,12 @@ public enum PathResponseStatus {
   USER_ERROR(422, "User-correctable error", true),
 
   /**
-   * The request encountered an upstream system that has too many requests in configured window. Not typically used directly.
+   * HTTP 429: The request encountered an upstream system that has too many requests in configured window. Not typically used directly.
    */
   TOO_MANY_REQUESTS(429, "Too many requests", true),
 
   /**
-   * Something went wrong while processing request.
+   * HTTP 500: Something went wrong while processing request.
    *
    * <p>This should be reserved for situations that can only be corrected by the developer. In other words,
    *   the code or environment are broken.
@@ -85,23 +92,23 @@ public enum PathResponseStatus {
   INTERNAL_ERROR(500, "Internal error", true),
 
   /**
-   * Indicates a method was invoked that has not been implemented. Not typically used directly.
+   * HTTP 501: Indicates a method was invoked that has not been implemented. Not typically used directly.
    */
   NOT_IMPLEMENTED(501, "API not implemented", true),
 
   /**
-   * System is unavailable and unable to process request. Not typically used directly.
+   * HTTP 503: System is unavailable and unable to process request. Not typically used directly.
    * <p>This is used to indicate an open circuit.
    */
   UNAVAILABLE(503, "Service unavailable", true),
 
   /**
-   * A request failed to respond in less than expected time. Not typically used directly.
+   * HTTP 504: A request failed to respond in less than expected time. Not typically used directly.
    */
   TIMEOUT(504, "Timeout", true),
 
   /**
-   * The upstream service returned an unexpected error or is determined to be offline.
+   * HTTP 531: The upstream service returned an unexpected error or is determined to be offline.
    */
   UPSTREAM_SERVICE_UNAVAILABLE(531, "Upstream service unavailable", true);
 
