@@ -32,4 +32,8 @@ public @interface ConfigurationField {
    */
   Class<?> elementType() default Void.class; // inferred from field type when void
 
+  /**
+   * Used by scaffolding to fill in default value. Can be a valid value intended to be adjusted, or an example.
+   */
+  String placeholder() default "";
 }
