@@ -9,6 +9,18 @@ class FieldsTest extends Specification {
   class TestDataClass {
 
     private int id
+    private Integer cid
+
+    private float pFloat
+    private Float cFloat
+
+    private double pDouble
+    private Double cDouble
+
+    private long pLong
+    private Long cLong
+
+    private String string
 
     def getId() {
       return this.id
@@ -65,6 +77,53 @@ class FieldsTest extends Specification {
 
     then:
     obj.getId() == 14
+  }
+
+  def "setFieldValue type coercion"() {
+    given:
+    def obj = new TestDataClass()
+
+    when: "using Field"
+    Fields.setFieldValue(fieldName, obj, val)
+
+    then:
+    Fields.getFieldValue(fieldName, obj) == expected
+
+    where:
+    fieldName  | val                   | expected
+    "id"      | 1                     | 1
+    "id"      | " 2 "                 | 2
+
+    "cid"     | 3                     | 3
+    "cid"     | " 4 "                 | 4
+
+    "pFloat"  | " 5 "                 | Float.valueOf(5.0)
+    "pFloat"  | " 6.1 "               | Float.valueOf(6.1)
+    "pFloat"  | Float.valueOf(6.2)    | Float.valueOf(6.2)
+
+    "cFloat"  | " 7 "                 | Float.valueOf(7.0)
+    "cFloat"  | " 7.1 "               | Float.valueOf(7.1)
+    "cFloat"  | Float.valueOf(7.2)    | Float.valueOf(7.2)
+
+    "pDouble" | " 8 "                 | Double.valueOf(8.0)
+    "pDouble" | " 8.1 "               | Double.valueOf(8.1)
+    "pDouble" | Double.valueOf(8.2)   | Double.valueOf(8.2)
+
+    "cDouble" | " 9 "                 | Double.valueOf(9.0)
+    "cDouble" | " 9.1 "               | Double.valueOf(9.1)
+    "cDouble" | Double.valueOf(9.2)   | Double.valueOf(9.2)
+
+    "pLong"   | " 10 "                | Long.valueOf(10)
+    "pLong"   | Long.valueOf(10)      | Long.valueOf(10)
+
+    "cLong"   | " 11 "                | Long.valueOf(11)
+    "cLong"   | Long.valueOf(11)      | Long.valueOf(11)
+
+    "string"  | " strValue "          | " strValue "
+    "string"  | 12                    | "12"
+    "string"  | Long.valueOf(12)      | "12"
+    "string"  | Float.valueOf(12.1)   | "12.1"
+    "string"  | Double.valueOf(12.2)  | "12.2"
   }
 
   def "setFieldValue throws exception if field does not exist"() {
