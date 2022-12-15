@@ -55,7 +55,7 @@ public class Fields {
       boolean originalAccessibility = field.isAccessible();
       field.setAccessible(true);
       try {
-        field.set(obj, val);
+        field.set(obj, coerceValueType(field.getType(), val));
       } finally {
         field.setAccessible(originalAccessibility);
       }
@@ -79,4 +79,32 @@ public class Fields {
     }
   }
 
+  @SuppressWarnings("PMD.CyclomaticComplexity")
+  private static Object coerceValueType(Class<?> targetType, Object value) {
+    if (value == null) {
+      return null;
+    }
+
+    if (targetType == int.class || targetType == Integer.class) {
+      return Integer.valueOf(value.toString().trim());
+    }
+
+    if (targetType == float.class || targetType == Float.class) {
+      return Float.valueOf(value.toString().trim());
+    }
+
+    if (targetType == double.class || targetType == Double.class) {
+      return Double.valueOf(value.toString().trim());
+    }
+
+    if (targetType == long.class || targetType == Long.class) {
+      return Long.valueOf(value.toString().trim());
+    }
+
+    if (targetType == String.class) {
+      return value.toString();
+    }
+
+    return value;
+  }
 }
