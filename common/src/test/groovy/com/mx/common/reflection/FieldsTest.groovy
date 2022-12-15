@@ -1,6 +1,9 @@
 package com.mx.common.reflection
 
 import java.lang.reflect.Field
+import java.time.Duration
+
+import com.mx.common.configuration.ConfigurationException
 
 import spock.lang.Specification
 
@@ -21,6 +24,8 @@ class FieldsTest extends Specification {
     private Long cLong
 
     private String string
+
+    private Duration duration
 
     def getId() {
       return this.id
@@ -124,6 +129,49 @@ class FieldsTest extends Specification {
     "string"  | Long.valueOf(12)      | "12"
     "string"  | Float.valueOf(12.1)   | "12.1"
     "string"  | Double.valueOf(12.2)  | "12.2"
+  }
+
+  def "setFieldValue Duration coercion"() {
+    given:
+    def obj = new TestDataClass()
+
+    when:
+    Fields.setFieldValue(fieldName, obj, val)
+
+    then:
+    Fields.getFieldValue(fieldName, obj) == expected
+
+    where:
+    fieldName    | val                | expected
+    "duration"  | " 10 s "           | Duration.ofSeconds(10)
+    "duration"  | " 10sec "          | Duration.ofSeconds(10)
+    "duration"  | " 10 m "           | Duration.ofMillis(10)
+    "duration"  | " 10ms "           | Duration.ofMillis(10)
+    "duration"  | " 10milliseconds " | Duration.ofMillis(10)
+    "duration"  | " 10min "          | Duration.ofMinutes(10)
+    "duration"  | " 10nanos "        | Duration.ofNanos(10)
+    "duration"  | " 10h "            | Duration.ofHours(10)
+  }
+
+  def "setFieldValue Duration coerce failures"() {
+    given:
+    def obj = new TestDataClass()
+
+    when:
+    Fields.setFieldValue(fieldName, obj, val)
+
+    Duration.ofMinutes(1).to
+
+    then:
+    def err = thrown(ConfigurationException)
+    err.getMessage() == expected
+
+    where:
+    fieldName    | val                | expected
+    "duration"  | " 10 s1 "          | "Invalid duration string:  10 s1 "
+    "duration"  | " 10 "             | "Invalid duration string:  10 "
+    "duration"  | " 10 g"            | "Invalid duration unit:  10 g"
+    "duration"  | 10                 | "Duration value must be a string"
   }
 
   def "setFieldValue throws exception if field does not exist"() {
