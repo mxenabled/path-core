@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.4.0](https://github.com/mxenabled/path-core/compare/v1.3.0...v1.4.0) (2022-12-16)
+
+
+### Features
+
+* add placeholder field to ConfigurationField annotation ([ec98e1f](https://github.com/mxenabled/path-core/commit/ec98e1f6407b23002378f627d263a75a6433a159))
+* add support for Duration configuration binding ([1c9085f](https://github.com/mxenabled/path-core/commit/1c9085fb21c0999de6a1f9516006ab8f30f7e4df))
+* add value coercion to configuration binding ([ad8718b](https://github.com/mxenabled/path-core/commit/ad8718b2580bfeaa30a49057196372786b9590dd))
+
 ## [1.3.0](https://github.com/mxenabled/path-core/compare/1.2.0...1.3.0) (2022-10-29)
 
 
