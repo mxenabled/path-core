@@ -77,7 +77,7 @@ subprojects {
         api "jakarta.xml.bind:jakarta.xml.bind-api:2.3.3!!"
         api "jakarta.xml.soap:jakarta.xml.soap-api:1.4.2!!"
         api "com.sun.xml.bind:jaxb-impl:2.3.1!!"
-        api "org.glassfish.jaxb:jaxb-runtime:2.3.3!!"
+        api "org.glassfish.jaxb:jaxb-runtime:2.3.7!!"
         // -----------------------------------------------------------------
       }
 
