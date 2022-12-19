@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/mxenabled/path-core/compare/v1.4.0...v1.4.1) (2022-12-19)
+
+
+### Bug Fixes
+
+* fix incompatible jaxb-runtime version constraint ([3c6c07c](https://github.com/mxenabled/path-core/commit/3c6c07c9a2d4f20aa77b8a886685ce375aa90dc7))
+
 ## [1.4.0](https://github.com/mxenabled/path-core/compare/v1.3.0...v1.4.0) (2022-12-16)
 
 
