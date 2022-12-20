@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.5.0](https://github.com/mxenabled/path-core/compare/v1.4.1...v1.5.0) (2022-12-20)
+
+
+### Features
+
+* add support for enum configuration bindings ([ed9eff1](https://github.com/mxenabled/path-core/commit/ed9eff1a3dc044d18c8b6f6104cbb144e729171d))
+* adding RemoteException ([c8146f8](https://github.com/mxenabled/path-core/commit/c8146f830024f91886ffca34bfb5818ec2e7dbfe))
+
+
+### Bug Fixes
+
+* cleanup throw text ([c8146f8](https://github.com/mxenabled/path-core/commit/c8146f830024f91886ffca34bfb5818ec2e7dbfe))
+* fill in stack trace ([c8146f8](https://github.com/mxenabled/path-core/commit/c8146f830024f91886ffca34bfb5818ec2e7dbfe))
+* return a known exception ([c8146f8](https://github.com/mxenabled/path-core/commit/c8146f830024f91886ffca34bfb5818ec2e7dbfe))
+* spotless apply ([c8146f8](https://github.com/mxenabled/path-core/commit/c8146f830024f91886ffca34bfb5818ec2e7dbfe))
+
 ## [1.4.1](https://github.com/mxenabled/path-core/compare/v1.4.0...v1.4.1) (2022-12-19)
 
 
