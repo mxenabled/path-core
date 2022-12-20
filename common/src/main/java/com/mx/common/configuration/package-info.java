@@ -55,8 +55,13 @@
  *    <li>Integer
  *    <li>Long
  *    <li>Double
- *    <li>Duration (see notes below)
+ *    <li>Enumerations (see notes)
+ *    <li>Duration (see notes)
  *  </ul>
+ *
+ *  <p><strong>Enumerations</strong>
+ *  <p>Enumerations are matched using a case-insensitive comparison with name() and toString() of the enumerations
+ *  values.
  *
  *  <p><strong>Durations</strong>
  *  <p>When dealing with time lengths, the use of Durations is preferred rather than using simple integer values. This

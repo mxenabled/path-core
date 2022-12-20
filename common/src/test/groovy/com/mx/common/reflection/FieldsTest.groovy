@@ -4,6 +4,7 @@ import java.lang.reflect.Field
 import java.time.Duration
 
 import com.mx.common.configuration.ConfigurationException
+import com.mx.common.request.Feature
 
 import spock.lang.Specification
 
@@ -26,6 +27,8 @@ class FieldsTest extends Specification {
     private String string
 
     private Duration duration
+
+    private Feature enumeration
 
     def getId() {
       return this.id
@@ -129,6 +132,11 @@ class FieldsTest extends Specification {
     "string"  | Long.valueOf(12)      | "12"
     "string"  | Float.valueOf(12.1)   | "12.1"
     "string"  | Double.valueOf(12.2)  | "12.2"
+
+    "enumeration" | "ACCOUNTS"        | Feature.ACCOUNTS
+    "enumeration" | " TRANSFERS "     | Feature.TRANSFERS
+    "enumeration" | " Transfers "     | Feature.TRANSFERS
+    "enumeration" | " ach_transfers " | Feature.ACH_TRANSFERS
   }
 
   def "setFieldValue Duration coercion"() {
@@ -160,7 +168,7 @@ class FieldsTest extends Specification {
     when:
     Fields.setFieldValue(fieldName, obj, val)
 
-    Duration.ofMinutes(1).to
+    Duration.ofMinutes(1)
 
     then:
     def err = thrown(ConfigurationException)
@@ -172,6 +180,8 @@ class FieldsTest extends Specification {
     "duration"  | " 10 "             | "Invalid duration string:  10 "
     "duration"  | " 10 g"            | "Invalid duration unit:  10 g"
     "duration"  | 10                 | "Duration value must be a string"
+
+    "enumeration" | "JUNK"           | "Invalid value JUNK for enumeration com.mx.common.request.Feature"
   }
 
   def "setFieldValue throws exception if field does not exist"() {
