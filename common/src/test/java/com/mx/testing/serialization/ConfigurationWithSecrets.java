@@ -1,5 +1,8 @@
 package com.mx.testing.serialization;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -102,6 +105,9 @@ public class ConfigurationWithSecrets {
 
   private Embedded skipped;
 
+  @ConfigurationField(elementType = String.class, secret = true)
+  private List<String> secrets;
+
   public static class ConfigurationWithSecretsBuilder {
     private String notSecret;
     private String secret;
@@ -117,6 +123,7 @@ public class ConfigurationWithSecrets {
     private Feature enumeration;
     private Embedded embedded;
     private Embedded skipped;
+    private List<String> secrets = new ArrayList<>();
 
     public ConfigurationWithSecretsBuilder defaults() {
       notSecret = "not a secret";
@@ -131,6 +138,8 @@ public class ConfigurationWithSecrets {
       pboolean = true;
       cboolean = true;
       enumeration = Feature.TRANSFERS;
+      secrets.add("secret 1");
+      secrets.add("secret 2");
       embedded = Embedded.builder().defaults().build();
       skipped = Embedded.builder().defaults().build();
       return this;

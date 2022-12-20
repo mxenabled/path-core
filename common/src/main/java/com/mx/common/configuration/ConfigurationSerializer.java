@@ -3,6 +3,7 @@ package com.mx.common.configuration;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -82,19 +83,40 @@ public class ConfigurationSerializer<ST> extends TypeAdapter<ST> {
     return delegate.read(in);
   }
 
+  private void fillMaskedArray(JsonWriter out, String name, int size) throws IOException {
+    out.name(name).beginArray();
+    for (int i = 0; i < size; i++) {
+      out.value("****");
+    }
+    out.endArray();
+  }
+
+  private boolean isSecretList(Field field, ConfigurationField annotation) {
+    return List.class.isAssignableFrom(field.getType())
+        && annotation.secret()
+        && annotation.elementType() == String.class;
+  }
+
   private void writeValue(JsonWriter out, Field field, ST value, ConfigurationField annotation) throws IOException {
     String name = Strings.isNotBlank(annotation.value()) ? annotation.value() : field.getName();
-    if ("String".equals(field.getType().getSimpleName())) {
+    if (field.getType() == String.class) {
       if (annotation.secret()) {
         String strValue = (String) Fields.getFieldValue(field, value);
         out.name(name).value(strValue == null ? null : Strings.isBlank(strValue) ? "" : "****");
       } else {
         out.name(name).value((String) Fields.getFieldValue(field, value));
       }
+    } else if (isSecretList(field, annotation)) {
+      List<?> list = (List<?>) Fields.getFieldValue(field, value);
+      if (list != null) {
+        fillMaskedArray(out, name, list.size());
+      }
     } else {
-      JsonElement element = GSON.toJsonTree(Fields.getFieldValue(field, value));
-      out.name(name);
-      GSON.toJson(element, out);
+      if (!annotation.secret()) { // Don't use default serialization if marked as secret.
+        JsonElement element = GSON.toJsonTree(Fields.getFieldValue(field, value));
+        out.name(name);
+        GSON.toJson(element, out);
+      }
     }
   }
 }
