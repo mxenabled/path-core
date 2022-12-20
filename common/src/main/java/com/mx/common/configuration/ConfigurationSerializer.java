@@ -2,6 +2,7 @@ package com.mx.common.configuration;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import com.mx.common.lang.Durations;
 import com.mx.common.lang.Strings;
 import com.mx.common.reflection.Fields;
 
@@ -83,14 +85,6 @@ public class ConfigurationSerializer<ST> extends TypeAdapter<ST> {
     return delegate.read(in);
   }
 
-  private void fillMaskedArray(JsonWriter out, String name, int size) throws IOException {
-    out.name(name).beginArray();
-    for (int i = 0; i < size; i++) {
-      out.value("****");
-    }
-    out.endArray();
-  }
-
   private boolean isSecretList(Field field, ConfigurationField annotation) {
     return List.class.isAssignableFrom(field.getType())
         && annotation.secret()
@@ -100,23 +94,45 @@ public class ConfigurationSerializer<ST> extends TypeAdapter<ST> {
   private void writeValue(JsonWriter out, Field field, ST value, ConfigurationField annotation) throws IOException {
     String name = Strings.isNotBlank(annotation.value()) ? annotation.value() : field.getName();
     if (field.getType() == String.class) {
-      if (annotation.secret()) {
-        String strValue = (String) Fields.getFieldValue(field, value);
-        out.name(name).value(strValue == null ? null : Strings.isBlank(strValue) ? "" : "****");
-      } else {
-        out.name(name).value((String) Fields.getFieldValue(field, value));
-      }
+      renderString(out, field, value, annotation, name);
     } else if (isSecretList(field, annotation)) {
-      List<?> list = (List<?>) Fields.getFieldValue(field, value);
-      if (list != null) {
-        fillMaskedArray(out, name, list.size());
-      }
+      renderSecretList(out, field, value, name);
+    } else if (field.getType() == Duration.class) {
+      renderDuration(out, field, value, name);
     } else {
-      if (!annotation.secret()) { // Don't use default serialization if marked as secret.
-        JsonElement element = GSON.toJsonTree(Fields.getFieldValue(field, value));
-        out.name(name);
-        GSON.toJson(element, out);
+      renderOtherNonSecret(out, field, value, annotation, name);
+    }
+  }
+
+  private void renderDuration(JsonWriter out, Field field, ST value, String name) throws IOException {
+    out.name(name).value(Durations.toCompactString((Duration) Fields.getFieldValue(field, value)));
+  }
+
+  private void renderOtherNonSecret(JsonWriter out, Field field, ST value, ConfigurationField annotation, String name) throws IOException {
+    if (!annotation.secret()) { // Don't use default serialization if marked as secret.
+      JsonElement element = GSON.toJsonTree(Fields.getFieldValue(field, value));
+      out.name(name);
+      GSON.toJson(element, out);
+    }
+  }
+
+  private void renderSecretList(JsonWriter out, Field field, ST value, String name) throws IOException {
+    List<?> list = (List<?>) Fields.getFieldValue(field, value);
+    if (list != null) {
+      out.name(name).beginArray();
+      for (int i = 0; i < list.size(); i++) {
+        out.value("****");
       }
+      out.endArray();
+    }
+  }
+
+  private void renderString(JsonWriter out, Field field, ST value, ConfigurationField annotation, String name) throws IOException {
+    if (annotation.secret()) {
+      String strValue = (String) Fields.getFieldValue(field, value);
+      out.name(name).value(strValue == null ? null : Strings.isBlank(strValue) ? "" : "****");
+    } else {
+      out.name(name).value((String) Fields.getFieldValue(field, value));
     }
   }
 }

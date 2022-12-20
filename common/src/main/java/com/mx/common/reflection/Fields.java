@@ -5,17 +5,14 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.mx.common.configuration.ConfigurationException;
+import com.mx.common.lang.Durations;
 
 /**
  * Field access utilities
  */
 public class Fields {
-
-  private static final Pattern DURATION_PATTERN = Pattern.compile("^(?<value>\\d+)\\s*(?<unit>[a-z]+)$");
 
   /**
    * Get a field's value
@@ -130,39 +127,7 @@ public class Fields {
       throw new ConfigurationException("Duration value must be a string");
     }
 
-    Matcher matcher = DURATION_PATTERN.matcher(value.toString().trim());
-    try {
-      if (matcher.matches()) {
-        long durationValue = Integer.parseInt(matcher.group("value"));
-        String durationUnit = matcher.group("unit");
-
-        if (durationUnit.startsWith("s")) {
-          return Duration.ofSeconds(durationValue);
-        }
-
-        if (durationUnit.startsWith("min")) {
-          return Duration.ofMinutes(durationValue);
-        }
-
-        if (durationUnit.startsWith("m")) {
-          return Duration.ofMillis(durationValue);
-        }
-
-        if (durationUnit.startsWith("n")) {
-          return Duration.ofNanos(durationValue);
-        }
-
-        if (durationUnit.startsWith("h")) {
-          return Duration.ofHours(durationValue);
-        }
-
-        throw new ConfigurationException("Invalid duration unit: " + value);
-      } else {
-        throw new ConfigurationException("Invalid duration string: " + value);
-      }
-    } catch (NumberFormatException e) {
-      throw new ConfigurationException("Invalid duration string: " + value, e);
-    }
+    return Durations.fromCompactString(value.toString());
   }
 
   @SuppressWarnings({ "unchecked" })

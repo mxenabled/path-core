@@ -69,24 +69,9 @@
  *  types can be used in the configuration POJO and a String value can be provided in the yaml that includes the duration's
  *  value and unit.
  *
- * <p><i>Supported duration string formats</i>
- *  <ul>
- *    <li>{@code 30s} - 30 seconds
- *    <li>{@code 30m} - 30 milliseconds
- *    <li>{@code 5min} - 5 minutes
- *  </ul>
+ *  <p>For details about supported duration strings and units see {@link com.mx.common.lang.Durations}.
  *
- *  <p><i>Supported unit specifications</i>
- *  <ul>
- *    <li> {@code "s", "sec", "seconds"} - <i>seconds</i>
- *    <li> {@code "m", "ms", "millis", "milliseconds"} - <i>milliseconds</i>
- *    <li> {@code "n", "nanos", "nanoseconds"} - <i>nanoseconds</i>
- *    <li> {@code "min", "minutes"} - <i>minutes (not, this must be more fully specified to avoid conflict with milliseconds</i>
- *    <li> {@code "h", "hours"} - <i>hours</i>
- *  </ul>
- *
- *
- *  <p>Duration Example:
+ *  <p>Duration Configuration Example:
  *
  *  <p><i>Configuration Definition</i>
  *  <pre>{@code
