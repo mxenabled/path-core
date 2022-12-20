@@ -36,4 +36,9 @@ public @interface ConfigurationField {
    * Used by scaffolding to fill in default value. Can be a valid value intended to be adjusted, or an example.
    */
   String placeholder() default "";
+
+  /**
+   * Set on String values to indicate that the value should not be logged.
+   */
+  boolean secret() default false;
 }
