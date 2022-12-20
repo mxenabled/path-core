@@ -21,6 +21,7 @@ class ConfigurationSerializerTest extends Specification {
     def original = ConfigurationWithSecrets.builder().defaults().build();
 
     def serialized = subject.toJson(original)
+    println(serialized)
     def deserialized = subject.fromJson(serialized, ConfigurationWithSecrets.class)
 
     then:
@@ -41,6 +42,9 @@ class ConfigurationSerializerTest extends Specification {
       deserialized.embedded.embeddedSecret == "****"
       deserialized.embedded.inception.whereAmI == "****"
       deserialized.embedded.inception.id == original.embedded.inception.id
+      deserialized.secrets.size() == 2
+      deserialized.secrets[0] == "****"
+      deserialized.secrets[1] == "****"
     }
   }
 
@@ -50,10 +54,10 @@ class ConfigurationSerializerTest extends Specification {
         .defaults()
         .cboolean(null)
         .embedded(null)
+        .secrets(null)
         .build()
 
     def serialized = subject.toJson(original)
-    println(serialized)
     def deserialized = subject.fromJson(serialized, ConfigurationWithSecrets.class)
 
     then:
@@ -72,6 +76,7 @@ class ConfigurationSerializerTest extends Specification {
       deserialized.cboolean == null
       deserialized.enumeration == original.enumeration
       deserialized.embedded == null
+      deserialized.secrets == null
     }
   }
 
