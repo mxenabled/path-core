@@ -11,8 +11,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.google.gson.JsonSyntaxException;
 import com.mx.common.messaging.MessageError;
 import com.mx.common.messaging.MessageStatus;
+import com.mx.common.messaging.RemoteException;
 
 public class MessageErrorThrowableSerializer implements JsonDeserializer<Throwable>, JsonSerializer<Throwable> {
   private final Gson gson = new GsonBuilder().create();
@@ -25,7 +27,14 @@ public class MessageErrorThrowableSerializer implements JsonDeserializer<Throwab
       Class<?> klass = Class.forName(typeName);
       return (Throwable) gson.fromJson(json, klass);
     } catch (ClassNotFoundException e) {
-      throw new MessageError("ClassNotFoundException while parsing a Throwable", MessageStatus.FAIL, e);
+      try {
+        RemoteException remoteException = gson.fromJson(json, RemoteException.class);
+        remoteException.fillInStackTrace();
+        remoteException.setOriginalType(typeName);
+        return remoteException;
+      } catch (JsonSyntaxException ex) {
+        throw new MessageError("Could not deserialize a message error", MessageStatus.FAIL, ex);
+      }
     }
   }
 
