@@ -3,6 +3,7 @@ package com.mx.common.reflection;
 import java.lang.reflect.Field;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -116,6 +117,10 @@ public class Fields {
       return coerceToDuration(value);
     }
 
+    if (targetType.isEnum()) {
+      return coerceToEnum(targetType, value);
+    }
+
     return value;
   }
 
@@ -158,5 +163,15 @@ public class Fields {
     } catch (NumberFormatException e) {
       throw new ConfigurationException("Invalid duration string: " + value, e);
     }
+  }
+
+  @SuppressWarnings({ "unchecked" })
+  private static Enum<? extends Enum<?>> coerceToEnum(Class<?> targetType, Object value) {
+    String valueStr = value.toString().trim();
+    EnumSet<? extends Enum<?>> enumValues = EnumSet.allOf((Class<? extends Enum>) targetType);
+    return enumValues.stream()
+        .filter((enumValue) -> valueStr.equalsIgnoreCase(enumValue.toString()) || valueStr.equalsIgnoreCase(enumValue.name()))
+        .findFirst()
+        .orElseThrow(() -> new ConfigurationException("Invalid value " + valueStr + " for enumeration " + targetType.getName()));
   }
 }
