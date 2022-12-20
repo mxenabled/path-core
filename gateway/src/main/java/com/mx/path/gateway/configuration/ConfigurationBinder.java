@@ -9,15 +9,21 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.google.common.base.Supplier;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mx.common.collections.ObjectArray;
 import com.mx.common.collections.ObjectMap;
 import com.mx.common.configuration.ConfigurationField;
+import com.mx.common.configuration.ConfigurationSerializer;
 import com.mx.common.lang.Strings;
 import com.mx.common.reflection.Annotations;
 import com.mx.common.reflection.Constructors;
 import com.mx.common.reflection.Fields;
 import com.mx.path.gateway.configuration.annotations.ClientID;
 import com.mx.path.utilities.reflection.ClassHelper;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Build and bind configuration POJO from ObjectMap
@@ -26,6 +32,12 @@ import com.mx.path.utilities.reflection.ClassHelper;
  * be annotated with {@link ConfigurationField}
  */
 public class ConfigurationBinder {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(GatewayObjectConfigurator.class);
+  private static final Gson GSON = new GsonBuilder()
+      .setPrettyPrinting()
+      .registerTypeAdapterFactory(new ConfigurationSerializer.Factory())
+      .create();
 
   private final ConfigurationState state;
   private final String clientId;
@@ -57,6 +69,11 @@ public class ConfigurationBinder {
    */
   public final void configure(Object configuration, ObjectMap configurationMap) {
     populateFields(configuration, configurationMap);
+    try {
+      LOGGER.info("Configuration binding: " + configuration.getClass().getName() + " -> " + GSON.toJson(configuration));
+    } catch (Exception e) {
+      LOGGER.warn("Unable to serialize configuration: " + configuration.getClass().getName());
+    }
   }
 
   /**
