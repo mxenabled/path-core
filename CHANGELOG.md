@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.6.0](https://github.com/mxenabled/path-core/compare/v1.5.0...v1.6.0) (2022-12-21)
+
+
+### Features
+
+* add safe configuration object serializer ([1c1ee2c](https://github.com/mxenabled/path-core/commit/1c1ee2ccc48c5011298fe3026b53b570c5c1db7e))
+* add secret field to ConfigurationField annotation ([1c1ee2c](https://github.com/mxenabled/path-core/commit/1c1ee2ccc48c5011298fe3026b53b570c5c1db7e))
+* log configurations after binding ([d103fa4](https://github.com/mxenabled/path-core/commit/d103fa4ef98122022a2ee8fa2109241851cc2760))
+* support ConfigurationField.secret lists ([02a063f](https://github.com/mxenabled/path-core/commit/02a063f91c3e41c672b1c85e6dec28c4b3725221))
+
 ## [1.5.0](https://github.com/mxenabled/path-core/compare/v1.4.1...v1.5.0) (2022-12-20)
 
 
