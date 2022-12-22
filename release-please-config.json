@@ -4,6 +4,10 @@
   "prerelease": false,
   "packages": {
     ".": {
+      "extra-files": [
+        "build.gradle",
+        "README.md"
+      ]
     }
   }
 }
