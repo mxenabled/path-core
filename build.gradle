@@ -2,7 +2,6 @@ plugins {
   id "idea"
   id "com.github.mxenabled.vogue" version "1.0.2"
   id "com.github.mxenabled.coppuccino" version "3.2.1" apply false
-  id "com.github.mxenabled.hush" version "2.3.4" apply false
   id "io.freefair.lombok" version "6.5.1" apply false
   id "io.github.gradle-nexus.publish-plugin" version "1.1.0"
 }
@@ -43,7 +42,6 @@ subprojects {
   if (it.name != platformProject) {
     apply plugin: "java-library"
     apply plugin: "groovy"
-    apply plugin: "com.github.mxenabled.hush"
     apply plugin: "com.github.mxenabled.coppuccino"
     apply plugin: "com.github.mxenabled.vogue"
     apply plugin: "io.freefair.lombok"
@@ -209,17 +207,6 @@ task spotlessApply {
       it.afterEvaluate {
         def spotlessApplyTask = it.tasks.findByName("spotlessApply")
         dependsOn(spotlessApplyTask)
-      }
-    }
-  }
-}
-
-task dependencyCheckAnalyze {
-  subprojects.each {
-    if (it.name != platformProject) {
-      it.afterEvaluate {
-        def dependencyCheckAnalyzeTask = it.tasks.findByName("dependencyCheckAnalyze")
-        dependsOn(dependencyCheckAnalyzeTask)
       }
     }
   }
