@@ -70,7 +70,7 @@ public class ConfigurationBinder {
   public final void configure(Object configuration, ObjectMap configurationMap) {
     populateFields(configuration, configurationMap);
     try {
-      LOGGER.info("Configuration binding: " + configuration.getClass().getName() + " -> " + GSON.toJson(configuration));
+      LOGGER.debug("Configuration binding: " + configuration.getClass().getName() + " -> " + GSON.toJson(configuration));
     } catch (Exception e) {
       LOGGER.warn("Unable to serialize configuration: " + configuration.getClass().getName());
     }
