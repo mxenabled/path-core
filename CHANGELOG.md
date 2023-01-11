@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.1](https://github.com/mxenabled/path-core/compare/v1.6.0...v1.6.1) (2023-01-11)
+
+
+### Bug Fixes
+
+* log configurations after binding ([3d701fb](https://github.com/mxenabled/path-core/commit/3d701fb0b36eb2282c6370a09f3998b47a206b5d))
+* log configurations after binding with debug level ([4b596ba](https://github.com/mxenabled/path-core/commit/4b596ba23bfedf8642b94fb068cb0892e8cfd7b0))
+
 ## [1.6.0](https://github.com/mxenabled/path-core/compare/v1.5.0...v1.6.0) (2022-12-21)
 
 
