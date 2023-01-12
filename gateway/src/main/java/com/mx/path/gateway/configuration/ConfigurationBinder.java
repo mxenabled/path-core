@@ -14,11 +14,11 @@ import com.google.gson.GsonBuilder;
 import com.mx.common.collections.ObjectArray;
 import com.mx.common.collections.ObjectMap;
 import com.mx.common.configuration.ConfigurationField;
-import com.mx.common.configuration.ConfigurationSerializer;
 import com.mx.common.lang.Strings;
 import com.mx.common.reflection.Annotations;
 import com.mx.common.reflection.Constructors;
 import com.mx.common.reflection.Fields;
+import com.mx.common.serialization.ConfigurationTypeAdapter;
 import com.mx.path.gateway.configuration.annotations.ClientID;
 import com.mx.path.utilities.reflection.ClassHelper;
 
@@ -36,7 +36,7 @@ public class ConfigurationBinder {
   private static final Logger LOGGER = LoggerFactory.getLogger(GatewayObjectConfigurator.class);
   private static final Gson GSON = new GsonBuilder()
       .setPrettyPrinting()
-      .registerTypeAdapterFactory(new ConfigurationSerializer.Factory())
+      .registerTypeAdapterFactory(new ConfigurationTypeAdapter.Factory())
       .create();
 
   private final ConfigurationState state;
@@ -72,7 +72,7 @@ public class ConfigurationBinder {
     try {
       LOGGER.debug("Configuration binding: " + configuration.getClass().getName() + " -> " + GSON.toJson(configuration));
     } catch (Exception e) {
-      LOGGER.warn("Unable to serialize configuration: " + configuration.getClass().getName());
+      LOGGER.warn("Unable to serialize configuration: " + configuration.getClass().getName(), e);
     }
   }
 
