@@ -1,4 +1,4 @@
-package com.mx.common.configuration;
+package com.mx.common.serialization;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -14,7 +14,7 @@ import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import com.mx.common.lang.Durations;
+import com.mx.common.configuration.ConfigurationField;
 import com.mx.common.lang.Strings;
 import com.mx.common.reflection.Fields;
 
@@ -46,22 +46,26 @@ import com.mx.common.reflection.Fields;
  *
  * }</pre>
  */
-public class ConfigurationSerializer<ST> extends TypeAdapter<ST> {
-  private static final Gson GSON = new GsonBuilder().registerTypeAdapterFactory(new ConfigurationSerializer.Factory()).create();
+public class ConfigurationTypeAdapter<ST> extends TypeAdapter<ST> {
+  private static final Gson GSON = new GsonBuilder().registerTypeAdapterFactory(new ConfigurationTypeAdapter.Factory()).create();
 
   private final TypeAdapter<ST> delegate;
 
-  public ConfigurationSerializer(TypeAdapter<ST> delegate) {
+  public ConfigurationTypeAdapter(TypeAdapter<ST> delegate) {
     this.delegate = delegate;
   }
 
   public static class Factory implements TypeAdapterFactory {
     @Override
     public final <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+      if (type.getRawType() == Duration.class) {
+        return (TypeAdapter<T>) new DurationTypeAdapter();
+      }
+
       TypeAdapter<T> delegate = gson.getDelegateAdapter(this, type);
 
       if (Arrays.stream(type.getRawType().getDeclaredFields()).anyMatch((field) -> field.isAnnotationPresent(ConfigurationField.class))) {
-        return new ConfigurationSerializer<T>(delegate);
+        return new ConfigurationTypeAdapter<T>(delegate);
       }
 
       return null;
@@ -97,15 +101,9 @@ public class ConfigurationSerializer<ST> extends TypeAdapter<ST> {
       renderString(out, field, value, annotation, name);
     } else if (isSecretList(field, annotation)) {
       renderSecretList(out, field, value, name);
-    } else if (field.getType() == Duration.class) {
-      renderDuration(out, field, value, name);
     } else {
       renderOtherNonSecret(out, field, value, annotation, name);
     }
-  }
-
-  private void renderDuration(JsonWriter out, Field field, ST value, String name) throws IOException {
-    out.name(name).value(Durations.toCompactString((Duration) Fields.getFieldValue(field, value)));
   }
 
   private void renderOtherNonSecret(JsonWriter out, Field field, ST value, ConfigurationField annotation, String name) throws IOException {

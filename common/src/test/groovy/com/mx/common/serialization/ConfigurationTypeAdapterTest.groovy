@@ -1,18 +1,21 @@
-package com.mx.common.configuration
+package com.mx.common.serialization
+
+import java.time.Duration
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.mx.testing.serialization.ConfigurationWithDuration
 import com.mx.testing.serialization.ConfigurationWithSecrets
 
 import spock.lang.Specification
 
-class ConfigurationSerializerTest extends Specification {
+class ConfigurationTypeAdapterTest extends Specification {
   Gson subject
 
   void setup() {
     subject = new GsonBuilder()
         .setPrettyPrinting()
-        .registerTypeAdapterFactory(new ConfigurationSerializer.Factory())
+        .registerTypeAdapterFactory(new ConfigurationTypeAdapter.Factory())
         .create()
   }
 
@@ -106,5 +109,28 @@ class ConfigurationSerializerTest extends Specification {
 
     then:
     deserialized.secret == null
+  }
+
+  def "serializes durations"() {
+    given:
+    def configuration = new ConfigurationWithDuration().tap {
+      setDuration(Duration.ofSeconds(12))
+    }
+
+    when:
+    def result = subject.toJson(configuration)
+
+    then:
+    result.contains("duration")
+    result.contains("12s")
+
+
+    when:
+    configuration.setDuration()
+    result = subject.toJson(configuration)
+    println(result)
+
+    then:
+    !result.contains("duration")
   }
 }
