@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2](https://github.com/mxenabled/path-core/compare/v1.6.1...v1.6.2) (2023-01-12)
+
+
+### Bug Fixes
+
+* duration serialization fail on null ([687371f](https://github.com/mxenabled/path-core/commit/687371f675f1f9151f26213744d5282723c67208))
+
 ## [1.6.1](https://github.com/mxenabled/path-core/compare/v1.6.0...v1.6.1) (2023-01-11)
 
 
