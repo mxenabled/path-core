@@ -17,6 +17,7 @@ import com.mx.common.accessors.Accessor;
 import com.mx.common.collections.ObjectArray;
 import com.mx.common.collections.ObjectMap;
 import com.mx.common.events.EventBus;
+import com.mx.common.exception.ExceptionReporter;
 import com.mx.common.gateway.GatewayException;
 import com.mx.common.lang.Strings;
 import com.mx.common.messaging.MessageBroker;
@@ -236,6 +237,10 @@ public abstract class Configurator<T extends Gateway<?>> {
 
           case "eventBus":
             Facilities.addEventBus(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, EventBus.class));
+            break;
+
+          case "exceptionReporter":
+            Facilities.setExceptionReporter(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, ExceptionReporter.class));
             break;
 
           case "faultTolerantExecutor":
