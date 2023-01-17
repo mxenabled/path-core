@@ -17,6 +17,27 @@ public interface ExceptionContext {
   @Nullable
   Map<String, String> getContext();
 
+  @Nullable
+  default String getClientId() {
+    // todo: remove default on next major version bump
+    return "";
+  }
+
+  /**
+   * @return The environment in which the exception was thrown. (example: sandbox, qa, production)
+   */
+  default String getEnvironment() {
+    // todo: Remove default on next major version
+    return "development";
+  }
+
+  /**
+   * @return the feature associated with request
+   */
+  default String getFeature() {
+    return null;
+  }
+
   /**
    * @return incoming request headers
    */
@@ -28,6 +49,13 @@ public interface ExceptionContext {
    */
   @Nullable
   MultiValueMap<String, String> getParameters();
+
+  /**
+   * @return a trace id associated with the path session
+   */
+  default String getSessionTraceId() {
+    return null;
+  }
 
   /**
    * @return incoming request http method
@@ -100,4 +128,5 @@ public interface ExceptionContext {
    */
   @Nullable
   String getTraceId();
+
 }
