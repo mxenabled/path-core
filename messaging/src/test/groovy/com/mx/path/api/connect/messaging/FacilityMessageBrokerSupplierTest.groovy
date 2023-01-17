@@ -4,6 +4,7 @@ import com.mx.common.collections.ObjectMap
 import com.mx.common.messaging.MessageBroker
 import com.mx.common.messaging.MessageError
 import com.mx.path.model.context.facility.Facilities
+import com.mx.testing.fakes.FakeMessageBroker
 
 import spock.lang.Specification
 
@@ -32,18 +33,13 @@ class FacilityMessageBrokerSupplierTest extends Specification {
     createMessageBrokerForClient("clientId")
 
     when:
-    def messageBroker = subject.get()
+    subject.get()
 
     then:
     thrown(MessageError)
   }
 
   private void createMessageBrokerForClient(String clientId) {
-    Facilities.populate(clientId, new ObjectMap().tap {
-      put("messageBroker", new ObjectMap().tap {
-        put("class", "com.mx.testing.fakes.FakeMessageBroker")
-        put("configurations", new ObjectMap())
-      })
-    })
+    Facilities.setMessageBroker(clientId, new FakeMessageBroker(new ObjectMap()))
   }
 }

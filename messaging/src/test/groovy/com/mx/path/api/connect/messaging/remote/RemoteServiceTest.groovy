@@ -22,6 +22,7 @@ import com.mx.testing.RemoteServiceValid
 import com.mx.testing.RemoteServiceWithInvalid
 import com.mx.testing.RemoteServiceWithObserver
 import com.mx.testing.TestUtils
+import com.mx.testing.fakes.FakeStore
 
 import io.opentracing.mock.MockTracer
 
@@ -147,12 +148,7 @@ class RemoteServiceTest extends Specification {
     given:
     subject = new RemoteServiceValid("client")
     Session.setRepositorySupplier(new SessionRepositorySupplier())
-    Facilities.populate("client", new ObjectMap().tap {
-      put("sessionStore", new ObjectMap().tap {
-        put("class", "com.mx.testing.fakes.FakeStore")
-        put("configurations", new ObjectMap())
-      })
-    })
+    Facilities.setSessionStore("client", new FakeStore(new ObjectMap()))
 
     when:
     def message = MessageRequest.builder().body("hi").messageHeaders(
