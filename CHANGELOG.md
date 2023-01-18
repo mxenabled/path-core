@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.7.0-SNAPSHOT](https://github.com/mxenabled/path-core/compare/v1.6.2...v1.7.0-SNAPSHOT) (2023-01-18)
+
+
+### Features
+
+* add exception reporter facility ([1447e66](https://github.com/mxenabled/path-core/commit/1447e663cc3f5574646a07b2902a899b53b8440b))
+
+
+### Bug Fixes
+
+* add some more context fields to ExceptionContext ([6aa2e0c](https://github.com/mxenabled/path-core/commit/6aa2e0ca477f8d6092bb951018b2074b5abd1cae))
+* add user id to exception context ([7a87488](https://github.com/mxenabled/path-core/commit/7a874886ee4a446cda2596910d0f47d161e36a46))
+* remove unused Facilities.populate ([1447e66](https://github.com/mxenabled/path-core/commit/1447e663cc3f5574646a07b2902a899b53b8440b))
+
+
+### Miscellaneous Chores
+
+* release 1.7.0-SNAPSHOT ([1041b35](https://github.com/mxenabled/path-core/commit/1041b3552b05c93c43c93b3c27176f44acc4fb6b))
+
 ## [1.6.2](https://github.com/mxenabled/path-core/compare/v1.6.1...v1.6.2) (2023-01-12)
 
 
