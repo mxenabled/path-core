@@ -35,6 +35,7 @@ public interface ExceptionContext {
    * @return the feature associated with request
    */
   default String getFeature() {
+    // todo: remove default on next major version bump
     return null;
   }
 
@@ -129,4 +130,12 @@ public interface ExceptionContext {
   @Nullable
   String getTraceId();
 
+  /**
+   * @return request user id
+   */
+  @Nullable
+  default String getUserId() {
+    // todo: remove default on next major version bump
+    return null;
+  }
 }
