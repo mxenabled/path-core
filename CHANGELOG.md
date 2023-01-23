@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/mxenabled/path-core/compare/v1.7.0-SNAPSHOT...v1.7.0) (2023-01-23)
+
+
+### Miscellaneous Chores
+
+* release 1.7.0 ([09e1924](https://github.com/mxenabled/path-core/commit/09e1924d898d9d544b59ab75041eb78d633a9c2d))
+
 ## [1.7.0-SNAPSHOT](https://github.com/mxenabled/path-core/compare/v1.6.2...v1.7.0-SNAPSHOT) (2023-01-18)
 
 
