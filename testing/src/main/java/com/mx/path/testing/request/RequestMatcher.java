@@ -55,6 +55,12 @@ public class RequestMatcher {
     return this;
   }
 
+  public final RequestMatcher withMatcher(Function<Request<?, ?>, Boolean> check) {
+    descriptions.add("with matcher");
+    assertions.add(check);
+    return this;
+  }
+
   public final RequestMatcher exactly(Request<?, ?> exactRequest) {
     descriptions.add("with exact request");
     assertions.add(exactRequest::equals);
