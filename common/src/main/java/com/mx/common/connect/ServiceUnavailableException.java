@@ -15,7 +15,8 @@ import com.mx.common.exception.PathRequestException;
 public class ServiceUnavailableException extends ConnectException {
   public ServiceUnavailableException(String message, Throwable cause) {
     super(message, cause);
+    setCode(String.valueOf(PathResponseStatus.UNAVAILABLE.value()));
     setReport(false);
-    setStatus(PathResponseStatus.UNAVAILABLE);
+    setStatus(PathResponseStatus.UPSTREAM_SERVICE_UNAVAILABLE);
   }
 }
