@@ -3,6 +3,7 @@ package com.mx.path.gateway.configuration;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -53,6 +55,10 @@ public abstract class Configurator<T extends Gateway<?>> {
   @Getter
   private final Class<T> rootGatewayClass;
 
+  @Setter
+  @Getter
+  private List<GatewayInitializer> initializers = new ArrayList<>();
+
   // Constructors
 
   @SuppressWarnings("unchecked")
@@ -87,7 +93,7 @@ public abstract class Configurator<T extends Gateway<?>> {
     json = StringSubstitutor.createInterpolator().replace(json);
     ObjectMap map = gson.fromJson(json, ObjectMap.class);
 
-    return buildGateways(map);
+    return buildAllClientGateways(map);
   }
 
   public final Map<String, T> buildFromYaml(String document) {
@@ -114,7 +120,15 @@ public abstract class Configurator<T extends Gateway<?>> {
       map.remove("definitions");
     }
 
-    return buildGateways(map);
+    return buildAllClientGateways(map);
+  }
+
+  private void afterGatewaysInitialized(Map<String, Gateway<?>> gateways) {
+    initializers.forEach(initializer -> initializer.afterGatewaysInitialized(gateways));
+  }
+
+  public void addInitializer(GatewayInitializer initializer) {
+    initializers.add(initializer);
   }
 
   private void buildBehaviors(ObjectMap map, Object builder, String clientId) {
@@ -122,7 +136,8 @@ public abstract class Configurator<T extends Gateway<?>> {
     behaviors.forEach(behavior -> GatewayBuilderHelper.addBehavior(builder, behavior));
   }
 
-  private Map<String, T> buildGateways(ObjectMap map) {
+  @SuppressWarnings("unchecked")
+  private Map<String, T> buildAllClientGateways(ObjectMap map) {
     Map<String, T> result = new LinkedHashMap<>();
 
     if (map != null) {
@@ -130,6 +145,8 @@ public abstract class Configurator<T extends Gateway<?>> {
         result.put(clientName, (T) buildGateway(map.getMap(clientName), clientName));
       }
     }
+
+    afterGatewaysInitialized((Map<String, Gateway<?>>) result);
 
     return result;
   }

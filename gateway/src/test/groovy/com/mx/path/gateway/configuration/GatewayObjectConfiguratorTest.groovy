@@ -7,6 +7,7 @@ import com.mx.path.gateway.service.GatewayService
 import com.mx.testing.MessageBrokerImpl
 import com.mx.testing.binding.BehaviorWithClientIDAndConfiguration
 import com.mx.testing.binding.BindedConfigGatewayService
+import com.mx.testing.gateway.BaseGateway
 
 import spock.lang.Specification
 

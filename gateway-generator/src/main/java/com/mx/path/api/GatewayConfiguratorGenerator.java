@@ -1,16 +1,17 @@
 package com.mx.path.api;
 
-import java.io.IOException;
+import com.mx.common.lang.Strings;
+import com.mx.path.gateway.configuration.Configurator;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeSpec;
 
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
-
-import com.mx.path.gateway.configuration.Configurator;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeSpec;
+import java.io.IOException;
 
 public class GatewayConfiguratorGenerator {
   private final Filer filer;
@@ -25,6 +26,14 @@ public class GatewayConfiguratorGenerator {
         .superclass(ParameterizedTypeName.get(
             ClassName.get(Configurator.class),
             ClassName.get(target.getBasePackage(), target.getSimpleName())));
+
+    if (Strings.isNotBlank(target.getAnnotation().initializer())) {
+      configuratorClass.addMethod(
+          MethodSpec.constructorBuilder()
+              .addStatement("this.addInitializer(new $T())", ClassName.bestGuess(target.getAnnotation().initializer()))
+              .build()
+      );
+    }
 
     JavaFile javaFile = JavaFile.builder(target.getBasePackage(), configuratorClass.build())
         .addFileComment("---------------------------------------------------------------------------------------------------------------------\n"
