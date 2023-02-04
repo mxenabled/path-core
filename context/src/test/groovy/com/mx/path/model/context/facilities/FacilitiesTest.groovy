@@ -14,13 +14,24 @@ class FacilitiesTest extends Specification {
     Facilities.reset()
   }
 
-  def "don't allow eventBus overwrite"() {
+  def "global event bus"() {
     when:
-    Facilities.addEventBus("client1", new EventBusImpl(new ObjectMap()))
-    Facilities.addEventBus("client1", new EventBusImpl(new ObjectMap()))
+    def clientEventBus= Facilities.getEventBus("whatever")
+    def globalEventBus= Facilities.getEventBus()
 
-    then:
-    def ex = thrown(RuntimeException)
-    ex.getMessage() == "Attempting to overwrite GatewayEventBus for client: client1. Only one can be registered. Use #getEventBus()."
+    then: "same event bus"
+    clientEventBus == globalEventBus
+
+    when:
+    Facilities.reset()
+
+    then: "is unaffected by reset"
+    globalEventBus == Facilities.getEventBus()
+
+    when:
+    Facilities.addEventBus("whatever", null)
+
+    then: "is unaffected by set"
+    globalEventBus == Facilities.getEventBus()
   }
 }

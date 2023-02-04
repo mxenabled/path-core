@@ -1,14 +1,16 @@
-package com.mx.path.gateway.events;
+package com.mx.path.model.context.event;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.List;
 
+import lombok.Getter;
+
 import com.google.common.eventbus.Subscribe;
-import com.mx.common.collections.ObjectMap;
 import com.mx.common.events.EventBus;
+import com.mx.common.events.GatewayEventBusException;
 import com.mx.common.reflection.Annotations;
-import com.mx.path.gateway.util.UpstreamRequestLoggingEventListener;
+import com.mx.path.model.context.AccessorEvent;
+import com.mx.path.model.context.GatewayEvent;
 
 /**
  * Configured per client through gateway.yaml facilities.
@@ -19,20 +21,18 @@ import com.mx.path.gateway.util.UpstreamRequestLoggingEventListener;
  * <p>Wraps Google's Guava EventBus
  *
  * <p>configurations:
- *   <ul>
- *     <li>NO OPTIONS</li>
- *   </ul>
+ * <ul>
+ *   <li>NO OPTIONS</li>
+ * </ul>
  */
 public class GatewayEventBus implements EventBus {
 
-  private final com.google.common.eventbus.EventBus eventBus;
+  @Getter
+  private final com.google.common.eventbus.EventBus eventBus = new com.google.common.eventbus.EventBus();
 
   @SuppressWarnings("PMD.UnusedFormalParameter")
-  public GatewayEventBus(ObjectMap configuration) {
-    eventBus = new com.google.common.eventbus.EventBus();
-    eventBus.register(new DefaultEventHandler());
-    // todo: Move this registration somewhere better?
-    eventBus.register(new UpstreamRequestLoggingEventListener());
+  public GatewayEventBus() {
+    register(new DefaultEventHandler());
   }
 
   /**
@@ -44,6 +44,7 @@ public class GatewayEventBus implements EventBus {
    * </ul>
    *
    * <p><i>Notes:</i>
+   *
    * @param event
    */
   @Override
@@ -84,16 +85,16 @@ public class GatewayEventBus implements EventBus {
       throw new GatewayEventBusException("Invalid event bus subscriber class - " + subscriber.getClass() + " has no methods annotated @Subscriber");
     }
 
-    subscribeMethods.forEach(method -> {
-      Class<?>[] parameters = method.getParameterTypes();
-      Arrays.asList(parameters).forEach(parameterClass -> {
-        if (!GatewayEvent.class.isAssignableFrom(parameterClass)
-            && !AccessorEvent.class.isAssignableFrom(parameterClass)
-            && !UpstreamRequestEvent.class.isAssignableFrom(parameterClass)) {
-          throw new GatewayEventBusException("Invalid event bus subscriber - " + subscriber.getClass().getCanonicalName() + "." + method.getName() + " handles event type " + parameterClass.getCanonicalName() + " which does not implement GatewayEvent, AccessorEvent, or UpstreamRequestEvent");
-        }
-      });
-    });
+    // todo: Figure out a good way to validate the subscribers to avoid mistakes
+    // subscribeMethods.forEach(method -> {
+    //   Class<?>[] parameters = method.getParameterTypes();
+    //   Arrays.asList(parameters).forEach(parameterClass -> {
+    //     if (!GatewayEvent.class.isAssignableFrom(parameterClass)
+    //         && !AccessorEvent.class.isAssignableFrom(parameterClass)
+    //         && !UpstreamRequestEvent.class.isAssignableFrom(parameterClass)) {
+    //       throw new GatewayEventBusException("Invalid event bus subscriber - " + subscriber.getClass().getCanonicalName() + "." + method.getName() + " handles event type " + parameterClass.getCanonicalName() + " which does not implement GatewayEvent, AccessorEvent, or UpstreamRequestEvent");
+    //     }
+    //   });
+    // });
   }
-
 }

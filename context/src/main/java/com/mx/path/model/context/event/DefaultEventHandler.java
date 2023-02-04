@@ -1,6 +1,8 @@
-package com.mx.path.gateway.events;
+package com.mx.path.model.context.event;
 
 import com.google.common.eventbus.Subscribe;
+import com.mx.path.model.context.AccessorEvent;
+import com.mx.path.model.context.GatewayEvent;
 
 /**
  * An instance of this noop handler is registered on all GatewayEventBus instances.

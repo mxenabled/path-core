@@ -14,7 +14,7 @@ import com.mx.common.messaging.MessageBroker;
 import com.mx.common.process.FaultTolerantExecutor;
 import com.mx.common.security.EncryptionService;
 import com.mx.common.store.Store;
-import com.mx.path.model.context.GatewayContextException;
+import com.mx.path.model.context.event.GatewayEventBus;
 
 /**
  * Facilities are global objects that can be configured and provide services to gateways and accessors.
@@ -24,7 +24,6 @@ import com.mx.path.model.context.GatewayContextException;
  *   <li>cacheStore         - Volatile cache storage</li>
  *   <li>sessionStore       - Less volatile storage for session state</li>
  *   <li>encryptionService  - Service used to secure data</li>
- *   <li>eventBus           - In-memory publish/subscriber event bus</li>
  * </ul>
  *
  * <p>Example:
@@ -44,7 +43,10 @@ import com.mx.path.model.context.GatewayContextException;
  *       class: implementation.EncryptionService
  *       configuration:
  *         key: value
- *     eventBus: {} # no parameters
+ *     exceptionReporter:
+ *       class: implementation.ExceptionReporter
+ *       configuration:
+ *         key: value
  * </pre>
  */
 public class Facilities {
@@ -52,7 +54,7 @@ public class Facilities {
   private static final Map<String, Store> CACHE_STORES = new ConcurrentHashMap<>();
   private static final Map<String, EncryptionService> ENCRYPTION_SERVICES = new ConcurrentHashMap<>();
   private static final Map<String, ExceptionReporter> EXCEPTION_REPORTERS = new ConcurrentHashMap<>();
-  private static final Map<String, EventBus> EVENT_BUSES = new ConcurrentHashMap<>();
+  private static final EventBus EVENT_BUS = new GatewayEventBus();
   private static final Map<String, FaultTolerantExecutor> FAULT_TOLERANT_EXECUTORS = new ConcurrentHashMap<>();
   private static final Map<String, MessageBroker> MESSAGE_BROKERS = new ConcurrentHashMap<>();
   private static final Map<String, Store> SECRET_STORES = new ConcurrentHashMap<>();
@@ -66,8 +68,18 @@ public class Facilities {
     return ENCRYPTION_SERVICES.get(clientId);
   }
 
+  /**
+   * @deprecated per-client EventBus is no longer supported. Use {@link #getEventBus()}
+   * @param clientId
+   * @return Global EventBus
+   */
+  @Deprecated
   public static EventBus getEventBus(String clientId) {
-    return EVENT_BUSES.get(clientId);
+    return EVENT_BUS;
+  }
+
+  public static EventBus getEventBus() {
+    return EVENT_BUS;
   }
 
   public static ExceptionReporter getExceptionReporter(String clientId) {
@@ -90,11 +102,13 @@ public class Facilities {
     return SESSION_STORES.get(clientId);
   }
 
+  /**
+   * @deprecated Setting of the event bus is no longer supported
+   * @param clientId
+   * @param eventBus
+   */
+  @Deprecated
   public static void addEventBus(String clientId, EventBus eventBus) {
-    if (EVENT_BUSES.containsKey(clientId)) {
-      throw new GatewayContextException("Attempting to overwrite GatewayEventBus for client: " + clientId + ". Only one can be registered. Use #getEventBus().");
-    }
-    EVENT_BUSES.put(clientId, eventBus);
   }
 
   public static void setCacheStore(@NonNull String clientId, @NonNull Store store) {
@@ -128,7 +142,7 @@ public class Facilities {
   public static void reset() {
     CACHE_STORES.clear();
     ENCRYPTION_SERVICES.clear();
-    EVENT_BUSES.clear();
+    EXCEPTION_REPORTERS.clear();
     FAULT_TOLERANT_EXECUTORS.clear();
     MESSAGE_BROKERS.clear();
     SECRET_STORES.clear();
@@ -138,6 +152,7 @@ public class Facilities {
   public static void describe(String clientId, ObjectMap description) {
     describeFacility(CACHE_STORES.get(clientId), description.createMap("cacheStore"));
     describeFacility(ENCRYPTION_SERVICES.get(clientId), description.createMap("encryptionService"));
+    describeFacility(EXCEPTION_REPORTERS.get(clientId), description.createMap("exceptionReporters"));
     describeFacility(FAULT_TOLERANT_EXECUTORS.get(clientId), description.createMap("faultTolerantExecutor"));
     describeFacility(MESSAGE_BROKERS.get(clientId), description.createMap("messageBroker"));
     describeFacility(SECRET_STORES.get(clientId), description.createMap("secretStore"));

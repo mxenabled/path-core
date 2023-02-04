@@ -19,7 +19,7 @@ public class AfterUpstreamRequestEvent implements UpstreamRequestEvent {
   private final Session session;
 
   @Override
-  public final Request getRequest() {
+  public final Request<?, ?> getRequest() {
     if (getResponse() == null) {
       return null;
     }

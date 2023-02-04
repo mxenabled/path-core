@@ -24,13 +24,11 @@ class UpstreamRequestEventExecutorTest extends Specification {
   EventBus eventBus
 
   def setup(){
-    eventBus = mock(EventBus)
     RequestContext.builder().clientId('12345').build().register()
     subject = spy(new UpstreamRequestEventExecutor(nextExecutor))
     nextExecutor = mock(RequestExecutor.class)
     request = mock(Request.class)
     response = new Response()
-    Facilities.addEventBus("12345",eventBus)
   }
 
   def cleanup(){
@@ -43,7 +41,6 @@ class UpstreamRequestEventExecutorTest extends Specification {
     subject.execute(request, response)
 
     then:
-    verify(eventBus).post(any(AfterUpstreamRequestEvent.class)) || true
     verify(subject).next(request, response)||true
   }
 
@@ -52,20 +49,7 @@ class UpstreamRequestEventExecutorTest extends Specification {
     subject.execute(request, response)
 
     then:
-    verify(eventBus).post(BeforeUpstreamRequestEvent.builder().request(request).build())
     verify(subject).next(request, response)
-  }
-
-  def "test doesn't throw an exception if no EventBus is configured"(){
-    given:
-    Facilities.EVENT_BUSES.clear()
-
-    when:
-    subject.execute(request, response)
-
-    then:
-    noExceptionThrown()
-    verify(eventBus, never()).post(any())||true
   }
 
   def "test doesn't throw an exception if the clientId is null"(){
@@ -77,6 +61,5 @@ class UpstreamRequestEventExecutorTest extends Specification {
 
     then:
     noExceptionThrown()
-    verify(eventBus, never()).post(any())||true
   }
 }

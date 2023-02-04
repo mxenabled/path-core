@@ -1,7 +1,4 @@
-package com.mx.path.gateway.events;
-
-import com.mx.path.model.context.RequestContext;
-import com.mx.path.model.context.Session;
+package com.mx.path.model.context;
 
 /**
  * Interface for all gateway-emitted events

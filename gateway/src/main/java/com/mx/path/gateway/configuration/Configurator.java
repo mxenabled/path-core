@@ -30,7 +30,6 @@ import com.mx.path.api.connect.messaging.remote.RemoteService;
 import com.mx.path.gateway.Gateway;
 import com.mx.path.gateway.GatewayBuilderHelper;
 import com.mx.path.gateway.behavior.GatewayBehavior;
-import com.mx.path.gateway.events.GatewayEventBus;
 import com.mx.path.gateway.service.GatewayService;
 import com.mx.path.model.context.facility.Facilities;
 import com.mx.path.utilities.reflection.ClassHelper;
@@ -87,7 +86,7 @@ public abstract class Configurator<T extends Gateway<?>> {
     json = StringSubstitutor.createInterpolator().replace(json);
     ObjectMap map = gson.fromJson(json, ObjectMap.class);
 
-    return buildGateways(map);
+    return buildAllGateways(map);
   }
 
   public final Map<String, T> buildFromYaml(String document) {
@@ -114,7 +113,7 @@ public abstract class Configurator<T extends Gateway<?>> {
       map.remove("definitions");
     }
 
-    return buildGateways(map);
+    return buildAllGateways(map);
   }
 
   private void buildBehaviors(ObjectMap map, Object builder, String clientId) {
@@ -122,7 +121,8 @@ public abstract class Configurator<T extends Gateway<?>> {
     behaviors.forEach(behavior -> GatewayBuilderHelper.addBehavior(builder, behavior));
   }
 
-  private Map<String, T> buildGateways(ObjectMap map) {
+  @SuppressWarnings("unchecked")
+  private Map<String, T> buildAllGateways(ObjectMap map) {
     Map<String, T> result = new LinkedHashMap<>();
 
     if (map != null) {
@@ -130,6 +130,8 @@ public abstract class Configurator<T extends Gateway<?>> {
         result.put(clientName, (T) buildGateway(map.getMap(clientName), clientName));
       }
     }
+
+    Facilities.getEventBus().post(GatewaysInitializedEvent.builder().gateways((Map<String, Gateway<?>>) result).build());
 
     return result;
   }
@@ -145,7 +147,7 @@ public abstract class Configurator<T extends Gateway<?>> {
     }
     accessorStack.push(accessorConfigurator.buildAccessor(name, map, clientId, builder, parent));
 
-    buildGateways(map, clientId, builder);
+    buildAllGateways(map, clientId, builder);
 
     accessorStack.pop();
 
@@ -154,6 +156,8 @@ public abstract class Configurator<T extends Gateway<?>> {
     if (map.getMap("remotes") != null) {
       buildRemote(map.getMap("remotes"), gateway, clientId);
     }
+
+    Facilities.getEventBus().post(GatewayCreatedEvent.builder().gateway(gateway).build());
 
     return gateway;
   }
@@ -180,7 +184,7 @@ public abstract class Configurator<T extends Gateway<?>> {
    * @param clientId of owning client
    * @param builder Current GatewayBuilder
    */
-  private void buildGateways(ObjectMap map, String clientId, Object builder) {
+  private void buildAllGateways(ObjectMap map, String clientId, Object builder) {
     ObjectMap gatewaysNode = map.getMap("gateways");
     if (gatewaysNode == null) {
       return;
@@ -264,18 +268,5 @@ public abstract class Configurator<T extends Gateway<?>> {
         }
       });
     });
-
-    ensureDefaultFacilities(clientId);
-  }
-
-  private void ensureDefaultFacilities(String clientId) {
-    //Default Event Bus
-    if (Facilities.getEventBus(clientId) == null) {
-      Facilities.addEventBus(
-          clientId,
-          new GatewayEventBus(new ObjectMap()));
-    }
-
-    //Future defaults added here **
   }
 }

@@ -11,5 +11,5 @@ import com.mx.common.connect.Request;
 @Builder
 @Data
 public class BeforeUpstreamRequestEvent implements UpstreamRequestEvent {
-  private Request request;
+  private Request<?, ?> request;
 }

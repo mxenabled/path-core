@@ -1,4 +1,4 @@
-package com.mx.path.gateway.events;
+package com.mx.path.model.context;
 
 import com.mx.common.accessors.Accessor;
 
