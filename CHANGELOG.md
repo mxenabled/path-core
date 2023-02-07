@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.2](https://github.com/mxenabled/path-core/compare/v1.7.1...v1.7.2) (2023-02-07)
+
+
+### Bug Fixes
+
+* handle more specific HttpClient exceptions ([a956927](https://github.com/mxenabled/path-core/commit/a95692784932b1e0e34d91adf512edb944b22235))
+* update connect exception statuses and set codes ([492c6c8](https://github.com/mxenabled/path-core/commit/492c6c8dfca6c019deb7c85d88b478ec1ea03657))
+
 ## [1.7.1](https://github.com/mxenabled/path-core/compare/v1.7.0...v1.7.1) (2023-01-26)
 
 
