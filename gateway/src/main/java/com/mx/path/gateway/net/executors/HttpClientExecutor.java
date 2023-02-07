@@ -1,5 +1,6 @@
 package com.mx.path.gateway.net.executors;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
@@ -7,10 +8,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLHandshakeException;
+
 import com.google.gson.Gson;
 import com.mx.common.collections.MultiValueMap;
 import com.mx.common.connect.ConnectException;
 import com.mx.common.http.HttpStatus;
+import com.mx.path.gateway.connect.filters.HttpClientConnectException;
 import com.mx.path.gateway.net.Request;
 import com.mx.path.gateway.net.Response;
 import com.mx.path.gateway.security.MutualAuthProvider;
@@ -24,6 +29,7 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.ContentType;
@@ -135,8 +141,16 @@ public class HttpClientExecutor extends RequestExecutorBase {
           } finally {
             response.finish();
           }
+        } catch (SSLHandshakeException e) {
+          throw new HttpClientConnectException("SSL handshake failed", e);
+        } catch (SSLException e) {
+          throw new HttpClientConnectException("SSL connection failed", e);
+        } catch (EOFException e) {
+          throw new HttpClientConnectException("Host closed connection", e);
+        } catch (HttpHostConnectException e) {
+          throw new HttpClientConnectException("Host connection failed", e);
         } catch (IOException e) {
-          throw new ConnectException("Unable to execute HttpClient connection", e);
+          throw new ConnectException("Unable to execute HttpClient connection: " + e.getMessage(), e);
         }
       }
     } catch (ConnectException e) {
