@@ -11,12 +11,12 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mx.common.accessors.AccessorSystemException;
+import com.mx.common.accessors.UpstreamSystemUnavailable;
 import com.mx.common.collections.MultiValueMap;
 import com.mx.common.collections.MultiValueMappable;
 import com.mx.common.collections.SingleValueMap;
 import com.mx.common.exception.PathRequestException;
 import com.mx.common.http.HttpStatus;
-import com.mx.path.gateway.util.MdxApiException;
 
 public abstract class Response<REQ extends Request<?, ?>, RESP extends Response<?, ?>> {
 
@@ -62,32 +62,28 @@ public abstract class Response<REQ extends Request<?, ?>, RESP extends Response<
    * @deprecated It is a bad practice to just re-raise an exception with the status of an upstream response. The error
    * should be translated and an appropriate exception should be thrown. If this behavior needs to be maintained
    * it can be added to the connection code where it is needed. This will be removed in future release.
-   *
-   * @throws MdxApiException
    */
   @Deprecated
-  public final void checkStatus() throws MdxApiException {
+  public final void checkStatus() {
     if (exception != null || getStatus() == null) {
-      throw new MdxApiException("Request threw an exception", HttpStatus.INTERNAL_SERVER_ERROR, true, exception);
+      throw new UpstreamSystemUnavailable("Request threw an exception", "Request threw an exception", exception);
     }
     if (getStatus().isError()) {
-      throw new MdxApiException(getStatus());
+      throw new UpstreamSystemUnavailable("Request had an error response", "Request had an error response");
     }
   }
 
   /**
    * Throw existing exception or throw new exception if response status is an error
+   * @param execFunc was expected to throw MDXApi Exception with its own implementation
    * @deprecated It is a bad practice to just re-raise an exception with the status of an upstream response. The error
    * should be translated and an appropriate exception should be thrown. If this behavior needs to be maintained
    * it can be added to the connection code where it is needed. This will be removed in future release.
-   *
-   * @param execFunc was expected to throw MDXApi Exception with its own implementation
-   * @throws MdxApiException
    */
   @Deprecated
-  public final void checkStatus(Supplier execFunc) throws MdxApiException {
+  public final void checkStatus(Supplier execFunc) {
     if (exception != null || getStatus() == null) {
-      throw new MdxApiException("Request threw an exception", HttpStatus.INTERNAL_SERVER_ERROR, true, exception);
+      throw new UpstreamSystemUnavailable("Request threw an exception", "Request threw an exception", exception);
     }
     if (getStatus().isError()) {
       execFunc.get();
@@ -158,10 +154,6 @@ public abstract class Response<REQ extends Request<?, ?>, RESP extends Response<
   @SuppressWarnings("unchecked")
   public final RESP throwException() {
     if (Objects.nonNull(exception)) {
-      if (exception instanceof MdxApiException) {
-        throw (MdxApiException) exception;
-      }
-
       if (exception instanceof PathRequestException) {
         throw (PathRequestException) exception;
       }

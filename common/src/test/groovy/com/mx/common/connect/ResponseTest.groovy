@@ -1,10 +1,11 @@
 package com.mx.common.connect
 
 import com.mx.common.accessors.AccessorSystemException
-import com.mx.common.accessors.ResponsePayloadException
+import com.mx.common.accessors.BadRequestException
+import com.mx.common.accessors.PathResponseStatus
+import com.mx.common.accessors.UpstreamSystemUnavailable
 import com.mx.common.collections.MultiValueMap
 import com.mx.common.http.HttpStatus
-import com.mx.path.gateway.util.MdxApiException
 import com.mx.testing.connect.TestFilterA
 import com.mx.testing.connect.TestRequest
 import com.mx.testing.connect.TestResponse
@@ -92,7 +93,7 @@ class ResponseTest extends Specification {
     subject.getStatus() == HttpStatus.OK
   }
 
-  def "testCheckStatusThrowsMdxApiException"() {
+  def "testCheckStatusThrowsException"() {
     given:
     def originalException = new Exception("error")
     subject.withException(originalException)
@@ -101,25 +102,27 @@ class ResponseTest extends Specification {
     subject.checkStatus()
 
     then:
-    def e = thrown(MdxApiException.class)
+    def e = thrown(UpstreamSystemUnavailable)
     e.getMessage() == "Request threw an exception"
     e.getCause() == originalException
   }
-  def "testCheckStatusThrowsMdxApiExceptionWithSupplier"(){
+
+  def "testCheckStatusThrowsExceptionWithSupplier"() {
     given:
     def originalException = new Exception("error")
     subject.withException(originalException)
     when:
-    subject.checkStatus( {
+    subject.checkStatus({
       ->
-      throw new MdxApiException(HttpStatus.BAD_REQUEST)
+      throw new UpstreamSystemUnavailable()
     })
 
     then:
-    def e = thrown(MdxApiException.class)
+    def e = thrown(UpstreamSystemUnavailable)
     e.getMessage() == "Request threw an exception"
   }
-  def "testCheckStatusThrows500WhenNullStatus"(){
+
+  def "testCheckStatusThrows500WhenNullStatus"() {
     given:
     subject.withStatus(null)
 
@@ -127,10 +130,11 @@ class ResponseTest extends Specification {
     subject.checkStatus()
 
     then:
-    def e = thrown(MdxApiException.class)
+    def e = thrown(UpstreamSystemUnavailable)
     e.getMessage() == "Request threw an exception"
   }
-  def "throwException wraps non-MdxApiException"() {
+
+  def "throwException wraps non-PathRequestException"() {
     setup:
     def exception = new Exception("error")
     subject.withException(exception)
@@ -143,39 +147,21 @@ class ResponseTest extends Specification {
     ex.getCause() == exception
   }
 
-  def "throwException throws MdxApiException"() {
-    setup:
-    def cause = new Exception()
-    def exception = new MdxApiException("Something happened", HttpStatus.INTERNAL_SERVER_ERROR, true, cause)
-    subject.withException(exception)
-
-    when:
-    subject.throwException()
-
-    then:
-    def ex = thrown(MdxApiException)
-    ex == exception
-    ex.getCause() == cause
-    ex.getStatus().toHttpStatus() == HttpStatus.INTERNAL_SERVER_ERROR
-    ex.getMessage() == "Something happened"
-    ex.shouldReport()
-  }
-
   def "throwException throws PathRequestException"() {
     setup:
     def cause = new Exception()
-    def exception = new ResponsePayloadException("Something happened", cause)
+    def exception = new BadRequestException("Something happened", "Something happened", cause)
     subject.withException(exception)
 
     when:
     subject.throwException()
 
     then:
-    def ex = thrown(ResponsePayloadException)
+    def ex = thrown(BadRequestException)
     ex == exception
     ex.getCause() == cause
-    ex.getStatus().toHttpStatus() == HttpStatus.INTERNAL_SERVER_ERROR
+    ex.getStatus() == PathResponseStatus.BAD_REQUEST
     ex.getMessage() == "Something happened"
-    ex.shouldReport()
+    !ex.shouldReport()
   }
 }

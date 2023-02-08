@@ -74,7 +74,7 @@ public class SoapMarshallerTest {
   }
 
   @Test
-  public void marshallsUnootedObjectWithoutSpecifyingClass() {
+  public void marshallsUnrootedObjectWithoutSpecifyingClass() {
     UnrootedMarshallTest requestObject = new UnrootedMarshallTest();
     requestObject.setName("tester");
 
@@ -82,7 +82,7 @@ public class SoapMarshallerTest {
 
     try {
       SoapMarshaller.toEnvelope(wrappedRequestObject);
-      fail("Should have thrown MdxApiException");
+      fail("Should have thrown PathRequestException");
     } catch (RequestPayloadException ex) {
       assertEquals("Trying to marshall JAXBElement without specifying class. Use toEnvelope(Object requestObj, Class<?> klass) instead.", ex.getMessage());
     }
@@ -93,7 +93,7 @@ public class SoapMarshallerTest {
    */
 
   @Test
-  public void unmarshallsToReponseObject() {
+  public void unmarshallsToResponseObject() {
     String envelope = "<SOAP-ENV:Envelope xmlns:SOAP-ENV=`http://schemas.xmlsoap.org/soap/envelope/`><SOAP-ENV:Header/><SOAP-ENV:Body><marshallTest><name>tester</name></marshallTest></SOAP-ENV:Body></SOAP-ENV:Envelope>".replaceAll("`", "\"");
     MarshallTest responseObject = SoapMarshaller.toResponse(envelope, MarshallTest.class);
     assertNotNull(responseObject);
@@ -101,7 +101,7 @@ public class SoapMarshallerTest {
   }
 
   @Test
-  public void unmarshallsToUnrootedReponseObject() {
+  public void unmarshallsToUnrootedResponseObject() {
     String envelope = "<SOAP-ENV:Envelope xmlns:SOAP-ENV=`http://schemas.xmlsoap.org/soap/envelope/`><SOAP-ENV:Header/><SOAP-ENV:Body><marshallTest><name>tester</name></marshallTest></SOAP-ENV:Body></SOAP-ENV:Envelope>".replaceAll("`", "\"");
     UnrootedMarshallTest responseObject = SoapMarshaller.toResponse(envelope, UnrootedMarshallTest.class);
     assertNotNull(responseObject);
