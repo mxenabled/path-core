@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -38,9 +39,27 @@ import com.mx.path.utilities.reflection.ClassHelper;
 import org.apache.commons.text.StringSubstitutor;
 
 /**
- * Stand up a Gateway from configuration
+ * Base abstract class for Gateway Configurators.
  *
- * <p>Instance is NOT multi-thread-safe. Create a new configurator instance per thread if needed.
+ * <p>Configures full Path stack from a gateway
+ *
+ * <p><b>Thread Safety</b>
+ * <p>Instance is NOT thread-safe. Create a new configurator instance per thread if needed.
+ *
+ * <p><b>Example:</b>
+ * <pre>{@code
+ *   // Generated configurator
+ *   public class MdxConfigurator extends Configurator<MdxGateway> {
+ *   }
+ *
+ *   MdxConfigurator configurator = new MdxConfigurator();
+ *
+ *   // Build results in map of usable gateways with the clientId as the key.
+ *   Map<String, MdxGateway> gateways =  configurator.buildFromYaml(yamlDocument);
+ * }</pre>
+ *
+ * <p><b>Lifecycle events</b>
+ * <p>See {@link ConfiguratorObserver}</p>
  */
 public abstract class Configurator<T extends Gateway<?>> {
   private static final int MAX_YAML_ALIASES = 100;
@@ -52,12 +71,16 @@ public abstract class Configurator<T extends Gateway<?>> {
   private final GatewayObjectConfigurator gatewayObjectConfigurator = new GatewayObjectConfigurator(state);
   @Getter
   private final Class<T> rootGatewayClass;
+  @Getter
+  @Setter
+  private ConfiguratorObserver observer;
 
   // Constructors
 
   @SuppressWarnings("unchecked")
   public Configurator() {
     this.rootGatewayClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    this.observer = new ConfiguratorObserver(this);
   }
 
   /**
@@ -71,7 +94,11 @@ public abstract class Configurator<T extends Gateway<?>> {
     behaviorStackConfigurator.setRootBehaviors(map.getArray("rootBehaviors"));
 
     populateFacilities(clientId, map);
-    return buildGateway("root", map, clientId, GatewayBuilderHelper.getBuilder(rootGatewayClass));
+    Gateway<?> gateway = buildGateway("root", map, clientId, GatewayBuilderHelper.getBuilder(rootGatewayClass));
+
+    getObserver().notifyClientGatewayInitialized(clientId, gateway);
+
+    return gateway;
   }
 
   /**
@@ -131,10 +158,12 @@ public abstract class Configurator<T extends Gateway<?>> {
       }
     }
 
+    getObserver().notifyGatewaysInitialized((Map<String, Gateway<?>>) result);
+
     return result;
   }
 
-  private Gateway buildGateway(String name, ObjectMap map, String clientId, Object builder) {
+  private Gateway<?> buildGateway(String name, ObjectMap map, String clientId, Object builder) {
     GatewayBuilderHelper.setClientId(builder, clientId);
 
     buildBehaviors(map, builder, clientId);
@@ -149,11 +178,13 @@ public abstract class Configurator<T extends Gateway<?>> {
 
     accessorStack.pop();
 
-    Gateway gateway = GatewayBuilderHelper.build(builder, Gateway.class);
+    Gateway<?> gateway = GatewayBuilderHelper.build(builder, Gateway.class);
 
     if (map.getMap("remotes") != null) {
       buildRemote(map.getMap("remotes"), gateway, clientId);
     }
+
+    getObserver().notifyGatewayInitialized(gateway);
 
     return gateway;
   }
@@ -178,7 +209,7 @@ public abstract class Configurator<T extends Gateway<?>> {
    *
    * @param map definition
    * @param clientId of owning client
-   * @param builder Current GatewayBuilder
+   * @param builder  Current GatewayBuilder
    */
   private void buildGateways(ObjectMap map, String clientId, Object builder) {
     ObjectMap gatewaysNode = map.getMap("gateways");

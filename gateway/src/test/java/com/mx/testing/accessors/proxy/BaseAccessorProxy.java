@@ -12,6 +12,7 @@ import com.mx.path.gateway.configuration.AccessorConstructionContext;
 import com.mx.path.gateway.configuration.AccessorProxy;
 import com.mx.testing.accessors.AccountBaseAccessor;
 import com.mx.testing.accessors.BaseAccessor;
+import com.mx.testing.accessors.IdBaseAccessor;
 
 /**
  * Base class for wrapping com.mx.accessors.BaseAccessor.
@@ -43,6 +44,14 @@ public abstract class BaseAccessorProxy extends BaseAccessor implements Accessor
       return getAccounts();
     }
     return build().accounts();
+  }
+
+  @Override
+  public IdBaseAccessor id() {
+    if (getId() != null) {
+      return getId();
+    }
+    return build().getId();
   }
 
   /**
