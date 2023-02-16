@@ -17,8 +17,6 @@ import com.mx.path.gateway.Gateway;
  * Observes the construction of gateways and receives events. Blocks and event listeners can be registered to
  * allow reactions to the events.
  *
- * @param <G> Is the Top-Level Gateway type
- *
  * <p>The following events are emitted
  *
  * <ul>
@@ -27,20 +25,57 @@ import com.mx.path.gateway.Gateway;
  *   <li>{@link ConfiguratorObserver.ClientGatewayInitializedEvent} - occurs once after each client's gateway stack is initialized
  * </ul>
  *
- * <p><b>Example:</b>
+ * <p><b><i>Registering observer blocks (preferred)</i></b>
+ *
+ * <p><i>Example:</i>
  * <pre>{@code
- *  // Generated configurator
- *  public class MdxConfigurator extends Configurator<MdxGateway> {
- *  }
  *
- *  try (MdxConfigurator configurator = new MdxConfigurator()) {
- *    configurator.getObserver().registerGatewaysInitialized((configurator, gateways) -> {
- *      // code to execute after all gateways are initialized
- *    });
+ *   // Generated configurator
+ *   public class MdxConfigurator extends Configurator<MdxGateway> {
+ *   }
  *
- *    // Build results in map of usable gateways with the clientId as the key.
- *    Map<String, MdxGateway> gateways =  configurator.buildFromYaml(yamlDocument);
- *  }
+ *   MdxConfigurator configurator = new MdxConfigurator();
+ *   configurator.getObserver().registerGatewaysInitialized((configurator, gateways) -> {
+ *     // code to execute after all gateways are initialized
+ *   });
+ *
+ *   // Build results in map of usable gateways with the clientId as the key.
+ *   Map<String, MdxGateway> gateways =  configurator.buildFromYaml(yamlDocument);
+ *
+ * }</pre>
+ *
+ * <p><b>Note:</b> Every block registered will be invoked, even if they are identical. There is no concept of a
+ * <i>run-only-once</i> when using blocks.
+ *
+ * <p><b><i>Registering listener</i></b>
+ *
+ * <p>This can be used to implement a run-only-once listener
+ *
+ * <p><i>Example:</i>
+ * <pre>{@code
+ *
+ *   // Generated configurator
+ *   public class MdxConfigurator extends Configurator<MdxGateway> {
+ *   }
+ *
+ *   public class CustomListener {
+ *     @Subscribe
+ *     public void gatewaysInitialized(Configurator configurator, Map<String, MdxGateway> gateways) {
+ *       // code to execute after all gateways are initialized
+ *     }
+ *   }
+ *
+ *   // Use same instance
+ *   CustomListener listener = new CustomListener();
+ *
+ *   MdxConfigurator configurator = new MdxConfigurator();
+ *
+ *   configurator.getObserver().registerListener(listener);
+ *   configurator.getObserver().registerListener(listener);
+ *
+ *   Map<String, MdxGateway> gateways =  configurator.buildFromYaml(yamlDocument);
+ *   // listener.gatewaysInitialized(...) will only be invoke once, because the listener was the same instance.
+ *
  * }</pre>
  */
 public class ConfiguratorObserver<G extends Gateway<?>> {
@@ -108,12 +143,12 @@ public class ConfiguratorObserver<G extends Gateway<?>> {
     clientGatewayInitializedBlocks.forEach(consumer -> consumer.accept(configurator, event.clientId, event.gateway));
   }
 
-  final void notifyGatewaysInitialized(Map<String, G> gateways) {
-    eventBus.post(new GatewaysInitializedEvent<G>(gateways));
-  }
-
   final void notifyGatewayInitialized(Gateway<?> gateway) {
     eventBus.post(new GatewayInitializedEvent(gateway));
+  }
+
+  final void notifyGatewaysInitialized(Map<String, G> gateways) {
+    eventBus.post(new GatewaysInitializedEvent<G>(gateways));
   }
 
   final void notifyClientGatewayInitialized(String clientId, G gateway) {
@@ -122,6 +157,9 @@ public class ConfiguratorObserver<G extends Gateway<?>> {
 
   /**
    * Register an {@link EventBus} subscriber
+   *
+   * <p>This allows for the registration of an external observer. This will allow for registration of a singleton
+   * observer multiple times that will only receive the events once. See class docs.
    *
    * @param listener with {@link Subscribe} annotated functions
    */

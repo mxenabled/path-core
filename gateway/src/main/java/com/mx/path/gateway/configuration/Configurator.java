@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -72,7 +73,7 @@ public abstract class Configurator<T extends Gateway<?>> {
   @Getter
   private final Class<T> rootGatewayClass;
   @Getter
-  @Setter
+  @Setter(AccessLevel.PACKAGE)
   private ConfiguratorObserver<T> observer;
 
   // Constructors
