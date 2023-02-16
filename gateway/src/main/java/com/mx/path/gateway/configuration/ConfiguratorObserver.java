@@ -80,13 +80,13 @@ import com.mx.path.gateway.Gateway;
  */
 public class ConfiguratorObserver<G extends Gateway<?>> {
 
-  static class GatewayInitializedEvent {
+  static class GatewayInitializedEvent<T extends Gateway<?>> {
     @Getter
-    private final Configurator<?> configurator;
+    private final Configurator<T> configurator;
     @Getter
     private final Gateway<?> gateway;
 
-    GatewayInitializedEvent(Configurator<?> configurator, Gateway<?> gateway) {
+    GatewayInitializedEvent(Configurator<T> configurator, Gateway<?> gateway) {
       this.configurator = configurator;
       this.gateway = gateway;
     }
@@ -119,9 +119,9 @@ public class ConfiguratorObserver<G extends Gateway<?>> {
     }
   }
 
-  private final List<BiConsumer<Configurator<?>, Gateway<?>>> gatewayInitializedBlocks = new ArrayList<>();
-  private final List<BiConsumer<Configurator<?>, Map<String, G>>> gatewaysInitializedBlocks = new ArrayList<>();
-  private final List<TriConsumer<Configurator<?>, String, G>> clientGatewayInitializedBlocks = new ArrayList<>();
+  private final List<BiConsumer<Configurator<G>, Gateway<?>>> gatewayInitializedBlocks = new ArrayList<>();
+  private final List<BiConsumer<Configurator<G>, Map<String, G>>> gatewaysInitializedBlocks = new ArrayList<>();
+  private final List<TriConsumer<Configurator<G>, String, G>> clientGatewayInitializedBlocks = new ArrayList<>();
 
   private final Configurator<G> configurator;
   private final EventBus eventBus;
@@ -153,7 +153,7 @@ public class ConfiguratorObserver<G extends Gateway<?>> {
   }
 
   final void notifyGatewayInitialized(Gateway<?> gateway) {
-    eventBus.post(new GatewayInitializedEvent(configurator, gateway));
+    eventBus.post(new GatewayInitializedEvent<G>(configurator, gateway));
   }
 
   final void notifyGatewaysInitialized(Map<String, G> gateways) {
@@ -181,7 +181,7 @@ public class ConfiguratorObserver<G extends Gateway<?>> {
    *
    * @param consumer block
    */
-  public final void registerGatewayInitialized(BiConsumer<Configurator<?>, Gateway<?>> consumer) {
+  public final void registerGatewayInitialized(BiConsumer<Configurator<G>, Gateway<?>> consumer) {
     this.gatewayInitializedBlocks.add(consumer);
   }
 
@@ -190,7 +190,7 @@ public class ConfiguratorObserver<G extends Gateway<?>> {
    *
    * @param consumer block
    */
-  public final void registerGatewaysInitialized(BiConsumer<Configurator<?>, Map<String, G>> consumer) {
+  public final void registerGatewaysInitialized(BiConsumer<Configurator<G>, Map<String, G>> consumer) {
     this.gatewaysInitializedBlocks.add(consumer);
   }
 
@@ -199,7 +199,7 @@ public class ConfiguratorObserver<G extends Gateway<?>> {
    *
    * @param consumer block
    */
-  public final void registerClientGatewayInitialized(TriConsumer<Configurator<?>, String, G> consumer) {
+  public final void registerClientGatewayInitialized(TriConsumer<Configurator<G>, String, G> consumer) {
     this.clientGatewayInitializedBlocks.add(consumer);
   }
 }
