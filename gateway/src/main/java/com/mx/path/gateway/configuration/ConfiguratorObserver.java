@@ -17,11 +17,13 @@ import com.mx.path.gateway.Gateway;
  * Observes the construction of gateways and receives events. Blocks and event listeners can be registered to
  * allow reactions to the events.
  *
+ * @param <G> Is the Top-Level Gateway type
+ *
  * <p>The following events are emitted
  *
  * <ul>
- *   <li>{@link ConfiguratorObserver.GatewaysInitializedEvent} - occurs once after all gateways have been initialized
  *   <li>{@link ConfiguratorObserver.GatewayInitializedEvent} - occurs once after each gateway is initialized
+ *   <li>{@link ConfiguratorObserver.GatewaysInitializedEvent} - occurs once after all gateways have been initialized
  *   <li>{@link ConfiguratorObserver.ClientGatewayInitializedEvent} - occurs once after each client's gateway stack is initialized
  * </ul>
  *
@@ -41,16 +43,7 @@ import com.mx.path.gateway.Gateway;
  *  }
  * }</pre>
  */
-public class ConfiguratorObserver {
-
-  static class GatewaysInitializedEvent {
-    @Getter
-    private final Map<String, Gateway<?>> gateways;
-
-    GatewaysInitializedEvent(Map<String, Gateway<?>> gateways) {
-      this.gateways = gateways;
-    }
-  }
+public class ConfiguratorObserver<G extends Gateway<?>> {
 
   static class GatewayInitializedEvent {
     @Getter
@@ -61,23 +54,32 @@ public class ConfiguratorObserver {
     }
   }
 
-  static class ClientGatewayInitializedEvent {
+  static class GatewaysInitializedEvent<T extends Gateway<?>> {
+    @Getter
+    private final Map<String, T> gateways;
+
+    GatewaysInitializedEvent(Map<String, T> gateways) {
+      this.gateways = gateways;
+    }
+  }
+
+  static class ClientGatewayInitializedEvent<T extends Gateway<?>> {
     @Getter
     private final String clientId;
     @Getter
-    private final Gateway<?> gateway;
+    private final T gateway;
 
-    ClientGatewayInitializedEvent(String clientId, Gateway<?> gateway) {
+    ClientGatewayInitializedEvent(String clientId, T gateway) {
       this.clientId = clientId;
       this.gateway = gateway;
     }
   }
 
-  private final List<BiConsumer<Configurator<?>, Map<String, Gateway<?>>>> gatewaysInitializedBlocks = new ArrayList<>();
   private final List<BiConsumer<Configurator<?>, Gateway<?>>> gatewayInitializedBlocks = new ArrayList<>();
-  private final List<TriConsumer<Configurator<?>, String, Gateway<?>>> clientGatewayInitializedBlocks = new ArrayList<>();
+  private final List<BiConsumer<Configurator<?>, Map<String, G>>> gatewaysInitializedBlocks = new ArrayList<>();
+  private final List<TriConsumer<Configurator<?>, String, G>> clientGatewayInitializedBlocks = new ArrayList<>();
 
-  private final Configurator<?> configurator;
+  private final Configurator<G> configurator;
   private final EventBus eventBus;
   /**
    * A map of properties that is written by external observers during gateway construction
@@ -85,15 +87,10 @@ public class ConfiguratorObserver {
   @Getter
   private final Map<String, String> properties = new HashMap<>();
 
-  public ConfiguratorObserver(Configurator<?> configurator) {
+  public ConfiguratorObserver(Configurator<G> configurator) {
     this.configurator = configurator;
     this.eventBus = new EventBus("configuratorObserver");
     eventBus.register(this);
-  }
-
-  @Subscribe
-  final void gatewaysInitializedSubscriber(GatewaysInitializedEvent event) {
-    gatewaysInitializedBlocks.forEach(consumer -> consumer.accept(configurator, event.gateways));
   }
 
   @Subscribe
@@ -102,20 +99,25 @@ public class ConfiguratorObserver {
   }
 
   @Subscribe
-  final void clientGatewayInitializedSubscriber(ClientGatewayInitializedEvent event) {
+  final void gatewaysInitializedSubscriber(GatewaysInitializedEvent<G> event) {
+    gatewaysInitializedBlocks.forEach(consumer -> consumer.accept(configurator, event.gateways));
+  }
+
+  @Subscribe
+  final void clientGatewayInitializedSubscriber(ClientGatewayInitializedEvent<G> event) {
     clientGatewayInitializedBlocks.forEach(consumer -> consumer.accept(configurator, event.clientId, event.gateway));
   }
 
-  final void notifyGatewaysInitialized(Map<String, Gateway<?>> gateways) {
-    eventBus.post(new GatewaysInitializedEvent(gateways));
+  final void notifyGatewaysInitialized(Map<String, G> gateways) {
+    eventBus.post(new GatewaysInitializedEvent<G>(gateways));
   }
 
   final void notifyGatewayInitialized(Gateway<?> gateway) {
     eventBus.post(new GatewayInitializedEvent(gateway));
   }
 
-  final void notifyClientGatewayInitialized(String clientId, Gateway<?> gateway) {
-    eventBus.post(new ClientGatewayInitializedEvent(clientId, gateway));
+  final void notifyClientGatewayInitialized(String clientId, G gateway) {
+    eventBus.post(new ClientGatewayInitializedEvent<G>(clientId, gateway));
   }
 
   /**
@@ -128,15 +130,6 @@ public class ConfiguratorObserver {
   }
 
   /**
-   * Register block of code to execute after all gateways initialized
-   *
-   * @param consumer block
-   */
-  public final void registerGatewaysInitialized(BiConsumer<Configurator<?>, Map<String, Gateway<?>>> consumer) {
-    this.gatewaysInitializedBlocks.add(consumer);
-  }
-
-  /**
    * Register block of code to execute after each gateway is initialized
    *
    * @param consumer block
@@ -146,11 +139,20 @@ public class ConfiguratorObserver {
   }
 
   /**
+   * Register block of code to execute after all gateways initialized
+   *
+   * @param consumer block
+   */
+  public final void registerGatewaysInitialized(BiConsumer<Configurator<?>, Map<String, G>> consumer) {
+    this.gatewaysInitializedBlocks.add(consumer);
+  }
+
+  /**
    * Register block of code to execute after each client's gateways are initialized
    *
    * @param consumer block
    */
-  public final void registerClientGatewayInitialized(TriConsumer<Configurator<?>, String, Gateway<?>> consumer) {
+  public final void registerClientGatewayInitialized(TriConsumer<Configurator<?>, String, G> consumer) {
     this.clientGatewayInitializedBlocks.add(consumer);
   }
 }

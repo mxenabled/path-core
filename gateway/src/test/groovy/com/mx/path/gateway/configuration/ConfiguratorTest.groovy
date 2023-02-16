@@ -20,12 +20,12 @@ class ConfiguratorTest extends Specification {
   class TestConfigurator extends Configurator<TestGateway> {
   }
 
-  ConfiguratorObserver observer
+  ConfiguratorObserver<TestGateway> observer
   TestConfigurator subject
 
   def setup() {
     subject = new TestConfigurator()
-    observer = spy(new ConfiguratorObserver(subject))
+    observer = spy(new ConfiguratorObserver<TestGateway>(subject))
     subject.setObserver(observer)
   }
 

@@ -73,14 +73,14 @@ public abstract class Configurator<T extends Gateway<?>> {
   private final Class<T> rootGatewayClass;
   @Getter
   @Setter
-  private ConfiguratorObserver observer;
+  private ConfiguratorObserver<T> observer;
 
   // Constructors
 
   @SuppressWarnings("unchecked")
   public Configurator() {
     this.rootGatewayClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-    this.observer = new ConfiguratorObserver(this);
+    this.observer = new ConfiguratorObserver<T>(this);
   }
 
   /**
@@ -90,11 +90,11 @@ public abstract class Configurator<T extends Gateway<?>> {
    * @param clientId Client ID
    * @return Configured gateway
    */
-  public final Gateway buildGateway(ObjectMap map, String clientId) {
+  public final T buildGateway(ObjectMap map, String clientId) {
     behaviorStackConfigurator.setRootBehaviors(map.getArray("rootBehaviors"));
 
     populateFacilities(clientId, map);
-    Gateway<?> gateway = buildGateway("root", map, clientId, GatewayBuilderHelper.getBuilder(rootGatewayClass));
+    T gateway = buildGateway("root", map, clientId, GatewayBuilderHelper.getBuilder(rootGatewayClass));
 
     getObserver().notifyClientGatewayInitialized(clientId, gateway);
 
@@ -158,12 +158,12 @@ public abstract class Configurator<T extends Gateway<?>> {
       }
     }
 
-    getObserver().notifyGatewaysInitialized((Map<String, Gateway<?>>) result);
+    getObserver().notifyGatewaysInitialized(result);
 
     return result;
   }
 
-  private Gateway<?> buildGateway(String name, ObjectMap map, String clientId, Object builder) {
+  private <G extends Gateway<?>> G buildGateway(String name, ObjectMap map, String clientId, Object builder) {
     GatewayBuilderHelper.setClientId(builder, clientId);
 
     buildBehaviors(map, builder, clientId);
@@ -186,7 +186,7 @@ public abstract class Configurator<T extends Gateway<?>> {
 
     getObserver().notifyGatewayInitialized(gateway);
 
-    return gateway;
+    return (G) gateway;
   }
 
   private void buildRemote(ObjectMap configurations, Gateway gateway, String clientId) {
