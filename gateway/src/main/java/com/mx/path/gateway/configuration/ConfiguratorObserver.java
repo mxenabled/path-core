@@ -34,7 +34,7 @@ import com.mx.path.gateway.Gateway;
  *   public class MdxConfigurator extends Configurator<MdxGateway> {
  *   }
  *
- *   MdxConfigurator configurator = new MdxConfigurator();
+*   MdxConfigurator configurator = new MdxConfigurator();
  *   configurator.getObserver().registerGatewaysInitialized((configurator, gateways) -> {
  *     // code to execute after all gateways are initialized
  *   });
@@ -60,7 +60,7 @@ import com.mx.path.gateway.Gateway;
  *
  *   public class CustomListener {
  *     @Subscribe
- *     public void gatewaysInitialized(Configurator configurator, Map<String, MdxGateway> gateways) {
+ *     public void gatewaysInitialized(GatewaysInitializedEvent event) {
  *       // code to execute after all gateways are initialized
  *     }
  *   }
@@ -74,7 +74,7 @@ import com.mx.path.gateway.Gateway;
  *   configurator.getObserver().registerListener(listener);
  *
  *   Map<String, MdxGateway> gateways =  configurator.buildFromYaml(yamlDocument);
- *   // listener.gatewaysInitialized(...) will only be invoke once, because the listener was the same instance.
+ *   // listener.gatewaysInitialized(...) will only be invoked once, because the listener was the same instance.
  *
  * }</pre>
  */
@@ -82,29 +82,38 @@ public class ConfiguratorObserver<G extends Gateway<?>> {
 
   static class GatewayInitializedEvent {
     @Getter
+    private final Configurator<?> configurator;
+    @Getter
     private final Gateway<?> gateway;
 
-    GatewayInitializedEvent(Gateway<?> gateway) {
+    GatewayInitializedEvent(Configurator<?> configurator, Gateway<?> gateway) {
+      this.configurator = configurator;
       this.gateway = gateway;
     }
   }
 
   static class GatewaysInitializedEvent<T extends Gateway<?>> {
     @Getter
+    private final Configurator<T> configurator;
+    @Getter
     private final Map<String, T> gateways;
 
-    GatewaysInitializedEvent(Map<String, T> gateways) {
+    GatewaysInitializedEvent(Configurator<T> configurator, Map<String, T> gateways) {
+      this.configurator = configurator;
       this.gateways = gateways;
     }
   }
 
   static class ClientGatewayInitializedEvent<T extends Gateway<?>> {
     @Getter
+    private final Configurator<T> configurator;
+    @Getter
     private final String clientId;
     @Getter
     private final T gateway;
 
-    ClientGatewayInitializedEvent(String clientId, T gateway) {
+    ClientGatewayInitializedEvent(Configurator<T> configurator, String clientId, T gateway) {
+      this.configurator = configurator;
       this.clientId = clientId;
       this.gateway = gateway;
     }
@@ -130,29 +139,29 @@ public class ConfiguratorObserver<G extends Gateway<?>> {
 
   @Subscribe
   final void gatewayInitializedSubscriber(GatewayInitializedEvent event) {
-    gatewayInitializedBlocks.forEach(consumer -> consumer.accept(configurator, event.gateway));
+    gatewayInitializedBlocks.forEach(consumer -> consumer.accept(event.configurator, event.gateway));
   }
 
   @Subscribe
   final void gatewaysInitializedSubscriber(GatewaysInitializedEvent<G> event) {
-    gatewaysInitializedBlocks.forEach(consumer -> consumer.accept(configurator, event.gateways));
+    gatewaysInitializedBlocks.forEach(consumer -> consumer.accept(event.configurator, event.gateways));
   }
 
   @Subscribe
   final void clientGatewayInitializedSubscriber(ClientGatewayInitializedEvent<G> event) {
-    clientGatewayInitializedBlocks.forEach(consumer -> consumer.accept(configurator, event.clientId, event.gateway));
+    clientGatewayInitializedBlocks.forEach(consumer -> consumer.accept(event.configurator, event.clientId, event.gateway));
   }
 
   final void notifyGatewayInitialized(Gateway<?> gateway) {
-    eventBus.post(new GatewayInitializedEvent(gateway));
+    eventBus.post(new GatewayInitializedEvent(configurator, gateway));
   }
 
   final void notifyGatewaysInitialized(Map<String, G> gateways) {
-    eventBus.post(new GatewaysInitializedEvent<G>(gateways));
+    eventBus.post(new GatewaysInitializedEvent<G>(configurator, gateways));
   }
 
   final void notifyClientGatewayInitialized(String clientId, G gateway) {
-    eventBus.post(new ClientGatewayInitializedEvent<G>(clientId, gateway));
+    eventBus.post(new ClientGatewayInitializedEvent<G>(configurator, clientId, gateway));
   }
 
   /**
