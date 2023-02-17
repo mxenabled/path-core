@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.8.0](https://github.com/mxenabled/path-core/compare/v1.7.2...v1.8.0) (2023-02-17)
+
+
+### Features
+
+* add configurator observer ([c78a702](https://github.com/mxenabled/path-core/commit/c78a7024dcc0e69342aa153bee659ec32b270076))
+* configuration and gateway object configuration hooks ([63ca562](https://github.com/mxenabled/path-core/commit/63ca562eda084dcf5d0859aadb5529f64df88094))
+
+
+### Bug Fixes
+
+* tighten up ConfiguratorObserver types ([2ea2d13](https://github.com/mxenabled/path-core/commit/2ea2d13750708693d966b4d6b871213c002e7b79))
+
 ## [1.7.2](https://github.com/mxenabled/path-core/compare/v1.7.1...v1.7.2) (2023-02-07)
 
 
