@@ -3,6 +3,8 @@ package com.mx.path.gateway.configuration;
 import java.util.Stack;
 import java.util.function.Supplier;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import com.mx.common.lang.Strings;
 
 import org.slf4j.Logger;
@@ -19,7 +21,8 @@ public final class ConfigurationState {
 
   private static ConfigurationState current = new ConfigurationState();
 
-  static ConfigurationState getCurrent() {
+  @SuppressFBWarnings("MS_EXPOSE_REP")
+  public static ConfigurationState getCurrent() {
     return current;
   }
 
