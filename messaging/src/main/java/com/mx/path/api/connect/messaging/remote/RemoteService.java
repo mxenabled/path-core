@@ -113,31 +113,31 @@ public abstract class RemoteService<T> implements MessageResponder, EventListene
    * @return MessageResponse
    */
   public MessageResponse dispatch(String channel, MessageRequest messageRequest) {
-    LOGGER.info("Received request on " + channel);
-    try {
-      RemoteChannel remoteChannel = RemoteChannel.parse(channel);
+    RemoteChannel remoteChannel = RemoteChannel.parse(channel);
+    return withTracing(remoteChannel, messageRequest, () -> {
+      LOGGER.info("Received request on " + channel);
+      try {
+        return withSessionContext(remoteChannel, messageRequest,
+            () -> withDispatchMethod(remoteChannel, messageRequest));
 
-      return withSessionContext(remoteChannel, messageRequest,
-          () -> withTracing(remoteChannel, messageRequest,
-              () -> withDispatchMethod(remoteChannel, messageRequest)));
+      } catch (MessageError e) {
+        LOGGER.error("Error processing request", e);
 
-    } catch (MessageError e) {
-      LOGGER.error("Error processing request", e);
+        return MessageResponse.builder()
+            .error(e.getMessage())
+            .status(e.getMessageStatus())
+            .exception(e)
+            .build();
+      } catch (Exception e) {
+        LOGGER.error("Error processing request", e);
 
-      return MessageResponse.builder()
-          .error(e.getMessage())
-          .status(e.getMessageStatus())
-          .exception(e)
-          .build();
-    } catch (Exception e) {
-      LOGGER.error("Error processing request", e);
-
-      return MessageResponse.builder()
-          .error(e.getMessage())
-          .status(MessageStatus.FAIL)
-          .exception(e)
-          .build();
-    }
+        return MessageResponse.builder()
+            .error(e.getMessage())
+            .status(MessageStatus.FAIL)
+            .exception(e)
+            .build();
+      }
+    });
   }
 
   /**
@@ -226,7 +226,7 @@ public abstract class RemoteService<T> implements MessageResponder, EventListene
   /**
    * Call in responder to check if session exists and is in authenticated state.
    *
-   * throws MessageError if session is not found or in bad state.
+   * <p>throws MessageError if session is not found or in bad state.
    */
   public final void requireSession() {
     if (Session.current() == null || Session.current().getSessionState() != Session.SessionState.AUTHENTICATED) {
