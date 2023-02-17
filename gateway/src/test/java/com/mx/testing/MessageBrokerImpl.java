@@ -8,9 +8,10 @@ import com.mx.common.configuration.ConfigurationField;
 import com.mx.common.messaging.EventListener;
 import com.mx.common.messaging.MessageBroker;
 import com.mx.common.messaging.MessageResponder;
+import com.mx.path.gateway.configuration.Configurable;
 import com.mx.path.gateway.configuration.annotations.ClientID;
 
-public class MessageBrokerImpl implements MessageBroker {
+public class MessageBrokerImpl implements MessageBroker, Configurable {
   @Data
   public static class MessageBrokerConfig {
     @ConfigurationField(value = "key1", required = true)
@@ -22,6 +23,9 @@ public class MessageBrokerImpl implements MessageBroker {
 
   @Getter
   MessageBrokerConfig configurations;
+
+  @Getter
+  private boolean initialized = false;
 
   public MessageBrokerImpl(@Configuration MessageBrokerConfig configurations) {
     this.configurations = configurations;
@@ -45,5 +49,10 @@ public class MessageBrokerImpl implements MessageBroker {
   @Override
   public void registerListener(String channel, EventListener listener) {
 
+  }
+
+  @Override
+  public void initialize() {
+    initialized = true;
   }
 }

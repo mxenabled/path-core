@@ -4,13 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import lombok.Data;
+import lombok.Getter;
 
 import com.mx.common.collections.ObjectMap;
 import com.mx.common.configuration.ConfigurationField;
+import com.mx.path.gateway.configuration.Configurable;
+import com.mx.path.gateway.configuration.ConfigurationState;
 import com.mx.path.gateway.configuration.annotations.ClientID;
 
 @Data
-public class BasicConfigurationObj {
+public class BasicConfigurationObj implements Configurable {
 
   @Data
   public static class SubConfigurationObj {
@@ -19,6 +22,12 @@ public class BasicConfigurationObj {
     private String subkey1;
 
   }
+
+  @Getter
+  private boolean initialized = false;
+
+  @Getter
+  private boolean validated = false;
 
   @ConfigurationField("key1")
   private String key1;
@@ -41,4 +50,13 @@ public class BasicConfigurationObj {
   @ClientID
   private String clientId;
 
+  @Override
+  public void initialize() {
+    initialized = true;
+  }
+
+  @Override
+  public void validate(ConfigurationState state) {
+    validated = true;
+  }
 }

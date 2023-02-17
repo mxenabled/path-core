@@ -36,8 +36,11 @@ class GatewayObjectConfiguratorTest extends Specification {
 
     then:
     result instanceof BindedConfigGatewayService
-    ((BindedConfigGatewayService) result).config.string == "value"
-    ((BindedConfigGatewayService) result).config.clientId == "client1"
+    verifyAll((BindedConfigGatewayService) result) {
+      config.string == "value"
+      config.clientId == "client1"
+      initialize
+    }
   }
 
   def "builds and binds a GatewayBehavior"() {
@@ -55,8 +58,11 @@ class GatewayObjectConfiguratorTest extends Specification {
 
     then:
     result instanceof BehaviorWithClientIDAndConfiguration
-    ((BehaviorWithClientIDAndConfiguration) result).behaviorConfiguration.active
-    ((BehaviorWithClientIDAndConfiguration) result).clientId == "client1"
+    verifyAll((BehaviorWithClientIDAndConfiguration) result) {
+      behaviorConfiguration.active
+      clientId == "client1"
+      initialized
+    }
   }
 
   def "builds and binds a Facility"() {
@@ -71,7 +77,10 @@ class GatewayObjectConfiguratorTest extends Specification {
 
     then:
     result instanceof MessageBrokerImpl
-    ((MessageBrokerImpl) result).configurations.testField == "value1"
-    ((MessageBrokerImpl) result).configurations.clientId == "client1"
+    verifyAll((MessageBrokerImpl) result) {
+      configurations.testField == "value1"
+      configurations.clientId == "client1"
+      initialized
+    }
   }
 }

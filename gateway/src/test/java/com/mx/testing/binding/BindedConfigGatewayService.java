@@ -6,10 +6,11 @@ import lombok.Getter;
 import com.mx.common.collections.ObjectMap;
 import com.mx.common.configuration.Configuration;
 import com.mx.common.configuration.ConfigurationField;
+import com.mx.path.gateway.configuration.Configurable;
 import com.mx.path.gateway.configuration.annotations.ClientID;
 import com.mx.path.gateway.service.GatewayService;
 
-public class BindedConfigGatewayService extends GatewayService {
+public class BindedConfigGatewayService extends GatewayService implements Configurable {
   @Data
   public static class Config {
     @ConfigurationField("string")
@@ -21,6 +22,9 @@ public class BindedConfigGatewayService extends GatewayService {
 
   @Getter
   private Config config;
+
+  @Getter
+  private boolean initialize = false;
 
   public BindedConfigGatewayService(ObjectMap configurations, @Configuration Config config) {
     super(configurations);
@@ -35,5 +39,10 @@ public class BindedConfigGatewayService extends GatewayService {
   @Override
   public void stop() {
 
+  }
+
+  @Override
+  public void initialize() {
+    initialize = true;
   }
 }

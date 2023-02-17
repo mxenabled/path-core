@@ -49,6 +49,7 @@ public final class GatewayObjectConfigurator {
     this.state = state;
   }
 
+  @SuppressWarnings("unchecked")
   public <T> T buildFromNode(ObjectMap map, String clientId, Class<T> klass) {
     ConfigurationBinder binder = new ConfigurationBinder(clientId, state);
 
@@ -83,7 +84,14 @@ public final class GatewayObjectConfigurator {
         }
       });
 
-      return (T) build(constructor, constructorArgs);
+      T result = (T) build(constructor, constructorArgs);
+
+      if (Configurable.class.isAssignableFrom(targetClass)) {
+        ((Configurable) result).initialize();
+        ((Configurable) result).validate(state);
+      }
+
+      return result;
     });
   }
 

@@ -36,8 +36,12 @@ class ConfigurationBinderTest extends Specification {
     subject.configure(configurationObj, configuration)
 
     then:
-    configurationObj.getKey1() == "value1"
-    configurationObj.getKey2() == 12
+    verifyAll (configurationObj) {
+      getKey1() == "value1"
+      getKey2() == 12
+      initialized
+      validated
+    }
   }
 
   def "build creates and binds attributes to existing object"() {
@@ -49,9 +53,13 @@ class ConfigurationBinderTest extends Specification {
     BasicConfigurationObj configurationObj = subject.build(BasicConfigurationObj.class, configuration)
 
     then:
-    configurationObj.getClientId() == "client1"
-    configurationObj.getKey1() == "value1"
-    configurationObj.getKey2() == 12
+    verifyAll (configurationObj) {
+      getClientId() == "client1"
+      getKey1() == "value1"
+      getKey2() == 12
+      initialized
+      validated
+    }
   }
 
   def "configure fails on keys that have no field to bind"() {

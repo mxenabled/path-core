@@ -69,6 +69,12 @@ public class ConfigurationBinder {
    */
   public final void configure(Object configuration, ObjectMap configurationMap) {
     populateFields(configuration, configurationMap);
+
+    if (Configurable.class.isAssignableFrom(configuration.getClass())) {
+      ((Configurable) configuration).initialize();
+      ((Configurable) configuration).validate(state);
+    }
+
     try {
       LOGGER.debug("Configuration binding: " + configuration.getClass().getName() + " -> " + GSON.toJson(configuration));
     } catch (Exception e) {

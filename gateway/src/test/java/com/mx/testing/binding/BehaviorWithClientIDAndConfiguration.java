@@ -7,16 +7,20 @@ import com.mx.common.collections.ObjectMap;
 import com.mx.common.configuration.Configuration;
 import com.mx.common.configuration.ConfigurationField;
 import com.mx.path.gateway.behavior.GatewayBehavior;
+import com.mx.path.gateway.configuration.Configurable;
 import com.mx.path.gateway.configuration.annotations.ClientID;
 import com.mx.path.gateway.context.GatewayRequestContext;
 
-public class BehaviorWithClientIDAndConfiguration extends GatewayBehavior {
+public class BehaviorWithClientIDAndConfiguration extends GatewayBehavior implements Configurable {
 
   @Getter
   private final String clientId;
 
   @Getter
   private final BehaviorConfiguration behaviorConfiguration;
+
+  @Getter
+  boolean initialized = false;
 
   public static class BehaviorConfiguration {
     @Getter
@@ -37,5 +41,10 @@ public class BehaviorWithClientIDAndConfiguration extends GatewayBehavior {
   @Override
   protected <T> AccessorResponse<T> call(Class<T> resultType, GatewayRequestContext request, GatewayBehavior terminatingBehavior) {
     return null;
+  }
+
+  @Override
+  public void initialize() {
+    this.initialized = true;
   }
 }
