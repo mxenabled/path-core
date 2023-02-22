@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.1](https://github.com/mxenabled/path-core/compare/v1.8.0...v1.8.1) (2023-02-22)
+
+
+### Bug Fixes
+
+* expose the current ConfigurationState ([08fa3dc](https://github.com/mxenabled/path-core/commit/08fa3dcb94240def36ccc8292a4893408b3e5dea))
+* move RemoteService dispatch tracing scope up so errors have tracing info ([f07c9a6](https://github.com/mxenabled/path-core/commit/f07c9a6fc0ee38d14298b03e22e2f81018fa534f))
+
 ## [1.8.0](https://github.com/mxenabled/path-core/compare/v1.7.2...v1.8.0) (2023-02-17)
 
 
