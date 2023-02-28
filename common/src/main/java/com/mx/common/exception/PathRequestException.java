@@ -60,6 +60,7 @@ import com.mx.common.messaging.MessageError;
  *     {@link UpstreamErrorException} - Thrown when an unexpected response status is returned from an upstream system call
  *   {@link FacilityException} - Thrown on unrecoverable error in facility code
  *   {@link MessageError} - All errors from messaging system should be wrapped in this exception
+ *   {@link PathRequestExceptionWrapper} - Wraps a cause so that other attributes can be added. This exception's cause should be inspected.
  * </pre>
  *
  * <p>Each exception sets its own default Report and Status attributes. Most have constructors that allow setting
