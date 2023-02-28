@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/mxenabled/path-core/compare/v1.8.1...v1.9.0) (2023-02-28)
+
+
+### Features
+
+* add new PathRequestExceptionWrapper ([403a1d5](https://github.com/mxenabled/path-core/commit/403a1d5d7f374f311aaa7309d9aa4fdeea0f4a61))
+
 ## [1.8.1](https://github.com/mxenabled/path-core/compare/v1.8.0...v1.8.1) (2023-02-22)
 
 
