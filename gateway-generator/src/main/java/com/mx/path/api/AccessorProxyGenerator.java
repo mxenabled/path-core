@@ -262,7 +262,7 @@ public class AccessorProxyGenerator {
   }
 
   private String calculatePackageName(Class<? extends Accessor> accessorClass) {
-    String packageClass = accessorClass.getPackage().getName().replaceAll(".*\\.accessors[.]*", "");
+    String packageClass = accessorClass.getPackage().getName().replaceAll(".*\\.accessors?[.]*", "");
     if (Strings.isBlank(packageClass)) {
       return "com.mx.path.gateway.accessor.proxy";
     }
