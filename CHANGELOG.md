@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/mxenabled/path-core/compare/v1.9.0...v1.9.1) (2023-03-11)
+
+
+### Bug Fixes
+
+* allow gateway generator to support accessor and accessors package ([90b7ccb](https://github.com/mxenabled/path-core/commit/90b7ccb02d17a7291229794bfafe2da41e9a5fb1))
+
 ## [1.9.0](https://github.com/mxenabled/path-core/compare/v1.8.1...v1.9.0) (2023-02-28)
 
 
