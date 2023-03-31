@@ -13,11 +13,17 @@ class ConfiguratorObserverTest extends Specification {
   }
 
   class TestGatewayListener {
-    def static invokeCount = 0
+    def static gatewayInitializedInvokeCount = 0
+    def static facilitiesInitializedInvokeCount = 0
 
     @Subscribe
     public void afterGatewaysInitialized(ConfiguratorObserver.GatewaysInitializedEvent event) {
-      invokeCount++
+      gatewayInitializedInvokeCount++
+    }
+
+    @Subscribe
+    public void afterFacilitiesInitialized(ConfiguratorObserver.ClientFacilitiesInitializedEvent event) {
+      facilitiesInitializedInvokeCount++
     }
   }
 
@@ -32,6 +38,38 @@ class ConfiguratorObserverTest extends Specification {
     } catch (Exception e) {}
   }
 
+  def "notifyClientFacilitiesInitialized"() {
+    given:
+    def listener = new TestGatewayListener()
+
+    subject.registerListener(listener)
+    subject.registerListener(listener) // should on result in one invocation
+
+    when:
+    subject.notifyClientFacilitiesInitialized("clientA")
+
+    then:
+    listener.facilitiesInitializedInvokeCount == 1
+  }
+
+  def "notifyClientFacilitiesInitialized blocks"() {
+    given:
+    def invokedCount = 0
+
+    subject.registerClientFacilitiesInitialized({ configurator, gateways ->
+      invokedCount++
+    })
+    subject.registerClientFacilitiesInitialized({ configurator, gateways ->
+      invokedCount++
+    }) // both blocks should be invoked
+
+    when:
+    subject.notifyClientFacilitiesInitialized("clientA")
+
+    then:
+    invokedCount == 2
+  }
+
   def "notifyGatewaysInitialized"() {
     given:
     def listener = new TestGatewayListener()
@@ -43,7 +81,7 @@ class ConfiguratorObserverTest extends Specification {
     subject.notifyGatewaysInitialized(new HashMap<String, BaseGateway>())
 
     then:
-    listener.invokeCount == 1
+    listener.gatewayInitializedInvokeCount == 1
   }
 
   def "notifyGatewaysInitialized blocks"() {

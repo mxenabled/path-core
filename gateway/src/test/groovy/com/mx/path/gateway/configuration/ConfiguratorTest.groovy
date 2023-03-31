@@ -56,4 +56,27 @@ class ConfiguratorTest extends Specification {
     gatewayCaptor.allValues.find { it.getClass() == TestIdGateway }
     gatewayCaptor.allValues.find { it.getClass() == TestAccountGateway }
   }
+
+  def "invokes facilities initialized listeners"() {
+    given:
+    def yaml =
+        "client:\n" +
+        "  facilities:\n" +
+        "    cacheStore:\n" +
+        "      class: com.mx.testing.binding.TestCacheStore\n" +
+        "  accessor:\n" +
+        "    class: com.mx.testing.accessors.BaseAccessor\n" +
+        "    scope: singleton\n" +
+        "  gateways:\n" +
+        "    id: {}\n" +
+        "    accounts: {}\n"
+
+    when:
+    Map<String, TestGateway> gateways = subject.buildFromYaml(yaml)
+
+    then:
+    gateways.get("client") != null
+    gateways.get("client")
+    verify(observer, times(1)).notifyClientFacilitiesInitialized("client")
+  }
 }
