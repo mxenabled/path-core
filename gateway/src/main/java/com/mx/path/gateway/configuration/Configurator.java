@@ -298,6 +298,8 @@ public abstract class Configurator<T extends Gateway<?>> {
     });
 
     ensureDefaultFacilities(clientId);
+
+    getObserver().notifyClientFacilitiesInitialized(clientId);
   }
 
   private void ensureDefaultFacilities(String clientId) {
