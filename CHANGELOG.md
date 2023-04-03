@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.10.0](https://github.com/mxenabled/path-core/compare/v1.9.1...v1.10.0) (2023-04-03)
+
+
+### Features
+
+* **gateway:** add client facilities initialized event to configurator ([e9d0a9a](https://github.com/mxenabled/path-core/commit/e9d0a9a372307c3b5bc261806b151aefc0e850fe))
+
+
+### Bug Fixes
+
+* **gateway:** change visibility of event classes to public ([e9d0a9a](https://github.com/mxenabled/path-core/commit/e9d0a9a372307c3b5bc261806b151aefc0e850fe))
+
 ## [1.9.1](https://github.com/mxenabled/path-core/compare/v1.9.0...v1.9.1) (2023-03-11)
 
 
