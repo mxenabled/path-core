@@ -36,7 +36,12 @@ allprojects {
     mavenCentral()
     mavenLocal()
   }
+
+  configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+  }
 }
+
 
 subprojects {
   if (it.name != platformProject) {
