@@ -6,6 +6,9 @@ on:
         description: Dry-Run
         required: false
         type: boolean
+  push:
+    branches:
+      - v2
 
 name: publish
 
@@ -14,7 +17,7 @@ jobs:
     permissions: read-all
     uses: mxenabled/path-tools/.github/workflows/publish.yml@master
     with:
-      dry-run: ${{ inputs.dry-run }}
+      dry-run: ${{ inputs.dry-run || false }}
     secrets:
       OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
       OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
