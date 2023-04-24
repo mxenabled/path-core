@@ -70,6 +70,7 @@ function process_file {
     "com.mx.common.models.MdxWrappable([^a-zA-Z])=com.mx.common.models.ModelWrappable\1"
     "com.mx.common.remote.MdxListOfJson([^a-zA-Z])=com.mx.common.models.ParameterizedTypeImpl\1"
     "com.mx.path.model.mdx.model.MdxWrappableSerializer([^a-zA-Z])=com.mx.path.model.mdx.model.ModelWrappableSerializer\1"
+    "Session.ServiceIdentifier.Session([^a-zA-Z])=Scope.Session\1"
 
     #"([^a-zA-Z])com.mx.common.process.FaultTolerantExecutionFailureStatus([^a-zA-Z])=\1com.mx.common.accessors.PathResponseStatus\2"
   )
@@ -79,6 +80,7 @@ function process_file {
     "com.mx.common.models.MdxWrappable([^a-zA-Z]?)=com.mx.common.models.ModelWrappable\1"
     "com.mx.common.remote.MdxListOfJson([^a-zA-Z]?)=com.mx.common.models.ParameterizedTypeImpl\1"
     "com.mx.path.model.mdx.model.MdxWrappableSerializer([^a-zA-Z]?)=com.mx.path.model.mdx.model.ModelWrappableSerializer\1"
+    "Session.ServiceIdentifier.Session([^a-zA-Z]?)=Scope.Session\1"
 
     #"com.mx.serializers.YamlSerializer([^a-zA-Z]?)=com.mx.common.serialization.ObjectMapYamlDeserializer\1"
     #"([^a-zA-Z])YamlSerializer([^a-zA-Z]?)=\1ObjectMapYamlDeserializer\2"
