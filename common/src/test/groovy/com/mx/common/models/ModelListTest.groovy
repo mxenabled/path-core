@@ -1,25 +1,25 @@
 package com.mx.common.models
 
-import com.mx.testing.Account
+import com.mx.testing.TestAccount
 
 import spock.lang.Specification
 
-class MdxListTest extends Specification {
+class ModelListTest extends Specification {
 
-  static class ChildAccount extends Account {}
+  static class ChildTestAccount extends TestAccount {}
 
   def "copyConstructor"() {
     given:
-    def account1 = new ChildAccount()
+    def account1 = new ChildTestAccount()
     account1.setId("account1234")
-    ChildAccount account2 = new ChildAccount()
+    ChildTestAccount account2 = new ChildTestAccount()
     account2.setId("account5678")
-    MdxList<ChildAccount> childAccountList = new MdxList<ChildAccount>()
+    ModelList<ChildTestAccount> childAccountList = new ModelList<ChildTestAccount>()
     childAccountList.add(account1)
     childAccountList.add(account2)
 
     when:
-    MdxList<Account> accounts = new MdxList<Account>(childAccountList)
+    ModelList<TestAccount> accounts = new ModelList<TestAccount>(childAccountList)
 
     then:
     childAccountList.size() == accounts.size()

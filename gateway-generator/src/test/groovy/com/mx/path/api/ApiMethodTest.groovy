@@ -90,6 +90,6 @@ class ApiMethodTest extends Specification {
 
     then:
     get.getParameterizedReturnType() == "Account.class"
-    list.getParameterizedReturnType() == "MdxList.ofClass(Account.class)"
+    list.getParameterizedReturnType() == "TestMdxList.ofClass(Account.class)"
   }
 }

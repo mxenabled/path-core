@@ -1,8 +1,6 @@
 package com.mx.common.models;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,15 +8,12 @@ import java.util.Map;
  *
  * todo: Need to decide what to do with this since it still references MDX.
  */
-public abstract class MdxBase<T> implements MdxWrappable<T> {
+public abstract class ModelBase<T> implements ModelWrappable<T> {
 
   @Internal
   private final Map<String, String> objectMetadata = new LinkedHashMap<>();
-  private String userId;
-  // Indicates if this mdx object should be wrapped in Json object.
+  // Indicates if this object should be wrapped in Json object.
   private transient boolean wrapped = false;
-
-  private List<Warning> warnings;
 
   /**
    * Mark resource as wrapped.
@@ -48,24 +43,5 @@ public abstract class MdxBase<T> implements MdxWrappable<T> {
   @Override
   public final void setWrapped(boolean newWrapped) {
     wrapped = newWrapped;
-  }
-
-  public final String getUserId() {
-    return this.userId;
-  }
-
-  public final void setUserId(String newUserId) {
-    this.userId = newUserId;
-  }
-
-  public final List<Warning> getWarnings() {
-    return this.warnings;
-  }
-
-  public final void appendWarning(Warning warning) {
-    if (this.warnings == null) {
-      this.warnings = new ArrayList<Warning>();
-    }
-    this.warnings.add(warning);
   }
 }

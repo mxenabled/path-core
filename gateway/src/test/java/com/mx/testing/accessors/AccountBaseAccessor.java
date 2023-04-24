@@ -9,7 +9,7 @@ import com.mx.common.accessors.AccessorMethodNotImplementedException;
 import com.mx.common.accessors.AccessorResponse;
 import com.mx.common.gateway.GatewayAPI;
 import com.mx.common.gateway.GatewayClass;
-import com.mx.common.models.MdxList;
+import com.mx.common.models.ModelList;
 import com.mx.testing.model.Account;
 
 @API(description = "Test account accessor")
@@ -42,7 +42,7 @@ public class AccountBaseAccessor extends Accessor {
    */
   @GatewayAPI
   @API(description = "Get all user's account")
-  public AccessorResponse<MdxList<Account>> list() {
+  public AccessorResponse<ModelList<Account>> list() {
     throw new AccessorMethodNotImplementedException();
   }
 
