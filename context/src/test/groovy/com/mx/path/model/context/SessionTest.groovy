@@ -2,10 +2,8 @@ package com.mx.path.model.context
 
 import static org.mockito.Mockito.spy
 
-import com.mx.common.collections.ObjectMap
 import com.mx.common.security.EncryptionService
 import com.mx.path.model.context.store.SessionRepository
-import com.mx.testing.EncryptionServiceImpl
 import com.mx.testing.HashSessionRepository
 import com.mx.testing.TestPayee
 import com.mx.testing.TestScope
@@ -203,8 +201,8 @@ class SessionTest extends Specification {
     payee.setState("UT")
 
     when:
-    subject.putObj(Session.ServiceIdentifier.Checkfree, "payee", payee)
-    TestPayee cachedPayee = subject.getObj(Session.ServiceIdentifier.Checkfree, "payee", TestPayee.class)
+    subject.putObj(TestScope.AnotherKey, "payee", payee)
+    TestPayee cachedPayee = subject.getObj(TestScope.AnotherKey, "payee", TestPayee.class)
 
     then:
     payee.getAccountNumber() == cachedPayee.getAccountNumber()
@@ -243,7 +241,7 @@ class SessionTest extends Specification {
 
   def "getObjWithNull"() {
     when:
-    def nullPayee = subject.getObj(Session.ServiceIdentifier.Checkfree, "junk", TestPayee.class)
+    def nullPayee = subject.getObj(TestScope.Key, "junk", TestPayee.class)
 
     then:
     null == nullPayee
@@ -259,11 +257,11 @@ class SessionTest extends Specification {
     given:
     def repository = new HashSessionRepository()
     Session.setRepositorySupplier({ -> repository })
-    subject.put(Session.ServiceIdentifier.RSA, "key1", "value")
+    subject.put(TestScope.AnotherKey, "key1", "value")
     subject.put(TestScope.Key, "key1", "value")
 
     expect:
-    "value" == repository.getValue(subject, "RSA.key1")
+    "value" == repository.getValue(subject, "another_scope.key1")
     "value" == repository.getValue(subject, "scope.key1")
   }
 
@@ -271,11 +269,11 @@ class SessionTest extends Specification {
     given:
     def rep = new HashSessionRepository()
     Session.setRepositorySupplier({ -> rep })
-    rep.saveValue(subject, "RSA.key1", "valueInStore")
+    rep.saveValue(subject, "another_scope.key1", "valueInStore")
     rep.saveValue(subject, "scope.key1", "valueInStore")
 
     expect:
-    "valueInStore" == subject.get(Session.ServiceIdentifier.RSA, "key1")
+    "valueInStore" == subject.get(TestScope.AnotherKey, "key1")
     "valueInStore" == subject.get(TestScope.Key, "key1")
   }
 
@@ -285,43 +283,26 @@ class SessionTest extends Specification {
     Session.setRepositorySupplier({ -> rep })
 
     when:
-    rep.saveValue(subject, "RSA.key1", "valueInStore")
+    rep.saveValue(subject, "another_scope.key1", "valueInStore")
     rep.saveValue(subject, "scope.key1", "valueInStore")
 
     then:
-    "valueInStore" == subject.get(Session.ServiceIdentifier.RSA, "key1")
+    "valueInStore" == subject.get(TestScope.AnotherKey, "key1")
     "valueInStore" == subject.get(TestScope.Key, "key1")
 
     when:
-    subject.delete(Session.ServiceIdentifier.RSA, "key1")
+    subject.delete(TestScope.AnotherKey, "key1")
     subject.delete(TestScope.Key, "key1")
 
     then: "removed from repository"
-    subject.get(Session.ServiceIdentifier.RSA, "key1") == null
+    subject.get(TestScope.AnotherKey, "key1") == null
     subject.get(TestScope.Key, "key1") == null
-  }
-
-  def "putWithServiceScopesCorrectly"() {
-    given:
-    HashSessionRepository.register()
-    subject.put(Session.ServiceIdentifier.RSA, "key1", "value")
-    subject.put(Session.ServiceIdentifier.Corillian, "key1", "anotherValue")
-
-    expect:
-    "value" == subject.get(Session.ServiceIdentifier.RSA, "key1")
-    "anotherValue" == subject.get(Session.ServiceIdentifier.Corillian, "key1")
   }
 
   def "putSecureEncryptsValue"() {
     given:
     subject = spy(new Session())
     encryptionService.encrypt(_ as String) >> "!!CYPHERTEXT!!"
-
-    when:
-    subject.sput(Session.ServiceIdentifier.Architect, "password", "\$up3r\$up3r@3cr3t")
-
-    then:
-    1 * encryptionService.encrypt("\$up3r\$up3r@3cr3t")
 
     when:
     subject.sput(TestScope.Key, "password", "\$up3r\$up3r@3cr3t")
@@ -336,8 +317,8 @@ class SessionTest extends Specification {
     HashSessionRepository.register()
 
     when: "Fake putting encrypted value in session (deprecated)"
-    subject.put(Session.ServiceIdentifier.Architect, "password", "encrypted:v1:(!ph3%")
-    "plaintext" == subject.get(Session.ServiceIdentifier.Architect, "password")
+    subject.put(TestScope.Key, "password", "encrypted:v1:(!ph3%")
+    "plaintext" == subject.get(TestScope.Key, "password")
 
     then:
     1 * encryptionService.isEncrypted("encrypted:v1:(!ph3%") >> true
