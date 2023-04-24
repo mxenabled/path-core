@@ -7,7 +7,7 @@ import com.mx.common.accessors.AccessorMethodNotImplementedException;
 import com.mx.common.accessors.AccessorResponse;
 import com.mx.common.gateway.GatewayAPI;
 import com.mx.common.gateway.GatewayClass;
-import com.mx.common.models.MdxList;
+import com.mx.common.models.ModelList;
 import com.mx.testing.model.Transaction;
 
 @API(description = "Test transaction accessor")
@@ -23,7 +23,7 @@ public class TransactionBaseAccessor extends Accessor {
    */
   @GatewayAPI
   @API(description = "List transactions in account")
-  public AccessorResponse<MdxList<Transaction>> list(String accountId) {
+  public AccessorResponse<ModelList<Transaction>> list(String accountId) {
     throw new AccessorMethodNotImplementedException();
   }
 }

@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 
 import com.mx.common.accessors.Accessor;
-import com.mx.common.models.MdxBase;
+import com.mx.common.models.ModelBase;
 import com.mx.path.gateway.Gateway;
 import com.mx.path.model.context.RequestContext;
 
@@ -24,7 +24,7 @@ public final class GatewayRequestContext extends RequestContext {
   private Accessor currentAccessor;
   private Gateway<?> currentGateway;
   private boolean listOp;
-  private Class<? extends MdxBase<?>> model;
+  private Class<? extends ModelBase<?>> model;
   private String op;
 
   /**

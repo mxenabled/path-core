@@ -65,14 +65,20 @@ function process_file {
   export nl=$'\n'
   local file=$1
   local java_mappings=(
-    #"com.mx.accessors.AccessorConfiguration([^a-zA-Z])=com.mx.common.accessors.AccessorConfiguration\1"
-    #"com.mx.accessors.AccessorConnectionBase([^a-zA-Z])=com.mx.common.accessors.AccessorConnectionBase\1"
+    "com.mx.common.models.MdxList([^a-zA-Z])=com.mx.path.model.mdx.model.MdxList\1"
+    "com.mx.common.models.MdxBase([^a-zA-Z])=com.mx.path.model.mdx.model.MdxBase\1"
+    "com.mx.common.models.MdxWrappable([^a-zA-Z])=com.mx.common.models.ModelWrappable\1"
+    "com.mx.common.remote.MdxListOfJson([^a-zA-Z])=com.mx.common.remote.ParameterizedTypeImpl\1"
+    "com.mx.path.model.mdx.model.MdxWrappableSerializer([^a-zA-Z])=com.mx.path.model.mdx.model.ModelWrappableSerializer\1"
 
     #"([^a-zA-Z])com.mx.common.process.FaultTolerantExecutionFailureStatus([^a-zA-Z])=\1com.mx.common.accessors.PathResponseStatus\2"
   )
   local groovy_mappings=(
-    #"com.mx.accessors.AccessorConfiguration([^a-zA-Z]?)=com.mx.common.accessors.AccessorConfiguration\1"
-    #"com.mx.accessors.AccessorConnectionBase([^a-zA-Z]?)=com.mx.common.accessors.AccessorConnectionBase\1"
+    "com.mx.common.models.MdxList([^a-zA-Z]?)=com.mx.path.model.mdx.model.MdxList\1"
+    "com.mx.common.models.MdxBase([^a-zA-Z]?)=com.mx.path.model.mdx.model.MdxBase\1"
+    "com.mx.common.models.MdxWrappable([^a-zA-Z]?)=com.mx.common.models.ModelWrappable\1"
+    "com.mx.common.remote.MdxListOfJson([^a-zA-Z]?)=com.mx.common.remote.ParameterizedTypeImpl\1"
+    "com.mx.path.model.mdx.model.MdxWrappableSerializer([^a-zA-Z]?)=com.mx.path.model.mdx.model.ModelWrappableSerializer\1"
 
     #"com.mx.serializers.YamlSerializer([^a-zA-Z]?)=com.mx.common.serialization.ObjectMapYamlDeserializer\1"
     #"([^a-zA-Z])YamlSerializer([^a-zA-Z]?)=\1ObjectMapYamlDeserializer\2"
