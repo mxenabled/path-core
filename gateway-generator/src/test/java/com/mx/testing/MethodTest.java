@@ -3,7 +3,6 @@ package com.mx.testing;
 import java.util.List;
 
 import com.mx.common.accessors.AccessorResponse;
-import com.mx.common.models.MdxList;
 
 public class MethodTest {
 
@@ -11,7 +10,7 @@ public class MethodTest {
     return null;
   }
 
-  public AccessorResponse<MdxList<Account>> list() {
+  public AccessorResponse<TestMdxList<Account>> list() {
     return null;
   }
 
