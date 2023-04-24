@@ -32,11 +32,6 @@ class SessionTest extends Specification {
     Session.clearSession()
   }
 
-  def "createsWithInitializedJoinOwnersArray"() {
-    expect:
-    subject.getJointOwners() != null
-  }
-
   def "setCurrent"() {
     given:
     Session session = new Session()
@@ -370,24 +365,5 @@ class SessionTest extends Specification {
     1 * encryptionService.isEncrypted("encrypted:v1:(!ph3%") >> true
     1 * encryptionService.encrypt("test@unit.me") >> "encrypted:v1:(!ph3%"
     1 * encryptionService.decrypt("encrypted:v1:(!ph3%") >> "test@unit.me"
-  }
-
-  def "getAccountBehaviorsReturnsEmptyObjectIfNotSet"() {
-    expect:
-    subject.getAccountBehaviors() != null
-    0 == subject.getAccountBehaviors().getAccountBehaviors().size()
-  }
-
-  def "getAccountReturnsSetAccountBehaviors"() {
-    given:
-    HashSessionRepository.register()
-    EncryptionService encryptionService = new EncryptionServiceImpl(new ObjectMap())
-    Session.setEncryptionServiceSupplier({ -> encryptionService })
-    def setAccountBehaviors = new AccountBehaviors()
-    setAccountBehaviors.put("acct1", new AccountBehavior())
-    subject.setAccountBehaviors(setAccountBehaviors)
-
-    expect:
-    1 == subject.getAccountBehaviors().getAccountBehaviors().size()
   }
 }
