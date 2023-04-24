@@ -273,7 +273,8 @@ public class ConfigurationBinder {
     List<Annotations.AnnotatedField<ConfigurationField>> annotatedFields = Annotations.fieldsWithAnnotation(ConfigurationField.class, obj.getClass());
     annotatedFields.forEach(annotatedField -> {
       Object value = Fields.getFieldValue(annotatedField.getField(), obj);
-      state.withField(annotatedField.getField().getName(), () -> validateField(annotatedField, value));
+      String field = Strings.isBlank(annotatedField.getAnnotation().value()) ? annotatedField.getField().getName() : annotatedField.getAnnotation().value();
+      state.withField(field, () -> validateField(annotatedField, value));
     });
   }
 
