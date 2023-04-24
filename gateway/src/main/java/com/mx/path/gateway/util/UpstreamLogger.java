@@ -83,7 +83,6 @@ public class UpstreamLogger {
     }
 
     Request request = response.getRequest();
-    MDC.put("is_circuit_breaker_open", String.valueOf(request.isCircuitBreakerOpen()));
     MDC.put("request_method", request.getMethod());
     MDC.put("request_uri", request.getUri());
     MDC.put("span_id", request.getTraceSpanId());

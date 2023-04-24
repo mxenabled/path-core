@@ -161,15 +161,6 @@ class RequestTest extends Specification {
     }
   }
 
-  def "testSetMutualAuthenticationSettings"() {
-    given:
-    def settings = new TestMutualAuthSettings()
-    subject.withMutualAuthSettings(settings)
-
-    expect:
-    subject.getMutualAuthSettings() == settings
-  }
-
   def "testSetConnectionSettings"() {
     given:
     def settings = new TestMutualAuthSettings()
@@ -186,7 +177,6 @@ class RequestTest extends Specification {
         .withBaseUrl("https://example.com")
         .withContentType("application/json")
         .withFeature(Feature.ACCOUNTS)
-        .withFeatureName("featureName")
         .withHeader("headerKey", "headerValue")
         .withPath("/some/path")
         .withQueryStringParams(new SingleValueMap<String, String>().tap {put("key", "value")})
@@ -211,7 +201,6 @@ class RequestTest extends Specification {
         .withBaseUrl("https://example.com")
         .withContentType("application/json")
         .withFeature(Feature.ACCOUNTS)
-        .withFeatureName("featureName")
         .withHeader("headerKey", "headerValue")
         .withPath("/some/path")
         .withQueryStringParams(new SingleValueMap<String, String>().tap {put("key", "value")})
@@ -227,7 +216,6 @@ class RequestTest extends Specification {
         .withBaseUrl("https://example.com")
         .withContentType("application/json")
         .withFeature(Feature.TRANSFERS)
-        .withFeatureName("featureName")
         .withHeader("headerKey", "headerValue2")
         .withPath("/some/other/path")
         .withQueryStringParams(new SingleValueMap<String, String>().tap {put("key", "value2")})
