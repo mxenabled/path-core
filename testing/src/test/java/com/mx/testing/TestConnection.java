@@ -21,6 +21,10 @@ public class TestConnection extends AccessorConnectionBase<TestConnection.Reques
   }
 
   public static class Request extends com.mx.common.connect.Request<Request, Response> {
+    public Request() {
+      super(null);
+    }
+
     @Override
     public Response execute() {
       return null;

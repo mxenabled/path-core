@@ -85,9 +85,6 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   @Setter
   private Feature feature;
 
-  @Deprecated
-  private String featureName = null;
-
   @Getter
   @Setter
   private RequestFilter filterChain;
@@ -98,9 +95,6 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
 
   @Getter
   private SingleValueMap<String, String> headers = new SingleValueMap<>();
-
-  @Deprecated
-  private boolean isCircuitBreakerOpen = false;
 
   @Getter
   @Setter
@@ -140,23 +134,7 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   @Setter
   private String traceSpanId;
 
-  // Getters/Setters
-
-  @Deprecated
-  public final String getFeatureName() {
-    return featureName;
-  }
-
   // Constructors
-
-  /**
-   * @deprecated Left here for backward compatibility. Will be removed. Use {@link Request(RequestFilter)}
-   */
-  @Deprecated
-  public Request() {
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-  }
 
   public Request(RequestFilter filterChain) {
     headers.put("Accept", "application/json");
@@ -203,14 +181,6 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   }
 
   /**
-   * @deprecated Use #getConnectionSettings()
-   */
-  @Deprecated
-  public final ConnectionSettings getMutualAuthSettings() {
-    return this.connectionSettings;
-  }
-
-  /**
    * @return Request timeout in milliseconds
    */
   public final Duration getRequestTimeOut() {
@@ -244,28 +214,12 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
     return body != null;
   }
 
-  /**
-   * @deprecated This should be in the response. Leaving for backward compatibility.
-   */
-  @Deprecated
-  public final boolean isCircuitBreakerOpen() {
-    return isCircuitBreakerOpen;
-  }
-
   public final Object process(RESP currentResponse) {
     if (this.processor != null) {
       return this.processor.apply(currentResponse);
     }
 
     return null;
-  }
-
-  /**
-   * @deprecated This should be in the response. Leaving for backward compatibility.
-   */
-  @Deprecated
-  public final void setCircuitBreakerOpen(boolean circuitBreakerOpen) {
-    isCircuitBreakerOpen = circuitBreakerOpen;
   }
 
   public final void setHeader(String key, String value) {
@@ -343,13 +297,6 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
     return (REQ) this;
   }
 
-  @Deprecated
-  @SuppressWarnings("unchecked")
-  public final REQ withFeatureName(String featureKeyName) {
-    featureName = featureKeyName;
-    return (REQ) this;
-  }
-
   @SuppressWarnings("unchecked")
   public final REQ withFormBody(FormBody newFormBody) {
     setFormBody(newFormBody);
@@ -372,15 +319,6 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   public final REQ withMethod(String newMethod) {
     setMethod(newMethod);
     return (REQ) this;
-  }
-
-  /**
-   * @deprecated Use {@link #withConnectionSettings(ConnectionSettings)}.
-   */
-  @Deprecated
-  @SuppressWarnings("unchecked")
-  public final REQ withMutualAuthSettings(ConnectionSettings newMutualAuthSettings) {
-    return withConnectionSettings(newMutualAuthSettings);
   }
 
   @SuppressWarnings("unchecked")

@@ -93,47 +93,6 @@ class ResponseTest extends Specification {
     subject.getStatus() == HttpStatus.OK
   }
 
-  def "testCheckStatusThrowsException"() {
-    given:
-    def originalException = new Exception("error")
-    subject.withException(originalException)
-
-    when:
-    subject.checkStatus()
-
-    then:
-    def e = thrown(UpstreamSystemUnavailable)
-    e.getMessage() == "Request threw an exception"
-    e.getCause() == originalException
-  }
-
-  def "testCheckStatusThrowsExceptionWithSupplier"() {
-    given:
-    def originalException = new Exception("error")
-    subject.withException(originalException)
-    when:
-    subject.checkStatus({
-      ->
-      throw new UpstreamSystemUnavailable()
-    })
-
-    then:
-    def e = thrown(UpstreamSystemUnavailable)
-    e.getMessage() == "Request threw an exception"
-  }
-
-  def "testCheckStatusThrows500WhenNullStatus"() {
-    given:
-    subject.withStatus(null)
-
-    when:
-    subject.checkStatus()
-
-    then:
-    def e = thrown(UpstreamSystemUnavailable)
-    e.getMessage() == "Request threw an exception"
-  }
-
   def "throwException wraps non-PathRequestException"() {
     setup:
     def exception = new Exception("error")

@@ -2,15 +2,18 @@ package com.mx.path.gateway.util
 
 import static org.mockito.Mockito.mock
 import static org.mockito.Mockito.verify
+import static org.mockito.Mockito.when
 
 import java.time.Duration
 
 import com.mx.common.collections.MultiValueMap
+import com.mx.common.connect.Request
+import com.mx.common.connect.Response
 import com.mx.common.http.HttpStatus
-import com.mx.path.gateway.net.Request
-import com.mx.path.gateway.net.Response
 import com.mx.path.model.context.RequestContext
 import com.mx.path.model.context.Session
+import com.mx.testing.RequestImpl
+import com.mx.testing.ResponseImpl
 import com.mx.testing.WithSessionRepository
 
 import org.slf4j.Logger
@@ -30,8 +33,9 @@ class UpstreamLoggerTest extends Specification implements WithSessionRepository 
     Session.createSession()
 
     subject = new UpstreamLogger()
-    request = new Request()
-    response = new Response(request)
+    request = new RequestImpl()
+    response = new ResponseImpl(request)
+
     Session.current().setUserId("user123")
     RequestContext.builder()
         .clientId("client-id")
@@ -74,9 +78,6 @@ class UpstreamLoggerTest extends Specification implements WithSessionRepository 
 
   def "with empty request context and response"() {
     given:
-    request = new Request()
-    response = new Response(request)
-
     RequestContext.builder()
         .build()
         .register()
@@ -97,9 +98,6 @@ class UpstreamLoggerTest extends Specification implements WithSessionRepository 
 
   def "with no active session"() {
     given:
-    request = new Request()
-    response = new Response(request)
-
     RequestContext.builder()
         .build()
         .register()
