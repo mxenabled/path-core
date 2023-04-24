@@ -2,7 +2,6 @@ package com.mx.common.connect;
 
 import java.time.Duration;
 import java.util.Objects;
-import java.util.function.Supplier;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +10,6 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mx.common.accessors.AccessorSystemException;
-import com.mx.common.accessors.UpstreamSystemUnavailable;
 import com.mx.common.collections.MultiValueMap;
 import com.mx.common.collections.MultiValueMappable;
 import com.mx.common.collections.SingleValueMap;
@@ -56,39 +54,6 @@ public abstract class Response<REQ extends Request<?, ?>, RESP extends Response<
   @Getter
   @Setter
   private HttpStatus status;
-
-  /**
-   * Throw existing exception or throw new exception if response status is an error
-   * @deprecated It is a bad practice to just re-raise an exception with the status of an upstream response. The error
-   * should be translated and an appropriate exception should be thrown. If this behavior needs to be maintained
-   * it can be added to the connection code where it is needed. This will be removed in future release.
-   */
-  @Deprecated
-  public final void checkStatus() {
-    if (exception != null || getStatus() == null) {
-      throw new UpstreamSystemUnavailable("Request threw an exception", "Request threw an exception", exception);
-    }
-    if (getStatus().isError()) {
-      throw new UpstreamSystemUnavailable("Request had an error response", "Request had an error response");
-    }
-  }
-
-  /**
-   * Throw existing exception or throw new exception if response status is an error
-   * @param execFunc was expected to throw MDXApi Exception with its own implementation
-   * @deprecated It is a bad practice to just re-raise an exception with the status of an upstream response. The error
-   * should be translated and an appropriate exception should be thrown. If this behavior needs to be maintained
-   * it can be added to the connection code where it is needed. This will be removed in future release.
-   */
-  @Deprecated
-  public final void checkStatus(Supplier execFunc) {
-    if (exception != null || getStatus() == null) {
-      throw new UpstreamSystemUnavailable("Request threw an exception", "Request threw an exception", exception);
-    }
-    if (getStatus().isError()) {
-      execFunc.get();
-    }
-  }
 
   public final void finish() {
     if (duration == null) {
@@ -206,7 +171,7 @@ public abstract class Response<REQ extends Request<?, ?>, RESP extends Response<
   }
 
   @SuppressWarnings("unchecked")
-  public final RESP withRequest(Request newRequest) {
+  public final RESP withRequest(Request<?, ?> newRequest) {
     this.request = newRequest;
     return (RESP) this;
   }
