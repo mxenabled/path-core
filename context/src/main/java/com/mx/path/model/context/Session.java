@@ -274,7 +274,6 @@ public class Session implements SessionInfo {
   private String id;
   private String firstName;
   private String lastName;
-  private List<SessionAccountOwner> jointOwners = new ArrayList<>();
   private SessionState sessionState = SessionState.UNAUTHENTICATED;
   private LocalDateTime startedAt;
   private String userId;
@@ -294,22 +293,6 @@ public class Session implements SessionInfo {
    */
   public final void setClientId(String clientId) {
     this.clientId = clientId;
-  }
-
-  /**
-   * @return the session's accountBehaviors
-   */
-  public final AccountBehaviors getAccountBehaviors() {
-    AccountBehaviors accountBehaviors = getObj(ServiceIdentifier.Session, "accountBehaviors", AccountBehaviors.class);
-
-    return Objects.isNull(accountBehaviors) ? new AccountBehaviors() : accountBehaviors;
-  }
-
-  /**
-   * @param accountBehaviors the session's accountBehaviors
-   */
-  public final void setAccountBehaviors(AccountBehaviors accountBehaviors) {
-    sputObj(ServiceIdentifier.Session, "accountBehaviors", accountBehaviors);
   }
 
   /**
@@ -511,20 +494,6 @@ public class Session implements SessionInfo {
    */
   public final void setLastName(String lastName) {
     this.lastName = encryptValue(lastName);
-  }
-
-  /**
-   * @return a decrypted copy of jointOwners
-   */
-  public final List<SessionAccountOwner> getJointOwners() {
-    return jointOwners;
-  }
-
-  /**
-   * @param jointOwners the jointOwners to set
-   */
-  public final void setJointOwners(List<SessionAccountOwner> jointOwners) {
-    this.jointOwners = jointOwners;
   }
 
   /**
