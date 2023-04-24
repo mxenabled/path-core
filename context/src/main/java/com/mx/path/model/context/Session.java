@@ -32,68 +32,6 @@ import com.mx.path.model.context.util.XMLGregorianCalendarConverter;
  */
 @SuppressWarnings("PMD.CyclomaticComplexity")
 public class Session implements SessionInfo {
-  /**
-   * Used to scope session data by service.
-   *
-   * @deprecated Use com.mx.path.gateway.context.Scope
-   */
-  @Deprecated
-  public enum ServiceIdentifier implements ScopeKeyGenerator {
-    AFCUWS {
-      @Override
-      public String generate() {
-        return "AFCUWS";
-      }
-    },
-    Architect {
-      @Override
-      public String generate() {
-        return "Architect";
-      }
-    },
-    Checkfree {
-      @Override
-      public String generate() {
-        return "Checkfree";
-      }
-    },
-    Corillian {
-      @Override
-      public String generate() {
-        return "Corillian";
-      }
-    },
-    DataExchange {
-      @Override
-      public String generate() {
-        return "DataExchange";
-      }
-    },
-    Ensenta {
-      @Override
-      public String generate() {
-        return "Ensenta";
-      }
-    },
-    MDXOnDemand {
-      @Override
-      public String generate() {
-        return "MDXOnDemand";
-      }
-    },
-    RSA {
-      @Override
-      public String generate() {
-        return "RSA";
-      }
-    },
-    Session {
-      @Override
-      public String generate() {
-        return "Session";
-      }
-    }
-  }
 
   // Static
   private static Supplier<SessionRepository> repositorySupplier = new SessionRepositorySupplier();

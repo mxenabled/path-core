@@ -8,5 +8,11 @@ public enum TestScope implements ScopeKeyGenerator {
     public String generate() {
       return "scope";
     }
+  },
+  AnotherKey {
+    @Override
+    public String generate() {
+      return "another_scope";
+    }
   }
 }
