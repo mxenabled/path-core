@@ -2,9 +2,9 @@ package com.mx.path.api.connect.messaging.remote;
 
 import com.mx.common.messaging.MessageError;
 import com.mx.common.messaging.MessageStatus;
-import com.mx.common.models.MdxBase;
-import com.mx.common.models.MdxList;
-import com.mx.common.remote.MdxListOfJson;
+import com.mx.common.models.ModelBase;
+import com.mx.common.models.ModelList;
+import com.mx.common.models.ParameterizedTypeImpl;
 import com.mx.path.api.connect.messaging.MessageHeaders;
 import com.mx.path.api.connect.messaging.MessageParameters;
 import com.mx.path.api.connect.messaging.MessageRequest;
@@ -15,7 +15,7 @@ import com.mx.path.api.connect.messaging.MessageResponse;
  *
  * @param <T> The MdxBase Model
  */
-public class RemoteCRUDModel<T extends MdxBase<?>> extends RemoteRequester<T> {
+public class RemoteCRUDModel<T extends ModelBase<?>> extends RemoteRequester<T> {
   private final String clientId;
 
   public RemoteCRUDModel(String clientId) {
@@ -70,7 +70,7 @@ public class RemoteCRUDModel<T extends MdxBase<?>> extends RemoteRequester<T> {
   /**
    * @return list of T
    */
-  public MdxList<T> list() {
+  public ModelList<T> list() {
     MessageRequest request = MessageRequest.builder()
         .messageHeaders(new MessageHeaders())
         .messageParameters(new MessageParameters())
@@ -84,7 +84,7 @@ public class RemoteCRUDModel<T extends MdxBase<?>> extends RemoteRequester<T> {
       throw new MessageError("Unable to update remote " + RemoteChannel.getModel(getClassOfT()) + " with status " + response.getStatus(), response.getStatus(), response.getException());
     }
 
-    return response.getBodyAs(new MdxListOfJson<T>(getClassOfT()));
+    return response.getBodyAs(new ParameterizedTypeImpl<>(getClassOfT()));
   }
 
   /**

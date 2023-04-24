@@ -8,7 +8,7 @@ import lombok.Getter;
 
 import com.mx.common.accessors.AccessorConfiguration;
 import com.mx.common.accessors.AccessorResponse;
-import com.mx.common.models.MdxList;
+import com.mx.common.models.ModelList;
 import com.mx.path.gateway.configuration.AccessorConstructionContext;
 import com.mx.path.gateway.configuration.AccessorProxy;
 import com.mx.testing.accessors.AccountBaseAccessor;
@@ -47,7 +47,7 @@ public abstract class AccountBaseAccessorProxy extends AccountBaseAccessor imple
    * @return list accessor
    */
   @Override
-  public AccessorResponse<MdxList<Account>> list() {
+  public AccessorResponse<ModelList<Account>> list() {
     return build().list();
   }
 

@@ -1,14 +1,14 @@
 package com.mx.common.models
 
-import com.mx.testing.Account
+import com.mx.testing.TestAccount
 
 import spock.lang.Specification
 
-class MdxWrappableTest extends Specification {
+class ModelWrappableTest extends Specification {
 
   def "testWrappedIsChainableMethod"() {
     given:
-    def subject = new MdxList<Account>()
+    def subject = new ModelList<TestAccount>()
 
     expect: "Wrapped should be a chain method"
     subject == subject.wrapped()
