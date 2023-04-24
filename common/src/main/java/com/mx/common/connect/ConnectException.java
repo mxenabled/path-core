@@ -29,11 +29,4 @@ public class ConnectException extends PathRequestException {
     setStatus(status);
     setReport(false);
   }
-
-  @Deprecated
-  public ConnectException(String message, PathResponseStatus status, boolean reportError, Throwable cause) {
-    super(message, cause);
-    setStatus(status);
-    setReport(reportError);
-  }
 }

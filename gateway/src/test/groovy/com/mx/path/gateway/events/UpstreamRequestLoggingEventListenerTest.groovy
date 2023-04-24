@@ -2,7 +2,7 @@ package com.mx.path.gateway.events
 
 import static org.mockito.Mockito.*
 
-import com.mx.path.gateway.net.Response
+import com.mx.common.connect.Response
 import com.mx.path.gateway.util.UpstreamLogger
 import com.mx.path.gateway.util.UpstreamRequestLoggingEventListener
 import com.mx.path.model.context.RequestContext
@@ -23,7 +23,7 @@ class UpstreamRequestLoggingEventListenerTest extends Specification {
 
   def "interacts with upstreamLogger when response is present"(){
     given:
-    def response = new Response()
+    def response = mock(Response)
     def requestContext = AfterUpstreamRequestEvent.builder().build().requestContext
     def session = AfterUpstreamRequestEvent.builder().build().session
 
@@ -52,7 +52,7 @@ class UpstreamRequestLoggingEventListenerTest extends Specification {
 
   def "doesn't throw any exceptions if RequestContext and Session are null"() {
     given:
-    def response = new Response()
+    def response = mock(Response)
     def requestContext = null
     def session = null
     def afterUpstreamEvent = spy(new AfterUpstreamRequestEvent(response, requestContext, session))
@@ -70,7 +70,7 @@ class UpstreamRequestLoggingEventListenerTest extends Specification {
     def originalRequestContext = RequestContext.current()
     Session.createSession()
     def originalSession = Session.current()
-    def response = new Response()
+    def response = mock(Response)
 
     def newRequestContext = RequestContext.builder().clientId("otherClient").build()
     def newSession = new Session()

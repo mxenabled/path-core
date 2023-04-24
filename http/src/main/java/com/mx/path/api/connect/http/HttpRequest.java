@@ -11,12 +11,13 @@ public class HttpRequest extends Request<HttpRequest, HttpResponse> {
    * @param filterChain the first RequestFilter in linked chain
    */
   public HttpRequest(RequestFilter filterChain) {
+    super(filterChain);
+
     if (filterChain == null) {
       throw new AccessorSystemException("Mis-configured HttpRequest. filterChain is null");
     }
     getHeaders().put("Accept", "application/json");
     getHeaders().put("Content-Type", "application/json");
-    setFilterChain(filterChain);
   }
 
   /**
