@@ -23,8 +23,7 @@ import com.mx.common.gateway.GatewayAPI;
 import com.mx.common.lang.Strings;
 import com.mx.common.messaging.MessageError;
 import com.mx.common.messaging.MessageStatus;
-import com.mx.common.models.MdxList;
-import com.mx.common.remote.MdxListOfJson;
+import com.mx.common.models.ParameterizedTypeImpl;
 import com.mx.common.remote.RemoteOperation;
 import com.mx.path.api.AnsiWrapper;
 import com.mx.path.api.connect.messaging.MessageHeaders;
@@ -197,10 +196,13 @@ public final class RemoteAccessorGenerator {
       List<Type> types = new ClassHelper().resolveParameterizedMethodReturnTypes(method);
       Type accessorResponseType = types.get(0);
       if (accessorResponseType instanceof ParameterizedType) {
+        Type rawType = ((ParameterizedType) accessorResponseType).getRawType();
         List<Type> innerType = new ClassHelper().resolveParameterizedTypes(accessorResponseType);
-        methodSpecBuilder.addStatement("return new $T<$T<$T>>().withResult(messageResponse.getBodyAs(new $T<>($T.class)))", AccessorResponse.class, MdxList.class, innerType.get(0), MdxListOfJson.class, innerType.get(0));
+        methodSpecBuilder.addStatement("return new $T<$T>().withResult(messageResponse.getBodyAs(new $T<>($T.class, $T.class)))",
+            AccessorResponse.class, accessorResponseType, ParameterizedTypeImpl.class, rawType, innerType.get(0));
       } else {
-        methodSpecBuilder.addStatement("return new $T<$T>().withResult(messageResponse.getBodyAs($T.class))", AccessorResponse.class, accessorResponseType, accessorResponseType);
+        methodSpecBuilder.addStatement("return new $T<$T>().withResult(messageResponse.getBodyAs($T.class))",
+            AccessorResponse.class, accessorResponseType, accessorResponseType);
       }
 
       classBuilder.addMethod(methodSpecBuilder.build());

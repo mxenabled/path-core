@@ -8,12 +8,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.mx.common.accessors.AccessorResponse;
-import com.mx.common.models.MdxBase;
-import com.mx.common.models.MdxList;
+import com.mx.common.models.ModelBase;
+import com.mx.common.models.ModelList;
 
 @SuppressWarnings("checkstyle:IllegalImport")
 public class ApiMethod {
-
   private final Method method;
 
   public ApiMethod(Method method) {
@@ -38,7 +37,7 @@ public class ApiMethod {
 
   public final String getParameterizedReturnType() {
     if (isListOp()) {
-      return "MdxList.ofClass(" + typeAsClass(getModel()).getSimpleName() + ".class)";
+      return typeAsClass(unwrappedReturnType()).getSimpleName() + ".ofClass(" + typeAsClass(getModel()).getSimpleName() + ".class)";
     }
 
     return typeAsClass(getModel()).getSimpleName() + ".class";
@@ -50,7 +49,7 @@ public class ApiMethod {
     }
 
     try {
-      if (!MdxBase.class.isAssignableFrom(typeAsClass(getModel()))) {
+      if (!ModelBase.class.isAssignableFrom(typeAsClass(getModel()))) {
         return false;
       }
     } catch (Exception e) {
@@ -96,22 +95,7 @@ public class ApiMethod {
     return parameterizedType.getActualTypeArguments()[0];
   }
 
-  @SuppressWarnings("PMD.EmptyCatchBlock")
   private boolean isList(Type t) {
-    if (t == MdxList.class) {
-      return true;
-    }
-
-    try {
-      ParameterizedType parameterizedType = (ParameterizedType) t;
-      if (parameterizedType.getRawType() == MdxList.class) {
-        return true;
-      }
-    } catch (ClassCastException e) {
-      // ignore
-    }
-
-    return false;
+    return ModelList.class.isAssignableFrom(typeAsClass(t));
   }
-
 }

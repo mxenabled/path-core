@@ -1,10 +1,10 @@
 package com.mx.testing;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import com.mx.common.models.MdxBase;
-
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class Account extends MdxBase<Account> {
+public class Account extends TestMdxBase<Account> {
   private String id;
 }

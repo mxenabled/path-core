@@ -2,10 +2,10 @@ package com.mx.testing.model;
 
 import lombok.Data;
 
-import com.mx.common.models.MdxBase;
+import com.mx.common.models.ModelBase;
 
 @Data
-public class Authentication extends MdxBase<Authentication> {
+public class Authentication extends ModelBase<Authentication> {
   private String login;
   private String password;
   private String id;

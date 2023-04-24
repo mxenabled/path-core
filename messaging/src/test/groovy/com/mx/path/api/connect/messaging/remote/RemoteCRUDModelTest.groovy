@@ -1,5 +1,6 @@
 package com.mx.path.api.connect.messaging.remote
 
+
 import static org.mockito.ArgumentMatchers.any
 import static org.mockito.ArgumentMatchers.eq
 import static org.mockito.Mockito.*
@@ -7,7 +8,7 @@ import static org.mockito.Mockito.*
 import com.mx.common.messaging.MessageBroker
 import com.mx.common.messaging.MessageError
 import com.mx.common.messaging.MessageStatus
-import com.mx.common.models.MdxList
+import com.mx.common.models.ModelList
 import com.mx.path.api.connect.messaging.MessageResponse
 import com.mx.path.model.context.RequestContext
 import com.mx.path.model.context.facility.Facilities
@@ -95,7 +96,7 @@ class RemoteCRUDModelTest extends Specification {
     def account = new RemoteAccount()
     account.setId("account-123")
 
-    def accounts = new MdxList<RemoteAccount>(Arrays.asList(account))
+    def accounts = new ModelList<RemoteAccount>(Arrays.asList(account))
 
     when:
     def response = MessageResponse.builder().status(MessageStatus.SUCCESS).body(accounts).build()
@@ -113,7 +114,7 @@ class RemoteCRUDModelTest extends Specification {
     def account = new RemoteAccount()
     account.setId("account-123")
 
-    def accounts = new MdxList<RemoteAccount>(Arrays.asList(account))
+    def accounts = new ModelList<RemoteAccount>(Arrays.asList(account))
 
     when:
     def response = MessageResponse.builder().status(MessageStatus.NOT_AUTHORIZED).body(accounts).build()

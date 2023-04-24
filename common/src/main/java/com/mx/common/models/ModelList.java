@@ -14,24 +14,23 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * List of MdxBase
+ * List of ModelBase
  *
- * todo: Need to decide what to do with this since it still references MDX.
  * @param <T>
  */
-public class MdxList<T extends MdxBase<?>> implements List<T>, MdxWrappable<MdxList<T>> {
+public class ModelList<T extends ModelBase<?>> implements List<T>, ModelWrappable<ModelList<T>> {
   private static final Map<Class<?>, Class<?>> CACHED_TYPE_TO_LIST_TYPE = new LinkedHashMap<>();
   private static final Map<Class<?>, Type> CACHED_TYPE_TO_LIST_TYPETOKEN = new LinkedHashMap<>();
 
   @SuppressFBWarnings("DM_NEW_FOR_GETCLASS")
-  public static <T extends MdxBase<?>> Class<?> ofClass(Class<T> klass) {
+  public static <T extends ModelBase<?>> Class<?> ofClass(Class<T> klass) {
     if (!CACHED_TYPE_TO_LIST_TYPE.containsKey(klass)) {
-      CACHED_TYPE_TO_LIST_TYPE.put(klass, new MdxList<T>().getClass());
+      CACHED_TYPE_TO_LIST_TYPE.put(klass, ModelList.class);
     }
     return CACHED_TYPE_TO_LIST_TYPE.get(klass);
   }
 
-  public static <T extends MdxBase<?>> Type ofTypeToken(Class<T> klass) {
+  public static <T extends ModelBase<?>> Type ofTypeToken(Class<T> klass) {
     if (!CACHED_TYPE_TO_LIST_TYPETOKEN.containsKey(klass)) {
       CACHED_TYPE_TO_LIST_TYPETOKEN.put(klass, new TypeToken<T>() {
       }.getType());
@@ -42,13 +41,13 @@ public class MdxList<T extends MdxBase<?>> implements List<T>, MdxWrappable<MdxL
   private transient boolean wrapped = false;
   private final List<T> container = new ArrayList<T>();
 
-  public MdxList() {
+  public ModelList() {
     super();
   }
 
-  public MdxList(List<? extends T> copyList) {
+  public ModelList(List<? extends T> copyList) {
     super();
-    copyList.forEach(e -> container.add(e));
+    container.addAll(copyList);
   }
 
   @Override
@@ -172,7 +171,7 @@ public class MdxList<T extends MdxBase<?>> implements List<T>, MdxWrappable<MdxL
    * @return wrapped T
    */
   @Override
-  public MdxList<T> wrapped() {
+  public ModelList<T> wrapped() {
     setWrapped(true);
     return this;
   }
