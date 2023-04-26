@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.11.0](https://github.com/mxenabled/path-core/compare/v1.10.0...v1.11.0) (2023-04-26)
+
+
+### Features
+
+* add an 'optional' field to ConnectionAnnotation ([440e0a4](https://github.com/mxenabled/path-core/commit/440e0a45272edea5944f377a06f4140e8cf2c52b))
+
+
+### Bug Fixes
+
+* apply spotless ([440e0a4](https://github.com/mxenabled/path-core/commit/440e0a45272edea5944f377a06f4140e8cf2c52b))
+* **configurator:** show correct field name on missing error value ([e43dcd8](https://github.com/mxenabled/path-core/commit/e43dcd80229abf84abaae6d32beacf34c6df9813))
+
 ## [1.10.0](https://github.com/mxenabled/path-core/compare/v1.9.1...v1.10.0) (2023-04-03)
 
 
