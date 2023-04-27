@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import com.mx.path.core.common.accessor.API;
-import com.mx.path.core.common.accessor.Accessor;
-import com.mx.path.core.common.accessor.AccessorConfiguration;
 import com.mx.path.core.common.accessor.AccessorMethodNotImplementedException;
 import com.mx.path.core.common.accessor.RootAccessor;
 import com.mx.path.core.common.gateway.GatewayAPI;
+import com.mx.path.gateway.accessor.Accessor;
+import com.mx.path.gateway.accessor.AccessorConfiguration;
 
 @API(description = "Base Gateway Accessor that serves as the main entrypoint to all other Gateway Accessors", specificationUrl = "https://developer.mx.com/drafts/mdx/overview/#what-is-helios")
 @RootAccessor

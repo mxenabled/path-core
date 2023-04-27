@@ -18,14 +18,14 @@ import lombok.Builder;
 import lombok.Data;
 
 import com.mx.path.core.common.accessor.API;
-import com.mx.path.core.common.accessor.Accessor;
-import com.mx.path.core.common.accessor.AccessorConfiguration;
-import com.mx.path.core.common.accessor.AccessorMethodDefinition;
-import com.mx.path.core.common.accessor.AccessorResponse;
 import com.mx.path.core.common.collection.ObjectMap;
 import com.mx.path.core.common.lang.Strings;
 import com.mx.path.core.common.reflection.Annotations;
 import com.mx.path.core.common.reflection.Fields;
+import com.mx.path.gateway.accessor.Accessor;
+import com.mx.path.gateway.accessor.AccessorConfiguration;
+import com.mx.path.gateway.accessor.AccessorMethodDefinition;
+import com.mx.path.gateway.accessor.AccessorResponse;
 
 /**
  * Utility class for generating accessor descriptions

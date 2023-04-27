@@ -14,10 +14,10 @@ import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.MirroredTypeException;
 
 import com.mx.path.api.reporting.ClassGenerationException;
-import com.mx.path.core.common.accessor.Accessor;
 import com.mx.path.core.common.gateway.GatewayAPI;
 import com.mx.path.core.common.gateway.GatewayBaseClass;
 import com.mx.path.core.common.lang.Strings;
+import com.mx.path.gateway.accessor.Accessor;
 
 public class GatewayClassElement {
   private final List<ApiMethod> methods = new ArrayList<>();

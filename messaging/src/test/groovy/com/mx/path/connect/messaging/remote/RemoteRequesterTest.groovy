@@ -12,7 +12,6 @@ import com.mx.path.connect.messaging.MessageHeaders
 import com.mx.path.connect.messaging.MessageParameters
 import com.mx.path.connect.messaging.MessageRequest
 import com.mx.path.connect.messaging.MessageResponse
-import com.mx.path.connect.messaging.remote.RemoteRequester
 import com.mx.path.core.common.messaging.MessageBroker
 import com.mx.path.core.common.messaging.MessageError
 import com.mx.path.core.common.messaging.MessageStatus

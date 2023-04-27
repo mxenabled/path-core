@@ -1,8 +1,6 @@
 package com.mx.path.connect.messaging
 
 import com.google.gson.GsonBuilder
-import com.mx.path.connect.messaging.MessageErrorThrowableSerializer
-import com.mx.path.connect.messaging.MessageResponse
 import com.mx.path.core.common.accessor.PathResponseStatus
 import com.mx.path.core.common.messaging.MessageError
 import com.mx.path.core.common.messaging.MessageStatus

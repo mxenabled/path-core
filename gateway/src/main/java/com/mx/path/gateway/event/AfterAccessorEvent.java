@@ -3,10 +3,10 @@ package com.mx.path.gateway.event;
 import lombok.Builder;
 import lombok.Getter;
 
-import com.mx.path.core.common.accessor.Accessor;
 import com.mx.path.core.context.RequestContext;
 import com.mx.path.core.context.Session;
 import com.mx.path.gateway.Gateway;
+import com.mx.path.gateway.accessor.Accessor;
 
 /**
  * Event - Fires after accessor method is invoked.
