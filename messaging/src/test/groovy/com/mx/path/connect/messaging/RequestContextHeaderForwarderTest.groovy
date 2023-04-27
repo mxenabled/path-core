@@ -1,7 +1,5 @@
 package com.mx.path.connect.messaging
 
-import com.mx.path.connect.messaging.MessageHeaders
-import com.mx.path.connect.messaging.RequestContextHeaderForwarder
 import com.mx.path.core.context.RequestContext
 
 import spock.lang.Specification

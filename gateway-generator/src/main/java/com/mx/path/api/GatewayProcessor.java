@@ -21,7 +21,7 @@ import com.google.auto.service.AutoService;
 import com.mx.path.api.remote.RemoteAccessorGenerator;
 import com.mx.path.api.remote.RemoteGatewayGenerator;
 import com.mx.path.api.reporting.ClassGenerationException;
-import com.mx.path.core.common.accessor.Accessor;
+import com.mx.path.gateway.accessor.Accessor;
 import com.squareup.javapoet.CodeBlock;
 
 @SupportedAnnotationTypes({ "com.mx.path.core.common.gateway.GatewayBaseClass" })

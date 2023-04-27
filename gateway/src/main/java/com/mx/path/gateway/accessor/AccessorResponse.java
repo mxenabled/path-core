@@ -1,4 +1,4 @@
-package com.mx.path.core.common.accessor;
+package com.mx.path.gateway.accessor;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
 
+import com.mx.path.core.common.accessor.PathResponseStatus;
 import com.mx.path.core.common.collection.ObjectMap;
 
 /**

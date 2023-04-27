@@ -9,9 +9,6 @@ import com.mx.path.connect.messaging.MessageEvent
 import com.mx.path.connect.messaging.MessageHeaders
 import com.mx.path.connect.messaging.MessageRequest
 import com.mx.path.connect.messaging.MessageResponse
-import com.mx.path.connect.messaging.remote.InvalidServiceClassException
-import com.mx.path.connect.messaging.remote.RemoteChannel
-import com.mx.path.connect.messaging.remote.RemoteService
 import com.mx.path.core.common.collection.ObjectMap
 import com.mx.path.core.common.messaging.EventListener
 import com.mx.path.core.common.messaging.MessageBroker
