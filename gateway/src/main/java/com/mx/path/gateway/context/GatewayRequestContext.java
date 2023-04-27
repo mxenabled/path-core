@@ -4,10 +4,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 
-import com.mx.common.accessors.Accessor;
-import com.mx.common.models.ModelBase;
+import com.mx.path.core.common.accessor.Accessor;
+import com.mx.path.core.common.model.ModelBase;
+import com.mx.path.core.context.RequestContext;
 import com.mx.path.gateway.Gateway;
-import com.mx.path.model.context.RequestContext;
 
 /**
  * Decorates RequestContext with Gateway-specific fields.

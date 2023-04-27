@@ -7,11 +7,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.mx.common.collections.ObjectMap;
-import com.mx.common.configuration.Configuration;
-import com.mx.common.configuration.ConfigurationField;
+import com.mx.path.core.common.collection.ObjectMap;
+import com.mx.path.core.common.configuration.Configuration;
+import com.mx.path.core.common.configuration.ConfigurationField;
+import com.mx.path.core.utility.reflection.ClassHelper;
 import com.mx.path.gateway.configuration.annotations.ClientID;
-import com.mx.path.utilities.reflection.ClassHelper;
 
 /**
  * General purpose object configurator. Given an ObjectMap of configurations, this class will instantiate an object with

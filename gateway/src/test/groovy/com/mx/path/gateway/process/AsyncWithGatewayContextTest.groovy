@@ -4,11 +4,10 @@ import static org.mockito.Mockito.*
 
 import java.util.concurrent.Executors
 
-import com.mx.common.security.EncryptionService
-import com.mx.path.model.context.RequestContext
-import com.mx.path.model.context.Session
-import com.mx.path.model.context.store.SessionRepository
-import com.mx.path.model.context.tracing.CustomTracer
+import com.mx.path.core.context.RequestContext
+import com.mx.path.core.context.Session
+import com.mx.path.core.context.store.SessionRepository
+import com.mx.path.core.context.tracing.CustomTracer
 
 import io.opentracing.Tracer
 

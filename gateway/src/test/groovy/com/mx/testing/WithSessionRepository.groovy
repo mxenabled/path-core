@@ -1,7 +1,7 @@
 package com.mx.testing
 
-import com.mx.path.model.context.Session
-import com.mx.path.model.context.store.SessionRepository
+import com.mx.path.core.context.Session
+import com.mx.path.core.context.store.SessionRepository
 
 trait WithSessionRepository {
   SessionRepository sessionRepository

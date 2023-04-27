@@ -5,9 +5,9 @@ import java.util.function.BiConsumer;
 import lombok.Setter;
 
 import com.google.common.eventbus.Subscribe;
-import com.mx.path.gateway.events.AfterUpstreamRequestEvent;
-import com.mx.path.model.context.RequestContext;
-import com.mx.path.model.context.Session;
+import com.mx.path.core.context.RequestContext;
+import com.mx.path.core.context.Session;
+import com.mx.path.gateway.event.AfterUpstreamRequestEvent;
 
 /**
  * Listens for {@link AfterUpstreamRequestEvent} and sends the request to {@link UpstreamLogger}

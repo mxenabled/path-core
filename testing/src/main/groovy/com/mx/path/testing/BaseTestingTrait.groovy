@@ -1,21 +1,8 @@
 package com.mx.path.testing
 
-import java.util.function.BooleanSupplier
-import java.util.function.Consumer
-
-import groovy.transform.PackageScope
-
-import com.mx.common.collections.ObjectMap
-import com.mx.path.model.context.Session
-import com.mx.path.model.context.store.SessionRepository
 
 import org.junit.After
 import org.junit.Before
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
-import org.mockito.MockitoAnnotations
-
-import spock.lang.Shared
 
 /**
  * Base Trait for Path testing traits. Need to register setup and teardown methods here.

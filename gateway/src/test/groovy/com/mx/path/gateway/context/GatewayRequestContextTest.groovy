@@ -2,8 +2,8 @@ package com.mx.path.gateway.context
 
 import static org.mockito.Mockito.mock
 
+import com.mx.path.core.context.RequestContext
 import com.mx.path.gateway.Gateway
-import com.mx.path.model.context.RequestContext
 import com.mx.testing.AccountAccessorImpl
 import com.mx.testing.gateway.BaseGateway
 import com.mx.testing.model.Account

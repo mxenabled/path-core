@@ -2,8 +2,8 @@ package com.mx.testing
 
 import java.util.function.Supplier
 
-import com.mx.common.security.EncryptionService
-import com.mx.path.model.context.Session
+import com.mx.path.core.common.security.EncryptionService
+import com.mx.path.core.context.Session
 
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll

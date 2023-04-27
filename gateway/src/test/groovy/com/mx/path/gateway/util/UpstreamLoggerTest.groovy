@@ -2,16 +2,15 @@ package com.mx.path.gateway.util
 
 import static org.mockito.Mockito.mock
 import static org.mockito.Mockito.verify
-import static org.mockito.Mockito.when
 
 import java.time.Duration
 
-import com.mx.common.collections.MultiValueMap
-import com.mx.common.connect.Request
-import com.mx.common.connect.Response
-import com.mx.common.http.HttpStatus
-import com.mx.path.model.context.RequestContext
-import com.mx.path.model.context.Session
+import com.mx.path.core.common.collection.MultiValueMap
+import com.mx.path.core.common.connect.Request
+import com.mx.path.core.common.connect.Response
+import com.mx.path.core.common.http.HttpStatus
+import com.mx.path.core.context.RequestContext
+import com.mx.path.core.context.Session
 import com.mx.testing.RequestImpl
 import com.mx.testing.ResponseImpl
 import com.mx.testing.WithSessionRepository
