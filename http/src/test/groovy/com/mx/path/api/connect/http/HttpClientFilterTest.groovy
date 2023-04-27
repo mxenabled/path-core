@@ -4,9 +4,12 @@ import static org.mockito.Mockito.doReturn
 import static org.mockito.Mockito.mock
 import static org.mockito.Mockito.spy
 
-import com.mx.common.collections.MultiValueMap
-import com.mx.common.connect.Request
-import com.mx.common.connect.RequestFilter
+import com.mx.path.connect.http.HttpClientFilter
+import com.mx.path.connect.http.HttpRequest
+import com.mx.path.connect.http.HttpResponse
+import com.mx.path.core.common.collection.MultiValueMap
+import com.mx.path.core.common.connect.Request
+import com.mx.path.core.common.connect.RequestFilter
 
 import org.apache.http.HttpEntity
 

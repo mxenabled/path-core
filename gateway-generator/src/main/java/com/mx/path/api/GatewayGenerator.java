@@ -11,7 +11,7 @@ import javax.lang.model.element.TypeElement;
 
 import lombok.experimental.SuperBuilder;
 
-import com.mx.common.collections.ObjectMap;
+import com.mx.path.core.common.collection.ObjectMap;
 import com.mx.path.gateway.configuration.RootGateway;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
@@ -115,9 +115,9 @@ public class GatewayGenerator {
           .addAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "$S", "unchecked").build())
           .returns(method.getGenericReturnType())
           .addStatement("$T<$T> result = new AtomicReference<>()", ClassName.get("java.util.concurrent.atomic", "AtomicReference"), method.getGenericReturnType())
-          .addStatement("$T originalRequestContext = RequestContext.current()", ClassName.get("com.mx.path.model.context", "RequestContext"))
+          .addStatement("$T originalRequestContext = RequestContext.current()", ClassName.get("com.mx.path.core.context", "RequestContext"))
           .addStatement("$T requestContextCopy = GatewayRequestContext.fromRequestContext(originalRequestContext).toBuilder().build()", ClassName.get("com.mx.path.gateway.context", "GatewayRequestContext"))
-          .addStatement("requestContextCopy.register()", ClassName.get("com.mx.path.gateway.context", "GatewayRequestContext"), ClassName.get("com.mx.path.model.context", "RequestContext"))
+          .addStatement("requestContextCopy.register()", ClassName.get("com.mx.path.gateway.context", "GatewayRequestContext"), ClassName.get("com.mx.path.core.context", "RequestContext"))
           .beginControlFlow("try")
           .addStatement("$T.withSelfClearing(getClientId(), (requestContext) -> {", ClassName.get("com.mx.path.gateway.context", "GatewayRequestContext"))
           .addStatement("  $T gatewayRequestContext = (GatewayRequestContext) requestContext", ClassName.get("com.mx.path.gateway.context", "GatewayRequestContext"));

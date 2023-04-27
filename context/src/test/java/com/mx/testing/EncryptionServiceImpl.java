@@ -2,8 +2,8 @@ package com.mx.testing;
 
 import lombok.Getter;
 
-import com.mx.common.collections.ObjectMap;
-import com.mx.common.security.EncryptionService;
+import com.mx.path.core.common.collection.ObjectMap;
+import com.mx.path.core.common.security.EncryptionService;
 
 public class EncryptionServiceImpl implements EncryptionService {
   @Getter

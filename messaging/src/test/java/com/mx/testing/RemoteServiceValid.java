@@ -1,12 +1,12 @@
 package com.mx.testing;
 
-import com.mx.common.messaging.MessageStatus;
-import com.mx.path.api.connect.messaging.MessageEvent;
-import com.mx.path.api.connect.messaging.MessageRequest;
-import com.mx.path.api.connect.messaging.MessageResponse;
-import com.mx.path.api.connect.messaging.remote.Listener;
-import com.mx.path.api.connect.messaging.remote.RemoteService;
-import com.mx.path.api.connect.messaging.remote.Responder;
+import com.mx.path.connect.messaging.MessageEvent;
+import com.mx.path.connect.messaging.MessageRequest;
+import com.mx.path.connect.messaging.MessageResponse;
+import com.mx.path.connect.messaging.remote.Listener;
+import com.mx.path.connect.messaging.remote.RemoteService;
+import com.mx.path.connect.messaging.remote.Responder;
+import com.mx.path.core.common.messaging.MessageStatus;
 
 public class RemoteServiceValid extends RemoteService<RemoteAccount> {
   public RemoteServiceValid(String clientId) {

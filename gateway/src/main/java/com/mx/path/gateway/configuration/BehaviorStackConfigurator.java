@@ -6,8 +6,8 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-import com.mx.common.collections.ObjectArray;
-import com.mx.common.collections.ObjectMap;
+import com.mx.path.core.common.collection.ObjectArray;
+import com.mx.path.core.common.collection.ObjectMap;
 import com.mx.path.gateway.behavior.GatewayBehavior;
 
 public class BehaviorStackConfigurator {

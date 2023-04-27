@@ -8,8 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.mx.common.configuration.ConfigurationField;
-import com.mx.common.request.Feature;
+import com.mx.path.core.common.configuration.ConfigurationField;
+import com.mx.path.core.common.request.Feature;
 
 @Data
 @Builder

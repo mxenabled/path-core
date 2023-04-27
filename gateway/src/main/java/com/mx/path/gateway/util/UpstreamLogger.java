@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mx.common.collections.MultiValueMap;
-import com.mx.common.connect.Request;
-import com.mx.common.connect.Response;
-import com.mx.common.security.LogValueMasker;
-import com.mx.path.model.context.RequestContext;
-import com.mx.path.model.context.Session;
+import com.mx.path.core.common.collection.MultiValueMap;
+import com.mx.path.core.common.connect.Request;
+import com.mx.path.core.common.connect.Response;
+import com.mx.path.core.common.security.LogValueMasker;
+import com.mx.path.core.context.RequestContext;
+import com.mx.path.core.context.Session;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;

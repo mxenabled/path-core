@@ -18,13 +18,13 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 
 import com.google.auto.service.AutoService;
-import com.mx.common.accessors.Accessor;
 import com.mx.path.api.remote.RemoteAccessorGenerator;
 import com.mx.path.api.remote.RemoteGatewayGenerator;
 import com.mx.path.api.reporting.ClassGenerationException;
+import com.mx.path.core.common.accessor.Accessor;
 import com.squareup.javapoet.CodeBlock;
 
-@SupportedAnnotationTypes({ "com.mx.common.gateway.GatewayBaseClass" })
+@SupportedAnnotationTypes({ "com.mx.path.core.common.gateway.GatewayBaseClass" })
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @AutoService(Processor.class)
 public final class GatewayProcessor extends AbstractProcessor {

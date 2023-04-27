@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.Gson;
-import com.mx.common.lang.Strings;
-import com.mx.path.model.context.Session;
-import com.mx.path.model.context.store.SessionRepository;
+import com.mx.path.core.common.lang.Strings;
+import com.mx.path.core.context.Session;
+import com.mx.path.core.context.store.SessionRepository;
 
 /**
  * Stand-in session repository using in-memory HashMap.

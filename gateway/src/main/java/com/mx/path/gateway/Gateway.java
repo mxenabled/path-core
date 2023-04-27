@@ -14,22 +14,22 @@ import lombok.Singular;
 import lombok.experimental.SuperBuilder;
 
 import com.google.common.collect.ImmutableList;
-import com.mx.common.accessors.Accessor;
-import com.mx.common.accessors.AccessorResponse;
-import com.mx.common.collections.ObjectMap;
-import com.mx.common.events.EventBus;
-import com.mx.common.reflection.Annotations;
-import com.mx.path.api.connect.messaging.remote.RemoteService;
+import com.mx.path.connect.messaging.remote.RemoteService;
+import com.mx.path.core.common.accessor.Accessor;
+import com.mx.path.core.common.accessor.AccessorResponse;
+import com.mx.path.core.common.collection.ObjectMap;
+import com.mx.path.core.common.event.EventBus;
+import com.mx.path.core.common.reflection.Annotations;
+import com.mx.path.core.context.RequestContext;
+import com.mx.path.core.context.facility.Facilities;
 import com.mx.path.gateway.behavior.GatewayBehavior;
 import com.mx.path.gateway.behavior.StartBehavior;
 import com.mx.path.gateway.configuration.AccessorDescriber;
 import com.mx.path.gateway.configuration.RootGateway;
 import com.mx.path.gateway.context.GatewayRequestContext;
-import com.mx.path.gateway.events.AfterAccessorEvent;
-import com.mx.path.gateway.events.BeforeAccessorEvent;
+import com.mx.path.gateway.event.AfterAccessorEvent;
+import com.mx.path.gateway.event.BeforeAccessorEvent;
 import com.mx.path.gateway.service.GatewayService;
-import com.mx.path.model.context.RequestContext;
-import com.mx.path.model.context.facility.Facilities;
 
 @SuperBuilder
 public abstract class Gateway<T extends Accessor> {

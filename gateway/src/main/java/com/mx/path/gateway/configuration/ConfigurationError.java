@@ -1,6 +1,6 @@
 package com.mx.path.gateway.configuration;
 
-import com.mx.common.lang.Strings;
+import com.mx.path.core.common.lang.Strings;
 
 /**
  * Raise when a configuration error is encountered. Works with {@link ConfigurationState} to report the location

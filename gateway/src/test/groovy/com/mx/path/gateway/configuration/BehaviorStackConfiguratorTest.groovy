@@ -1,7 +1,7 @@
 package com.mx.path.gateway.configuration
 
-import com.mx.common.collections.ObjectArray
-import com.mx.common.collections.ObjectMap
+import com.mx.path.core.common.collection.ObjectArray
+import com.mx.path.core.common.collection.ObjectMap
 import com.mx.testing.binding.BehaviorWithClientIDAndConfiguration
 import com.mx.testing.binding.BehaviorWithObjectMap
 

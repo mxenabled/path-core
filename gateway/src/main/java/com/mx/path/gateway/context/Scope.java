@@ -1,11 +1,11 @@
 package com.mx.path.gateway.context;
 
-import com.mx.common.accessors.Accessor;
-import com.mx.common.gateway.GatewayException;
-import com.mx.common.session.ServiceScope;
+import com.mx.path.core.common.accessor.Accessor;
+import com.mx.path.core.common.gateway.GatewayException;
+import com.mx.path.core.common.session.ServiceScope;
+import com.mx.path.core.context.ScopeKeyGenerator;
+import com.mx.path.core.utility.reflection.ClassHelper;
 import com.mx.path.gateway.configuration.AccessorProxy;
-import com.mx.path.model.context.ScopeKeyGenerator;
-import com.mx.path.utilities.reflection.ClassHelper;
 
 public enum Scope implements ScopeKeyGenerator {
   Session {

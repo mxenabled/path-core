@@ -6,7 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.mx.common.accessors.Accessor;
+import com.mx.path.core.common.accessor.Accessor;
 import com.mx.path.gateway.configuration.Configurator;
 
 /**

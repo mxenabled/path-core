@@ -2,10 +2,10 @@ package com.mx.testing.fakes;
 
 import lombok.Getter;
 
-import com.mx.common.collections.ObjectMap;
-import com.mx.common.messaging.EventListener;
-import com.mx.common.messaging.MessageBroker;
-import com.mx.common.messaging.MessageResponder;
+import com.mx.path.core.common.collection.ObjectMap;
+import com.mx.path.core.common.messaging.EventListener;
+import com.mx.path.core.common.messaging.MessageBroker;
+import com.mx.path.core.common.messaging.MessageResponder;
 
 public class FakeMessageBroker implements MessageBroker {
   @Getter
