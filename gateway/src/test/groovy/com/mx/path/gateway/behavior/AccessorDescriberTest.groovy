@@ -3,10 +3,10 @@ package com.mx.path.gateway.behavior
 
 import com.google.gson.GsonBuilder
 import com.mx.path.core.common.accessor.API
-import com.mx.path.core.common.accessor.AccessorConfiguration
 import com.mx.path.core.common.accessor.AccessorMethodNotImplementedException
-import com.mx.path.core.common.accessor.AccessorResponse
 import com.mx.path.core.common.gateway.GatewayAPI
+import com.mx.path.gateway.accessor.AccessorConfiguration
+import com.mx.path.gateway.accessor.AccessorResponse
 import com.mx.path.gateway.configuration.AccessorDescriber
 import com.mx.testing.AccountAccessorImpl
 import com.mx.testing.accessors.AccountBaseAccessor

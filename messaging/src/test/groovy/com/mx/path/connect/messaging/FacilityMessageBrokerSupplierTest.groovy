@@ -1,6 +1,5 @@
 package com.mx.path.connect.messaging
 
-import com.mx.path.connect.messaging.FacilityMessageBrokerSupplier
 import com.mx.path.core.common.collection.ObjectMap
 import com.mx.path.core.common.messaging.MessageBroker
 import com.mx.path.core.common.messaging.MessageError

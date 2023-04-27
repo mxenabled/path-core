@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import com.mx.path.core.common.accessor.AccessorConnectionBase;
 import com.mx.path.core.common.connect.RequestFilter;
 import com.mx.path.core.common.lang.Strings;
 import com.mx.path.core.common.request.Feature;
 import com.mx.path.core.context.RequestContext;
+import com.mx.path.gateway.accessor.AccessorConnectionBase;
 
 public class HttpAccessorConnection extends AccessorConnectionBase<HttpRequest> {
   /**

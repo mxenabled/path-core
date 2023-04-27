@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
 package com.mx.testing.accessors.proxy.account;
 
-import com.mx.path.core.common.accessor.AccessorConfiguration;
+import com.mx.path.gateway.accessor.AccessorConfiguration;
 import com.mx.testing.accessors.AccountBaseAccessor;
 
 public class AccountBaseAccessorProxySingleton extends AccountBaseAccessorProxy {

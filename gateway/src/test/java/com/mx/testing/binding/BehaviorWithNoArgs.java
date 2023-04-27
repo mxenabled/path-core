@@ -1,7 +1,7 @@
 package com.mx.testing.binding;
 
-import com.mx.path.core.common.accessor.AccessorResponse;
 import com.mx.path.core.common.collection.ObjectMap;
+import com.mx.path.gateway.accessor.AccessorResponse;
 import com.mx.path.gateway.behavior.GatewayBehavior;
 import com.mx.path.gateway.context.GatewayRequestContext;
 
