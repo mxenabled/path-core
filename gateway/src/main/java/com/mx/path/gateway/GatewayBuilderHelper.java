@@ -1,7 +1,7 @@
 package com.mx.path.gateway;
 
-import com.mx.path.core.common.accessor.Accessor;
 import com.mx.path.core.utility.reflection.ClassHelper;
+import com.mx.path.gateway.accessor.Accessor;
 import com.mx.path.gateway.behavior.GatewayBehavior;
 import com.mx.path.gateway.service.GatewayService;
 

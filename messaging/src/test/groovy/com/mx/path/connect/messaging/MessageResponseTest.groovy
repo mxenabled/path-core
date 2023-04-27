@@ -1,8 +1,5 @@
 package com.mx.path.connect.messaging
 
-import com.mx.path.connect.messaging.MessageHeaders
-import com.mx.path.connect.messaging.MessageRequest
-import com.mx.path.connect.messaging.MessageResponse
 import com.mx.path.core.common.messaging.MessageStatus
 import com.mx.testing.RemoteAccount
 

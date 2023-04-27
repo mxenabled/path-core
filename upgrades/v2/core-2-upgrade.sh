@@ -86,6 +86,13 @@ function process_file {
     "com\.mx\.path\.utilities\.=com.mx.path.core.utility."
     "com\.mx\.path\.core\.utility\.OAuth\.=com.mx.path.core.utility.oauth."
 
+    "com\.mx\.path\.core\.common\.accessor\.AccessorConfiguration([^a-zA-Z])=com.mx.path.gateway.accessor.AccessorConfiguration\1"
+    "com\.mx\.path\.core\.common\.accessor\.AccessorConnectionBase([^a-zA-Z])=com.mx.path.gateway.accessor.AccessorConnectionBase\1"
+    "com\.mx\.path\.core\.common\.accessor\.AccessorConnections([^a-zA-Z])=com.mx.path.gateway.accessor.AccessorConnections\1"
+    "com\.mx\.path\.core\.common\.accessor\.AccessorMethodDefinition([^a-zA-Z])=com.mx.path.gateway.accessor.AccessorMethodDefinition\1"
+    "com\.mx\.path\.core\.common\.accessor\.AccessorResponse([^a-zA-Z])=com.mx.path.gateway.accessor.AccessorResponse\1"
+    "com\.mx\.path\.core\.common\.accessor\.Accessor([^a-zA-Z])=com.mx.path.gateway.accessor.Accessor\1"
+
     #"([^a-zA-Z])com.mx.common.process.FaultTolerantExecutionFailureStatus([^a-zA-Z])=\1com.mx.common.accessors.PathResponseStatus\2"
   )
   local groovy_mappings=(
@@ -109,6 +116,13 @@ function process_file {
     "com\.mx\.path\.model\.context\.=com.mx.path.core.context."
     "com\.mx\.path\.utilities\.=com.mx.path.core.utility."
     "com\.mx\.path\.core\.utility\.OAuth\.=com.mx.path.core.utility.oauth."
+
+    "com\.mx\.path\.core\.common\.accessor\.AccessorConfiguration([^a-zA-Z]?)=com.mx.path.gateway.accessor.AccessorConfiguration\1"
+    "com\.mx\.path\.core\.common\.accessor\.AccessorConnectionBase([^a-zA-Z]?)=com.mx.path.gateway.accessor.AccessorConnectionBase\1"
+    "com\.mx\.path\.core\.common\.accessor\.AccessorConnections([^a-zA-Z]?)=com.mx.path.gateway.accessor.AccessorConnections\1"
+    "com\.mx\.path\.core\.common\.accessor\.AccessorMethodDefinition([^a-zA-Z]?)=com.mx.path.gateway.accessor.AccessorMethodDefinition\1"
+    "com\.mx\.path\.core\.common\.accessor\.AccessorResponse([^a-zA-Z]?)=com.mx.path.gateway.accessor.AccessorResponse\1"
+    "com\.mx\.path\.core\.common\.accessor\.Accessor(;?)$=com.mx.path.gateway.accessor.Accessor\1"
 
     #"com.mx.serializers.YamlSerializer([^a-zA-Z]?)=com.mx.common.serialization.ObjectMapYamlDeserializer\1"
     #"([^a-zA-Z])YamlSerializer([^a-zA-Z]?)=\1ObjectMapYamlDeserializer\2"

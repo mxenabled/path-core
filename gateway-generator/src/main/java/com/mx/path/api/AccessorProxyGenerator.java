@@ -14,12 +14,12 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 
 import com.mx.path.core.common.accessor.API;
-import com.mx.path.core.common.accessor.Accessor;
-import com.mx.path.core.common.accessor.AccessorConfiguration;
 import com.mx.path.core.common.accessor.RootAccessor;
 import com.mx.path.core.common.gateway.GatewayAPI;
 import com.mx.path.core.common.lang.Strings;
 import com.mx.path.core.common.reflection.Annotations;
+import com.mx.path.gateway.accessor.Accessor;
+import com.mx.path.gateway.accessor.AccessorConfiguration;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
