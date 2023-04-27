@@ -6,14 +6,14 @@ import static org.mockito.Mockito.spy
 import static org.mockito.Mockito.verify
 
 import com.google.gson.Gson
-import com.mx.common.accessors.Accessor
-import com.mx.common.accessors.AccessorConfiguration
-import com.mx.common.collections.ObjectMap
-import com.mx.common.gateway.GatewayException
-import com.mx.common.session.ServiceScope
+import com.mx.path.core.common.accessor.Accessor
+import com.mx.path.core.common.accessor.AccessorConfiguration
+import com.mx.path.core.common.collection.ObjectMap
+import com.mx.path.core.common.gateway.GatewayException
+import com.mx.path.core.common.session.ServiceScope
+import com.mx.path.core.context.Session
+import com.mx.path.core.context.store.SessionRepository
 import com.mx.path.gateway.Gateway
-import com.mx.path.model.context.Session
-import com.mx.path.model.context.store.SessionRepository
 import com.mx.testing.TestEncryptionService
 import com.mx.testing.TestSessionRepository
 import com.mx.testing.accessors.AccountBaseAccessor

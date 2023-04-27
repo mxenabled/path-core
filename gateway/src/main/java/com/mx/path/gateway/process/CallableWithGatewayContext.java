@@ -4,9 +4,9 @@ import java.util.concurrent.Callable;
 
 import lombok.Data;
 
-import com.mx.path.model.context.RequestContext;
-import com.mx.path.model.context.Session;
-import com.mx.path.model.context.tracing.CustomTracer;
+import com.mx.path.core.context.RequestContext;
+import com.mx.path.core.context.Session;
+import com.mx.path.core.context.tracing.CustomTracer;
 
 import io.opentracing.Scope;
 import io.opentracing.Span;

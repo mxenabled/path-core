@@ -1,5 +1,7 @@
 package com.mx.path.gateway.configuration;
 
+import com.mx.path.core.common.configuration.ConfigurationException;
+
 /**
  * Interface for Configurations and GatewayObjects (Facilities, GatewayBehaviors, GatewayServices)
  *
@@ -14,7 +16,7 @@ public interface Configurable {
 
   /**
    * Optionally, add to class and implement custom validation.
-   * Throw {@link com.mx.common.configuration.ConfigurationException} on validation failure
+   * Throw {@link ConfigurationException} on validation failure
    */
   default void validate(ConfigurationState state) {
   }

@@ -1,12 +1,12 @@
 package com.mx.path.api.connect.http
 
 import static org.mockito.Mockito.doReturn
-import static org.mockito.Mockito.mock
 import static org.mockito.Mockito.spy
 import static org.mockito.Mockito.verify
-import static org.mockito.Mockito.when
 
-import org.mockito.Mockito
+import com.mx.path.connect.http.HttpAccessorConnection
+import com.mx.path.connect.http.HttpRequest
+import com.mx.path.connect.http.HttpResponse
 
 import spock.lang.Specification
 import testing.connect.RequestFilterStub

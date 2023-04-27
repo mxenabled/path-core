@@ -3,11 +3,11 @@ package com.mx.testing;
 import lombok.Data;
 import lombok.Getter;
 
-import com.mx.common.configuration.Configuration;
-import com.mx.common.configuration.ConfigurationField;
-import com.mx.common.messaging.EventListener;
-import com.mx.common.messaging.MessageBroker;
-import com.mx.common.messaging.MessageResponder;
+import com.mx.path.core.common.configuration.Configuration;
+import com.mx.path.core.common.configuration.ConfigurationField;
+import com.mx.path.core.common.messaging.EventListener;
+import com.mx.path.core.common.messaging.MessageBroker;
+import com.mx.path.core.common.messaging.MessageResponder;
 import com.mx.path.gateway.configuration.Configurable;
 import com.mx.path.gateway.configuration.annotations.ClientID;
 

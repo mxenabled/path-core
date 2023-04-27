@@ -1,6 +1,6 @@
 package com.mx.path.gateway.configuration
 
-import com.mx.common.connect.AccessorConnectionSettings
+import com.mx.path.core.common.connect.AccessorConnectionSettings
 import com.mx.testing.binding.BasicConnection
 import com.mx.testing.binding.ConnectionWithBoundConfiguration
 import com.mx.testing.binding.ConnectionWithInvalidConstructor

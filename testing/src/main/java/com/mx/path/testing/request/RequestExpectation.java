@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 
-import com.mx.common.connect.Request;
-import com.mx.common.connect.Response;
+import com.mx.path.core.common.connect.Request;
+import com.mx.path.core.common.connect.Response;
 
 import org.spockframework.runtime.SpockAssertionError;
 

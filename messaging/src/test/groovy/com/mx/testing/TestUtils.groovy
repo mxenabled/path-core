@@ -2,9 +2,9 @@ package com.mx.testing
 
 import static org.mockito.Mockito.mock
 
-import com.mx.path.model.context.RequestContext
-import com.mx.path.model.context.Session
-import com.mx.path.model.context.tracing.CustomTracer
+import com.mx.path.core.context.RequestContext
+import com.mx.path.core.context.Session
+import com.mx.path.core.context.tracing.CustomTracer
 import com.mx.testing.fakes.FakeSessionRepository
 
 import io.opentracing.Tracer

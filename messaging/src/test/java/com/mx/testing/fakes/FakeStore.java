@@ -2,8 +2,8 @@ package com.mx.testing.fakes;
 
 import java.util.Set;
 
-import com.mx.common.collections.ObjectMap;
-import com.mx.common.store.Store;
+import com.mx.path.core.common.collection.ObjectMap;
+import com.mx.path.core.common.store.Store;
 
 public class FakeStore implements Store {
   private final ObjectMap configurations;

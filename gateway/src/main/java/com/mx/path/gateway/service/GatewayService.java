@@ -3,7 +3,7 @@ package com.mx.path.gateway.service;
 import lombok.Getter;
 import lombok.Setter;
 
-import com.mx.common.collections.ObjectMap;
+import com.mx.path.core.common.collection.ObjectMap;
 import com.mx.path.gateway.Gateway;
 
 public abstract class GatewayService {

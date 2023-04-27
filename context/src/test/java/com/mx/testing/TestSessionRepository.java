@@ -3,8 +3,8 @@ package com.mx.testing;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.mx.path.model.context.Session;
-import com.mx.path.model.context.store.SessionRepository;
+import com.mx.path.core.context.Session;
+import com.mx.path.core.context.store.SessionRepository;
 
 public class TestSessionRepository implements SessionRepository {
   private Map<String, String> values = new HashMap<>();

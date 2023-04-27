@@ -1,6 +1,6 @@
 package com.mx.gateway
 
-import com.mx.common.collections.ObjectMap
+import com.mx.path.core.common.collection.ObjectMap
 import com.mx.testing.GatewayServiceImpl
 import com.mx.testing.gateway.api.AccountGateway
 
