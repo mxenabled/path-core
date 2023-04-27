@@ -5,7 +5,6 @@ import static org.mockito.ArgumentMatchers.eq
 import static org.mockito.Mockito.*
 
 import com.mx.path.connect.messaging.MessageResponse
-import com.mx.path.connect.messaging.remote.RemoteCRUDModel
 import com.mx.path.core.common.messaging.MessageBroker
 import com.mx.path.core.common.messaging.MessageError
 import com.mx.path.core.common.messaging.MessageStatus

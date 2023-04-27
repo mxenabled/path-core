@@ -1,6 +1,6 @@
 package com.mx.path.gateway.configuration;
 
-import com.mx.path.core.common.accessor.Accessor;
+import com.mx.path.gateway.accessor.Accessor;
 
 public interface AccessorProxy {
   Class<? extends Accessor> getAccessorClass();

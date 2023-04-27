@@ -6,9 +6,9 @@ package com.mx.testing.accessors.proxy.account;
 
 import lombok.Getter;
 
-import com.mx.path.core.common.accessor.AccessorConfiguration;
-import com.mx.path.core.common.accessor.AccessorResponse;
 import com.mx.path.core.common.model.ModelList;
+import com.mx.path.gateway.accessor.AccessorConfiguration;
+import com.mx.path.gateway.accessor.AccessorResponse;
 import com.mx.path.gateway.configuration.AccessorConstructionContext;
 import com.mx.path.gateway.configuration.AccessorProxy;
 import com.mx.testing.accessors.AccountBaseAccessor;

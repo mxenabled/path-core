@@ -2,7 +2,6 @@ package com.mx.path.connect.messaging.remote
 
 import com.mx.path.connect.messaging.MessageHeaders
 import com.mx.path.connect.messaging.MessageRequest
-import com.mx.path.connect.messaging.remote.RemoteTracePropagation
 import com.mx.path.core.context.tracing.CustomTracer
 
 import io.opentracing.Scope

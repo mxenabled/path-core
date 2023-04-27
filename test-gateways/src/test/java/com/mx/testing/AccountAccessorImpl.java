@@ -2,9 +2,9 @@ package com.mx.testing;
 
 import lombok.Setter;
 
-import com.mx.path.core.common.accessor.AccessorConfiguration;
-import com.mx.path.core.common.accessor.AccessorResponse;
 import com.mx.path.core.common.accessor.PathResponseStatus;
+import com.mx.path.gateway.accessor.AccessorConfiguration;
+import com.mx.path.gateway.accessor.AccessorResponse;
 import com.mx.testing.accessors.AccountBaseAccessor;
 import com.mx.testing.accessors.TransactionBaseAccessor;
 import com.mx.testing.model.Account;

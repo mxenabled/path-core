@@ -3,8 +3,8 @@ package com.mx.testing;
 import java.util.Collections;
 import java.util.List;
 
-import com.mx.path.core.common.accessor.AccessorConnectionBase;
 import com.mx.path.core.common.connect.RequestFilter;
+import com.mx.path.gateway.accessor.AccessorConnectionBase;
 
 public class TestConnection extends AccessorConnectionBase<TestConnection.Request> {
   @Override

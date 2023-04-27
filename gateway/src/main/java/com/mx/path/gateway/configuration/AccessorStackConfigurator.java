@@ -12,9 +12,6 @@ import java.util.stream.Collectors;
 
 import lombok.Setter;
 
-import com.mx.path.core.common.accessor.Accessor;
-import com.mx.path.core.common.accessor.AccessorConfiguration;
-import com.mx.path.core.common.accessor.AccessorConnections;
 import com.mx.path.core.common.accessor.RootAccessor;
 import com.mx.path.core.common.collection.ObjectMap;
 import com.mx.path.core.common.connect.AccessorConnectionSettings;
@@ -25,6 +22,9 @@ import com.mx.path.core.common.reflection.Fields;
 import com.mx.path.core.common.session.ServiceScope;
 import com.mx.path.core.utility.reflection.ClassHelper;
 import com.mx.path.gateway.GatewayBuilderHelper;
+import com.mx.path.gateway.accessor.Accessor;
+import com.mx.path.gateway.accessor.AccessorConfiguration;
+import com.mx.path.gateway.accessor.AccessorConnections;
 import com.mx.path.gateway.configuration.annotations.AccessorScope;
 import com.mx.path.gateway.configuration.annotations.ChildAccessor;
 import com.mx.path.gateway.configuration.annotations.ChildAccessors;

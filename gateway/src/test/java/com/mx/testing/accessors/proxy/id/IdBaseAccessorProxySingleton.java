@@ -1,6 +1,6 @@
 package com.mx.testing.accessors.proxy.id;
 
-import com.mx.path.core.common.accessor.AccessorConfiguration;
+import com.mx.path.gateway.accessor.AccessorConfiguration;
 import com.mx.testing.accessors.IdBaseAccessor;
 
 public class IdBaseAccessorProxySingleton extends IdBaseAccessorProxy {

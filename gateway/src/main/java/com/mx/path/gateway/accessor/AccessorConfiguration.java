@@ -1,4 +1,4 @@
-package com.mx.path.core.common.accessor;
+package com.mx.path.gateway.accessor;
 
 import lombok.Builder;
 import lombok.Getter;

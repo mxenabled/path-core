@@ -3,8 +3,8 @@ package com.mx.path.gateway.behavior;
 import lombok.Getter;
 import lombok.Setter;
 
-import com.mx.path.core.common.accessor.AccessorResponse;
 import com.mx.path.core.common.collection.ObjectMap;
+import com.mx.path.gateway.accessor.AccessorResponse;
 import com.mx.path.gateway.context.GatewayRequestContext;
 
 public abstract class GatewayBehavior {

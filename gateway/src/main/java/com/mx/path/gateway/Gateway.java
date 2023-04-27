@@ -15,13 +15,13 @@ import lombok.experimental.SuperBuilder;
 
 import com.google.common.collect.ImmutableList;
 import com.mx.path.connect.messaging.remote.RemoteService;
-import com.mx.path.core.common.accessor.Accessor;
-import com.mx.path.core.common.accessor.AccessorResponse;
 import com.mx.path.core.common.collection.ObjectMap;
 import com.mx.path.core.common.event.EventBus;
 import com.mx.path.core.common.reflection.Annotations;
 import com.mx.path.core.context.RequestContext;
 import com.mx.path.core.context.facility.Facilities;
+import com.mx.path.gateway.accessor.Accessor;
+import com.mx.path.gateway.accessor.AccessorResponse;
 import com.mx.path.gateway.behavior.GatewayBehavior;
 import com.mx.path.gateway.behavior.StartBehavior;
 import com.mx.path.gateway.configuration.AccessorDescriber;

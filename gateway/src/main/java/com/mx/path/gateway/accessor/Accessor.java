@@ -1,4 +1,4 @@
-package com.mx.path.core.common.accessor;
+package com.mx.path.gateway.accessor;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,6 +9,9 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
+import com.mx.path.core.common.accessor.API;
+import com.mx.path.core.common.accessor.AccessorException;
+import com.mx.path.core.common.accessor.PathResponseStatus;
 import com.mx.path.core.common.gateway.GatewayAPI;
 
 /**

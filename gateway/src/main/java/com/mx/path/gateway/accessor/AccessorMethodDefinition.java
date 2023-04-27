@@ -1,9 +1,11 @@
-package com.mx.path.core.common.accessor;
+package com.mx.path.gateway.accessor;
 
 import java.lang.reflect.Method;
 
 import lombok.Builder;
 import lombok.Data;
+
+import com.mx.path.core.common.accessor.API;
 
 /**
  * Contains data for a method in an accessor that gets a child accessor.
