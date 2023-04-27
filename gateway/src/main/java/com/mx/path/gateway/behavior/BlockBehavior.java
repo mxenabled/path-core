@@ -2,8 +2,8 @@ package com.mx.path.gateway.behavior;
 
 import java.util.function.Function;
 
-import com.mx.common.accessors.AccessorResponse;
-import com.mx.common.collections.ObjectMap;
+import com.mx.path.core.common.accessor.AccessorResponse;
+import com.mx.path.core.common.collection.ObjectMap;
 import com.mx.path.gateway.context.GatewayRequestContext;
 
 public class BlockBehavior extends GatewayBehavior {

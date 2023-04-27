@@ -14,7 +14,7 @@ Behaviors are chainable modules that can modify the call stack before invoking t
 
 ### Facilities
 
-Facilities provide infrastructure abstractions via a pre-determined set of functions such as key-value store access, encryption/decryption, messaging, and more. Currently, the set of facilities is defined in [com.mx.path.model.context.facility.Facilities](https://github.com/mxenabled/path-sdk/blob/master/context/src/main/java/com/mx/path/model/context/facility/Facilities.java)
+Facilities provide infrastructure abstractions via a pre-determined set of functions such as key-value store access, encryption/decryption, messaging, and more. Currently, the set of facilities is defined in [com.mx.path.core.context.facility.Facilities](https://github.com/mxenabled/path-sdk/blob/master/context/src/main/java/com/mx/path/model/context/facility/Facilities.java)
 
 ### Services
 

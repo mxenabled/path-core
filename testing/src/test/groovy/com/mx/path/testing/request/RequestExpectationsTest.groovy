@@ -1,8 +1,8 @@
 package com.mx.path.testing.request
 
-import com.mx.path.gateway.connect.filters.CallbacksFilter
-import com.mx.path.gateway.connect.filters.ErrorHandlerFilter
-import com.mx.path.gateway.connect.filters.RequestFinishedFilter
+import com.mx.path.gateway.connect.filter.CallbacksFilter
+import com.mx.path.gateway.connect.filter.ErrorHandlerFilter
+import com.mx.path.gateway.connect.filter.RequestFinishedFilter
 import com.mx.testing.TestConnection
 
 import spock.lang.Specification

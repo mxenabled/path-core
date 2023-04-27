@@ -3,8 +3,8 @@ package com.mx.testing;
 import java.util.Collections;
 import java.util.List;
 
-import com.mx.common.accessors.AccessorConnectionBase;
-import com.mx.common.connect.RequestFilter;
+import com.mx.path.core.common.accessor.AccessorConnectionBase;
+import com.mx.path.core.common.connect.RequestFilter;
 
 public class TestConnection extends AccessorConnectionBase<TestConnection.Request> {
   @Override
@@ -17,10 +17,10 @@ public class TestConnection extends AccessorConnectionBase<TestConnection.Reques
     return null;
   }
 
-  public static class Response extends com.mx.common.connect.Response<Request, Response> {
+  public static class Response extends com.mx.path.core.common.connect.Response<Request, Response> {
   }
 
-  public static class Request extends com.mx.common.connect.Request<Request, Response> {
+  public static class Request extends com.mx.path.core.common.connect.Request<Request, Response> {
     public Request() {
       super(null);
     }

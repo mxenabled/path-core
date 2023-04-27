@@ -2,7 +2,7 @@ package com.mx.testing;
 
 import lombok.Data;
 
-import com.mx.common.models.ModelBase;
+import com.mx.path.core.common.model.ModelBase;
 
 @Data
 public class Account extends ModelBase<Account> {

@@ -3,10 +3,10 @@ package com.mx.path.testing.request;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mx.common.connect.Request;
-import com.mx.common.connect.RequestFilterBase;
-import com.mx.common.connect.Response;
-import com.mx.common.lang.Strings;
+import com.mx.path.core.common.connect.Request;
+import com.mx.path.core.common.connect.RequestFilterBase;
+import com.mx.path.core.common.connect.Response;
+import com.mx.path.core.common.lang.Strings;
 
 import org.spockframework.runtime.SpockAssertionError;
 

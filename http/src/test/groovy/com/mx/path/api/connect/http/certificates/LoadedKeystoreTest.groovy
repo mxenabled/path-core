@@ -1,5 +1,7 @@
 package com.mx.path.api.connect.http.certificates
 
+import com.mx.path.connect.http.certificates.LoadedKeystore
+
 import spock.lang.Specification
 
 class LoadedKeystoreTest extends Specification {

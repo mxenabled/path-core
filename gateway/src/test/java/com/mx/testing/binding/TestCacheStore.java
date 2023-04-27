@@ -2,7 +2,7 @@ package com.mx.testing.binding;
 
 import java.util.Set;
 
-import com.mx.common.store.Store;
+import com.mx.path.core.common.store.Store;
 
 public class TestCacheStore implements Store {
   @Override

@@ -2,7 +2,7 @@ package com.mx.testing.binding;
 
 import lombok.Data;
 
-import com.mx.common.configuration.ConfigurationField;
+import com.mx.path.core.common.configuration.ConfigurationField;
 
 @Data
 public class ConfigurationWithChangedFieldName {

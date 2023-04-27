@@ -4,7 +4,7 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Path
 
-import com.mx.path.model.context.RequestContext
+import com.mx.path.core.context.RequestContext
 import com.mx.testing.StaticContextCaptureBehavior
 import com.mx.testing.gateway.api.Gateway
 import com.mx.testing.gateway.api.GatewayConfigurator

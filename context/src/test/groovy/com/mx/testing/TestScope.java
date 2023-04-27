@@ -1,6 +1,6 @@
 package com.mx.testing;
 
-import com.mx.path.model.context.ScopeKeyGenerator;
+import com.mx.path.core.context.ScopeKeyGenerator;
 
 public enum TestScope implements ScopeKeyGenerator {
   Key {

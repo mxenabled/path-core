@@ -2,9 +2,9 @@ package com.mx.path.testing
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 
-import com.mx.common.collections.ObjectMap
-import com.mx.path.model.context.Session
-import com.mx.path.model.context.store.SessionRepository
+import com.mx.path.core.common.collection.ObjectMap
+import com.mx.path.core.context.Session
+import com.mx.path.core.context.store.SessionRepository
 import com.mx.path.testing.session.TestEncryptionService
 import com.mx.path.testing.session.TestSessionRepository
 

@@ -2,7 +2,7 @@ package com.mx.testing;
 
 import java.util.List;
 
-import com.mx.common.accessors.AccessorResponse;
+import com.mx.path.core.common.accessor.AccessorResponse;
 
 public class MethodTest {
 
