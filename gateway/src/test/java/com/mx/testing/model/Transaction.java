@@ -2,7 +2,7 @@ package com.mx.testing.model;
 
 import lombok.Data;
 
-import com.mx.common.models.ModelBase;
+import com.mx.path.core.common.model.ModelBase;
 
 @Data
 public class Transaction extends ModelBase<Transaction> {

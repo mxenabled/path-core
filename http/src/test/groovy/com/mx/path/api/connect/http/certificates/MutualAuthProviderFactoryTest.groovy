@@ -1,7 +1,10 @@
 package com.mx.path.api.connect.http.certificates
 
-import com.mx.common.connect.ConnectionSettings
-import com.mx.common.connect.RequestFilter
+import com.mx.path.connect.http.certificates.FieldSettingsValidationError
+import com.mx.path.connect.http.certificates.MutualAuthProviderFactory
+import com.mx.path.connect.http.certificates.MutualAuthProviderKeystore
+import com.mx.path.core.common.connect.ConnectionSettings
+import com.mx.path.core.common.connect.RequestFilter
 
 import spock.lang.Specification
 

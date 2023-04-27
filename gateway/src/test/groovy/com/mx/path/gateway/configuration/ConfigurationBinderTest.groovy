@@ -1,6 +1,6 @@
 package com.mx.path.gateway.configuration
 
-import com.mx.common.collections.ObjectMap
+import com.mx.path.core.common.collection.ObjectMap
 import com.mx.testing.binding.BasicConfigurationObj
 import com.mx.testing.binding.RequireArrayConfiguration
 import com.mx.testing.binding.RequireObjConfiguration

@@ -5,9 +5,9 @@ import java.util.function.BiConsumer;
 import lombok.Getter;
 import lombok.Setter;
 
-import com.mx.common.connect.Request;
-import com.mx.common.connect.RequestFilterBase;
-import com.mx.common.connect.Response;
+import com.mx.path.core.common.connect.Request;
+import com.mx.path.core.common.connect.RequestFilterBase;
+import com.mx.path.core.common.connect.Response;
 
 public class RequestFilterStub extends RequestFilterBase {
   @Getter

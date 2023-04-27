@@ -17,15 +17,15 @@ import javax.annotation.Nonnull;
 import lombok.Builder;
 import lombok.Data;
 
-import com.mx.common.accessors.API;
-import com.mx.common.accessors.Accessor;
-import com.mx.common.accessors.AccessorConfiguration;
-import com.mx.common.accessors.AccessorMethodDefinition;
-import com.mx.common.accessors.AccessorResponse;
-import com.mx.common.collections.ObjectMap;
-import com.mx.common.lang.Strings;
-import com.mx.common.reflection.Annotations;
-import com.mx.common.reflection.Fields;
+import com.mx.path.core.common.accessor.API;
+import com.mx.path.core.common.accessor.Accessor;
+import com.mx.path.core.common.accessor.AccessorConfiguration;
+import com.mx.path.core.common.accessor.AccessorMethodDefinition;
+import com.mx.path.core.common.accessor.AccessorResponse;
+import com.mx.path.core.common.collection.ObjectMap;
+import com.mx.path.core.common.lang.Strings;
+import com.mx.path.core.common.reflection.Annotations;
+import com.mx.path.core.common.reflection.Fields;
 
 /**
  * Utility class for generating accessor descriptions

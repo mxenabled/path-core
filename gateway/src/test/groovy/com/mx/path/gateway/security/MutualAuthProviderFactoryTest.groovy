@@ -1,7 +1,7 @@
 package com.mx.path.gateway.security
 
-import com.mx.common.connect.ConnectionSettings
-import com.mx.common.connect.RequestFilter
+import com.mx.path.core.common.connect.ConnectionSettings
+import com.mx.path.core.common.connect.RequestFilter
 
 import spock.lang.Specification
 

@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-import com.mx.common.lang.Strings;
+import com.mx.path.core.common.lang.Strings;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

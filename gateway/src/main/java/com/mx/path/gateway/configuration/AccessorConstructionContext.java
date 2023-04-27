@@ -13,14 +13,14 @@ import lombok.Getter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mx.common.accessors.Accessor;
-import com.mx.common.accessors.AccessorConfiguration;
-import com.mx.common.collections.ObjectArray;
-import com.mx.common.collections.ObjectMap;
-import com.mx.common.configuration.Configuration;
-import com.mx.common.connect.AccessorConnectionSettings;
-import com.mx.common.gateway.GatewayException;
-import com.mx.common.serialization.ObjectMapJsonDeserializer;
+import com.mx.path.core.common.accessor.Accessor;
+import com.mx.path.core.common.accessor.AccessorConfiguration;
+import com.mx.path.core.common.collection.ObjectArray;
+import com.mx.path.core.common.collection.ObjectMap;
+import com.mx.path.core.common.configuration.Configuration;
+import com.mx.path.core.common.connect.AccessorConnectionSettings;
+import com.mx.path.core.common.gateway.GatewayException;
+import com.mx.path.core.common.serialization.ObjectMapJsonDeserializer;
 import com.mx.path.gateway.configuration.annotations.ClientID;
 import com.mx.path.gateway.configuration.annotations.Connection;
 

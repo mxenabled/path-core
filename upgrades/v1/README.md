@@ -64,4 +64,4 @@ There wasn't a perfect way to do this without making a bigger mess. To fix this 
 
 #### cannot find symbol StoreMutex or SessionRepositoryMutex
 
-StoreMutex and SessionRepositoryMutex have been removed. See com.mx.path.model.context.store.StoreLock for replacement.
+StoreMutex and SessionRepositoryMutex have been removed. See com.mx.path.core.context.store.StoreLock for replacement.

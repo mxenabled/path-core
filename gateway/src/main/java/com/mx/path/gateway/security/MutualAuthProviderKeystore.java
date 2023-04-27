@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.util.Map;
 
-import com.mx.common.connect.ConnectionSettings;
+import com.mx.path.core.common.connect.ConnectionSettings;
 
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.ssl.PrivateKeyDetails;

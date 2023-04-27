@@ -72,6 +72,20 @@ function process_file {
     "com.mx.path.model.mdx.model.MdxWrappableSerializer([^a-zA-Z])=com.mx.path.model.mdx.model.ModelWrappableSerializer\1"
     "Session.ServiceIdentifier.Session([^a-zA-Z])=Scope.Session\1"
 
+    # Move packages. DO NOT CHANGE ORDER!
+    "com\.mx\.common\.=com.mx.path.core.common."
+    "com\.mx\.path\.core\.common\.accessors\.=com.mx.path.core.common.accessor."
+    "com\.mx\.path\.core\.common\.collections\.=com.mx.path.core.common.collection."
+    "com\.mx\.path\.core\.common\.events\.=com.mx.path.core.common.event."
+    "com\.mx\.path\.core\.common\.models\.=com.mx.path.core.common.model."
+    "com\.mx\.path\.gateway\.connect\.filters\.=com.mx.path.gateway.connect.filter."
+    "com\.mx\.path\.gateway\.events\.=com.mx.path.gateway.event."
+    "com\.mx\.path\.api\.connect\.http\.=com.mx.path.connect.http."
+    "com\.mx\.path\.api\.connect\.messaging\.=com.mx.path.connect.messaging."
+    "com\.mx\.path\.model\.context\.=com.mx.path.core.context."
+    "com\.mx\.path\.utilities\.=com.mx.path.core.utility."
+    "com\.mx\.path\.core\.utility\.OAuth\.=com.mx.path.core.utility.oauth."
+
     #"([^a-zA-Z])com.mx.common.process.FaultTolerantExecutionFailureStatus([^a-zA-Z])=\1com.mx.common.accessors.PathResponseStatus\2"
   )
   local groovy_mappings=(
@@ -81,6 +95,20 @@ function process_file {
     "com.mx.common.remote.MdxListOfJson([^a-zA-Z]?)=com.mx.common.models.ParameterizedTypeImpl\1"
     "com.mx.path.model.mdx.model.MdxWrappableSerializer([^a-zA-Z]?)=com.mx.path.model.mdx.model.ModelWrappableSerializer\1"
     "Session.ServiceIdentifier.Session([^a-zA-Z]?)=Scope.Session\1"
+
+    # Move packages. DO NOT CHANGE ORDER!
+    "com\.mx\.common\.=com.mx.path.core.common."
+    "com\.mx\.path\.core\.common\.accessors\.=com.mx.path.core.common.accessor."
+    "com\.mx\.path\.core\.common\.collections\.=com.mx.path.core.common.collection."
+    "com\.mx\.path\.core\.common\.events\.=com.mx.path.core.common.event."
+    "com\.mx\.path\.core\.common\.models\.=com.mx.path.core.common.model."
+    "com\.mx\.path\.gateway\.connect\.filters\.=com.mx.path.gateway.connect.filter."
+    "com\.mx\.path\.gateway\.events\.=com.mx.path.gateway.event."
+    "com\.mx\.path\.api\.connect\.http\.=com.mx.path.connect.http."
+    "com\.mx\.path\.api\.connect\.messaging\.=com.mx.path.connect.messaging."
+    "com\.mx\.path\.model\.context\.=com.mx.path.core.context."
+    "com\.mx\.path\.utilities\.=com.mx.path.core.utility."
+    "com\.mx\.path\.core\.utility\.OAuth\.=com.mx.path.core.utility.oauth."
 
     #"com.mx.serializers.YamlSerializer([^a-zA-Z]?)=com.mx.common.serialization.ObjectMapYamlDeserializer\1"
     #"([^a-zA-Z])YamlSerializer([^a-zA-Z]?)=\1ObjectMapYamlDeserializer\2"

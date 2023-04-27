@@ -10,7 +10,7 @@ import lombok.Getter;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.mx.common.lang.TriConsumer;
+import com.mx.path.core.common.lang.TriConsumer;
 import com.mx.path.gateway.Gateway;
 
 /**

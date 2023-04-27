@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import com.mx.common.connect.ConnectionSettings;
-import com.mx.common.lang.Strings;
+import com.mx.path.core.common.connect.ConnectionSettings;
+import com.mx.path.core.common.lang.Strings;
 
 /**
  * @deprecated moved to com.mx.path.api.connect.http

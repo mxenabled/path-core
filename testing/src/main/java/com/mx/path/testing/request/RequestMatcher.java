@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import com.mx.common.connect.Request;
+import com.mx.path.core.common.connect.Request;
 
 /**
  * Allows rules to be defined for matching incoming requests

@@ -1,7 +1,7 @@
 package com.mx.path.gateway.configuration
 
-import com.mx.common.collections.ObjectMap
-import com.mx.common.messaging.MessageBroker
+import com.mx.path.core.common.collection.ObjectMap
+import com.mx.path.core.common.messaging.MessageBroker
 import com.mx.path.gateway.behavior.GatewayBehavior
 import com.mx.path.gateway.service.GatewayService
 import com.mx.testing.MessageBrokerImpl

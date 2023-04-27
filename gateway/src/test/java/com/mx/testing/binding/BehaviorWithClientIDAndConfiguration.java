@@ -2,10 +2,10 @@ package com.mx.testing.binding;
 
 import lombok.Getter;
 
-import com.mx.common.accessors.AccessorResponse;
-import com.mx.common.collections.ObjectMap;
-import com.mx.common.configuration.Configuration;
-import com.mx.common.configuration.ConfigurationField;
+import com.mx.path.core.common.accessor.AccessorResponse;
+import com.mx.path.core.common.collection.ObjectMap;
+import com.mx.path.core.common.configuration.Configuration;
+import com.mx.path.core.common.configuration.ConfigurationField;
 import com.mx.path.gateway.behavior.GatewayBehavior;
 import com.mx.path.gateway.configuration.Configurable;
 import com.mx.path.gateway.configuration.annotations.ClientID;

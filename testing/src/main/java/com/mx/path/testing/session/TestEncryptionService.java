@@ -3,8 +3,8 @@ package com.mx.path.testing.session;
 import lombok.Getter;
 import lombok.Setter;
 
-import com.mx.common.collections.ObjectMap;
-import com.mx.common.security.EncryptionService;
+import com.mx.path.core.common.collection.ObjectMap;
+import com.mx.path.core.common.security.EncryptionService;
 
 public class TestEncryptionService implements EncryptionService {
   @Getter
