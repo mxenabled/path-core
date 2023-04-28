@@ -1,4 +1,4 @@
-package com.mx.path.connect.http.certificates;
+package com.mx.path.connect.http.certificate;
 
 import java.net.Socket;
 import java.security.KeyManagementException;
