@@ -1,4 +1,4 @@
-package com.mx.path.connect.http.certificates;
+package com.mx.path.connect.http.certificate;
 
 import java.io.File;
 import java.util.ArrayList;
