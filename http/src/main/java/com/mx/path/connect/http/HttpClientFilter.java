@@ -12,8 +12,8 @@ import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLHandshakeException;
 
 import com.google.gson.Gson;
-import com.mx.path.connect.http.certificates.MutualAuthProvider;
-import com.mx.path.connect.http.certificates.MutualAuthProviderFactory;
+import com.mx.path.connect.http.certificate.MutualAuthProvider;
+import com.mx.path.connect.http.certificate.MutualAuthProviderFactory;
 import com.mx.path.core.common.collection.MultiValueMap;
 import com.mx.path.core.common.collection.SingleValueMap;
 import com.mx.path.core.common.connect.ConnectException;

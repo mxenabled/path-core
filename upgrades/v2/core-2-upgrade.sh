@@ -85,6 +85,7 @@ function process_file {
     "com\.mx\.path\.model\.context\.=com.mx.path.core.context."
     "com\.mx\.path\.utilities\.=com.mx.path.core.utility."
     "com\.mx\.path\.core\.utility\.OAuth\.=com.mx.path.core.utility.oauth."
+    "com\.mx\.path\.connect\.http\.certificates\.=com.mx.path.connect.http.certificate."
 
     "com\.mx\.path\.core\.common\.accessor\.AccessorConfiguration([^a-zA-Z])=com.mx.path.gateway.accessor.AccessorConfiguration\1"
     "com\.mx\.path\.core\.common\.accessor\.AccessorConnectionBase([^a-zA-Z])=com.mx.path.gateway.accessor.AccessorConnectionBase\1"
@@ -116,6 +117,7 @@ function process_file {
     "com\.mx\.path\.model\.context\.=com.mx.path.core.context."
     "com\.mx\.path\.utilities\.=com.mx.path.core.utility."
     "com\.mx\.path\.core\.utility\.OAuth\.=com.mx.path.core.utility.oauth."
+    "com\.mx\.path\.connect\.http\.certificates\.=com.mx.path.connect.http.certificate."
 
     "com\.mx\.path\.core\.common\.accessor\.AccessorConfiguration([^a-zA-Z]?)=com.mx.path.gateway.accessor.AccessorConfiguration\1"
     "com\.mx\.path\.core\.common\.accessor\.AccessorConnectionBase([^a-zA-Z]?)=com.mx.path.gateway.accessor.AccessorConnectionBase\1"

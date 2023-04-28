@@ -1,6 +1,6 @@
-package com.mx.path.api.connect.http.certificates
+package com.mx.path.api.connect.http.certificate
 
-import com.mx.path.connect.http.certificates.LoadedKeystore
+import com.mx.path.connect.http.certificate.LoadedKeystore
 
 import spock.lang.Specification
 
