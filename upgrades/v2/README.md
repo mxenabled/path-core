@@ -124,3 +124,15 @@ public enum ServiceIdentifier implements ScopeKeyGenerator {
     }
   }
 ```
+
+#### MdxApiException removed
+
+Deprecated MdxApiException has been removed. See [com.mx.path.core.common.exception](https://github.com/mxenabled/path-core/blob/master/common/src/main/java/com/mx/common/exception/package-info.java) for an replacement explanation of the Exception hierarchy.
+
+#### MdxBase, MdxList removed
+
+These classes were moved into [path-mdx-model](https://github.com/mxenabled/path-mdx-model/tree/coreV2/mdx-models/src/main/java/com/mx/path/model/mdx/model) and their base classes were renamed to ModelBase and ModelList.
+
+#### MutualAuthProvider and related classes removed
+
+These classes were deprecated have been removed along with the deprecated Request/Response and Request Executor classes.
