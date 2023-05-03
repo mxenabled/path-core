@@ -1,10 +1,6 @@
 package com.mx.path.gateway.configuration
 
-import lombok.Data
-import lombok.NoArgsConstructor
-
 import com.mx.path.core.common.collection.ObjectMap
-import com.mx.common.configuration.ConfigurationField
 import com.mx.testing.binding.BasicConfigurationObj
 import com.mx.testing.binding.ConfigurationWithChangedFieldName
 import com.mx.testing.binding.ConfigurationWithChangedFieldNameBlank
