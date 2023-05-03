@@ -1,5 +1,6 @@
 package com.mx.common.connect;
 
+import java.lang.reflect.Type;
 import java.time.Duration;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -100,6 +101,10 @@ public abstract class Response<REQ extends Request<?, ?>, RESP extends Response<
 
   public final <T> T getBodyAs(Class<T> asClass) {
     return GSON.fromJson(this.body, asClass);
+  }
+
+  public final <T> T getBodyAs(Type asType) {
+    return GSON.fromJson(this.body, asType);
   }
 
   public final SingleValueMap<String, String> getCookies() {
