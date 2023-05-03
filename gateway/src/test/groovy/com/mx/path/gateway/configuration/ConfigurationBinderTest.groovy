@@ -2,6 +2,8 @@ package com.mx.path.gateway.configuration
 
 import com.mx.path.core.common.collection.ObjectMap
 import com.mx.testing.binding.BasicConfigurationObj
+import com.mx.testing.binding.ConfigurationWithChangedFieldName
+import com.mx.testing.binding.ConfigurationWithChangedFieldNameBlank
 import com.mx.testing.binding.RequireArrayConfiguration
 import com.mx.testing.binding.RequireObjConfiguration
 import com.mx.testing.binding.RequireStringFieldConfiguration
@@ -258,5 +260,31 @@ class ConfigurationBinderTest extends Specification {
 
     then:
     result.list.size() == 1
+  }
+
+  def "reports correction name when missing field"() {
+    given: "configuration missing class field"
+    def configurationMap = new ObjectMap()
+    state.pushLevel("ConfigurationWithChangedName")
+
+    when:
+    subject.build(ConfigurationWithChangedFieldName, configurationMap)
+
+    then: "reports missing field, class"
+    def ex = thrown(ConfigurationError)
+    ex.message == "Value required on class at ConfigurationWithChangedName"
+  }
+
+  def "reports correction name when missing field blank"() {
+    given: "configuration missing class field"
+    def configurationMap = new ObjectMap()
+    state.pushLevel("ConfigurationWithChangedName")
+
+    when:
+    subject.build(ConfigurationWithChangedFieldNameBlank, configurationMap)
+
+    then: "reports missing field, class"
+    def ex = thrown(ConfigurationError)
+    ex.message == "Value required on klass at ConfigurationWithChangedName"
   }
 }

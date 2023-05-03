@@ -13,6 +13,13 @@ import java.lang.annotation.Target;
 @Target({ ElementType.FIELD, ElementType.PARAMETER })
 public @interface Connection {
 
+  /**
+   * The connection name to be bound from gateway configuration.
+   */
   String value();
 
+  /**
+   * Indicates whether the connection is optionally required to be configured in the gateway configuration. Default is false.
+   */
+  boolean optional() default false;
 }

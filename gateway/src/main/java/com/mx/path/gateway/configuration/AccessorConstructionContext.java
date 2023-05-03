@@ -26,6 +26,7 @@ import com.mx.path.gateway.configuration.annotations.Connection;
 
 /**
  * Holds information needed to construct an accessor from configuration. Use the {@link #build()} to construct a new instance of {@link #accessorClass}.
+ *
  * @param <T> The Accessor Base class for this instance.
  */
 public class AccessorConstructionContext<T extends Accessor> {
@@ -77,17 +78,15 @@ public class AccessorConstructionContext<T extends Accessor> {
 
           Connection connectionAnnotation = param.getAnnotation(Connection.class);
           if (connectionAnnotation != null) {
-
             state.withLevel("connections." + connectionAnnotation.value(), () -> {
 
               AccessorConnectionSettings accessorConnectionSettings = getAccessorConfiguration().getConnections().getConnection(connectionAnnotation.value());
-              if (accessorConnectionSettings == null) {
-                throw new ConfigurationError("No connection configuration provided for " + connectionAnnotation.value(), state);
+              if (!connectionAnnotation.optional() && accessorConnectionSettings == null) {
+                throw new ConfigurationError("No connection configuration provided for required " + connectionAnnotation.value(), state);
               }
               ConnectionConstructionContext connectionConstructionContext = new ConnectionConstructionContext(accessorConfiguration.getClientId(), state, param.getType(), accessorConnectionSettings);
               constructorArgs.add(connectionConstructionContext);
               connections.put(connectionAnnotation.value(), connectionConstructionContext);
-
             });
 
             return;
@@ -162,6 +161,7 @@ public class AccessorConstructionContext<T extends Accessor> {
    * Find the best constructor for given Accessor class
    * <p> Constructor must accept one AccessorConfiguration. It can optionally accept a parameter annotated @Configuration
    * and a parameter annotated @Connection.
+   *
    * @param klass Accessor Class
    * @param <K> Accessor Class (Extends {@link T})
    * @return {@link Constructor<T>}

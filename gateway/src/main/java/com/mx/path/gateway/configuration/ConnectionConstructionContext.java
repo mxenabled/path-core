@@ -59,7 +59,11 @@ public class ConnectionConstructionContext {
               if (parameter.isAnnotationPresent(ClientID.class)) {
                 return clientId;
               } else {
-                return configurationBinder.build(parameter.getType(), accessorConnectionSettings.getConfigurations());
+                if (accessorConnectionSettings != null) {
+                  return configurationBinder.build(parameter.getType(), accessorConnectionSettings.getConfigurations());
+                } else {
+                  return null;
+                }
               }
             } finally {
               state.popLevel();
@@ -74,14 +78,18 @@ public class ConnectionConstructionContext {
 
   public final AccessorConnectionSettings build() {
     try {
-      AccessorConnectionSettings newAccessorConnectionSettings = getConnectionConstructor().newInstance(getConstructorArgs().toArray());
+      if (accessorConnectionSettings != null) {
+        AccessorConnectionSettings newAccessorConnectionSettings = getConnectionConstructor().newInstance(getConstructorArgs().toArray());
 
-      // Clone the fields
-      Arrays.stream(AccessorConnectionSettings.class.getDeclaredFields()).forEach((field) -> {
-        state.withField(field.getName(), () -> Fields.setFieldValue(field, newAccessorConnectionSettings, Fields.getFieldValue(field, accessorConnectionSettings)));
-      });
+        // Clone the fields
+        Arrays.stream(AccessorConnectionSettings.class.getDeclaredFields()).forEach((field) -> {
+          state.withField(field.getName(), () -> Fields.setFieldValue(field, newAccessorConnectionSettings, Fields.getFieldValue(field, accessorConnectionSettings)));
+        });
 
-      return newAccessorConnectionSettings;
+        return newAccessorConnectionSettings;
+      } else {
+        return null;
+      }
     } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
       throw new GatewayException("Unable to construct connection " + getConnectionClass().getCanonicalName(), e);
     }
