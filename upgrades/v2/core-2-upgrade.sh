@@ -69,6 +69,7 @@ function process_file {
     "com.mx.common.models.MdxBase([^a-zA-Z])=com.mx.path.model.mdx.model.MdxBase\1"
     "com.mx.common.models.MdxWrappable([^a-zA-Z])=com.mx.common.models.ModelWrappable\1"
     "com.mx.common.remote.MdxListOfJson([^a-zA-Z])=com.mx.common.models.ParameterizedTypeImpl\1"
+    "com.mx.path.gateway.net.FormBody([^a-zA-Z])=com.mx.path.core.common.connect.FormBody\1"
     "com.mx.path.model.mdx.model.MdxWrappableSerializer([^a-zA-Z])=com.mx.path.model.mdx.model.ModelWrappableSerializer\1"
     "Session.ServiceIdentifier.Session([^a-zA-Z])=Scope.Session\1"
 
@@ -101,6 +102,7 @@ function process_file {
     "com.mx.common.models.MdxBase([^a-zA-Z]?)=com.mx.path.model.mdx.model.MdxBase\1"
     "com.mx.common.models.MdxWrappable([^a-zA-Z]?)=com.mx.common.models.ModelWrappable\1"
     "com.mx.common.remote.MdxListOfJson([^a-zA-Z]?)=com.mx.common.models.ParameterizedTypeImpl\1"
+    "com.mx.path.gateway.net.FormBody([^a-zA-Z]?)=com.mx.path.core.common.connect.FormBody\1"
     "com.mx.path.model.mdx.model.MdxWrappableSerializer([^a-zA-Z]?)=com.mx.path.model.mdx.model.ModelWrappableSerializer\1"
     "Session.ServiceIdentifier.Session([^a-zA-Z]?)=Scope.Session\1"
 
@@ -133,6 +135,11 @@ function process_file {
     "JUNK=JUNK"
     #"([\"\'])com\.mx\.web:mdx-web:[^\"\']+([\"\'])=\1com.mx.web:mdx-web:$web_version\2"
   )
+  local gateway_mappings=(
+    "com\.mx\.common\.=com.mx.path.core.common."
+    "com\.mx\.path\.core\.common\.accessors\.=com.mx.path.core.common.accessor."
+    "com\.mx\.path\.model\.context\.=com.mx.path.core.context."
+  )
 
   local reported_file=false
   local mappings=("${global_mappings[@]}")
@@ -143,6 +150,8 @@ function process_file {
     mappings=("${mappings[@]}" "${groovy_mappings[@]}")
   elif [ "${file: -12}" == "build.gradle" ]; then
     mappings=("${mappings[@]}" "${gradle_mappings[@]}")
+  elif [ "${file: -11}" == "gateway.yml" ] || [ "${file: -12}" == "gateway.yaml" ]; then
+    mappings=("${mappings[@]}" "${gateway_mappings[@]}")
   else
     echo "Skipping non-code file $file"
   fi
@@ -174,5 +183,5 @@ function process_file {
 ### Driver
 export -f process_file
 export DRY_RUN
-find "$ROOT_DIR" -type f \( -iname "*.java" -or -iname "*.groovy" -or -iname "build.gradle" \) -exec bash -c 'process_file "$0"' {} \;
+find "$ROOT_DIR" -type f \( -iname "*.java" -or -iname "*.groovy" -or -iname "build.gradle" -or -iname "gateway.yml" -or -iname "gateway.yaml" \) -exec bash -c 'process_file "$0"' {} \;
 exit 0
