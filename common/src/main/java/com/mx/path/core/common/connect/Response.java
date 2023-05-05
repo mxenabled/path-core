@@ -2,6 +2,7 @@ package com.mx.path.core.common.connect;
 
 import java.time.Duration;
 import java.util.Objects;
+import java.util.function.Function;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +20,7 @@ import com.mx.path.core.common.http.HttpStatus;
 public abstract class Response<REQ extends Request<?, ?>, RESP extends Response<?, ?>> {
 
   /**
-   * @deprecated This makes too many assumptions about the response payload. The application code should handle configuring the associated serializer.
+   * @deprecated This makes too many assumptions about the response payload. The connection code should handle configuring the associated serializer.
    */
   @Deprecated
   private static final Gson GSON = new GsonBuilder()
@@ -63,6 +64,10 @@ public abstract class Response<REQ extends Request<?, ?>, RESP extends Response<
     }
   }
 
+  /**
+   * @deprecated JSON deserialization will be removed in a future release. Use {@link Request#withProcessor(Function)}
+   */
+  @Deprecated
   public final <T> T getBodyAs(Class<T> asClass) {
     return GSON.fromJson(this.body, asClass);
   }
