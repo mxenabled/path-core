@@ -56,7 +56,7 @@ import com.mx.path.core.common.messaging.MessageError;
  *     {@link TimeoutException} - Thrown on a connection/request timeout
  *     {@link ServiceUnavailableException} - Thrown when a service (typically upstream service) is unavailable. The unavailability could be determined by a response from the service or something on the client side
  *       {@link CircuitOpenException} - Thrown on open circuit condition
- *     {@link TooManyRequestsException} - Thrown on open circuit condition
+ *     {@link TooManyRequestsException} - Thrown when bulkhead rejects call due to too many requests
  *     {@link UpstreamErrorException} - Thrown when an unexpected response status is returned from an upstream system call
  *   {@link FacilityException} - Thrown on unrecoverable error in facility code
  *   {@link MessageError} - All errors from messaging system should be wrapped in this exception
