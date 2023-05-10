@@ -14,6 +14,11 @@ See [Release Notes](https://github.com/mxenabled/path-core/blob/master/CHANGELOG
 
 ### Potential Issues
 
+### AccessorSystemException and AccessorUserException
+
+These classes have been changed to abstract. In order to throw these types, subclasses need to be made 
+that are specific to the situation.
+
 #### AccountBehaviors
 
 The AccountBehavior, AccountBehaviors, and SessionAccountOwner classes have been removed from the core libraries and
@@ -35,7 +40,8 @@ The Session functions to get and save AccountBehaviors were removed as well. The
 
 #### ServiceIdentifier
 
-Session.ServiceIdentifier has been removed. If the code is still using it there are a few options:
+Session.ServiceIdentifier has been removed. If ServiceIdentifier is being used in conjunction with AccountBehaviors (rare), 
+see Use AccountBehavior.ServiceIdentifier instead. If the code is still using it there are a few options:
 
 `Session.ServiceIdentifier.Session` can be changed to `Scope.Session`.
 

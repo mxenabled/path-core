@@ -9,7 +9,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import com.mx.path.core.common.accessor.AccessorSystemException;
 import com.mx.path.core.common.collection.MultiValueMap;
 import com.mx.path.core.common.collection.MultiValueMappable;
 import com.mx.path.core.common.collection.SingleValueMap;
@@ -140,7 +139,7 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
     if (filterChain == null) {
-      throw new AccessorSystemException("Mis-configured Request. filterChain is null");
+      throw new MisConfiguredFilterChainException();
     }
     setFilterChain(filterChain);
   }

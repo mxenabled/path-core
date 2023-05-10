@@ -41,12 +41,12 @@ import com.mx.path.core.common.messaging.MessageError;
  *   {@link GatewayException} - Thrown on unrecoverable error in Gateway code
  *     {@link BehaviorException} - Thrown on unrecoverable error in behavior code
  *   {@link AccessorException} - Base class for exceptions thrown by accessors
- *     {@link AccessorUserException} - Thrown on user-related errors in accessor code
+ *     {@link AccessorUserException} - Base class for exceptions thrown on user-related errors in accessor code
  *       {@link ResourceNotFoundException} - Thrown when a resource is requested that does not exist
  *       {@link UnauthorizedException} - Thrown when a user attempts an operation when they are not authenticated, the session is expired, or the session is in a bad state
  *       {@link BadRequestException} - Thrown when a request is malformed or missing required data
  *       {@link RequestValidationException} - Thrown when a request is correctly formed, but the data is invalid for some reason
- *     {@link AccessorSystemException} - Thrown on unrecoverable error in accessor code
+ *     {@link AccessorSystemException} - Base class for exceptions thrown on unrecoverable error in accessor code
  *       {@link AccessorMethodNotImplementedException} - Thrown when an accessor method is invoked that has no implementation
  *       {@link RequestPayloadException} - Thrown when an upstream request payload cannot be built
  *       {@link ResponsePayloadException} - Thrown when an upstream response payload is unrecognizable or un-processable
@@ -70,9 +70,15 @@ import com.mx.path.core.common.messaging.MessageError;
  * <p>Example:
  *
  * <pre>{@code
- *     throw new AccessorUserException("Identity unknown", "Username and/or password did not match system", PathResponseStatus.UNAUTHORIZED)
- *       .withReason("Bad password")
- *       .withCode("1401");
+ *   public class FailedLoginException extends AccessorUserException {
+ *     public FailedLoginException(String message, String userMessage) {
+ *       super(message);
+ *       setStatus(PathResponseStatus.UNAUTHORIZED);
+ *     }
+ *   }
+ *
+ *   throw new FailedLoginException("Identity unknown", "Username and/or password did not match system")
+ *     .withCode("1401");
  * }</pre>
  */
 public abstract class PathRequestException extends RuntimeException {
