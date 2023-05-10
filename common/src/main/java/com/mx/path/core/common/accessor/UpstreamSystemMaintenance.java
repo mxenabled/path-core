@@ -12,11 +12,23 @@ import com.mx.path.core.common.exception.PathRequestException;
  * <p>See {@link PathRequestException} for usage details
  */
 public class UpstreamSystemMaintenance extends UpstreamSystemUnavailable {
+  public UpstreamSystemMaintenance(String message) {
+    super(message);
+    setErrorTitle("System under maintenance");
+  }
+
+  public UpstreamSystemMaintenance(String message, Throwable cause) {
+    super(message, cause);
+    setErrorTitle("System under maintenance");
+  }
+
+  @Deprecated
   public UpstreamSystemMaintenance(String message, String userMessage) {
     super(message, userMessage);
     setErrorTitle("System under maintenance");
   }
 
+  @Deprecated
   public UpstreamSystemMaintenance(String message, String userMessage, Throwable cause) {
     super(message, userMessage, cause);
     setErrorTitle("System under maintenance");

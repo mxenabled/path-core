@@ -10,7 +10,6 @@ import lombok.Setter;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mx.path.core.common.accessor.AccessorSystemException;
 import com.mx.path.core.common.collection.MultiValueMap;
 import com.mx.path.core.common.collection.MultiValueMappable;
 import com.mx.path.core.common.collection.SingleValueMap;
@@ -128,7 +127,7 @@ public abstract class Response<REQ extends Request<?, ?>, RESP extends Response<
         throw (PathRequestException) exception;
       }
 
-      throw new AccessorSystemException("Unprocessed request exception", exception);
+      throw new ResponseProcessingException(exception);
     }
     return (RESP) this;
   }

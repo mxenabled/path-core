@@ -11,10 +11,20 @@ import com.mx.path.core.common.exception.PathRequestException;
  * <p>See {@link PathRequestException} for usage details
  */
 public class ResourceNotFoundException extends AccessorUserException {
+  public ResourceNotFoundException(String message) {
+    super(message, PathResponseStatus.NOT_FOUND);
+  }
+
+  public ResourceNotFoundException(String message, Throwable cause) {
+    super(message, PathResponseStatus.NOT_FOUND, cause);
+  }
+
+  @Deprecated
   public ResourceNotFoundException(String message, String userMessage) {
     super(message, userMessage, PathResponseStatus.NOT_FOUND);
   }
 
+  @Deprecated
   public ResourceNotFoundException(String message, String userMessage, Throwable cause) {
     super(message, userMessage, PathResponseStatus.NOT_FOUND, cause);
   }

@@ -1,6 +1,5 @@
 package com.mx.path.connect.http;
 
-import com.mx.path.core.common.accessor.AccessorSystemException;
 import com.mx.path.core.common.connect.Request;
 import com.mx.path.core.common.connect.RequestFilter;
 
@@ -13,9 +12,6 @@ public class HttpRequest extends Request<HttpRequest, HttpResponse> {
   public HttpRequest(RequestFilter filterChain) {
     super(filterChain);
 
-    if (filterChain == null) {
-      throw new AccessorSystemException("Mis-configured HttpRequest. filterChain is null");
-    }
     getHeaders().put("Accept", "application/json");
     getHeaders().put("Content-Type", "application/json");
   }

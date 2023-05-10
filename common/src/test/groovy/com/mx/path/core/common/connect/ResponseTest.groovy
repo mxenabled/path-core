@@ -108,7 +108,7 @@ class ResponseTest extends Specification {
   def "throwException throws PathRequestException"() {
     setup:
     def cause = new Exception()
-    def exception = new BadRequestException("Something happened", "Something happened", cause)
+    def exception = new BadRequestException("Something happened", cause)
     subject.withException(exception)
 
     when:

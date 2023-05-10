@@ -8,7 +8,7 @@ import spock.lang.Specification
 class LoggingExceptionFormatterTest extends Specification {
   def "formatLoggingException()"() {
     given:
-    def exception = new BadRequestException("Some failure occurred!", "User Message!");
+    def exception = new BadRequestException("Some failure occurred!");
 
     when:
     def result = LoggingExceptionFormatter.formatLoggingException(exception)
@@ -25,7 +25,7 @@ class LoggingExceptionFormatterTest extends Specification {
 
   def "formatLoggingExceptionWithStacktrace()"() {
     given:
-    def exception = new BadRequestException("Some failure occurred!", "User Message!");
+    def exception = new BadRequestException("Some failure occurred!");
 
     when:
     def result = LoggingExceptionFormatter.formatLoggingExceptionWithStacktrace(exception)
