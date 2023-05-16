@@ -4,7 +4,7 @@ Updates to path-core V2
 
 ### Change Summary
 
-See [Release Notes](https://github.com/mxenabled/path-core/blob/master/CHANGELOG.md) (***Needs actual link with anchor***)
+See [Release Notes](https://github.com/mxenabled/path-core/releases/tag/v2.0.0)
 
 ### Update Script
 
