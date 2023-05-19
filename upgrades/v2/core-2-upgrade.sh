@@ -183,5 +183,5 @@ function process_file {
 ### Driver
 export -f process_file
 export DRY_RUN
-find "$ROOT_DIR" -type f \( -iname "*.java" -or -iname "*.groovy" -or -iname "build.gradle" -or -iname "gateway.yml" -or -iname "gateway.yaml" \) -exec bash -c 'process_file "$0"' {} \;
+find "$ROOT_DIR" -type f \( -iname "*.java" -or -iname "*.kt" -or -iname "*.groovy" -or -iname "build.gradle" -or -iname "gateway.yml" -or -iname "gateway.yaml" \) -exec bash -c 'process_file "$0"' {} \;
 exit 0
