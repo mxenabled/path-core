@@ -1,6 +1,7 @@
 package com.mx.path.gateway.configuration;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import lombok.Getter;
@@ -8,12 +9,15 @@ import lombok.Setter;
 
 import com.mx.path.core.common.collection.ObjectArray;
 import com.mx.path.core.common.collection.ObjectMap;
+import com.mx.path.core.common.collection.OrderComparator;
 import com.mx.path.gateway.behavior.GatewayBehavior;
 
 public class BehaviorStackConfigurator {
 
   private final ConfigurationState state;
   private final GatewayObjectConfigurator gatewayObjectConfigurator;
+
+  private final Comparator<Object> comparator = new OrderComparator();
 
   @Getter
   @Setter
@@ -38,8 +42,8 @@ public class BehaviorStackConfigurator {
         behaviorsMap.addAll(map.getArray("behaviors"));
       }
 
-      // todo: Add behavior priority sorting
       addBehaviors(behaviors, behaviorsMap, clientId);
+      behaviors.sort(comparator);
 
       return behaviors;
     });
