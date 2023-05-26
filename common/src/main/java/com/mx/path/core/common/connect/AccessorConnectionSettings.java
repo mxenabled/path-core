@@ -1,7 +1,9 @@
 package com.mx.path.core.common.connect;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +21,8 @@ import com.mx.path.core.common.lang.Strings;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccessorConnectionSettings implements ConnectionSettings {
+
+  private static final int STARTING_HASH_RESULT = 17;
 
   private String baseUrl;
   private String certificateAlias;
@@ -78,5 +82,43 @@ public class AccessorConnectionSettings implements ConnectionSettings {
       ObjectMap configs = description.createMap("configurations");
       configurations.forEach(configs::put);
     }
+  }
+
+  @Override
+  public final boolean equals(Object o) {
+    if (o == this) {
+      return true;
+    }
+    if (!(o instanceof AccessorConnectionSettings)) {
+      return false;
+    }
+    AccessorConnectionSettings other = (AccessorConnectionSettings) o;
+    return Objects.equals(this.getBaseUrl(), other.getBaseUrl())
+        && Objects.equals(this.getCertificateAlias(), other.getCertificateAlias())
+        && Objects.equals(this.getKeystorePath(), other.getKeystorePath())
+        && Arrays.equals(this.getKeystorePassword(), other.getKeystorePassword())
+        && Objects.equals(this.getBaseRequestFilters(), other.getBaseRequestFilters());
+  }
+
+  @Override
+  public final int hashCode() {
+    int result = 1;
+    final int oddPrimeBase = 31;
+    if (getBaseUrl() != null) {
+      result = oddPrimeBase * STARTING_HASH_RESULT + getBaseUrl().hashCode();
+    }
+    if (getCertificateAlias() != null) {
+      result = oddPrimeBase * result + getCertificateAlias().hashCode();
+    }
+    if (getKeystorePath() != null) {
+      result = oddPrimeBase * result + getKeystorePath().hashCode();
+    }
+    if (getKeystorePassword() != null) {
+      result = oddPrimeBase * result + Arrays.hashCode(getKeystorePassword());
+    }
+    if (getBaseRequestFilters() != null) {
+      result = oddPrimeBase * result + getBaseRequestFilters().hashCode();
+    }
+    return result;
   }
 }
