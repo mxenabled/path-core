@@ -44,6 +44,18 @@ class ConfigurationBinderTest extends Specification {
       initialized
       validated
     }
+
+    when: "given null configuration map"
+    configurationObj = new BasicConfigurationObj()
+    subject.configure(configurationObj, null)
+
+    then: "takes defaults"
+    verifyAll (configurationObj) {
+      getKey1() == null
+      getKey2() == null
+      initialized
+      validated
+    }
   }
 
   def "build creates and binds attributes to existing object"() {
@@ -59,6 +71,17 @@ class ConfigurationBinderTest extends Specification {
       getClientId() == "client1"
       getKey1() == "value1"
       getKey2() == 12
+      initialized
+      validated
+    }
+
+    when: "given null configuration map"
+    configurationObj = subject.build(BasicConfigurationObj.class, null)
+
+    then: "takes defaults"
+    verifyAll (configurationObj) {
+      getKey1() == null
+      getKey2() == null
       initialized
       validated
     }
@@ -262,7 +285,7 @@ class ConfigurationBinderTest extends Specification {
     result.list.size() == 1
   }
 
-  def "reports correction name when missing field"() {
+  def "reports correct name when missing field"() {
     given: "configuration missing class field"
     def configurationMap = new ObjectMap()
     state.pushLevel("ConfigurationWithChangedName")
@@ -275,7 +298,7 @@ class ConfigurationBinderTest extends Specification {
     ex.message == "Value required on class at ConfigurationWithChangedName"
   }
 
-  def "reports correction name when missing field blank"() {
+  def "reports correct name when missing field blank"() {
     given: "configuration missing class field"
     def configurationMap = new ObjectMap()
     state.pushLevel("ConfigurationWithChangedName")
