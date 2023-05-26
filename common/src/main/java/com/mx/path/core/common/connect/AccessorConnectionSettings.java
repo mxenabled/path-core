@@ -22,8 +22,6 @@ import com.mx.path.core.common.lang.Strings;
 @AllArgsConstructor
 public class AccessorConnectionSettings implements ConnectionSettings {
 
-  private static final int STARTING_HASH_RESULT = 17;
-
   private String baseUrl;
   private String certificateAlias;
   private ObjectMap configurations;
