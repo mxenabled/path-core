@@ -46,6 +46,10 @@ public class MutualAuthProviderFactory {
         || Strings.isNotBlank(settings.getCertificateAlias());
   }
 
+  static void reset() {
+    mutualAuthProviderInstances.clear();
+  }
+
   // Private
 
   private static MutualAuthProvider buildProvider(ConnectionSettings settings) {
