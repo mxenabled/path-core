@@ -6,6 +6,8 @@ import com.mx.path.core.common.collection.ObjectMap;
 
 public interface ConnectionSettings {
 
+  int STARTING_HASH_RESULT = 17;
+
   /**
    * @return connection's base URL
    */
