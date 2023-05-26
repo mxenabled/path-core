@@ -165,11 +165,18 @@ class ConfigurationBinderTest extends Specification {
     given:
     state.pushLevel("test.configuration")
 
+    when: "configuration map is null"
+    subject.build(RequireStringFieldConfiguration .class, null)
+
+    then:
+    def error = thrown(ConfigurationError)
+    error.message == "Value required on key1 at test.configuration"
+
     when: "value is null"
     subject.build(RequireStringFieldConfiguration .class, configuration)
 
     then:
-    def error = thrown(ConfigurationError)
+    error = thrown(ConfigurationError)
     error.message == "Value required on key1 at test.configuration"
 
     when: "value is blank"
