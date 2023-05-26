@@ -6,6 +6,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import com.mx.path.core.common.collection.ObjectMap;
@@ -18,12 +19,16 @@ import com.mx.path.core.common.lang.Strings;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class AccessorConnectionSettings implements ConnectionSettings {
 
+  @EqualsAndHashCode.Include
   private String baseUrl;
+  @EqualsAndHashCode.Include
   private String certificateAlias;
   private ObjectMap configurations;
   private char[] keystorePassword;
+  @EqualsAndHashCode.Include
   private String keystorePath;
   private List<RequestFilter> baseRequestFilters;
   private boolean skipHostNameVerify;

@@ -3,6 +3,8 @@ package com.mx.path.api.connect.http.certificate
 import com.mx.path.connect.http.certificate.FieldSettingsValidationError
 import com.mx.path.connect.http.certificate.MutualAuthProviderFactory
 import com.mx.path.connect.http.certificate.MutualAuthProviderKeystore
+import com.mx.path.core.common.collection.ObjectMap
+import com.mx.path.core.common.connect.AccessorConnectionSettings
 import com.mx.path.core.common.connect.ConnectionSettings
 import com.mx.path.core.common.connect.RequestFilter
 
@@ -15,52 +17,11 @@ class MutualAuthProviderFactoryTest extends Specification {
     settings = new TestMutualAuthSettings()
   }
 
-  class TestMutualAuthSettings implements ConnectionSettings {
-    private String keystorePath
-    private char[] keystorePassword
-    private String certificateAlias
+  def cleanup() {
+    MutualAuthProviderFactory.reset()
+  }
 
-    @Override
-    final String getKeystorePath() {
-      return keystorePath
-    }
-
-    final void setKeystorePath(String keystorePath) {
-      this.keystorePath = keystorePath
-    }
-
-    @Override
-    final char[] getKeystorePassword() {
-      return keystorePassword
-    }
-
-    @Override
-    List<RequestFilter> getBaseRequestFilters() {
-      return null
-    }
-
-    @Override
-    boolean getSkipHostNameVerify() {
-      return false
-    }
-
-    final void setKeystorePassword(char[] keystorePassword) {
-      this.keystorePassword = keystorePassword
-    }
-
-    @Override
-    String getBaseUrl() {
-      return null
-    }
-
-    @Override
-    final String getCertificateAlias() {
-      return certificateAlias
-    }
-
-    final void setCertificateAlias(String certificateAlias) {
-      this.certificateAlias = certificateAlias
-    }
+  class TestMutualAuthSettings extends AccessorConnectionSettings {
   }
 
   def "buildGivesNullIfNoSettings"() {
@@ -81,6 +42,56 @@ class MutualAuthProviderFactoryTest extends Specification {
   def "mutualAuthEnabledFalseWhenNoSettings"() {
     expect:
     !MutualAuthProviderFactory.isMutualAuthEnabled(settings)
+  }
+
+  def "caches mutualAuth according to settings"() {
+    given:
+    settings.setBaseUrl("http://localhost:3001")
+    settings.setCertificateAlias("certificate1")
+    settings.setKeystorePath("./src/test/resources/keystore.jks")
+
+    when:
+    def first = MutualAuthProviderFactory.build(settings)
+
+    then:
+    first === MutualAuthProviderFactory.build(settings)
+
+    when:
+    settings.setBaseUrl("http://localhost:3002")
+    settings.setCertificateAlias("certificate1")
+    settings.setKeystorePath("./src/test/resources/keystore.jks")
+
+    then:
+    first !== MutualAuthProviderFactory.build(settings)
+
+    when:
+    settings.setBaseUrl("http://localhost:3001")
+    settings.setCertificateAlias("certificate2")
+    settings.setKeystorePath("./src/test/resources/keystore.jks")
+
+    then:
+    first !== MutualAuthProviderFactory.build(settings)
+
+    when:
+    settings.setBaseUrl("http://localhost:3001")
+    settings.setCertificateAlias("certificate1")
+    settings.setKeystorePath("./src/test/resources/another_keystore.jks")
+
+    then:
+    first !== MutualAuthProviderFactory.build(settings)
+
+    when:
+    settings.setBaseUrl("http://localhost:3001")
+    settings.setCertificateAlias("certificate1")
+    settings.setKeystorePath("./src/test/resources/keystore.jks")
+
+    // Does not care about these properties
+    settings.setKeystorePassword("bobIsYourUncle".toCharArray())
+    settings.setSkipHostNameVerify(true)
+    settings.setConfigurations(new ObjectMap().tap { put("uncle", "bob") })
+
+    then:
+    first === MutualAuthProviderFactory.build(settings)
   }
 
   def "mutualAuthEnabledTrueWhenSettingsPresent"() {
