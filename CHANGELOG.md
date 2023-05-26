@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.0](https://github.com/mxenabled/path-core/compare/v2.0.0...v2.1.0) (2023-05-26)
+
+
+### Features
+
+* collection ordering annotation and comparator ([8c7f5fb](https://github.com/mxenabled/path-core/commit/8c7f5fb42740b73629b556020958b689af416b4c))
+
+
+### Bug Fixes
+
+* handle null ObjectMap in ConfigurationBinder ([77eaea6](https://github.com/mxenabled/path-core/commit/77eaea696066b0fed4acc3a6322091c714c50719))
+
 ## [2.0.0](https://github.com/mxenabled/path-core/compare/v1.11.0...v2.0.0) (2023-05-16)
 
 
