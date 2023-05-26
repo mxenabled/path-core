@@ -194,6 +194,10 @@ public class ConfigurationBinder {
   private void populateFields(Object obj, ObjectMap configurationMap) {
     Map<String, Annotations.AnnotatedField<ConfigurationField>> configurationFieldMap = prepareConfigurationObjectFields(obj);
 
+    if (configurationMap == null) {
+      configurationMap = new ObjectMap();
+    }
+
     configurationMap.forEach((fieldName, fieldValue) -> {
       Annotations.AnnotatedField<ConfigurationField> configurationAnnotatedField = configurationFieldMap.get(fieldName);
 
