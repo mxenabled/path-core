@@ -7,13 +7,20 @@ import static org.mockito.Mockito.verify
 import com.mx.path.connect.http.HttpAccessorConnection
 import com.mx.path.connect.http.HttpRequest
 import com.mx.path.connect.http.HttpResponse
+import com.mx.path.core.common.request.Feature
+import com.mx.path.core.context.RequestContext
 
+import spock.lang.Rollup
 import spock.lang.Specification
 import testing.connect.RequestFilterStub
 
 class HttpAccessorConnectionTest extends Specification {
 
   def setup() {
+  }
+
+  def cleanup() {
+    RequestContext.clear()
   }
 
   def "builds request"() {
@@ -28,6 +35,61 @@ class HttpAccessorConnectionTest extends Specification {
     then:
     request.getUri() == "http://localhost:9999/path"
     request.getConnectionSettings().getCertificateAlias() == "secureMe"
+    request.getFeature() == null
+  }
+
+  def "builds request with feature"() {
+    given:
+    RequestContext.builder().feature("accounts").build().register()
+
+    def subject = new HttpAccessorConnection()
+    subject.setBaseUrl("http://localhost:9999")
+    subject.setCertificateAlias("secureMe")
+
+    when:
+    def request = subject.request("path");
+
+    then:
+    request.getUri() == "http://localhost:9999/path"
+    request.getConnectionSettings().getCertificateAlias() == "secureMe"
+    request.getFeature() == Feature.ACCOUNTS
+  }
+
+  @Rollup
+  def "builds request with any feature"() {
+    given:
+    RequestContext.builder().feature(name).build().register()
+
+    def subject = new HttpAccessorConnection()
+    subject.setBaseUrl("http://localhost:9999")
+    subject.setCertificateAlias("secureMe")
+
+    when:
+    def request = subject.request("path");
+
+    then:
+    request.getFeature() == enumeration
+
+    where:
+    enumeration | name
+    Feature.ACCOUNTS  | "accounts"
+    Feature.ACH_TRANSFERS  | "ach_transfers"
+    Feature.AUTHORIZATIONS  | "authorizations"
+    Feature.CHECK_IMAGES  | "check_images"
+    Feature.CREDIT_REPORTS  | "credit_reports"
+    Feature.CROSS_ACCOUNT_TRANSFERS  | "cross_account_transfers"
+    Feature.DOCUMENTS  | "documents"
+    Feature.IDENTITY  | "identity"
+    Feature.LOCATION  | "location"
+    Feature.MANAGED_CARDS  | "managed_cards"
+    Feature.ORIGINATIONS  | "originations"
+    Feature.PAYMENTS  | "payments"
+    Feature.PAYOUTS  | "payouts"
+    Feature.PROFILES  | "profiles"
+    Feature.REMOTE_DEPOSITS  | "remote_deposits"
+    Feature.STATUS  | "status"
+    Feature.TRANSACTIONS  | "transactions"
+    Feature.TRANSFERS  | "transfers"
   }
 
   def "delete"() {
