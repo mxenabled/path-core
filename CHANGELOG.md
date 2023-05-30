@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/mxenabled/path-core/compare/v2.1.0...v2.1.1) (2023-05-30)
+
+
+### Bug Fixes
+
+* use only relevant fields in AccessorConnectionSettings hashcode ([7d15919](https://github.com/mxenabled/path-core/commit/7d15919732fe14bbfbbfca568d6c3b4e6d0648ea))
+
 ## [2.1.0](https://github.com/mxenabled/path-core/compare/v2.0.0...v2.1.0) (2023-05-26)
 
 
