@@ -29,5 +29,5 @@ public interface FaultTolerantExecutor {
    * @param scope
    * @param task
    */
-  void submit(String scope, FaultTolerantTask task);
+  void submit(String scope, FaultTolerantTask task) throws Exception;
 }
