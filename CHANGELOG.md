@@ -1,3 +1,14 @@
+## [3.0.0-rc.1](https://github.com/mxenabled/path-core/compare/v2.1.1...3.0.0-rc.1) (2023-06-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* add throws to FaultTolerantExecutor.submit()
+
+### Features
+
+* add throws to FaultTolerantExecutor.submit() ([6c5bed2](https://github.com/mxenabled/path-core/commit/6c5bed29c1b637332e106d563d151a5096d12670))
+
 # Changelog
 
 ## [2.1.1](https://github.com/mxenabled/path-core/compare/v2.1.0...v2.1.1) (2023-05-30)
