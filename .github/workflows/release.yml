@@ -3,13 +3,14 @@ on:
   push:
     branches:
       - master
+      - rc
 
 name: release
 
 jobs:
   release:
     permissions: write-all
-    uses: mxenabled/path-tools/.github/workflows/release_manifest.yml@master
+    uses: mxenabled/path-tools/.github/workflows/release_semantic.yml@master
     secrets:
       OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
       OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}

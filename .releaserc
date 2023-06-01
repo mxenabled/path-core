@@ -1,0 +1,47 @@
+{
+  "branches": [
+    { name: "master" },
+    { name: "rc", prerelease: "rc" }
+  ],
+  "tagFormat": "${version}",
+  "plugins": [
+    [
+      "@google/semantic-release-replace-plugin",
+      {
+        "replacements": [
+          {
+            "files": ["./README.md", "build.gradle"],
+            "from": "(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?(?<tag>.+x-release-version.?)",
+            "to": "${nextRelease.version}$<tag>"
+          }
+        ]
+      }
+    ],
+    [
+      '@semantic-release/commit-analyzer',
+      {
+        preset: 'conventionalcommits',
+      },
+    ],
+    [
+      '@semantic-release/release-notes-generator',
+      {
+        preset: 'conventionalcommits',
+      }
+    ],
+    [
+      "@semantic-release/changelog",
+      {
+        "changelogFile": "CHANGELOG.md"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["./README.md", "CHANGELOG.md", "./build.gradle"],
+        "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
+      }
+    ],
+    "@semantic-release/github"
+  ]
+}
