@@ -27,6 +27,11 @@ public interface ConnectionSettings {
   char[] getKeystorePassword();
 
   /**
+   * @return hashcode representing connection uniqueness for mutual authentication settings
+   */
+  int mutualAuthProviderHashcode();
+
+  /**
    * @return list of configured request filters to be used when executing connection's requests
    */
   List<RequestFilter> getBaseRequestFilters();
