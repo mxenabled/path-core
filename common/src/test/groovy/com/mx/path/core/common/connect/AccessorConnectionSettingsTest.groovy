@@ -11,17 +11,17 @@ class AccessorConnectionSettingsTest extends Specification {
     settings = new AccessorConnectionSettings()
   }
 
-  def "test hashCode"() {
+  def "test mutualAuthProviderHashcode"() {
     given:
     settings.setBaseUrl("http://localhost:3001")
     settings.setCertificateAlias("certificate1")
     settings.setKeystorePath("./src/test/resources/keystore.jks")
 
     when:
-    def first = settings.hashCode()
+    def first = settings.mutualAuthProviderHashcode()
 
     then:
-    first == settings.hashCode()
+    first == settings.mutualAuthProviderHashcode()
 
     when:
     settings.setBaseUrl("http://localhost:3002")
@@ -29,7 +29,7 @@ class AccessorConnectionSettingsTest extends Specification {
     settings.setKeystorePath("./src/test/resources/keystore.jks")
 
     then:
-    first != settings.hashCode()
+    first != settings.mutualAuthProviderHashcode()
 
     when:
     settings.setBaseUrl("http://localhost:3001")
@@ -37,7 +37,7 @@ class AccessorConnectionSettingsTest extends Specification {
     settings.setKeystorePath("./src/test/resources/keystore.jks")
 
     then:
-    first != settings.hashCode()
+    first != settings.mutualAuthProviderHashcode()
 
     when:
     settings.setBaseUrl("http://localhost:3001")
@@ -45,7 +45,7 @@ class AccessorConnectionSettingsTest extends Specification {
     settings.setKeystorePath("./src/test/resources/another_keystore.jks")
 
     then:
-    first != settings.hashCode()
+    first != settings.mutualAuthProviderHashcode()
 
     when:
     settings.setBaseUrl("http://localhost:3001")
@@ -58,6 +58,6 @@ class AccessorConnectionSettingsTest extends Specification {
     settings.setConfigurations(new ObjectMap().tap { put("uncle", "bob") })
 
     then:
-    first == settings.hashCode()
+    first == settings.mutualAuthProviderHashcode()
   }
 }

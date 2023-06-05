@@ -42,7 +42,6 @@ allprojects {
   }
 }
 
-
 subprojects {
   if (it.name != platformProject) {
     apply plugin: "java-library"

@@ -140,6 +140,11 @@ class RequestTest extends Specification {
     }
 
     @Override
+    int mutualAuthProviderHashcode() {
+      return 0
+    }
+
+    @Override
     List<RequestFilter> getBaseRequestFilters() {
       return null
     }
