@@ -1,3 +1,14 @@
+## [3.0.0](https://github.com/mxenabled/path-core/compare/2.1.2...3.0.0) (2023-06-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* **mutual_auth:** replace use of ConnectionSettings hashcode
+
+### Bug Fixes
+
+* **mutual_auth:** replace use of ConnectionSettings hashcode ([bd7bbac](https://github.com/mxenabled/path-core/commit/bd7bbac755884ff80644a11929fd6bd8e261b4ea))
+
 ## [2.1.2](https://github.com/mxenabled/path-core/compare/v2.1.1...2.1.2) (2023-06-06)
 
 
