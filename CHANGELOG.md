@@ -5,6 +5,13 @@
 
 * semantic release ([c33e3e1](https://github.com/mxenabled/path-core/commit/c33e3e1af2702e5975e7ce985550b7f32bc34dea))
 
+## [2.1.2](https://github.com/mxenabled/path-core/compare/v2.1.1...2.1.2) (2023-06-06)
+
+
+### Bug Fixes
+
+* semantic release ([c33e3e1](https://github.com/mxenabled/path-core/commit/c33e3e1af2702e5975e7ce985550b7f32bc34dea))
+
 # Changelog
 
 ## [2.1.1](https://github.com/mxenabled/path-core/compare/v2.1.0...v2.1.1) (2023-05-30)
