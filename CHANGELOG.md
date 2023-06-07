@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/mxenabled/path-core/compare/v1.11.0...1.11.1) (2023-06-07)
+
+
+### Bug Fixes
+
+* patch mutual auth provider memory leak ([f9a43b7](https://github.com/mxenabled/path-core/commit/f9a43b7bb0bd88aac651e13e89b5f683aa06215a))
+
 # Changelog
 
 ## [1.11.0](https://github.com/mxenabled/path-core/compare/v1.10.0...v1.11.0) (2023-04-26)

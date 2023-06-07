@@ -22,7 +22,7 @@
 _Gradle_
 ```groovy
 dependencies {
-  api platform("com.mx.path-core:platform:1.11.0") // x-release-version
+  api platform("com.mx.path-core:platform:1.11.1") // x-release-version
 
   implementation "com.mx.path-core:common"
   implementation "com.mx.path-core:context"
