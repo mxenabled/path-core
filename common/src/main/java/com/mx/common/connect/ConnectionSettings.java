@@ -38,4 +38,26 @@ public interface ConnectionSettings {
 
   default void describe(ObjectMap description) {
   }
+
+  /**
+   * Used to represent this connection's uniqueness for mutual auth
+   *
+   * <p>Only override if your class needs more uniqueness. (rare)
+   * @return Hash of baseUrl, certificateAlias, and keystorePath.
+   */
+  @SuppressWarnings("MagicNumber")
+  default int mutualAuthProviderHashcode() {
+    int result = 1;
+
+    Object thisBaseUrl = this.getBaseUrl();
+    result = result * 59 + (thisBaseUrl == null ? 43 : thisBaseUrl.hashCode());
+
+    Object thisCertificateAlias = this.getCertificateAlias();
+    result = result * 59 + (thisCertificateAlias == null ? 43 : thisCertificateAlias.hashCode());
+
+    Object thisKeystorePath = this.getKeystorePath();
+    result = result * 59 + (thisKeystorePath == null ? 43 : thisKeystorePath.hashCode());
+
+    return result;
+  }
 }
