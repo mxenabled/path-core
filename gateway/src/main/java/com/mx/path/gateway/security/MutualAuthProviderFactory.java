@@ -12,22 +12,22 @@ import com.mx.common.lang.Strings;
  */
 @Deprecated
 public class MutualAuthProviderFactory {
-  private static Map<ConnectionSettings, MutualAuthProvider> mutualAuthProviderInstances = new HashMap<>();
+  private static Map<Integer, MutualAuthProvider> mutualAuthProviderInstances = new HashMap<>();
 
   public static MutualAuthProvider build(ConnectionSettings settings) {
     if (settings == null || !isMutualAuthEnabled(settings)) {
       return null;
     }
 
-    if (!mutualAuthProviderInstances.containsKey(settings)) {
+    if (!mutualAuthProviderInstances.containsKey(settings.mutualAuthProviderHashcode())) {
       synchronized (MutualAuthProviderFactory.class) {
-        if (!mutualAuthProviderInstances.containsKey(settings)) {
-          mutualAuthProviderInstances.put(settings, buildProvider(settings));
+        if (!mutualAuthProviderInstances.containsKey(settings.mutualAuthProviderHashcode())) {
+          mutualAuthProviderInstances.put(settings.mutualAuthProviderHashcode(), buildProvider(settings));
         }
       }
     }
 
-    return mutualAuthProviderInstances.get(settings);
+    return mutualAuthProviderInstances.get(settings.mutualAuthProviderHashcode());
   }
 
   public static void validateSettings(ConnectionSettings settings) throws FieldSettingsValidationError {
