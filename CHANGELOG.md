@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/mxenabled/path-core/compare/3.0.0...3.0.1) (2023-06-08)
+
+
+### Bug Fixes
+
+* move mutual auth hash code to interface ([9f626dc](https://github.com/mxenabled/path-core/commit/9f626dcc293ebe4cba123493cd754ee95cbc7259))
+
 ## [3.0.0](https://github.com/mxenabled/path-core/compare/2.1.2...3.0.0) (2023-06-06)
 
 
