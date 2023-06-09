@@ -1,3 +1,10 @@
+## [3.1.0](https://github.com/mxenabled/path-core/compare/3.0.1...3.1.0) (2023-06-09)
+
+
+### Features
+
+* add support for regex pattern configuration binding ([8c8e848](https://github.com/mxenabled/path-core/commit/8c8e8484d65882ff4f767829c59fe05e72e40b4e))
+
 ## [3.0.1](https://github.com/mxenabled/path-core/compare/3.0.0...3.0.1) (2023-06-08)
 
 
