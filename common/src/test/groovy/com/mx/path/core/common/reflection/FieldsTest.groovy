@@ -1,8 +1,11 @@
 package com.mx.path.core.common.reflection
 
-
 import java.lang.reflect.Field
 import java.time.Duration
+import java.util.regex.Pattern
+import java.util.regex.PatternSyntaxException
+
+import com.mx.path.core.common.configuration.ConfigurationException
 
 import spock.lang.Specification
 
@@ -27,6 +30,8 @@ class FieldsTest extends Specification {
     private Duration duration
 
     private com.mx.path.core.common.request.Feature enumeration
+
+    private Pattern regex
 
     def getId() {
       return this.id
@@ -192,5 +197,31 @@ class FieldsTest extends Specification {
     then:
     def ex = thrown(RuntimeException)
     ex.getMessage() == "Can't find field garbage on com.mx.path.core.common.reflection.FieldsTest.TestDataClass"
+  }
+
+  def "coerces Pattern"() {
+    given:
+    def subject = new TestDataClass()
+
+    when:
+    Fields.setFieldValue("regex", subject, "(?i)^[a-z]+\$")
+
+    then:
+    subject.regex.matcher("AbCdEfG").matches()
+
+    when:
+    Fields.setFieldValue("regex", subject, "^[a-z]+\$")
+
+    then:
+    subject.regex.matcher("abcdefg").matches()
+    !subject.regex.matcher("AbCdEfG").matches()
+
+    when:
+    Fields.setFieldValue("regex", subject, "[a-z")
+
+    then:
+    def ex = thrown(ConfigurationException)
+    ex.message == "Invalid regular expression - [a-z"
+    ex.cause.getClass() == PatternSyntaxException
   }
 }

@@ -5,6 +5,8 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Objects;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import com.mx.path.core.common.configuration.ConfigurationException;
 import com.mx.path.core.common.lang.Durations;
@@ -114,6 +116,10 @@ public class Fields {
       return coerceToDuration(value);
     }
 
+    if (targetType == Pattern.class) {
+      return coerceToPattern(value);
+    }
+
     if (targetType.isEnum()) {
       return coerceToEnum(targetType, value);
     }
@@ -138,5 +144,24 @@ public class Fields {
         .filter((enumValue) -> valueStr.equalsIgnoreCase(enumValue.toString()) || valueStr.equalsIgnoreCase(enumValue.name()))
         .findFirst()
         .orElseThrow(() -> new ConfigurationException("Invalid value " + valueStr + " for enumeration " + targetType.getName()));
+  }
+
+  /**
+   * Parses String into a {@link Pattern}
+   *
+   * <p>To specify flags, use the Java embedded flag expression in the regular expression string.
+   * See https://docs.oracle.com/javase/tutorial/essential/regex/pattern.html for details.
+   *
+   * @param value regular expression
+   * @return Pattern representing provided regular expression
+   */
+  private static Pattern coerceToPattern(Object value) {
+    String valueStr = value.toString().trim();
+
+    try {
+      return Pattern.compile(valueStr);
+    } catch (PatternSyntaxException e) {
+      throw new ConfigurationException("Invalid regular expression - " + valueStr, e);
+    }
   }
 }
