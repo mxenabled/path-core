@@ -56,12 +56,18 @@
  *    <li>Long
  *    <li>Double
  *    <li>Enumerations (see notes)
+ *    <li>Regex Pattern (see notes)
  *    <li>Duration (see notes)
  *  </ul>
  *
  *  <p><strong>Enumerations</strong>
  *  <p>Enumerations are matched using a case-insensitive comparison with name() and toString() of the enumerations
  *  values.
+ *
+ *  <p><strong>Patterns</strong>
+ *  <p>Regular expression strings can be coerced into a {@link java.util.regex.Pattern}. Use Embedded Flag Expressions
+ *  to specify flags. See https://docs.oracle.com/javase/tutorial/essential/regex/pattern.html and javadocs for
+ *  {@link java.util.regex.Pattern} for details.
  *
  *  <p><strong>Durations</strong>
  *  <p>When dealing with time lengths, the use of Durations is preferred rather than using simple integer values. This
