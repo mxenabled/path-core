@@ -33,6 +33,8 @@ class FieldsTest extends Specification {
 
     private Pattern regex
 
+    private Byte bField;
+
     def getId() {
       return this.id
     }
@@ -223,5 +225,30 @@ class FieldsTest extends Specification {
     def ex = thrown(ConfigurationException)
     ex.message == "Invalid regular expression - [a-z"
     ex.cause.getClass() == PatternSyntaxException
+  }
+
+  def "coerces Byte"() {
+    given:
+    def subject = new TestDataClass()
+
+    when:
+    Fields.setFieldValue("bField", subject, 12)
+
+    then:
+    subject.bField == 12
+
+    when:
+    Fields.setFieldValue("bField", subject, null)
+
+    then:
+    subject.bField == null
+
+    when:
+    Fields.setFieldValue("bField", subject, Byte.MAX_VALUE + 1)
+
+    then:
+    def ex = thrown(ConfigurationException)
+    ex.message == "Invalid Byte value - 128"
+    ex.cause.getClass() == NumberFormatException
   }
 }

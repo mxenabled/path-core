@@ -108,6 +108,10 @@ public class Fields {
       return Long.valueOf(value.toString().trim());
     }
 
+    if (targetType == byte.class || targetType == Byte.class) {
+      return coerceToByte(value);
+    }
+
     if (targetType == String.class) {
       return value.toString();
     }
@@ -125,6 +129,14 @@ public class Fields {
     }
 
     return value;
+  }
+
+  private static Byte coerceToByte(Object value) {
+    try {
+      return Byte.parseByte(value.toString());
+    } catch (NumberFormatException e) {
+      throw new ConfigurationException("Invalid Byte value - " + value.toString(), e);
+    }
   }
 
   @SuppressWarnings("PMD.CyclomaticComplexity")
