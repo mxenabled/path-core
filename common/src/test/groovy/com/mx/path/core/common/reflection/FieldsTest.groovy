@@ -35,6 +35,8 @@ class FieldsTest extends Specification {
 
     private Byte bField;
 
+    private Short sField;
+
     def getId() {
       return this.id
     }
@@ -249,6 +251,31 @@ class FieldsTest extends Specification {
     then:
     def ex = thrown(ConfigurationException)
     ex.message == "Invalid Byte value - 128"
+    ex.cause.getClass() == NumberFormatException
+  }
+
+  def "coerces Short"() {
+    given:
+    def subject = new TestDataClass()
+
+    when:
+    Fields.setFieldValue("sField", subject, 12)
+
+    then:
+    subject.sField == 12
+
+    when:
+    Fields.setFieldValue("sField", subject, null)
+
+    then:
+    subject.sField == null
+
+    when:
+    Fields.setFieldValue("sField", subject, Short.MAX_VALUE + 1)
+
+    then:
+    def ex = thrown(ConfigurationException)
+    ex.message == "Invalid Short value - 32768"
     ex.cause.getClass() == NumberFormatException
   }
 }

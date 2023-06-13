@@ -108,6 +108,10 @@ public class Fields {
       return Long.valueOf(value.toString().trim());
     }
 
+    if (targetType == short.class || targetType == Short.class) {
+      return coerceToShort(value);
+    }
+
     if (targetType == byte.class || targetType == Byte.class) {
       return coerceToByte(value);
     }
@@ -174,6 +178,14 @@ public class Fields {
       return Pattern.compile(valueStr);
     } catch (PatternSyntaxException e) {
       throw new ConfigurationException("Invalid regular expression - " + valueStr, e);
+    }
+  }
+
+  private static Short coerceToShort(Object value) {
+    try {
+      return Short.parseShort(value.toString());
+    } catch (NumberFormatException e) {
+      throw new ConfigurationException("Invalid Short value - " + value.toString(), e);
     }
   }
 }
