@@ -116,6 +116,10 @@ public class Fields {
       return coerceToByte(value);
     }
 
+    if (targetType == char.class || targetType == Character.class) {
+      return coerceToChar(value);
+    }
+
     if (targetType == String.class) {
       return value.toString();
     }
@@ -140,6 +144,18 @@ public class Fields {
       return Byte.parseByte(value.toString());
     } catch (NumberFormatException e) {
       throw new ConfigurationException("Invalid Byte value - " + value.toString(), e);
+    }
+  }
+
+  private static Character coerceToChar(Object value) {
+    String strValue = value.toString().trim();
+    if (strValue.length() != 1) {
+      throw new ConfigurationException("Invalid char length - " + strValue);
+    }
+    try {
+      return strValue.charAt(0);
+    } catch (NumberFormatException e) {
+      throw new ConfigurationException("Invalid Short value - " + value.toString(), e);
     }
   }
 

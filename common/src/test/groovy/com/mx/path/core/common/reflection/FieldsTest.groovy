@@ -33,9 +33,11 @@ class FieldsTest extends Specification {
 
     private Pattern regex
 
-    private Byte bField;
+    private Byte cByte;
 
-    private Short sField;
+    private Short cShort;
+
+    private Character cCharacter;
 
     def getId() {
       return this.id
@@ -234,19 +236,19 @@ class FieldsTest extends Specification {
     def subject = new TestDataClass()
 
     when:
-    Fields.setFieldValue("bField", subject, 12)
+    Fields.setFieldValue("cByte", subject, 12)
 
     then:
-    subject.bField == 12
+    subject.cByte == 12
 
     when:
-    Fields.setFieldValue("bField", subject, null)
+    Fields.setFieldValue("cByte", subject, null)
 
     then:
-    subject.bField == null
+    subject.cByte == null
 
     when:
-    Fields.setFieldValue("bField", subject, Byte.MAX_VALUE + 1)
+    Fields.setFieldValue("cByte", subject, Byte.MAX_VALUE + 1)
 
     then:
     def ex = thrown(ConfigurationException)
@@ -254,24 +256,49 @@ class FieldsTest extends Specification {
     ex.cause.getClass() == NumberFormatException
   }
 
+  def "coerces Character"() {
+    given:
+    def subject = new TestDataClass()
+
+    when:
+    Fields.setFieldValue("cCharacter", subject, "p")
+
+    then:
+    subject.cCharacter == 'p'
+
+    when:
+    Fields.setFieldValue("cCharacter", subject, null)
+
+    then:
+    subject.cCharacter == null
+
+    when:
+    Fields.setFieldValue("cCharacter", subject, "p?")
+
+    then:
+    def ex = thrown(ConfigurationException)
+    ex.message == "Invalid char length - p?"
+    ex.cause == null
+  }
+
   def "coerces Short"() {
     given:
     def subject = new TestDataClass()
 
     when:
-    Fields.setFieldValue("sField", subject, 12)
+    Fields.setFieldValue("cShort", subject, 12)
 
     then:
-    subject.sField == 12
+    subject.cShort == 12
 
     when:
-    Fields.setFieldValue("sField", subject, null)
+    Fields.setFieldValue("cShort", subject, null)
 
     then:
-    subject.sField == null
+    subject.cShort == null
 
     when:
-    Fields.setFieldValue("sField", subject, Short.MAX_VALUE + 1)
+    Fields.setFieldValue("cShort", subject, Short.MAX_VALUE + 1)
 
     then:
     def ex = thrown(ConfigurationException)
