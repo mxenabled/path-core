@@ -1,3 +1,12 @@
+## [3.2.0](https://github.com/mxenabled/path-core/compare/3.1.0...3.2.0) (2023-06-14)
+
+
+### Features
+
+* add support for byte binding ([9ac0350](https://github.com/mxenabled/path-core/commit/9ac03508ce20f03f93b1fd156269b1e41b132059))
+* add support for char binding ([62e666b](https://github.com/mxenabled/path-core/commit/62e666bf3c012a138a01a0815127cdd7f71b86a3))
+* add support for short binding ([bc13c02](https://github.com/mxenabled/path-core/commit/bc13c025f3369d8c4125b0e7912c1c9085d7b324))
+
 ## [3.1.0](https://github.com/mxenabled/path-core/compare/3.0.1...3.1.0) (2023-06-09)
 
 
