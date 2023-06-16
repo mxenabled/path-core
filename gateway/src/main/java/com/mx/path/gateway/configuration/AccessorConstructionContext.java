@@ -21,7 +21,6 @@ import com.mx.path.core.common.gateway.GatewayException;
 import com.mx.path.core.common.serialization.ObjectMapJsonDeserializer;
 import com.mx.path.gateway.accessor.Accessor;
 import com.mx.path.gateway.accessor.AccessorConfiguration;
-import com.mx.path.gateway.configuration.annotations.ClientID;
 import com.mx.path.gateway.configuration.annotations.Connection;
 
 /**
@@ -60,11 +59,6 @@ public class AccessorConstructionContext<T extends Accessor> {
         Arrays.stream(constructor.getParameters()).forEach(param -> {
           if (AccessorConfiguration.class.isAssignableFrom(param.getType())) {
             constructorArgs.add(configuration);
-            return;
-          }
-
-          if (param.isAnnotationPresent(ClientID.class)) {
-            constructorArgs.add(accessorConfiguration.getClientId());
             return;
           }
 
@@ -181,8 +175,7 @@ public class AccessorConstructionContext<T extends Accessor> {
         c -> Arrays.stream(c.getParameters()).allMatch(
             param -> param.getType() == AccessorConfiguration.class
                 || param.isAnnotationPresent(Configuration.class)
-                || param.isAnnotationPresent(Connection.class)
-                || param.isAnnotationPresent(ClientID.class)))
+                || param.isAnnotationPresent(Connection.class)))
         .collect(Collectors.toList());
 
     if (constructors.size() > 1) {

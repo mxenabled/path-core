@@ -11,7 +11,6 @@ import com.mx.path.core.common.collection.ObjectMap;
 import com.mx.path.core.common.configuration.Configuration;
 import com.mx.path.core.common.configuration.ConfigurationField;
 import com.mx.path.core.utility.reflection.ClassHelper;
-import com.mx.path.gateway.configuration.annotations.ClientID;
 
 /**
  * General purpose object configurator. Given an ObjectMap of configurations, this class will instantiate an object with
@@ -71,11 +70,6 @@ public final class GatewayObjectConfigurator {
           return;
         }
 
-        if (param.isAnnotationPresent(ClientID.class)) {
-          constructorArgs.add(clientId);
-          return;
-        }
-
         Configuration configurationAnnotation = param.getAnnotation(Configuration.class);
         if (configurationAnnotation != null) {
           state.withLevel(param.getType().getSimpleName(), () -> {
@@ -109,8 +103,7 @@ public final class GatewayObjectConfigurator {
     constructors = constructors.stream()
         .filter(constructor -> Arrays.stream(constructor.getParameters()).allMatch(
             param -> param.getType() == ObjectMap.class
-                || param.isAnnotationPresent(Configuration.class)
-                || param.isAnnotationPresent(ClientID.class)))
+                || param.isAnnotationPresent(Configuration.class)))
         .collect(Collectors.toList());
 
     if (constructors.size() > 1) {

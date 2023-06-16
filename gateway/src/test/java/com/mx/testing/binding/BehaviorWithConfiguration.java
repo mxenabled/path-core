@@ -8,14 +8,9 @@ import com.mx.path.core.common.configuration.ConfigurationField;
 import com.mx.path.gateway.accessor.AccessorResponse;
 import com.mx.path.gateway.behavior.GatewayBehavior;
 import com.mx.path.gateway.configuration.Configurable;
-import com.mx.path.gateway.configuration.annotations.ClientID;
 import com.mx.path.gateway.context.GatewayRequestContext;
 
-public class BehaviorWithClientIDAndConfiguration extends GatewayBehavior implements Configurable {
-
-  @Getter
-  private final String clientId;
-
+public class BehaviorWithConfiguration extends GatewayBehavior implements Configurable {
   @Getter
   private final BehaviorConfiguration behaviorConfiguration;
 
@@ -32,9 +27,8 @@ public class BehaviorWithClientIDAndConfiguration extends GatewayBehavior implem
     private String actionFilter;
   }
 
-  public BehaviorWithClientIDAndConfiguration(ObjectMap configurations, @ClientID String clientId, @Configuration BehaviorConfiguration behaviorConfiguration) {
+  public BehaviorWithConfiguration(ObjectMap configurations, @Configuration BehaviorConfiguration behaviorConfiguration) {
     super(configurations);
-    this.clientId = clientId;
     this.behaviorConfiguration = behaviorConfiguration;
   }
 

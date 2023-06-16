@@ -6,11 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation used to bind current ClientID to any configuration POJO, AccessorConnectionSettings, or Accessor
+ * Annotation used to bind current ClientID to any configuration POJO
  *
  * <p><b>Configuration POJO</b>
- *
- * <p><i>Note: This is the only place that the annotation is applicable to a field. Other uses must appear as a constructor param.</i>
  *
  * <pre>{@code
  *   @Data
@@ -21,18 +19,8 @@ import java.lang.annotation.Target;
  * }</pre>
  *
  * <p><b>Accessor and AccessorConnectionSettings</b>
- *
- * <pre>{@code
- *   public class IdAccessor extends BaseIdAccessor {
- *     private String clientId;
- *
- *     public IdAccessor(AccessorConfiguration configuration, @ClientID String clientId) {
- *       this.clientId = clientId;
- *     }
- *   }
- * }</pre>
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.PARAMETER, ElementType.FIELD })
+@Target(ElementType.FIELD)
 public @interface ClientID {
 }

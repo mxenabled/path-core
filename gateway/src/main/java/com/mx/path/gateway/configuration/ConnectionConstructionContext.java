@@ -13,7 +13,6 @@ import com.mx.path.core.common.connect.AccessorConnectionSettings;
 import com.mx.path.core.common.gateway.GatewayException;
 import com.mx.path.core.common.reflection.Constructors;
 import com.mx.path.core.common.reflection.Fields;
-import com.mx.path.gateway.configuration.annotations.ClientID;
 import com.mx.path.gateway.configuration.annotations.Connection;
 
 public class ConnectionConstructionContext {
@@ -56,14 +55,10 @@ public class ConnectionConstructionContext {
           .map(parameter -> {
             state.pushLevel(parameter.getType().getSimpleName());
             try {
-              if (parameter.isAnnotationPresent(ClientID.class)) {
-                return clientId;
+              if (accessorConnectionSettings != null) {
+                return configurationBinder.build(parameter.getType(), accessorConnectionSettings.getConfigurations());
               } else {
-                if (accessorConnectionSettings != null) {
-                  return configurationBinder.build(parameter.getType(), accessorConnectionSettings.getConfigurations());
-                } else {
-                  return null;
-                }
+                return null;
               }
             } finally {
               state.popLevel();
@@ -101,8 +96,7 @@ public class ConnectionConstructionContext {
     // Find a constructor that has only ClientID, Configuration and Connection annotated params
     constructors = constructors.stream().filter(
         c -> Arrays.stream(c.getParameters()).allMatch(param -> param.getAnnotation(Configuration.class) != null
-            || param.getAnnotation(Connection.class) != null
-            || param.getAnnotation(ClientID.class) != null))
+            || param.getAnnotation(Connection.class) != null))
         .collect(Collectors.toList());
 
     if (constructors.size() == 1) {
