@@ -1,3 +1,10 @@
+## [3.2.1](https://github.com/mxenabled/path-core/compare/3.2.0...3.2.1) (2023-06-16)
+
+
+### Bug Fixes
+
+* removing PARAMETER target from ClientID annotation ([08d69fd](https://github.com/mxenabled/path-core/commit/08d69fd2657b83a749327d08e5a319e80ca243a0))
+
 ## [3.2.0](https://github.com/mxenabled/path-core/compare/3.1.0...3.2.0) (2023-06-14)
 
 
