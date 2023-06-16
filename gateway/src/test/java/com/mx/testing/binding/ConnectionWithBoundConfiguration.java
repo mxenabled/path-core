@@ -4,17 +4,12 @@ import lombok.Getter;
 
 import com.mx.path.core.common.configuration.Configuration;
 import com.mx.path.core.common.connect.AccessorConnectionSettings;
-import com.mx.path.gateway.configuration.annotations.ClientID;
 
 public class ConnectionWithBoundConfiguration extends AccessorConnectionSettings {
   @Getter
   private final BasicConfigurationObj configs;
 
-  @Getter
-  private String clientId;
-
-  public ConnectionWithBoundConfiguration(@Configuration BasicConfigurationObj configs, @ClientID String clientId) {
+  public ConnectionWithBoundConfiguration(@Configuration BasicConfigurationObj configs) {
     this.configs = configs;
-    this.clientId = clientId;
   }
 }

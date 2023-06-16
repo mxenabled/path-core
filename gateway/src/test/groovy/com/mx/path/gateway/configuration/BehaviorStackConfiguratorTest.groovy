@@ -2,7 +2,7 @@ package com.mx.path.gateway.configuration
 
 import com.mx.path.core.common.collection.ObjectArray
 import com.mx.path.core.common.collection.ObjectMap
-import com.mx.testing.binding.BehaviorWithClientIDAndConfiguration
+import com.mx.testing.binding.BehaviorWithConfiguration
 import com.mx.testing.binding.BehaviorWithObjectMap
 
 import spock.lang.Specification
@@ -66,7 +66,7 @@ class BehaviorStackConfiguratorTest extends Specification {
     def node = new ObjectMap()
     node.createArray("behaviors").tap {
       add(new ObjectMap().tap {
-        put("class", BehaviorWithClientIDAndConfiguration.getCanonicalName())
+        put("class", BehaviorWithConfiguration.getCanonicalName())
         put("configurations", configuration)
       })
     }
@@ -75,9 +75,8 @@ class BehaviorStackConfiguratorTest extends Specification {
     def result = subject.buildFromNode(node, "client1")
 
     then:
-    result.get(0).getClass() == BehaviorWithClientIDAndConfiguration
-    result.get(0).class == BehaviorWithClientIDAndConfiguration
-    result.get(0).getClientId() == "client1"
+    result.get(0).getClass() == BehaviorWithConfiguration
+    result.get(0).class == BehaviorWithConfiguration
     result.get(0).getBehaviorConfiguration().getActionFilter() == "put"
     result.get(0).getBehaviorConfiguration().isActive()
     result.get(0).getConfigurations() == configuration
@@ -101,7 +100,7 @@ class BehaviorStackConfiguratorTest extends Specification {
     def node = new ObjectMap()
     node.createArray("behaviors").tap {
       add(new ObjectMap().tap {
-        put("class", BehaviorWithClientIDAndConfiguration.getCanonicalName())
+        put("class", BehaviorWithConfiguration.getCanonicalName())
         put("configurations", configuration)
       })
     }
@@ -112,7 +111,7 @@ class BehaviorStackConfiguratorTest extends Specification {
     then:
     result.size() == 2
     result.get(0).class == BehaviorWithObjectMap
-    result.get(1).class == BehaviorWithClientIDAndConfiguration
+    result.get(1).class == BehaviorWithConfiguration
   }
 
   def "no behaviors"() {

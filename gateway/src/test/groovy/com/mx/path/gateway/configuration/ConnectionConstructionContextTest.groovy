@@ -54,7 +54,6 @@ class ConnectionConstructionContextTest extends Specification {
 
     then:
     result.getConfigs().getKey1() == "value1"
-    result.getClientId() == "client1"
     connection.getBaseUrl() == result.getBaseUrl()
     connection.getSkipHostNameVerify() == result.getSkipHostNameVerify()
     connection.getKeystorePassword() == result.getKeystorePassword()

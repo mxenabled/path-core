@@ -5,7 +5,7 @@ import com.mx.path.core.common.messaging.MessageBroker
 import com.mx.path.gateway.behavior.GatewayBehavior
 import com.mx.path.gateway.service.GatewayService
 import com.mx.testing.MessageBrokerImpl
-import com.mx.testing.binding.BehaviorWithClientIDAndConfiguration
+import com.mx.testing.binding.BehaviorWithConfiguration
 import com.mx.testing.binding.BindedConfigGatewayService
 
 import spock.lang.Specification
@@ -46,7 +46,7 @@ class GatewayObjectConfiguratorTest extends Specification {
   def "builds and binds a GatewayBehavior"() {
     given:
     def node = new ObjectMap().tap {
-      put("class", BehaviorWithClientIDAndConfiguration.getCanonicalName())
+      put("class", BehaviorWithConfiguration.getCanonicalName())
       put("configurations", new ObjectMap().tap {
         put("active", true)
         put("actionFilter", "put")
@@ -57,10 +57,9 @@ class GatewayObjectConfiguratorTest extends Specification {
     def result = subject.buildFromNode(node, "client1", GatewayBehavior)
 
     then:
-    result instanceof BehaviorWithClientIDAndConfiguration
-    verifyAll((BehaviorWithClientIDAndConfiguration) result) {
+    result instanceof BehaviorWithConfiguration
+    verifyAll((BehaviorWithConfiguration) result) {
       behaviorConfiguration.active
-      clientId == "client1"
       initialized
     }
   }
