@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -76,6 +77,7 @@ public class Annotations {
 
     /**
      * Convert to annotatedField with given annotation type
+     *
      * @param annotationType
      * @param <T>
      * @return
@@ -129,16 +131,28 @@ public class Annotations {
     public final void setPosition(int position) {
       this.position = position;
     }
+  }
 
+  /**
+   * Get all fields with their annotations. This is deprecated as the name indicates filtering.
+   *
+   * @param klass
+   * @return a list of FieldWithAnnotation objects
+   * @deprecated Use {@link Annotations#fieldsAndAnnotations(Class)}
+   */
+  @Deprecated
+  public static List<FieldWithAnnotations> fieldsWithAnnotations(Class<?> klass) {
+    return fieldsAndAnnotations(klass);
   }
 
   /**
    * Get all fields with their annotations
+   *
    * @param klass
    * @return List of FieldWithAnnotation
    */
-  public static List<FieldWithAnnotations> fieldsWithAnnotations(Class<?> klass) {
-    return Arrays.stream(klass.getDeclaredFields())
+  public static List<FieldWithAnnotations> fieldsAndAnnotations(Class<?> klass) {
+    return getAllFields(klass).stream()
         .map(field -> {
           FieldWithAnnotations fieldWithAnnotations = new FieldWithAnnotations();
           fieldWithAnnotations.setField(field);
@@ -162,13 +176,14 @@ public class Annotations {
 
   /**
    * Get only fields with given annotation
+   *
    * @param annotationType
    * @param klass
    * @param <T> annotationType
    * @return List of AnnotatedField
    */
   public static <T extends Annotation> List<AnnotatedField<T>> fieldsWithAnnotation(Class<T> annotationType, Class<?> klass) {
-    return Arrays.stream(klass.getDeclaredFields())
+    return getAllFields(klass).stream()
         .map(field -> {
           AnnotatedField<T> annotatedField = new AnnotatedField<>();
           annotatedField.setAnnotation(field.getAnnotation(annotationType));
@@ -192,6 +207,7 @@ public class Annotations {
 
   /**
    * Get only constructor parameters with given annotation
+   *
    * @param annotationType
    * @param constructor
    * @param <T> annotationType
@@ -215,6 +231,7 @@ public class Annotations {
 
   /**
    * Resolve annotation type for given Annotation. These are sometimes wrapped in a Proxy. This resolve the true class.
+   *
    * @param annotation
    * @return
    */
@@ -224,5 +241,15 @@ public class Annotations {
     } else {
       return annotation.getClass();
     }
+  }
+
+  private static List<Field> getAllFields(Class<?> klass) {
+    List<Field> fields = new ArrayList<>(Arrays.asList(klass.getDeclaredFields()));
+
+    if (klass.getSuperclass() != null) {
+      fields.addAll(getAllFields(klass.getSuperclass()));
+    }
+
+    return fields;
   }
 }

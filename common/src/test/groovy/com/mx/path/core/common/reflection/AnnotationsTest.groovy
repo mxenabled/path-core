@@ -22,21 +22,29 @@ class AnnotationsTest extends Specification {
     def fields = Annotations.fieldsWithAnnotation(Nullable.class, WithAnnotations.class)
 
     then:
-    fields.size() == 1
-    fields[0].getField().getName() == "aField"
+    fields.size() == 3
+    fields[0].field.name == "aField"
+    fields[1].field.name == "baseField"
+    fields[2].field.name == "baseBaseField"
   }
 
   def "fieldsWithAnnotations"() {
     when:
-    def fields = Annotations.fieldsWithAnnotations(WithAnnotations.class)
+    def fields = Annotations.fieldsAndAnnotations(WithAnnotations.class)
 
     then:
-    fields.size() == 2
-    fields.get(0).getField().getName() == "aField"
-    fields.get(0).getAnnotation(Nullable.class) != null
+    fields.size() == 4
+    fields[0].field.name == "aField"
+    fields[0].getAnnotation(Nullable.class) != null
 
-    fields.get(1).getField().getName() == "unannotatedField"
-    fields.get(1).getAnnotation(Nullable.class) == null
+    fields[1].field.name == "unannotatedField"
+    fields[1].getAnnotation(Nullable.class) == null
+
+    fields[2].field.name == "baseField"
+    fields[2].getAnnotation(Nullable.class) != null
+
+    fields[3].field.name == "baseBaseField"
+    fields[3].getAnnotation(Nullable.class) != null
   }
 
   def "hasAnnotation"()  {
@@ -62,13 +70,13 @@ class AnnotationsTest extends Specification {
 
   def "asAnnotatedField"() {
     given:
-    def subject = Annotations.fieldsWithAnnotations(WithAnnotations.class).get(0)
+    def subject = Annotations.fieldsAndAnnotations(WithAnnotations.class)[0]
 
     when:
     def result = subject.asAnnotatedField(Nullable.class)
 
     then:
-    result.getField() == subject.getField()
-    result.getElementType() == subject.getElementType()
+    result.field == subject.field
+    result.elementType == subject.elementType
   }
 }

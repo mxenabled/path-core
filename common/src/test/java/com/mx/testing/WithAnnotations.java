@@ -5,7 +5,7 @@ import javax.annotation.Nullable;
 import com.mx.path.core.common.gateway.GatewayClass;
 
 @GatewayClass
-public class WithAnnotations {
+public class WithAnnotations extends WithAnnotationsBase {
 
   @Nullable
   private String aField;

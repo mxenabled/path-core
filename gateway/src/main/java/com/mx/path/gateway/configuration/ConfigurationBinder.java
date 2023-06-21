@@ -238,7 +238,7 @@ public class ConfigurationBinder {
    * @return Map of fields. Key = expected name of field, Value = AnnotatedField object
    */
   private Map<String, Annotations.AnnotatedField<ConfigurationField>> prepareConfigurationObjectFields(Object obj) {
-    List<Annotations.FieldWithAnnotations> annotatedFields = Annotations.fieldsWithAnnotations(obj.getClass());
+    List<Annotations.FieldWithAnnotations> annotatedFields = Annotations.fieldsAndAnnotations(obj.getClass());
 
     return annotatedFields.stream()
         .map((field) -> field.asAnnotatedField(ConfigurationField.class))
