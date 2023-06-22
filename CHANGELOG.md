@@ -1,3 +1,10 @@
+## [3.2.2](https://github.com/mxenabled/path-core/compare/3.2.1...3.2.2) (2023-06-22)
+
+
+### Bug Fixes
+
+* making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
+
 ## [3.2.1](https://github.com/mxenabled/path-core/compare/3.2.0...3.2.1) (2023-06-16)
 
 
