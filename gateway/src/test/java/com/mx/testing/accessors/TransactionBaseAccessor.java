@@ -13,12 +13,16 @@ import com.mx.testing.model.Transaction;
 @API(description = "Test transaction accessor")
 @GatewayClass
 public class TransactionBaseAccessor extends Accessor {
+  public TransactionBaseAccessor() {
+  }
+
   public TransactionBaseAccessor(AccessorConfiguration configuration) {
     super(configuration);
   }
 
   /**
    * Get all accounts
+   *
    * @return
    */
   @GatewayAPI

@@ -98,7 +98,10 @@ public class AccessorConstructionContext<T extends Accessor> {
 
   public final T build() {
     try {
-      return getConstructor().newInstance(buildConstructorArgs().toArray());
+      T accessor = getConstructor().newInstance(buildConstructorArgs().toArray());
+      accessor.setConfiguration(accessorConfiguration);
+
+      return accessor;
     } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
       throw new GatewayException("Unable to construct accessor " + getAccessorClass().getCanonicalName(), e);
     }
@@ -163,14 +166,7 @@ public class AccessorConstructionContext<T extends Accessor> {
   private <K extends T> Constructor<K> findBestConstructor(Class<K> klass) {
     List<Constructor<?>> constructors = Arrays.asList(klass.getDeclaredConstructors());
 
-    // Valid constructors take an AccessorConfiguration
-    constructors = constructors.stream().filter(c -> Arrays.stream(c.getParameters()).anyMatch(param -> param.getType() == AccessorConfiguration.class)).collect(Collectors.toList());
-
-    if (constructors.isEmpty()) {
-      throw new ConfigurationError("Accessor Constructor must accept AccessorConfiguration: " + klass.getCanonicalName(), state);
-    }
-
-    // Find a constructor that has only AccessorConfiguration or AccessorConfiguration with Configuration and Connection annotated params
+    // Find a constructor with only parameters of type AccessorConfiguration or parameters annotated with a @Configuration or @Connection annotation
     constructors = constructors.stream().filter(
         c -> Arrays.stream(c.getParameters()).allMatch(
             param -> param.getType() == AccessorConfiguration.class
@@ -189,5 +185,4 @@ public class AccessorConstructionContext<T extends Accessor> {
     // There should only be one constructor left
     return (Constructor<K>) constructors.get(0);
   }
-
 }

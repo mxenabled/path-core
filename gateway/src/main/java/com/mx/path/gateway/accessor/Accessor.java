@@ -18,8 +18,6 @@ import com.mx.path.core.common.gateway.GatewayAPI;
  * Base for all accessor implementations
  *
  * <p>Provides configuration and some static utility methods
- *
- * todo: Move back to gateway after model extraction
  */
 public abstract class Accessor {
 
@@ -70,10 +68,14 @@ public abstract class Accessor {
     }).filter(Objects::nonNull).collect(Collectors.toList());
   }
 
-  private AccessorConfiguration configuration;
+  private AccessorConfiguration accessorConfiguration;
 
+  public Accessor() {
+  }
+
+  @Deprecated
   public Accessor(AccessorConfiguration configuration) {
-    this.configuration = configuration;
+    this.accessorConfiguration = configuration;
   }
 
   /**
@@ -113,17 +115,21 @@ public abstract class Accessor {
 
   /**
    * Get configuration
+   *
    * @return
+   * @deprecated Use bound @Configuration objects
    */
+  @Deprecated
   public AccessorConfiguration getConfiguration() {
-    return configuration;
+    return accessorConfiguration;
   }
 
   /**
    * Set configuration
+   *
    * @param configuration
    */
   public void setConfiguration(AccessorConfiguration configuration) {
-    this.configuration = configuration;
+    this.accessorConfiguration = configuration;
   }
 }

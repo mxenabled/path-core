@@ -19,12 +19,16 @@ public class AccountBaseAccessor extends Accessor {
   @Getter
   private TransactionBaseAccessor transactions;
 
+  public AccountBaseAccessor() {
+  }
+
   public AccountBaseAccessor(AccessorConfiguration configuration) {
     super(configuration);
   }
 
   /**
    * Accessor for account operations
+   *
    * @return accessor
    */
   @API
@@ -38,6 +42,7 @@ public class AccountBaseAccessor extends Accessor {
 
   /**
    * Get all accounts
+   *
    * @return
    */
   @GatewayAPI
@@ -48,6 +53,7 @@ public class AccountBaseAccessor extends Accessor {
 
   /**
    * Get all accounts
+   *
    * @return
    */
   @GatewayAPI
