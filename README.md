@@ -20,9 +20,10 @@
 ### Using platform (preferred)
 
 _Gradle_
+<!-- x-release-please-start-version -->
 ```groovy
 dependencies {
-  api platform("com.mx.path-core:platform:3.2.2") // x-release-version
+  api platform("com.mx.path-core:platform:3.2.2")
 
   implementation "com.mx.path-core:common"
   implementation "com.mx.path-core:context"
@@ -36,6 +37,27 @@ dependencies {
   testImplementation "com.mx.path-core:testing"
 }
 ```
+<!-- x-release-please-end -->
+
+### Using without platform
+
+_Gradle_
+<!-- x-release-please-start-version -->
+```groovy
+dependencies {
+  implementation "com.mx.path-core:common:3.2.2"
+  implementation "com.mx.path-core:context:3.2.2"
+  implementation "com.mx.path-core:gateway:3.2.2"
+  implementation "com.mx.path-core:http:3.2.2"
+  implementation "com.mx.path-core:messaging:3.2.2"
+  implementation "com.mx.path-core:utilities:3.2.2"
+
+  annotationProcessor "com.mx.path-core:gateway-generator:3.2.2"
+
+  testImplementation "com.mx.path-core:testing:3.2.2"
+}
+```
+<!-- x-release-please-end -->
 
 ## Releases
 
