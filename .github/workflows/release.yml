@@ -11,7 +11,6 @@ jobs:
     permissions: write-all
     uses: mxenabled/path-tools/.github/workflows/release_manifest.yml@master
     secrets:
-      SEMANTIC_TOKEN: ${{ secrets.SEMANTIC_TOKEN }}
       OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
       OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
       GPG_SIGNING_KEY_BASE64: ${{ secrets.GPG_SIGNING_KEY_BASE64 }}
