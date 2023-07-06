@@ -5,6 +5,21 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.3.0](https://github.com/mxenabled/path-core/compare/3.2.2...v3.3.0) (2023-07-06)
+
+
+### Features
+
+* adding unit tests for no config accessors ([208616e](https://github.com/mxenabled/path-core/commit/208616ec11fb3c46536cdde0eb6434320afd162c))
+* removing requirement for AccessorConfiguration parameter ([208616e](https://github.com/mxenabled/path-core/commit/208616ec11fb3c46536cdde0eb6434320afd162c))
+
+
+### Bug Fixes
+
+* applying spotless ([208616e](https://github.com/mxenabled/path-core/commit/208616ec11fb3c46536cdde0eb6434320afd162c))
+* deprecating constructor ([208616e](https://github.com/mxenabled/path-core/commit/208616ec11fb3c46536cdde0eb6434320afd162c))
+* deprecating getConfiguration ([208616e](https://github.com/mxenabled/path-core/commit/208616ec11fb3c46536cdde0eb6434320afd162c))
+
 ## [3.2.1](https://github.com/mxenabled/path-core/compare/3.2.0...3.2.1) (2023-06-16)
 
 
