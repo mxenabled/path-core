@@ -1,7 +1,9 @@
 package com.mx.path.core.common.reflection;
 
 import java.lang.reflect.Field;
+import java.time.DateTimeException;
 import java.time.Duration;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Objects;
@@ -136,6 +138,10 @@ public class Fields {
       return coerceToEnum(targetType, value);
     }
 
+    if (targetType == ZoneId.class) {
+      return coerceZoneId(value);
+    }
+
     return value;
   }
 
@@ -202,6 +208,18 @@ public class Fields {
       return Short.parseShort(value.toString());
     } catch (NumberFormatException e) {
       throw new ConfigurationException("Invalid Short value - " + value.toString(), e);
+    }
+  }
+
+  private static ZoneId coerceZoneId(Object value) {
+    try {
+      if (ZoneId.SHORT_IDS.containsKey(value.toString())) {
+        return ZoneId.of(value.toString(), ZoneId.SHORT_IDS);
+      } else {
+        return ZoneId.of(value.toString());
+      }
+    } catch (DateTimeException e) {
+      throw new ConfigurationException("Invalid zoneId value - " + value.toString(), e);
     }
   }
 }

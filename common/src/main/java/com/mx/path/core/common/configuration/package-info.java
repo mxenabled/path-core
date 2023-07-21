@@ -58,6 +58,7 @@
  *    <li>Enumerations (see notes)
  *    <li>Regex Pattern (see notes)
  *    <li>Duration (see notes)
+ *    <li>ZoneId (see notes)
  *  </ul>
  *
  *  <p><strong>Enumerations</strong>
@@ -115,5 +116,9 @@
  *        # Unit doesn't need to match the underlying implementation needs
  *        connectionTimeout: 5s
  *  }</pre>
+ *
+ *  <p><strong>ZoneId</strong>
+ *  <p>Parses provided string using {@link java.time.ZoneId}. Can use offsets (e.g. -08:00),
+ *  time-zone name (America/Los_Angelos) or time-zone short id (PST).
  */
 package com.mx.path.core.common.configuration;

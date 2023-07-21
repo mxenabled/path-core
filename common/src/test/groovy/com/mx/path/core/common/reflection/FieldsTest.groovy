@@ -2,6 +2,7 @@ package com.mx.path.core.common.reflection
 
 import java.lang.reflect.Field
 import java.time.Duration
+import java.time.ZoneId
 import java.util.regex.Pattern
 import java.util.regex.PatternSyntaxException
 
@@ -38,6 +39,8 @@ class FieldsTest extends Specification {
     private Short cShort;
 
     private Character cCharacter;
+
+    private ZoneId zoneId;
 
     def getId() {
       return this.id
@@ -146,6 +149,10 @@ class FieldsTest extends Specification {
     "enumeration" | " TRANSFERS "     | com.mx.path.core.common.request.Feature.TRANSFERS
     "enumeration" | " Transfers "     | com.mx.path.core.common.request.Feature.TRANSFERS
     "enumeration" | " ach_transfers " | com.mx.path.core.common.request.Feature.ACH_TRANSFERS
+
+    "zoneId"  | "MST"                 | ZoneId.of("MST", ZoneId.SHORT_IDS)
+    "zoneId"  | "-02:00"              | ZoneId.of("-02:00")
+    "zoneId"  | "America/Los_Angeles" | ZoneId.of("America/Los_Angeles")
   }
 
   def "setFieldValue Duration coercion"() {
