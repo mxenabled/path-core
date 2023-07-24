@@ -7,6 +7,7 @@ import java.util.regex.Pattern
 import java.util.regex.PatternSyntaxException
 
 import com.mx.path.core.common.configuration.ConfigurationException
+import com.mx.testing.ConstructorsTestClass
 
 import spock.lang.Specification
 
@@ -41,6 +42,8 @@ class FieldsTest extends Specification {
     private Character cCharacter;
 
     private ZoneId zoneId;
+
+    private Class<?> klass;
 
     def getId() {
       return this.id
@@ -153,6 +156,8 @@ class FieldsTest extends Specification {
     "zoneId"  | "MST"                 | ZoneId.of("MST", ZoneId.SHORT_IDS)
     "zoneId"  | "-02:00"              | ZoneId.of("-02:00")
     "zoneId"  | "America/Los_Angeles" | ZoneId.of("America/Los_Angeles")
+
+    "klass"   | "com.mx.testing.ConstructorsTestClass" | ConstructorsTestClass.class
   }
 
   def "setFieldValue Duration coercion"() {
@@ -177,7 +182,7 @@ class FieldsTest extends Specification {
     "duration"  | " 10h "            | Duration.ofHours(10)
   }
 
-  def "setFieldValue Duration coerce failures"() {
+  def "setFieldValue coerce failures"() {
     given:
     def obj = new TestDataClass()
 
@@ -196,8 +201,9 @@ class FieldsTest extends Specification {
     "duration"  | " 10 "             | "Invalid duration string:  10 "
     "duration"  | " 10 g"            | "Invalid duration unit:  10 g"
     "duration"  | 10                 | "Duration value must be a string"
-
     "enumeration" | "JUNK"           | "Invalid value JUNK for enumeration com.mx.path.core.common.request.Feature"
+    "klass"       | "com.mx.InvalidClass" | "Invalid Class: com.mx.InvalidClass"
+    "zoneId"      | "JNK"            | "Invalid zoneId value: JNK"
   }
 
   def "setFieldValue throws exception if field does not exist"() {

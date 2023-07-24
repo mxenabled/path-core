@@ -122,6 +122,10 @@ public class Fields {
       return coerceToChar(value);
     }
 
+    if (targetType == Class.class) {
+      return coerceToClass(value);
+    }
+
     if (targetType == String.class) {
       return value.toString();
     }
@@ -143,6 +147,14 @@ public class Fields {
     }
 
     return value;
+  }
+
+  private static Class<?> coerceToClass(Object value) {
+    try {
+      return Class.forName(value.toString());
+    } catch (ClassNotFoundException e) {
+      throw new ConfigurationException("Invalid Class: " + value.toString(), e);
+    }
   }
 
   private static Byte coerceToByte(Object value) {
@@ -219,7 +231,7 @@ public class Fields {
         return ZoneId.of(value.toString());
       }
     } catch (DateTimeException e) {
-      throw new ConfigurationException("Invalid zoneId value - " + value.toString(), e);
+      throw new ConfigurationException("Invalid zoneId value: " + value.toString(), e);
     }
   }
 }

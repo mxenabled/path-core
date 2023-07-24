@@ -55,6 +55,7 @@
  *    <li>Integer
  *    <li>Long
  *    <li>Double
+ *    <li>Class
  *    <li>Enumerations (see notes)
  *    <li>Regex Pattern (see notes)
  *    <li>Duration (see notes)
