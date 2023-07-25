@@ -51,25 +51,20 @@
  *  attempt to coerce the value into the POJO's field.
  *
  *  <ul>
- *    <li>String
+ *    <li>Byte
+ *    <li>Char
+ *    <li>Class
+ *    <li>Double
+ *    <li>Duration (see notes)
+ *    <li>Enumerations (see notes)
+ *    <li>Float
  *    <li>Integer
  *    <li>Long
- *    <li>Double
- *    <li>Class
- *    <li>Enumerations (see notes)
- *    <li>Regex Pattern (see notes)
- *    <li>Duration (see notes)
+ *    <li>Pattern (regex - see notes)
+ *    <li>Short
+ *    <li>String
  *    <li>ZoneId (see notes)
  *  </ul>
- *
- *  <p><strong>Enumerations</strong>
- *  <p>Enumerations are matched using a case-insensitive comparison with name() and toString() of the enumerations
- *  values.
- *
- *  <p><strong>Patterns</strong>
- *  <p>Regular expression strings can be coerced into a {@link java.util.regex.Pattern}. Use Embedded Flag Expressions
- *  to specify flags. See https://docs.oracle.com/javase/tutorial/essential/regex/pattern.html and javadocs for
- *  {@link java.util.regex.Pattern} for details.
  *
  *  <p><strong>Durations</strong>
  *  <p>When dealing with time lengths, the use of Durations is preferred rather than using simple integer values. This
@@ -117,6 +112,15 @@
  *        # Unit doesn't need to match the underlying implementation needs
  *        connectionTimeout: 5s
  *  }</pre>
+ *
+ *  <p><strong>Enumerations</strong>
+ *  <p>Enumerations are matched using a case-insensitive comparison with name() and toString() of the enumerations
+ *  values.
+ *
+ *  <p><strong>Patterns</strong>
+ *  <p>Regular expression strings can be coerced into a {@link java.util.regex.Pattern}. Use Embedded Flag Expressions
+ *  to specify flags. See https://docs.oracle.com/javase/tutorial/essential/regex/pattern.html and javadocs for
+ *  {@link java.util.regex.Pattern} for details.
  *
  *  <p><strong>ZoneId</strong>
  *  <p>Parses provided string using {@link java.time.ZoneId}. Can use offsets (e.g. -08:00),
