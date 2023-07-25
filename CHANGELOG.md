@@ -5,6 +5,14 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.4.0](https://github.com/mxenabled/path-core/compare/v3.3.0...v3.4.0) (2023-07-25)
+
+
+### Features
+
+* add support for Class binding ([3b4b63c](https://github.com/mxenabled/path-core/commit/3b4b63c50a587f32758f9edb49a6bb131fe2e5d5))
+* add support for ZoneId binding ([2647b4c](https://github.com/mxenabled/path-core/commit/2647b4c6b3855c41da723c44fa6639fdda48f2f5))
+
 ## [3.3.0](https://github.com/mxenabled/path-core/compare/3.2.2...v3.3.0) (2023-07-06)
 
 
