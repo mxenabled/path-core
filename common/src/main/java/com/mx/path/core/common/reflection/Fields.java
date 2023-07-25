@@ -94,26 +94,6 @@ public class Fields {
       return null;
     }
 
-    if (targetType == int.class || targetType == Integer.class) {
-      return Integer.valueOf(value.toString().trim());
-    }
-
-    if (targetType == float.class || targetType == Float.class) {
-      return Float.valueOf(value.toString().trim());
-    }
-
-    if (targetType == double.class || targetType == Double.class) {
-      return Double.valueOf(value.toString().trim());
-    }
-
-    if (targetType == long.class || targetType == Long.class) {
-      return Long.valueOf(value.toString().trim());
-    }
-
-    if (targetType == short.class || targetType == Short.class) {
-      return coerceToShort(value);
-    }
-
     if (targetType == byte.class || targetType == Byte.class) {
       return coerceToByte(value);
     }
@@ -126,27 +106,67 @@ public class Fields {
       return coerceToClass(value);
     }
 
-    if (targetType == String.class) {
-      return value.toString();
+    if (targetType == double.class || targetType == Double.class) {
+      return Double.valueOf(value.toString().trim());
     }
 
     if (targetType == Duration.class) {
       return coerceToDuration(value);
     }
 
+    if (targetType == int.class || targetType == Integer.class) {
+      return Integer.valueOf(value.toString().trim());
+    }
+
+    if (targetType == float.class || targetType == Float.class) {
+      return Float.valueOf(value.toString().trim());
+    }
+
+    if (targetType == long.class || targetType == Long.class) {
+      return Long.valueOf(value.toString().trim());
+    }
+
     if (targetType == Pattern.class) {
       return coerceToPattern(value);
     }
 
-    if (targetType.isEnum()) {
-      return coerceToEnum(targetType, value);
+    if (targetType == short.class || targetType == Short.class) {
+      return coerceToShort(value);
+    }
+
+    if (targetType == String.class) {
+      return value.toString();
     }
 
     if (targetType == ZoneId.class) {
       return coerceZoneId(value);
     }
 
+    if (targetType.isEnum()) {
+      return coerceToEnum(targetType, value);
+    }
+
     return value;
+  }
+
+  private static Byte coerceToByte(Object value) {
+    try {
+      return Byte.parseByte(value.toString());
+    } catch (NumberFormatException e) {
+      throw new ConfigurationException("Invalid Byte value: " + value.toString(), e);
+    }
+  }
+
+  private static Character coerceToChar(Object value) {
+    String strValue = value.toString().trim();
+    if (strValue.length() != 1) {
+      throw new ConfigurationException("Invalid char length: " + strValue);
+    }
+    try {
+      return strValue.charAt(0);
+    } catch (NumberFormatException e) {
+      throw new ConfigurationException("Invalid Short value: " + value.toString(), e);
+    }
   }
 
   private static Class<?> coerceToClass(Object value) {
@@ -154,26 +174,6 @@ public class Fields {
       return Class.forName(value.toString());
     } catch (ClassNotFoundException e) {
       throw new ConfigurationException("Invalid Class: " + value.toString(), e);
-    }
-  }
-
-  private static Byte coerceToByte(Object value) {
-    try {
-      return Byte.parseByte(value.toString());
-    } catch (NumberFormatException e) {
-      throw new ConfigurationException("Invalid Byte value - " + value.toString(), e);
-    }
-  }
-
-  private static Character coerceToChar(Object value) {
-    String strValue = value.toString().trim();
-    if (strValue.length() != 1) {
-      throw new ConfigurationException("Invalid char length - " + strValue);
-    }
-    try {
-      return strValue.charAt(0);
-    } catch (NumberFormatException e) {
-      throw new ConfigurationException("Invalid Short value - " + value.toString(), e);
     }
   }
 
@@ -211,7 +211,7 @@ public class Fields {
     try {
       return Pattern.compile(valueStr);
     } catch (PatternSyntaxException e) {
-      throw new ConfigurationException("Invalid regular expression - " + valueStr, e);
+      throw new ConfigurationException("Invalid regular expression: " + valueStr, e);
     }
   }
 
@@ -219,7 +219,7 @@ public class Fields {
     try {
       return Short.parseShort(value.toString());
     } catch (NumberFormatException e) {
-      throw new ConfigurationException("Invalid Short value - " + value.toString(), e);
+      throw new ConfigurationException("Invalid Short value: " + value.toString(), e);
     }
   }
 
