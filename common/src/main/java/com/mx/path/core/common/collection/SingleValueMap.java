@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * A multi-value backed collection that acts like a single-value map. This can be used interchangeably with other {@link MultiValueMappable} classes.
@@ -244,6 +245,22 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
   @Override
   public int size() {
     return getRawMap().size();
+  }
+
+  /**
+   * Create a new SingleValueMap containing only keys matching at least one provided {@link Pattern}.
+   *
+   * @param keyPatterns list of {@link Pattern}
+   * @return new SingleValueMap
+   */
+  public SingleValueMap<K, V> slice(Collection<Pattern> keyPatterns) {
+    SingleValueMap<K, V> result = new SingleValueMap<>();
+
+    rawMap.keySet().stream().filter((key) -> keyPatterns.stream().anyMatch((p) -> p.asPredicate().test(key.toString()))).forEach((key) -> {
+      result.put(key, get(key));
+    });
+
+    return result;
   }
 
   /**

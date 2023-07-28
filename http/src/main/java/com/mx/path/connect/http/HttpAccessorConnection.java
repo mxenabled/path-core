@@ -1,6 +1,6 @@
 package com.mx.path.connect.http;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -82,7 +82,7 @@ public class HttpAccessorConnection extends AccessorConnectionBase<HttpRequest> 
    */
   @Override
   public List<RequestFilter> connectionRequestFilters() {
-    return Arrays.asList(new HttpClientFilter());
+    return Collections.singletonList(new HttpClientFilter());
   }
 
   // Protected Methods

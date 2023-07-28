@@ -3,6 +3,7 @@ package com.mx.path.core.context;
 import java.util.function.Consumer;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -43,8 +44,19 @@ public class RequestContext {
   private String userGuid;
   @Deprecated
   private String userId;
+
+  /**
+   * Headers sent with current request
+   */
   private SingleValueMap<String, Object> headers;
+
+  /**
+   * Function parameters for current request
+   */
   private SingleValueMap<String, Object> params;
+
+  @Builder.Default
+  private UpstreamRequestConfiguration upstreamRequestConfiguration = new UpstreamRequestConfiguration();
 
   public abstract static class RequestContextBuilder<C extends RequestContext, B extends RequestContext.RequestContextBuilder<C, B>> {
 
