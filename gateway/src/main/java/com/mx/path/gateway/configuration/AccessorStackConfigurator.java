@@ -35,6 +35,7 @@ import com.mx.path.gateway.connect.filter.FaultTolerantRequestFilter;
 import com.mx.path.gateway.connect.filter.RequestFinishedFilter;
 import com.mx.path.gateway.connect.filter.TracingFilter;
 import com.mx.path.gateway.connect.filter.UpstreamRequestEventFilter;
+import com.mx.path.gateway.connect.filter.UpstreamRequestProcessorFilter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -198,6 +199,7 @@ public class AccessorStackConfigurator {
       connection.baseRequestFilter(new UpstreamRequestEventFilter());
       connection.baseRequestFilter(new ErrorHandlerFilter());
       connection.baseRequestFilter(new CallbacksFilter());
+      connection.baseRequestFilter(new UpstreamRequestProcessorFilter());
       connection.baseRequestFilter(new RequestFinishedFilter());
       connection.baseRequestFilter(new FaultTolerantRequestFilter());
 
