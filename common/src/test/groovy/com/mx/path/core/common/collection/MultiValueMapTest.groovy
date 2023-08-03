@@ -1,6 +1,8 @@
 package com.mx.path.core.common.collection
 
 
+import java.util.regex.Pattern
+
 import spock.lang.Specification
 
 class MultiValueMapTest extends Specification {
@@ -129,6 +131,34 @@ class MultiValueMapTest extends Specification {
 
     then:
     empty.size() == 0
+  }
+
+  def "slice"() {
+    given:
+    subject.add("key1", "value1")
+    subject.add("x-key1", "value1")
+    subject.add("key2", "value2")
+    subject.add("x-key2", "value2")
+
+    when:
+    def result = subject.slice(Pattern.compile("^x-"))
+
+    then:
+    result.size() == 2
+    result.keySet().contains("x-key1")
+    result.keySet().contains("x-key2")
+
+    when:
+    result = subject.slice([
+      Pattern.compile("^x-"),
+      Pattern.compile("key2")
+    ])
+
+    then:
+    result.size() == 3
+    result.keySet().contains("x-key1")
+    result.keySet().contains("key2")
+    result.keySet().contains("x-key2")
   }
 
   def "isEmpty"() {
