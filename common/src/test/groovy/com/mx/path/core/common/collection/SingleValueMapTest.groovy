@@ -1,6 +1,8 @@
 package com.mx.path.core.common.collection
 
 
+import java.util.regex.Pattern
+
 import spock.lang.Specification
 
 class SingleValueMapTest extends Specification {
@@ -53,6 +55,34 @@ class SingleValueMapTest extends Specification {
 
     then:
     empty.size() == 0
+  }
+
+  def "slice"() {
+    given:
+    subject.put("key1", "value1")
+    subject.put("x-key1", "value1")
+    subject.put("key2", "value2")
+    subject.put("x-key2", "value2")
+
+    when:
+    def result = subject.slice(Pattern.compile("^x-"))
+
+    then:
+    result.size() == 2
+    result.keySet().contains("x-key1")
+    result.keySet().contains("x-key2")
+
+    when:
+    result = subject.slice([
+      Pattern.compile("^x-"),
+      Pattern.compile("key2")
+    ])
+
+    then:
+    result.size() == 3
+    result.keySet().contains("x-key1")
+    result.keySet().contains("key2")
+    result.keySet().contains("x-key2")
   }
 
   def "isEmpty"() {

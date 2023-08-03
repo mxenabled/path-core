@@ -1,11 +1,13 @@
 package com.mx.path.core.common.collection;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * A multi-value backed collection that acts like a multi-value map. This can be used interchangeably with other {@link MultiValueMappable} classes.
@@ -283,6 +285,32 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
   @Override
   public int size() {
     return getRawMap().size();
+  }
+
+  /**
+   * Create a new MultiValueMap containing only keys matching the provided {@link Pattern}.
+   *
+   * @param pattern {@link Pattern}
+   * @return new MultiValueMap
+   */
+  public MultiValueMap<K, V> slice(Pattern pattern) {
+    return slice(Collections.singletonList(pattern));
+  }
+
+  /**
+   * Create a new MultiValueMap containing only keys matching at least one provided {@link Pattern}.
+   *
+   * @param keyPatterns list of {@link Pattern}
+   * @return new MultiValueMap
+   */
+  public MultiValueMap<K, V> slice(Collection<Pattern> keyPatterns) {
+    MultiValueMap<K, V> result = new MultiValueMap<>();
+
+    rawMap.keySet().stream().filter((key) -> keyPatterns.stream().anyMatch((p) -> p.asPredicate().test(key.toString()))).forEach((key) -> {
+      result.put(key, get(key));
+    });
+
+    return result;
   }
 
   /**
