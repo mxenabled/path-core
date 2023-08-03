@@ -64,6 +64,9 @@ class RequestContextTest extends Specification {
     subject.getHeaders().get("h1") == "v1"
     subject.getParams().get("p1") == "v1"
     subject.getParams().get("p2") == "v2"
+
+    and: "UpstreamRequestConfiguration is initialized"
+    subject.getUpstreamRequestConfiguration() != null
   }
 
   def "withSelfClearing"() {
@@ -95,6 +98,7 @@ class RequestContextTest extends Specification {
   def "setters"() {
     given:
     def subject = RequestContext.builder().build()
+    def upstreamRequestConfiguration = new UpstreamRequestConfiguration()
 
     when:
     subject.setClientGuid("clientAF")
@@ -103,6 +107,7 @@ class RequestContextTest extends Specification {
     subject.setOriginatingIP("127.0.0.1")
     subject.setPath("/accounts")
     subject.setSessionTraceId("abcde")
+    subject.setUpstreamRequestConfiguration(upstreamRequestConfiguration)
     subject.setUserGuid("userAF")
     subject.getHeaders().put("h2", "v2")
     subject.getHeaders().put("h1", "v1")
@@ -116,6 +121,7 @@ class RequestContextTest extends Specification {
     subject.getOriginatingIP() == "127.0.0.1"
     subject.getPath() == "/accounts"
     subject.getSessionTraceId() == "abcde"
+    subject.getUpstreamRequestConfiguration() == upstreamRequestConfiguration
     subject.getUserGuid() == "userAF"
     subject.getHeaders().get("h2") == "v2"
     subject.getHeaders().get("h1") == "v1"
@@ -126,6 +132,7 @@ class RequestContextTest extends Specification {
   def "toBuilder"() {
     given:
     def subject = RequestContext.builder().build()
+    def upstreamRequestConfiguration = new UpstreamRequestConfiguration()
 
     when:
     subject.setClientGuid("clientAF")
@@ -134,6 +141,7 @@ class RequestContextTest extends Specification {
     subject.setOriginatingIP("127.0.0.1")
     subject.setPath("/accounts")
     subject.setSessionTraceId("abcde")
+    subject.setUpstreamRequestConfiguration(upstreamRequestConfiguration)
     subject.setUserGuid("userAF")
     subject.getHeaders().put("h2", "v2")
     subject.getHeaders().put("h1", "v1")
@@ -148,6 +156,7 @@ class RequestContextTest extends Specification {
     result.getOriginatingIP() == "127.0.0.1"
     result.getPath() == "/accounts"
     result.getSessionTraceId() == "abcde"
+    subject.getUpstreamRequestConfiguration() == upstreamRequestConfiguration
     result.getUserGuid() == "userAF"
     result.getHeaders().get("h2") == "v2"
     result.getHeaders().get("h1") == "v1"
