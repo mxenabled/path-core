@@ -3,8 +3,10 @@ package com.mx.path.core.common.serialization;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.time.Duration;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -55,11 +57,18 @@ public class ConfigurationTypeAdapter<ST> extends TypeAdapter<ST> {
     this.delegate = delegate;
   }
 
+  @SuppressWarnings("unchecked")
   public static class Factory implements TypeAdapterFactory {
     @Override
     public final <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
       if (type.getRawType() == Duration.class) {
         return (TypeAdapter<T>) new DurationTypeAdapter();
+      }
+      if (type.getRawType() == Pattern.class) {
+        return (TypeAdapter<T>) new PatternTypeAdapter();
+      }
+      if (ZoneId.class.isAssignableFrom(type.getRawType())) {
+        return (TypeAdapter<T>) new ZoneIdTypeAdapter();
       }
 
       TypeAdapter<T> delegate = gson.getDelegateAdapter(this, type);
