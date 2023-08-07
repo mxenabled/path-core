@@ -18,6 +18,7 @@ import com.mx.path.core.common.collection.ObjectMap;
 import com.mx.path.core.common.configuration.Configuration;
 import com.mx.path.core.common.connect.AccessorConnectionSettings;
 import com.mx.path.core.common.gateway.GatewayException;
+import com.mx.path.core.common.serialization.ConfigurationTypeAdapter;
 import com.mx.path.core.common.serialization.ObjectMapJsonDeserializer;
 import com.mx.path.gateway.accessor.Accessor;
 import com.mx.path.gateway.accessor.AccessorConfiguration;
@@ -108,7 +109,10 @@ public class AccessorConstructionContext<T extends Accessor> {
   }
 
   public final void describe(ObjectMap description) {
-    GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(ObjectMap.class, new ObjectMapJsonDeserializer());
+    GsonBuilder gsonBuilder = new GsonBuilder()
+        .registerTypeAdapterFactory(new ConfigurationTypeAdapter.Factory())
+        .registerTypeAdapter(ObjectMap.class, new ObjectMapJsonDeserializer());
+
     Gson gson = gsonBuilder.create();
 
     getAccessorConfiguration().describe(description);

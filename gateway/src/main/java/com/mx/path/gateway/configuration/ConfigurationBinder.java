@@ -180,6 +180,8 @@ public class ConfigurationBinder {
     } else if (configurationValue instanceof ObjectMap) {
 
       return buildObject((ObjectMap) configurationValue, annotatedField, inArray);
+    } else if (annotatedField.getElementType() != null) {
+      return Fields.coerceValueType(annotatedField.getElementType(), configurationValue);
     } else {
       return configurationValue;
     }

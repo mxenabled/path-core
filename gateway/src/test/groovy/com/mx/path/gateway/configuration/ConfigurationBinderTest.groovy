@@ -1,5 +1,7 @@
 package com.mx.path.gateway.configuration
 
+import java.util.regex.Pattern
+
 import com.mx.path.core.common.collection.ObjectMap
 import com.mx.testing.binding.BasicConfigurationObj
 import com.mx.testing.binding.ConfigurationWithChangedFieldName
@@ -116,6 +118,28 @@ class ConfigurationBinderTest extends Specification {
     configurationObj.getArray1().size() == 2
     configurationObj.getArray1().get(0) == "item1"
     configurationObj.getArray1().get(1) == "item2"
+  }
+
+  def "binds arrays of coerced types"() {
+    given:
+    configuration.createArray("regex").tap {
+      add("^[abcd].*")
+      add("^[pqrs].*")
+    }
+
+    configuration.createArray("zoneIds").tap {
+      add("PST")
+    }
+
+    when:
+    BasicConfigurationObj configurationObj = subject.build(BasicConfigurationObj.class, configuration)
+
+    then:
+    verifyAll(configurationObj.getRegex()) {
+      size() == 2
+      get(0).pattern() == "^[abcd].*"
+      get(1).pattern() == "^[pqrs].*"
+    }
   }
 
   def "binds complex object"() {

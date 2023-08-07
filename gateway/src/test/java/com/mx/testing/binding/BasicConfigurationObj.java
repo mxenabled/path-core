@@ -1,7 +1,9 @@
 package com.mx.testing.binding;
 
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import lombok.Data;
 import lombok.Getter;
@@ -46,6 +48,12 @@ public class BasicConfigurationObj implements Configurable {
 
   @ConfigurationField(value = "deposit", elementType = HashMap.class)
   private HashMap<String, ObjectMap> deposit;
+
+  @ConfigurationField(value = "regex", elementType = Pattern.class)
+  private List<Pattern> regex;
+
+  @ConfigurationField(elementType = ZoneId.class)
+  private List<ZoneId> zoneIds;
 
   @ClientID
   private String clientId;
