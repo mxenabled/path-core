@@ -89,7 +89,7 @@ public class Fields {
   }
 
   @SuppressWarnings("PMD.CyclomaticComplexity")
-  private static Object coerceValueType(Class<?> targetType, Object value) {
+  public static Object coerceValueType(Class<?> targetType, Object value) {
     if (value == null) {
       return null;
     }
