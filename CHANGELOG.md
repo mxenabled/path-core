@@ -5,6 +5,15 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.5.0](https://github.com/mxenabled/path-core/compare/v3.4.0...v3.5.0) (2023-08-07)
+
+
+### Features
+
+* add response status ([6b7e4f9](https://github.com/mxenabled/path-core/commit/6b7e4f9c48c59b9fa28ac8e8966026584a42acbe))
+* add slice convinience method to maps ([88175fa](https://github.com/mxenabled/path-core/commit/88175faeb83080eb5d98e279d1f334ef693d3043))
+* add upstream request processing ([a344fef](https://github.com/mxenabled/path-core/commit/a344fef97e40c2a54cd61eb59d462a0c81bfac8a))
+
 ## [3.4.0](https://github.com/mxenabled/path-core/compare/v3.3.0...v3.4.0) (2023-07-25)
 
 
