@@ -5,6 +5,18 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.6.0](https://github.com/mxenabled/path-core/compare/v3.5.0...v3.6.0) (2023-08-10)
+
+
+### Features
+
+* **configuration:** allow coerced types in arrays ([f5af605](https://github.com/mxenabled/path-core/commit/f5af6059f75bcda327ec79d9aab10ae764a868cd))
+
+
+### Bug Fixes
+
+* **configuration:** add type adapters for complex configuration types ([e706be1](https://github.com/mxenabled/path-core/commit/e706be100d6fb17c439df39b9dee5abd6d22ade3))
+
 ## [3.5.0](https://github.com/mxenabled/path-core/compare/v3.4.0...v3.5.0) (2023-08-07)
 
 
