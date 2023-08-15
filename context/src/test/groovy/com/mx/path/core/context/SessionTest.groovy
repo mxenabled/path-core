@@ -1,9 +1,12 @@
 package com.mx.path.core.context
 
+import static org.mockito.Mockito.mock
 import static org.mockito.Mockito.spy
 
 import java.time.Duration
+import java.util.function.Supplier
 
+import com.mx.path.core.common.compression.CompressionService
 import com.mx.path.core.common.security.EncryptionService
 import com.mx.path.core.context.store.SessionRepository
 import com.mx.testing.HashSessionRepository
@@ -29,6 +32,7 @@ class SessionTest extends Specification {
   def cleanup() {
     Session.setRepositorySupplier(null)
     Session.setEncryptionServiceSupplier(null)
+    Session.resetCompressionService()
     Session.clearSession()
     Session.setDefaultSessionExpiration(Duration.ofMinutes(30))
   }
@@ -128,6 +132,25 @@ class SessionTest extends Specification {
     1 * repository.saveValue(subject, "scope.key1", "value1")
   }
 
+  def "putStoresInRepository with compressionService"() {
+    given:
+    def compressionService = Stub(CompressionService)
+
+    def Supplier<CompressionService> supplier = { -> compressionService }
+    Session.setCompressionServiceSupplier(supplier)
+
+    and:
+    compressionService.compress("value1") >> "compressed:value1"
+
+    when:
+    subject.put("key1", "value1")
+    subject.put(TestScope.Key, "key1", "value1")
+
+    then:
+    1 * repository.saveValue(subject, "key1", "compressed:value1")
+    1 * repository.saveValue(subject, "scope.key1", "compressed:value1")
+  }
+
   def "deleteRemovesFromRepository"() {
     when:
     subject.delete("key1")
@@ -172,7 +195,6 @@ class SessionTest extends Specification {
     1 * listener.beforeSave(session)
     1 * listener2.beforeSave(session)
   }
-
 
   def "clearSessionRemovesListeners"() {
     given:
@@ -334,6 +356,25 @@ class SessionTest extends Specification {
     then:
     1 * encryptionService.isEncrypted("encrypted:v1:(!ph3%") >> true
     1 * encryptionService.decrypt("encrypted:v1:(!ph3%") >> "plaintext"
+  }
+
+  def "setCompressionServiceSupplier"() {
+    given:
+    def compressionService = mock(CompressionService)
+
+    def Supplier<CompressionService> supplier = new Supplier<CompressionService>() {
+          @Override
+          CompressionService get() {
+            return compressionService
+          }
+        }
+
+    when:
+    Session.setCompressionServiceSupplier(supplier)
+    def result = Session.getCompressionService()
+
+    then:
+    result == compressionService
   }
 
   def "encryptsEmail"() {
