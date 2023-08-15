@@ -15,6 +15,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mx.path.core.common.compression.CompressionService;
 import com.mx.path.core.common.lang.Strings;
 import com.mx.path.core.common.security.EncryptionService;
 import com.mx.path.core.common.serialization.LocalDateDeserializer;
@@ -38,6 +39,8 @@ public class Session implements SessionInfo {
   private static Supplier<SessionRepository> repositorySupplier = new SessionRepositorySupplier();
 
   private static Supplier<EncryptionService> encryptionServiceSupplier = new EncryptionServiceSupplier();
+
+  private static Supplier<CompressionService> compressionServiceSupplier = null;
 
   private static final int DEFAULT_SESSION_EXPIRATION_MINUTES = 30;
 
@@ -64,6 +67,22 @@ public class Session implements SessionInfo {
     }
 
     return encryptionServiceSupplier.get();
+  }
+
+  public static CompressionService getCompressionService() {
+    if (compressionServiceSupplier == null) {
+      return null;
+    }
+
+    return compressionServiceSupplier.get();
+  }
+
+  public static void setCompressionServiceSupplier(Supplier<CompressionService> supplier) {
+    compressionServiceSupplier = supplier;
+  }
+
+  static void resetCompressionService() {
+    compressionServiceSupplier = null;
   }
 
   public static void setDefaultSessionExpiration(Duration sessionExpiry) {
@@ -522,7 +541,7 @@ public class Session implements SessionInfo {
   @Deprecated
   public final String get(String key) {
     String value = getRepository().getValue(this, key);
-    return decryptValue(value);
+    return decompressValue(decryptValue(value));
   }
 
   /**
@@ -533,7 +552,7 @@ public class Session implements SessionInfo {
    */
   public final String get(ScopeKeyGenerator scope, String key) {
     String value = getRepository().getValue(this, buildScopeKey(scope, key));
-    return decryptValue(value);
+    return decompressValue(decryptValue(value));
   }
 
   /**
@@ -564,7 +583,7 @@ public class Session implements SessionInfo {
    */
   @Deprecated
   public final void put(String key, String value) {
-    getRepository().saveValue(this, key, value);
+    getRepository().saveValue(this, key, compressValue(value));
   }
 
   /**
@@ -572,10 +591,9 @@ public class Session implements SessionInfo {
    * @param scope
    * @param key
    * @param value
-   *
    */
   public final void put(ScopeKeyGenerator scope, String key, String value) {
-    getRepository().saveValue(this, buildScopeKey(scope, key), value);
+    getRepository().saveValue(this, buildScopeKey(scope, key), compressValue(value));
   }
 
   /**
@@ -585,7 +603,7 @@ public class Session implements SessionInfo {
    * @param obj
    */
   public final void putObj(ScopeKeyGenerator scope, String key, Object obj) {
-    put(scope, key, gson.toJson(obj));
+    getRepository().saveValue(this, buildScopeKey(scope, key), compressValue(gson.toJson(obj)));
   }
 
   /**
@@ -598,7 +616,7 @@ public class Session implements SessionInfo {
    * @param value
    */
   public final void sput(ScopeKeyGenerator scope, String key, String value) {
-    put(scope, key, encryptValue(value));
+    getRepository().saveValue(this, buildScopeKey(scope, key), encryptValue(compressValue(value)));
   }
 
   /**
@@ -611,7 +629,7 @@ public class Session implements SessionInfo {
    * @param value
    */
   public final void sputObj(ScopeKeyGenerator scope, String key, Object value) {
-    sput(scope, key, gson.toJson(value));
+    getRepository().saveValue(this, buildScopeKey(scope, key), encryptValue(compressValue(gson.toJson(value))));
   }
 
   /**
@@ -627,6 +645,24 @@ public class Session implements SessionInfo {
 
   private String buildScopeKey(ScopeKeyGenerator scope, String key) {
     return scope.generate() + "." + key;
+  }
+
+  private String compressValue(String value) {
+    CompressionService compressionService = getCompressionService();
+    if (compressionService == null) {
+      return value;
+    }
+
+    return compressionService.compress(value);
+  }
+
+  private String decompressValue(String value) {
+    CompressionService compressionService = getCompressionService();
+    if (compressionService == null) {
+      return value;
+    }
+
+    return compressionService.decompress(value);
   }
 
   private String decryptValue(String value) {
