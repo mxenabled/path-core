@@ -2,6 +2,7 @@ package com.mx.path.core.context.store
 
 import static org.mockito.Mockito.mock
 import static org.mockito.Mockito.verify
+import static org.mockito.Mockito.when
 
 import java.time.LocalDateTime
 
@@ -9,12 +10,13 @@ import com.google.gson.GsonBuilder
 import com.mx.path.core.common.serialization.LocalDateTimeDeserializer
 import com.mx.path.core.common.store.Store
 import com.mx.path.core.context.Session
+import com.mx.testing.WithMockery
 
 import org.mockito.Mockito
 
 import spock.lang.Specification
 
-class SessionRepositoryImplTest extends Specification {
+class SessionRepositoryImplTest extends Specification implements WithMockery {
   Store store
   SessionRepositoryImpl subject
   Session session
@@ -37,6 +39,24 @@ class SessionRepositoryImplTest extends Specification {
 
     then:
     verify(store).delete("sessionId") || true
+  }
+
+  def "delete also deletes session_keys"() {
+    when:
+    Set<String> savedKeys = new LinkedHashSet<>().tap {
+      add("key1")
+      add("key2")
+    }
+
+    when(store.getSet("sessionId:session_keys")).thenReturn(savedKeys)
+    subject.delete(session)
+
+    then:
+    verify(store).getSet("sessionId:session_keys") || true
+    verify(store).delete("sessionId") || true
+    verify(store).delete("sessionId:key1") || true
+    verify(store).delete("sessionId:key2") || true
+    verify(store).delete("sessionId:session_keys") || true
   }
 
   def "deleteValue"() {
@@ -90,6 +110,7 @@ class SessionRepositoryImplTest extends Specification {
     subject.saveValue(session, "key1", "value1")
 
     then:
+    verify(store).putSet("sessionId:session_keys", "key1", session.getExpiresIn()) || true
     verify(store).put("sessionId:key1", "value1", session.getExpiresIn()) || true
   }
 
