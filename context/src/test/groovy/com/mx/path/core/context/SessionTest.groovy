@@ -2,6 +2,8 @@ package com.mx.path.core.context
 
 import static org.mockito.Mockito.spy
 
+import java.time.Duration
+
 import com.mx.path.core.common.security.EncryptionService
 import com.mx.path.core.context.store.SessionRepository
 import com.mx.testing.HashSessionRepository
@@ -28,6 +30,7 @@ class SessionTest extends Specification {
     Session.setRepositorySupplier(null)
     Session.setEncryptionServiceSupplier(null)
     Session.clearSession()
+    Session.setDefaultSessionExpiration(Duration.ofMinutes(30))
   }
 
   def "setCurrent"() {

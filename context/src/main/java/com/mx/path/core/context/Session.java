@@ -1,5 +1,6 @@
 package com.mx.path.core.context;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -38,7 +39,9 @@ public class Session implements SessionInfo {
 
   private static Supplier<EncryptionService> encryptionServiceSupplier = new EncryptionServiceSupplier();
 
-  private static final int DEFAULT_TIMEOUT_SECONDS = 1800;
+  private static final int DEFAULT_SESSION_EXPIRATION_MINUTES = 30;
+
+  private static Duration defaultSessionExpiration = Duration.ofMinutes(DEFAULT_SESSION_EXPIRATION_MINUTES);
 
   private static Gson gson = new GsonBuilder()
       .registerTypeAdapter(XMLGregorianCalendar.class, new XMLGregorianCalendarConverter.Deserializer())
@@ -61,6 +64,10 @@ public class Session implements SessionInfo {
     }
 
     return encryptionServiceSupplier.get();
+  }
+
+  public static void setDefaultSessionExpiration(Duration sessionExpiry) {
+    defaultSessionExpiration = sessionExpiry;
   }
 
   // Singleton
@@ -174,7 +181,7 @@ public class Session implements SessionInfo {
     Session newSession = new Session();
     newSession.id = sessionId;
     newSession.startedAt = LocalDateTime.now(ZoneId.of("UTC"));
-    newSession.expiresAt = newSession.startedAt.plusSeconds(DEFAULT_TIMEOUT_SECONDS).toEpochSecond(ZoneOffset.UTC);
+    newSession.expiresAt = newSession.startedAt.plusSeconds(defaultSessionExpiration.getSeconds()).toEpochSecond(ZoneOffset.UTC);
     return newSession;
   }
 
