@@ -11,7 +11,10 @@ import lombok.NoArgsConstructor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mx.path.core.common.messaging.MessageStatus;
+import com.mx.path.core.common.messaging.RemoteException;
 import com.mx.path.core.common.serialization.LocalDateDeserializer;
+import com.mx.path.core.common.serialization.SystemTypeAdapter;
+import com.mx.path.core.common.serialization.ThrowableTypeAdapter;
 
 @Data
 @Builder
@@ -19,7 +22,14 @@ import com.mx.path.core.common.serialization.LocalDateDeserializer;
 @AllArgsConstructor
 public class MessageResponse {
   private static GsonBuilder gsonBuilder = new GsonBuilder();
-  private static Gson gson = gsonBuilder.registerTypeAdapter(LocalDate.class, LocalDateDeserializer.builder().build()).registerTypeAdapter(Throwable.class, new MessageErrorThrowableSerializer()).create();
+  private static Gson gson = gsonBuilder
+      .registerTypeAdapter(LocalDate.class, LocalDateDeserializer.builder().build())
+      .registerTypeAdapterFactory(
+          SystemTypeAdapter
+              .builder()
+              .throwableTypeAdapter(ThrowableTypeAdapter.builder().fallbackType(RemoteException.class).build())
+              .build())
+      .create();
 
   @SuppressWarnings("checkstyle:HiddenField")
   public static class MessageResponseBuilder {

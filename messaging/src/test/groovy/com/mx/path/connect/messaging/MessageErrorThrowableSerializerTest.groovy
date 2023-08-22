@@ -5,6 +5,7 @@ import com.mx.path.core.common.accessor.PathResponseStatus
 import com.mx.path.core.common.messaging.MessageError
 import com.mx.path.core.common.messaging.MessageStatus
 import com.mx.path.core.common.messaging.RemoteException
+import com.mx.path.core.common.serialization.ThrowableTypeAdapter
 
 import spock.lang.Specification
 
@@ -44,5 +45,39 @@ class MessageErrorThrowableSerializerTest extends Specification {
     ((RemoteException) deserialized.exception).shouldReport()
     ((RemoteException) deserialized.exception).status == PathResponseStatus.USER_ERROR
     ((RemoteException) deserialized.exception).originalType == "anUnknownExceptionType"
+  }
+
+  def "backward compatibility with ThrowableTypeAdapter"() {
+    given:
+    def legacyGson = new GsonBuilder().registerTypeAdapter(Throwable.class, new MessageErrorThrowableSerializer()).create()
+    Throwable exception = new MessageError("Something bad happened", MessageStatus.DISABLED, null)
+    MessageResponse response = MessageResponse.builder().body("hi").exception(exception).build()
+
+    def newGson = new GsonBuilder().registerTypeAdapter(Throwable.class, new ThrowableTypeAdapter()).create()
+
+    when:
+    def serialized = legacyGson.toJson(response)
+    def deserialized = newGson.fromJson(serialized, MessageResponse.class)
+
+    then:
+    deserialized.exception instanceof MessageError
+    deserialized.exception.message == "Something bad happened"
+  }
+
+  def "forward compatibility with ThrowableTypeAdapter"() {
+    given:
+    def legacyGson = new GsonBuilder().registerTypeAdapter(Throwable.class, new MessageErrorThrowableSerializer()).create()
+    Throwable exception = new MessageError("Something bad happened", MessageStatus.DISABLED, null)
+    MessageResponse response = MessageResponse.builder().body("hi").exception(exception).build()
+
+    def newGson = new GsonBuilder().registerTypeAdapter(Throwable.class, new ThrowableTypeAdapter()).create()
+
+    when:
+    def serialized = newGson.toJson(response)
+    def deserialized = legacyGson.fromJson(serialized, MessageResponse.class)
+
+    then:
+    deserialized.exception instanceof MessageError
+    deserialized.exception.message == "Something bad happened"
   }
 }
