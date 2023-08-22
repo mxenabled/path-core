@@ -45,4 +45,37 @@ public class Constructors {
     }
   }
 
+  /**
+   * Gets constructor with matching arg types. Returns null if not found.
+   * @param klass
+   * @param argClasses
+   * @return
+   * @param <T>
+   */
+  public static <T> Constructor<T> safeGetConstructor(Class<T> klass, Class<?>... argClasses) {
+    try {
+      return klass.getConstructor(argClasses);
+    } catch (NoSuchMethodException e) {
+      return null;
+    }
+  }
+
+  /**
+   * Create instance using constructor. Returns null if construction fails.
+   * @param constructor
+   * @param args
+   * @return
+   * @param <T>
+   */
+  public static <T> T safeInstantiate(Constructor<T> constructor, Object... args) {
+    if (constructor == null) {
+      return null;
+    }
+
+    try {
+      return constructor.newInstance(args);
+    } catch (InstantiationException | IllegalAccessException | InvocationTargetException ignored) {
+      return null;
+    }
+  }
 }

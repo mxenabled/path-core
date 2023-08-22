@@ -7,6 +7,10 @@ on:
         required: false
         type: boolean
 
+  push:
+    branches:
+      - rc
+
 name: publish
 
 jobs:
