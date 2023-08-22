@@ -22,4 +22,33 @@ class ConstructorsTest extends Specification {
     then:
     instance.getId() == 0
   }
+
+  def "safeGetConstructor"() {
+    when:
+    def constructor = Constructors.safeGetConstructor(ConstructorsTestClass.class, int.class)
+
+    then:
+    constructor != null
+
+    when:
+    constructor = Constructors.safeGetConstructor(ConstructorsTestClass.class, int.class, String.class)
+
+    then:
+    constructor == null
+  }
+
+  def "safeInstantiate"() {
+    when:
+    def constructor = Constructors.safeGetConstructor(ConstructorsTestClass.class, int.class)
+    def instance = Constructors.safeInstantiate(constructor, 1)
+
+    then:
+    instance.id == 1
+
+    when:
+    instance = Constructors.safeInstantiate(null, 1)
+
+    then:
+    instance == null
+  }
 }
