@@ -5,6 +5,19 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.7.0](https://github.com/mxenabled/path-core/compare/v3.6.0...v3.7.0) (2023-08-23)
+
+
+### Features
+
+* add basic compression to session puts ([6a1d293](https://github.com/mxenabled/path-core/commit/6a1d293b1f763ea7ce89ee26e514f9754c116d67))
+* **session:** track keys saved to session store and DEL on logout ([c28d7d3](https://github.com/mxenabled/path-core/commit/c28d7d3712fa24ead46b43baba0ec631ba1ea7cd))
+
+
+### Bug Fixes
+
+* allow setting of default session expiration ([681d7dc](https://github.com/mxenabled/path-core/commit/681d7dc89e0b7c10cee7b37bb60ff566d3115a4d))
+
 ## [3.6.0](https://github.com/mxenabled/path-core/compare/v3.5.0...v3.6.0) (2023-08-10)
 
 
