@@ -52,40 +52,43 @@ public class ThrowableTypeAdapter extends TypeAdapter<Throwable> {
 
   @Override
   @SuppressFBWarnings("BC_UNCONFIRMED_CAST")
+  @SuppressWarnings("PMD.CyclomaticComplexity")
   public final void write(JsonWriter out, Throwable value) throws IOException {
     out.beginObject();
+    if (value != null) {
 
-    out.name("_type").value(value.getClass().getCanonicalName());
-    out.name("message").value(value.getMessage());
-    if (value.getCause() != null) {
-      write(out.name("cause"), value.getCause());
+      out.name("_type").value(value.getClass().getCanonicalName());
+      out.name("message").value(value.getMessage());
+      if (value.getCause() != null) {
+        write(out.name("cause"), value.getCause());
+      }
+
+      if (PathSystemException.class.isAssignableFrom(value.getClass())) {
+        out.name("_fallbackType").value(PathSystemSerializableException.class.getCanonicalName());
+      } else if (PathRequestException.class.isAssignableFrom(value.getClass())) {
+        PathRequestException pathRequestException = (PathRequestException) value;
+        out.name("report").value(pathRequestException.shouldReport());
+        out.name("_fallbackType").value(PathRequestSerializableException.class.getCanonicalName());
+        if (Strings.isNotBlank(pathRequestException.getUserMessage())) {
+          out.name("userMessage").value(pathRequestException.getUserMessage());
+        }
+        if (Strings.isNotBlank(pathRequestException.getReason())) {
+          out.name("reason").value(pathRequestException.getReason());
+        }
+        if (pathRequestException.getStatus() != null) {
+          out.name("status").value(pathRequestException.getStatus().name());
+        }
+        if (pathRequestException.getCode() != null) {
+          out.name("code").value(pathRequestException.getCode());
+        }
+        if (pathRequestException.getErrorTitle() != null) {
+          out.name("errorTitle").value(pathRequestException.getErrorTitle());
+        }
+      } else {
+        out.name("_fallbackType").value(RuntimeException.class.getCanonicalName());
+      }
+
     }
-
-    if (PathSystemException.class.isAssignableFrom(value.getClass())) {
-      out.name("_fallbackType").value(PathSystemSerializableException.class.getCanonicalName());
-    } else if (PathRequestException.class.isAssignableFrom(value.getClass())) {
-      PathRequestException pathRequestException = (PathRequestException) value;
-      out.name("report").value(pathRequestException.shouldReport());
-      out.name("_fallbackType").value(PathRequestSerializableException.class.getCanonicalName());
-      if (Strings.isNotBlank(pathRequestException.getUserMessage())) {
-        out.name("userMessage").value(pathRequestException.getUserMessage());
-      }
-      if (Strings.isNotBlank(pathRequestException.getReason())) {
-        out.name("reason").value(pathRequestException.getReason());
-      }
-      if (pathRequestException.getStatus() != null) {
-        out.name("status").value(pathRequestException.getStatus().value());
-      }
-      if (pathRequestException.getCode() != null) {
-        out.name("code").value(pathRequestException.getCode());
-      }
-      if (pathRequestException.getErrorTitle() != null) {
-        out.name("errorTitle").value(pathRequestException.getErrorTitle());
-      }
-    } else {
-      out.name("_fallbackType").value(RuntimeException.class.getCanonicalName());
-    }
-
     out.endObject();
   }
 
@@ -131,7 +134,7 @@ public class ThrowableTypeAdapter extends TypeAdapter<Throwable> {
       } else if (name.equals("report")) {
         errorInfo.report = in.nextBoolean();
       } else if (name.equals("status")) {
-        errorInfo.status = PathResponseStatus.valueOf(Integer.parseInt(in.nextString()));
+        errorInfo.status = PathResponseStatus.valueOf(in.nextString());
       } else if (name.equals("userMessage")) {
         errorInfo.userMessage = in.nextString();
       } else {

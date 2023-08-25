@@ -82,7 +82,7 @@ class SystemTypeAdapterTest extends Specification {
         "    \"_fallbackType\": \"com.mx.path.core.common.serialization.PathRequestSerializableException\",\n" +
         "    \"userMessage\": \"Git out\\u0027a here!\",\n" +
         "    \"reason\": \"Because\",\n" +
-        "    \"status\": 202,\n" +
+        "    \"status\": \"ACCEPTED\",\n" +
         "    \"code\": \"411\",\n" +
         "    \"errorTitle\": \"Behold!\"\n" +
         "  }\n" +
@@ -120,7 +120,7 @@ class SystemTypeAdapterTest extends Specification {
         "    \"_fallbackType\": \"com.mx.path.core.common.serialization.PathSystemSerializableException\",\n" +
         "    \"userMessage\": \"Git out\\u0027a here!\",\n" +
         "    \"reason\": \"Because\",\n" +
-        "    \"status\": 202,\n" +
+        "    \"status\": \"ACCEPTED\",\n" +
         "    \"code\": \"411\",\n" +
         "    \"errorTitle\": \"Behold!\"\n" +
         "  }\n" +

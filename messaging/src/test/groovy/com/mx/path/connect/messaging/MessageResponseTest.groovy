@@ -66,7 +66,7 @@ class MessageResponseTest extends Specification {
     def json = subject.toJson()
 
     then:
-    json == "{\"messageHeaders\":{\"headers\":{\"arbitrary\":\"value\"},\"sessionId\":\"session123\"},\"status\":\"SUCCESS\"}"
+    json == "{\"messageHeaders\":{\"headers\":{\"arbitrary\":\"value\"},\"sessionId\":\"session123\"},\"status\":\"SUCCESS\",\"exception\":{}}"
   }
 
   def "getBodyAs"() {
