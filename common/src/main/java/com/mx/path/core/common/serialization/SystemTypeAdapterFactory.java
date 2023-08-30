@@ -15,7 +15,7 @@ import com.google.gson.reflect.TypeToken;
  * Used to do Path intra-system (de)serialization of common, complex types.
  */
 @Builder
-public class SystemTypeAdapter implements TypeAdapterFactory {
+public class SystemTypeAdapterFactory implements TypeAdapterFactory {
 
   @Builder.Default
   private TypeAdapter<Throwable> throwableTypeAdapter = ThrowableTypeAdapter.builder().build();
