@@ -3,7 +3,7 @@ package com.mx.path.core.common.serialization
 import java.time.LocalDateTime
 
 import com.google.gson.GsonBuilder
-import com.mx.testing.serialization.ClassWithTimestamps
+import com.mx.testing.serialization.ClassWithLocalDateTime
 
 import spock.lang.Specification
 
@@ -22,7 +22,7 @@ class LocalDateTimeDeserializerTest extends Specification {
         "}"
 
     when:
-    def result = subject.fromJson(json, ClassWithTimestamps)
+    def result = subject.fromJson(json, ClassWithLocalDateTime)
 
     then:
     verifyAll (result.localDateTime) {
@@ -48,7 +48,7 @@ class LocalDateTimeDeserializerTest extends Specification {
         "}"
 
     when:
-    def result = subject.fromJson(json, ClassWithTimestamps)
+    def result = subject.fromJson(json, ClassWithLocalDateTime)
 
     then:
     verifyAll (result.localDateTime) {
@@ -85,7 +85,7 @@ class LocalDateTimeDeserializerTest extends Specification {
         "}"
 
     when:
-    def result = subject.fromJson(json, ClassWithTimestamps)
+    def result = subject.fromJson(json, ClassWithLocalDateTime)
 
     then:
     verifyAll (result.localDateTime) {
@@ -107,7 +107,7 @@ class LocalDateTimeDeserializerTest extends Specification {
         .build())
         .create()
 
-    def obj = new ClassWithTimestamps().tap {
+    def obj = new ClassWithLocalDateTime().tap {
       setLocalDateTime(LocalDateTime.of(2022, 8, 12, 14, 34, 42, 940000000))
     }
 
@@ -124,7 +124,7 @@ class LocalDateTimeDeserializerTest extends Specification {
         .registerTypeAdapter(LocalDateTime, LocalDateTimeDeserializer.builder().build())
         .create()
 
-    def obj = new ClassWithTimestamps().tap {
+    def obj = new ClassWithLocalDateTime().tap {
       setLocalDateTime(LocalDateTime.of(2022, 8, 12, 14, 34, 42, 940009))
     }
 
@@ -142,7 +142,7 @@ class LocalDateTimeDeserializerTest extends Specification {
         .build())
         .create()
 
-    def obj = new ClassWithTimestamps().tap {
+    def obj = new ClassWithLocalDateTime().tap {
       setLocalDateTime(LocalDateTime.of(2022, 8, 12, 14, 34, 42, 940009))
     }
 
