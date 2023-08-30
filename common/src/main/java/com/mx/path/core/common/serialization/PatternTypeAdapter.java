@@ -10,13 +10,16 @@ import com.google.gson.stream.JsonWriter;
 public class PatternTypeAdapter extends TypeAdapter<Pattern> {
   @Override
   public final void write(JsonWriter out, Pattern value) throws IOException {
-    if (value != null) {
-      out.value(value.pattern());
+    if (value == null) {
+      out.nullValue();
+      return;
     }
+
+    out.value(value.pattern());
   }
 
   @Override
   public final Pattern read(JsonReader in) throws IOException {
-    throw new UnsupportedOperationException();
+    return Pattern.compile(in.nextString());
   }
 }
