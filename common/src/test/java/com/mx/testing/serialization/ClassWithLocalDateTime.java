@@ -5,6 +5,6 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class ClassWithTimestamps {
+public class ClassWithLocalDateTime {
   private LocalDateTime localDateTime;
 }
