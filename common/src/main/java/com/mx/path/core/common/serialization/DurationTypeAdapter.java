@@ -11,13 +11,16 @@ import com.mx.path.core.common.lang.Durations;
 public class DurationTypeAdapter extends TypeAdapter<Duration> {
   @Override
   public final void write(JsonWriter out, Duration value) throws IOException {
-    if (value != null) {
-      out.value(Durations.toCompactString(value));
+    if (value == null) {
+      out.nullValue();
+      return;
     }
+
+    out.value(Durations.toCompactString(value));
   }
 
   @Override
   public final Duration read(JsonReader in) throws IOException {
-    throw new UnsupportedOperationException();
+    return Durations.fromCompactString(in.nextString());
   }
 }

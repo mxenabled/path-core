@@ -1,12 +1,14 @@
 package com.mx.path.core.common.serialization
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import java.util.regex.Pattern
+
 import lombok.Getter
 import lombok.Setter
-import spock.lang.Specification
 
-import java.util.regex.Pattern
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+
+import spock.lang.Specification
 
 class PatternTypeAdapterTest extends Specification {
   Gson subject
