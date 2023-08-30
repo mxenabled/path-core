@@ -7,13 +7,13 @@ import com.mx.testing.serialization.SystemSerializationType
 
 import spock.lang.Specification
 
-class SystemTypeAdapterTest extends Specification {
+class SystemTypeAdapterFactoryTest extends Specification {
   Gson subject
 
   def setup() {
     subject = new GsonBuilder()
         .setPrettyPrinting()
-        .registerTypeAdapterFactory(SystemTypeAdapter.builder().build())
+        .registerTypeAdapterFactory(SystemTypeAdapterFactory.builder().build())
         .create()
   }
 

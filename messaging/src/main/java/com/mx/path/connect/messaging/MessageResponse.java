@@ -13,7 +13,7 @@ import com.google.gson.GsonBuilder;
 import com.mx.path.core.common.messaging.MessageStatus;
 import com.mx.path.core.common.messaging.RemoteException;
 import com.mx.path.core.common.serialization.LocalDateDeserializer;
-import com.mx.path.core.common.serialization.SystemTypeAdapter;
+import com.mx.path.core.common.serialization.SystemTypeAdapterFactory;
 import com.mx.path.core.common.serialization.ThrowableTypeAdapter;
 
 @Data
@@ -25,7 +25,7 @@ public class MessageResponse {
   private static Gson gson = gsonBuilder
       .registerTypeAdapter(LocalDate.class, LocalDateDeserializer.builder().build())
       .registerTypeAdapterFactory(
-          SystemTypeAdapter
+          SystemTypeAdapterFactory
               .builder()
               .throwableTypeAdapter(ThrowableTypeAdapter.builder().fallbackType(RemoteException.class).build())
               .build())
