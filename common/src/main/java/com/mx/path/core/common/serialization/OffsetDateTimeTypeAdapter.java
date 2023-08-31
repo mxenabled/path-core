@@ -3,8 +3,8 @@ package com.mx.path.core.common.serialization;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -14,20 +14,22 @@ import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * ZonedDateTime TypeAdapter for use with Gson
+ * OffsetDateTime deserializer for use with Gson
  *
  * <p>Default Behavior:
  *
  * <ul>
- *   <li>Serialize ZonedDateTime to Object</li>
- *   <li>Allow deserialization of ZonedDateTime from object Object</li>
- *   <li>Allows deserialization of ZonedDateTime from from string format "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"</li>
+ *   <li>Serialize OffsetDateTime to Object</li>
+ *   <li>Allow deserialization of OffsetDateTime from object Object</li>
+ *   <li>Allows deserialization of OffsetDateTime from from string format "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"</li>
  * </ul>
  *
  * <p>Features:
@@ -35,7 +37,7 @@ import com.google.gson.stream.JsonWriter;
  * <ul>
  *   <li>Serialize to OBJECT or a format string by setting {@link #serializeFormat}</li>
  *   <li>Deserialize from OBJECT or multiple format string by setting {@link #formats}</li>
- *   <li>Set default ZoneId to be used if no ZoneId is present</li>
+ *   <li>Set default ZoneOffset to be used if no ZoneOffset is present</li>
  * </ul>
  *
  * <p>Examples:
@@ -43,15 +45,15 @@ import com.google.gson.stream.JsonWriter;
  * <pre>{@code
  *   // Take default behavior
  *   Gson gson = new GsonBuilder().registerTypeAdapter(
- *     ZonedDateTime.class,
- *     ZonedDateTimeDeserializer.builder().build()
+ *     OffsetDateTime.class,
+ *     OffsetDateTimeDeserializer.builder().build()
  *   ).create();
  *
  *   // Add acceptable deserialization formats (will still handle object)
  *   // Removes default format. Needs to be added using .format() if still needed.
  *   Gson gson = new GsonBuilder().registerTypeAdapter(
- *     ZonedDateTime.class,
- *     ZonedDateTimeDeserializer.builder()
+ *     OffsetDateTime.class,
+ *     OffsetDateTimeDeserializer.builder()
  *       .format("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
  *       .build()
  *   ).create();
@@ -59,8 +61,8 @@ import com.google.gson.stream.JsonWriter;
  *   // Serialize as String
  *   // Must add it to accepted formats using .format in order to deserialize.
  *   Gson gson = new GsonBuilder().registerTypeAdapter(
- *     ZonedDateTime.class,
- *     ZonedDateTimeDeserializer.builder()
+ *     OffsetDateTime.class,
+ *     OffsetDateTimeDeserializer.builder()
  *       .serializeFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
  *       .format("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
  *       .build()
@@ -68,7 +70,7 @@ import com.google.gson.stream.JsonWriter;
  * }</pre>
  */
 @Builder
-public class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
+public class OffsetDateTimeTypeAdapter extends TypeAdapter<OffsetDateTime> {
   public static final String DEFAULT_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
 
   private static final List<DateTimeFormatter> DEFAULT_FORMAT_STRINGS;
@@ -79,73 +81,76 @@ public class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
     DEFAULT_FORMAT_STRINGS = Collections.unmodifiableList(dateTimeFormatters);
   }
 
-  private static final ZoneId UTC = ZoneId.of("UTC");
+  private static final Gson GSON = new GsonBuilder()
+      .registerTypeAdapter(ZoneOffset.class, new ZoneOffsetTypeAdapter())
+      .create();
 
-  private ZoneId defaultZoneId;
+  private ZoneOffset defaultZoneOffset;
 
   private List<DateTimeFormatter> formats;
 
   private String serializeFormat;
 
-  public static class ZonedDateTimeTypeAdapterBuilder {
+  public static class OffsetDateTimeTypeAdapterBuilder {
 
-    private ZoneId defaultZoneId = UTC;
+    private ZoneOffset defaultZoneOffset = ZoneOffset.UTC;
+
     private List<DateTimeFormatter> formats = new ArrayList<>();
 
     private String serializeFormat = "OBJECT";
 
     /**
-     * Provide a ZoneId to be used if no ZoneId is present
+     * Provide a ZoneOffset to be used if no ZoneOffset is present
      *
-     * @param zoneId ZoneID
+     * @param zoneOffset ZoneOffset
      * @return builder
      */
-    public final ZonedDateTimeTypeAdapterBuilder defaultZoneId(ZoneId zoneId) {
-      defaultZoneId = zoneId;
+    public final OffsetDateTimeTypeAdapterBuilder defaultZoneOffset(ZoneOffset zoneOffset) {
+      defaultZoneOffset = zoneOffset;
       return this;
     }
 
     /**
-     * Provide a ZonedDateTime string format that is accepted
+     * Provide a OffsetDateTime string format that is accepted
      *
      * <p>The formats need to be provided according to {@link DateTimeFormatter} specs.
      *
      * @param format Format string of acceptable DateTime format
      * @return builder
      */
-    public final ZonedDateTimeTypeAdapterBuilder format(String format) {
+    public final OffsetDateTimeTypeAdapterBuilder format(String format) {
       formats.add(DateTimeFormatter.ofPattern(format));
       return this;
     }
 
     /**
-     * Provide format for serializing a ZonedDateTime object to JSON
+     * Provide format for serializing a OffsetDateTime object to JSON
      *
      * @param format A DateTimeFormatter format String or
      *               OBJECT to serialize as an object (default)
      * @return builder
      */
-    public final ZonedDateTimeTypeAdapterBuilder serializeFormat(String format) {
+    public final OffsetDateTimeTypeAdapterBuilder serializeFormat(String format) {
       serializeFormat = format;
       return this;
     }
   }
 
-  static class LocalTimeWithZone {
+  static class LocalTimeWithOffset {
     @Getter
     private final LocalTime time;
 
     @Getter
-    private final ZoneId zoneId;
+    private final ZoneOffset zoneOffset;
 
-    LocalTimeWithZone(LocalTime time, ZoneId zoneId) {
+    LocalTimeWithOffset(LocalTime time, ZoneOffset zoneOffset) {
       this.time = time;
-      this.zoneId = zoneId;
+      this.zoneOffset = zoneOffset;
     }
   }
 
   @Override
-  public final void write(JsonWriter out, ZonedDateTime value) throws IOException {
+  public final void write(JsonWriter out, OffsetDateTime value) throws IOException {
     if (value == null) {
       out.nullValue();
       return;
@@ -159,13 +164,13 @@ public class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
   }
 
   @Override
-  public final ZonedDateTime read(JsonReader in) throws IOException {
+  public final OffsetDateTime read(JsonReader in) throws IOException {
     if (in.peek() == null) {
       in.skipValue();
       return null;
     }
 
-    ZonedDateTime zonedDateTime = readDateTimeObject(in);
+    OffsetDateTime zonedDateTime = readDateTimeObject(in);
     if (zonedDateTime != null) {
       return zonedDateTime;
     }
@@ -173,7 +178,7 @@ public class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
     String zonedDateTimeStr = in.nextString();
     for (DateTimeFormatter s : formats.isEmpty() ? DEFAULT_FORMAT_STRINGS : formats) {
       try {
-        return ZonedDateTime.parse(zonedDateTimeStr, s);
+        return OffsetDateTime.parse(zonedDateTimeStr, s);
       } catch (DateTimeParseException ignored) {
       }
     }
@@ -181,11 +186,11 @@ public class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
     throw new JsonParseException("Invalid date time: " + zonedDateTimeStr);
   }
 
-  private ZonedDateTime readDateTimeObject(JsonReader in) throws IOException {
+  private OffsetDateTime readDateTimeObject(JsonReader in) throws IOException {
     try {
       in.beginObject();
       LocalDate date = null;
-      LocalTimeWithZone time = null;
+      LocalTimeWithOffset time = null;
 
       while (in.hasNext()) {
         switch (in.nextName()) {
@@ -203,14 +208,14 @@ public class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
       in.endObject();
 
       if (date == null) {
-        throw new SerializationException("Unable to deserialize date portion of ZonedDateTime");
+        throw new SerializationException("Unable to deserialize date portion of OffsetDateTime");
       }
 
       if (time == null) {
-        throw new SerializationException("Unable to deserialize time portion of ZonedDateTime");
+        throw new SerializationException("Unable to deserialize time portion of OffsetDateTime");
       }
 
-      return ZonedDateTime.of(date, time.time, time.zoneId);
+      return OffsetDateTime.of(date, time.time, time.zoneOffset);
     } catch (IllegalStateException ignored) {
     }
 
@@ -243,13 +248,13 @@ public class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
       in.endObject();
 
       if (year == null) {
-        throw new SerializationException("Missing year from ZonedDateTime object");
+        throw new SerializationException("Missing year from OffsetDateTime object");
       }
       if (month == null) {
-        throw new SerializationException("Missing month from ZonedDateTime object");
+        throw new SerializationException("Missing month from OffsetDateTime object");
       }
       if (day == null) {
-        throw new SerializationException("Missing day from ZonedDateTime object");
+        throw new SerializationException("Missing day from OffsetDateTime object");
       }
 
       return LocalDate.of(year, month, day);
@@ -259,13 +264,13 @@ public class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
     return null;
   }
 
-  private LocalTimeWithZone readTimeObject(JsonReader in) throws IOException {
+  private LocalTimeWithOffset readTimeObject(JsonReader in) throws IOException {
     try {
       int hour = 0;
       int minute = 0;
       int second = 0;
       int nano = 0;
-      ZoneId zoneId = defaultZoneId;
+      ZoneOffset zoneOffset = defaultZoneOffset;
 
       in.beginObject();
       while (in.hasNext()) {
@@ -282,8 +287,8 @@ public class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
           case "nano":
             nano = in.nextInt();
             break;
-          case "zone":
-            zoneId = ZoneId.of(in.nextString());
+          case "offset":
+            zoneOffset = ZoneOffset.of(in.nextString());
             break;
           default:
             in.skipValue();
@@ -291,14 +296,14 @@ public class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
       }
       in.endObject();
 
-      return new LocalTimeWithZone(LocalTime.of(hour, minute, second, nano), zoneId);
+      return new LocalTimeWithOffset(LocalTime.of(hour, minute, second, nano), zoneOffset);
     } catch (IllegalStateException ignored) {
     }
 
     return null;
   }
 
-  private void writeDateTimeObject(JsonWriter out, ZonedDateTime value) throws IOException {
+  private void writeDateTimeObject(JsonWriter out, OffsetDateTime value) throws IOException {
     out.beginObject();
 
     out.name("time").beginObject();
@@ -306,7 +311,7 @@ public class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
     out.name("minute").value(value.getMinute());
     out.name("second").value(value.getSecond());
     out.name("nano").value(value.getNano());
-    out.name("zone").value(value.getZone().getId());
+    out.name("offset").value(value.getOffset().getId());
     out.endObject();
 
     out.name("date").beginObject();

@@ -2,7 +2,9 @@ package com.mx.path.core.common.serialization
 
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
 
 import com.google.gson.Gson
@@ -49,6 +51,7 @@ class SystemTypeAdapterFactoryTest extends Specification {
     def target = SystemSerializationType.builder()
         .localDate(LocalDate.of(2015, 10, 21))
         .localDateTime(LocalDateTime.of(2015, 10, 21, 4, 29))
+        .offsetDateTime(OffsetDateTime.of(2015, 10, 21, 4, 29, 0, 0, ZoneOffset.ofHours(-4)))
         .zonedDateTime(ZonedDateTime.of(2015, 10, 21, 4, 29, 0, 0, ZoneId.of("-04:00")))
         .build()
 
@@ -60,6 +63,7 @@ class SystemTypeAdapterFactoryTest extends Specification {
     verifyAll(deserialized) {
       localDate == LocalDate.of(2015, 10, 21)
       localDateTime == LocalDateTime.of(2015, 10, 21, 4, 29)
+      offsetDateTime == OffsetDateTime.of(2015, 10, 21, 4, 29, 0, 0, ZoneOffset.ofHours(-4))
       zonedDateTime == ZonedDateTime.of(2015, 10, 21, 4, 29, 0, 0, ZoneId.of("-04:00"))
     }
   }

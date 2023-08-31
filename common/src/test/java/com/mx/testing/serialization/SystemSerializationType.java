@@ -3,6 +3,7 @@ package com.mx.testing.serialization;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.util.regex.Pattern;
 
@@ -14,21 +15,18 @@ import lombok.Data;
 public class SystemSerializationType {
   private Throwable throwable;
 
+  private Duration duration;
+
+  private LocalDate localDate;
+
+  private LocalDateTime localDateTime;
+
   @Builder.Default
   private String message = "I am a test";
 
-  @Builder.Default
-  private LocalDate localDate = null;
+  private OffsetDateTime offsetDateTime;
 
-  @Builder.Default
-  private LocalDateTime localDateTime = null;
+  private Pattern pattern;
 
-  @Builder.Default
-  private ZonedDateTime zonedDateTime = null;
-
-  @Builder.Default
-  private Duration duration = null;
-
-  @Builder.Default
-  private Pattern pattern = null;
+  private ZonedDateTime zonedDateTime;
 }
