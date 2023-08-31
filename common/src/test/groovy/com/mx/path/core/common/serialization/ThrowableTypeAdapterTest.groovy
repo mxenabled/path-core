@@ -29,8 +29,6 @@ class ThrowableTypeAdapterTest extends Specification {
     def serialized = subject.toJson(target)
     def deserialized = subject.fromJson(serialized, SystemSerializationType)
 
-    println(serialized)
-
     then:
     deserialized.throwable == null
   }
@@ -46,8 +44,6 @@ class ThrowableTypeAdapterTest extends Specification {
     when:
     def serialized = subject.toJson(target)
     def deserialized = subject.fromJson(serialized, SystemSerializationType)
-
-    println(serialized)
 
     then:
     deserialized.throwable != null
@@ -67,8 +63,6 @@ class ThrowableTypeAdapterTest extends Specification {
     when:
     def serialized = subject.toJson(target)
     def deserialized = subject.fromJson(serialized, SystemSerializationType)
-
-    println(serialized)
 
     then:
     deserialized.throwable != null
@@ -102,8 +96,6 @@ class ThrowableTypeAdapterTest extends Specification {
 
     when:
     def serialized = subject.toJson(target)
-    println(serialized)
-
     SystemSerializationType deserialized = subject.fromJson(serialized, SystemSerializationType)
 
     then:
