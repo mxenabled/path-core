@@ -1,6 +1,8 @@
 package com.mx.path.core.common.serialization;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.regex.Pattern;
 
@@ -9,6 +11,7 @@ import lombok.Builder;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
+import com.google.gson.internal.bind.TreeTypeAdapter;
 import com.google.gson.reflect.TypeToken;
 
 /**
@@ -19,6 +22,12 @@ public class SystemTypeAdapterFactory implements TypeAdapterFactory {
 
   @Builder.Default
   private TypeAdapter<Throwable> throwableTypeAdapter = ThrowableTypeAdapter.builder().build();
+
+  @Builder.Default
+  private TypeAdapter<LocalDate> localDateTypeAdapter = LocalDateTypeAdapter.builder().build();
+
+  @Builder.Default
+  private LocalDateTimeDeserializer localDateTimeDeserializer = LocalDateTimeDeserializer.builder().build();
 
   @SuppressWarnings("unchecked")
   @Override
@@ -37,6 +46,16 @@ public class SystemTypeAdapterFactory implements TypeAdapterFactory {
 
     if (Throwable.class.isAssignableFrom(type.getRawType())) {
       return (TypeAdapter<T>) throwableTypeAdapter;
+    }
+
+    if (LocalDate.class.isAssignableFrom(type.getRawType())) {
+      return (TypeAdapter<T>) localDateTypeAdapter;
+    }
+
+    // Temporary. Replace this once LocalDateTimeTypeAdapter is ready
+    if (LocalDateTime.class.isAssignableFrom(type.getRawType())) {
+      TypeToken<LocalDateTime> typeToken = TypeToken.get(LocalDateTime.class);
+      return (TypeAdapter<T>) TreeTypeAdapter.newFactory(typeToken, localDateTimeDeserializer).create(gson, type);
     }
 
     return null;

@@ -15,6 +15,7 @@ class ThrowableTypeAdapterTest extends Specification {
     subject = new GsonBuilder()
         .setPrettyPrinting()
         .registerTypeHierarchyAdapter(Throwable.class, new ThrowableTypeAdapter())
+        .registerTypeAdapterFactory(SystemTypeAdapterFactory.builder().build())
         .create()
   }
 

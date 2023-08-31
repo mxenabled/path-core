@@ -4,6 +4,12 @@ import java.time.LocalDate;
 
 import lombok.Data;
 
+/**
+ * Used by {@link LocalDateDeserializer}
+ *
+ * @deprecated Will be removed with {@link LocalDateDeserializer}
+ */
+@Deprecated
 @Data
 public class LocalDateJava8 {
   private int day;
