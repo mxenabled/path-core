@@ -8,12 +8,12 @@ import com.mx.testing.serialization.ClassWithOffsetDateTime
 
 import spock.lang.Specification
 
-class OffsetDateTimeDeserializerTest extends Specification {
+class OffsetDateTimeTypeAdapterTest extends Specification {
 
   def "deserialize string dates"() {
     given:
     def subject = new GsonBuilder()
-        .registerTypeAdapter(OffsetDateTime, OffsetDateTimeDeserializer.builder()
+        .registerTypeAdapter(OffsetDateTime, OffsetDateTimeTypeAdapter.builder()
         .format("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
         .build())
         .create()
@@ -41,7 +41,7 @@ class OffsetDateTimeDeserializerTest extends Specification {
   def "deserialize string dates (default)"() {
     given:
     def subject = new GsonBuilder()
-        .registerTypeAdapter(OffsetDateTime, OffsetDateTimeDeserializer.builder()
+        .registerTypeAdapter(OffsetDateTime, OffsetDateTimeTypeAdapter.builder()
         .build())
         .create()
 
@@ -68,7 +68,7 @@ class OffsetDateTimeDeserializerTest extends Specification {
   def "deserialize from object (Java 8)"() {
     given:
     def subject = new GsonBuilder()
-        .registerTypeAdapter(OffsetDateTime, OffsetDateTimeDeserializer.builder().build())
+        .registerTypeAdapter(OffsetDateTime, OffsetDateTimeTypeAdapter.builder().build())
         .create()
 
     String json = "{\n" +
@@ -104,10 +104,48 @@ class OffsetDateTimeDeserializerTest extends Specification {
     }
   }
 
+  def "deserialize from object (Java 8) missing offset"() {
+    given:
+    def subject = new GsonBuilder()
+        .registerTypeAdapter(OffsetDateTime, OffsetDateTimeTypeAdapter.builder().defaultZoneOffset(ZoneOffset.ofHours(-4)).build())
+        .create()
+
+    String json = "{\n" +
+        "  \"offsetDateTime\": {\n" +
+        "    \"date\": {\n" +
+        "      \"year\": 2022,\n" +
+        "      \"month\": 8,\n" +
+        "      \"day\": 12\n" +
+        "    },\n" +
+        "    \"time\": {\n" +
+        "      \"hour\": 18,\n" +
+        "      \"minute\": 20,\n" +
+        "      \"second\": 48,\n" +
+        "      \"nano\": 878000000\n" +
+        "    }\n" +
+        "  }\n" +
+        "}"
+
+    when:
+    def result = subject.fromJson(json, ClassWithOffsetDateTime)
+
+    then:
+    verifyAll (result.offsetDateTime) {
+      getYear() == 2022
+      getMonthValue() == 8
+      getDayOfMonth() == 12
+      getHour() == 18
+      getMinute() == 20
+      getSecond() == 48
+      getNano() == 878000000
+      getOffset() == ZoneOffset.ofHours(-4)
+    }
+  }
+
   def "Serialize as string"() {
     given:
     def subject = new GsonBuilder()
-        .registerTypeAdapter(OffsetDateTime, OffsetDateTimeDeserializer.builder()
+        .registerTypeAdapter(OffsetDateTime, OffsetDateTimeTypeAdapter.builder()
         .serializeFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
         .build())
         .create()
@@ -126,7 +164,7 @@ class OffsetDateTimeDeserializerTest extends Specification {
   def "Serialize as object (default)"() {
     given:
     def subject = new GsonBuilder()
-        .registerTypeAdapter(OffsetDateTime, OffsetDateTimeDeserializer.builder().build())
+        .registerTypeAdapter(OffsetDateTime, OffsetDateTimeTypeAdapter.builder().build())
         .create()
 
     def obj = new ClassWithOffsetDateTime().tap {
@@ -143,7 +181,7 @@ class OffsetDateTimeDeserializerTest extends Specification {
   def "Serialize as object"() {
     given:
     def subject = new GsonBuilder()
-        .registerTypeAdapter(OffsetDateTime, OffsetDateTimeDeserializer.builder().serializeFormat("OBJECT")
+        .registerTypeAdapter(OffsetDateTime, OffsetDateTimeTypeAdapter.builder().serializeFormat("OBJECT")
         .build())
         .create()
 
