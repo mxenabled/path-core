@@ -3,6 +3,7 @@ package com.mx.path.core.common.serialization;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.regex.Pattern;
@@ -30,6 +31,9 @@ public class SystemTypeAdapterFactory implements TypeAdapterFactory {
   private TypeAdapter<LocalDateTime> localDateTimeTypeAdapter = LocalDateTimeTypeAdapter.builder().build();
 
   @Builder.Default
+  private TypeAdapter<OffsetDateTime> offsetDateTimeTypeAdapter = OffsetDateTimeTypeAdapter.builder().build();
+
+  @Builder.Default
   private TypeAdapter<ZonedDateTime> zonedDateTimeTypeAdapter = ZonedDateTimeTypeAdapter.builder().build();
 
   @SuppressWarnings("unchecked")
@@ -49,6 +53,10 @@ public class SystemTypeAdapterFactory implements TypeAdapterFactory {
 
     if (Throwable.class.isAssignableFrom(type.getRawType())) {
       return (TypeAdapter<T>) throwableTypeAdapter;
+    }
+
+    if (OffsetDateTime.class.isAssignableFrom(type.getRawType())) {
+      return (TypeAdapter<T>) offsetDateTimeTypeAdapter;
     }
 
     if (ZonedDateTime.class.isAssignableFrom(type.getRawType())) {
