@@ -59,7 +59,10 @@ import com.mx.path.core.common.lang.Strings;
  *       .build()
  *   ).create();
  * }</pre>
+ *
+ * @deprecated Use {@link LocalDateTimeTypeAdapter}
  */
+@Deprecated
 @Builder
 public class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime>, JsonSerializer<LocalDateTime> {
   public static final String DEFAULT_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";

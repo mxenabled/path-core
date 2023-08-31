@@ -147,6 +147,7 @@ public class LocalDateTypeAdapter extends TypeAdapter<LocalDate> {
     throw new JsonParseException("Invalid date: " + localDateStr);
   }
 
+  @SuppressWarnings("PMD.CyclomaticComplexity")
   private LocalDate readDateObject(JsonReader in) throws IOException {
     try {
       Integer year = null;
@@ -170,6 +171,16 @@ public class LocalDateTypeAdapter extends TypeAdapter<LocalDate> {
         }
       }
       in.endObject();
+
+      if (year == null) {
+        throw new SerializationException("Missing year from LocalDate object");
+      }
+      if (month == null) {
+        throw new SerializationException("Missing month from LocalDate object");
+      }
+      if (day == null) {
+        throw new SerializationException("Missing day from LocalDate object");
+      }
 
       return LocalDate.of(year, month, day);
     } catch (IllegalStateException ignored) {
