@@ -1,5 +1,8 @@
 package com.mx.path.core.common.serialization
 
+import java.time.LocalDate
+import java.time.LocalDateTime
+
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.mx.path.core.common.accessor.UnauthorizedException
@@ -35,5 +38,21 @@ class SystemTypeAdapterFactoryTest extends Specification {
     deserialized.throwable instanceof UnauthorizedException
     deserialized.throwable.cause != null
     deserialized.throwable.cause instanceof IllegalArgumentException
+  }
+
+  def "handles date times"() {
+    given:
+    def target = SystemSerializationType.builder()
+        .localDate(LocalDate.of(2015, 10, 21))
+        .localDateTime(LocalDateTime.of(2015, 10, 21, 4, 29))
+        .build()
+
+    when:
+    def serialized = subject.toJson(target)
+    def deserialized = subject.fromJson(serialized, SystemSerializationType)
+
+    then:
+    deserialized.localDate == LocalDate.of(2015, 10, 21)
+    deserialized.localDateTime == LocalDateTime.of(2015, 10, 21, 4, 29)
   }
 }

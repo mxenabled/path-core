@@ -11,7 +11,6 @@ import lombok.Builder;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
-import com.google.gson.internal.bind.TreeTypeAdapter;
 import com.google.gson.reflect.TypeToken;
 
 /**
@@ -27,7 +26,7 @@ public class SystemTypeAdapterFactory implements TypeAdapterFactory {
   private TypeAdapter<LocalDate> localDateTypeAdapter = LocalDateTypeAdapter.builder().build();
 
   @Builder.Default
-  private LocalDateTimeDeserializer localDateTimeDeserializer = LocalDateTimeDeserializer.builder().build();
+  private TypeAdapter<LocalDateTime> localDateTimeTypeAdapter = LocalDateTimeTypeAdapter.builder().build();
 
   @SuppressWarnings("unchecked")
   @Override
@@ -52,10 +51,8 @@ public class SystemTypeAdapterFactory implements TypeAdapterFactory {
       return (TypeAdapter<T>) localDateTypeAdapter;
     }
 
-    // Temporary. Replace this once LocalDateTimeTypeAdapter is ready
     if (LocalDateTime.class.isAssignableFrom(type.getRawType())) {
-      TypeToken<LocalDateTime> typeToken = TypeToken.get(LocalDateTime.class);
-      return (TypeAdapter<T>) TreeTypeAdapter.newFactory(typeToken, localDateTimeDeserializer).create(gson, type);
+      return (TypeAdapter<T>) localDateTimeTypeAdapter;
     }
 
     return null;
