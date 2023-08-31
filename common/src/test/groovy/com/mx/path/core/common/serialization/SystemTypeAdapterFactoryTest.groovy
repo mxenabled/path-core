@@ -2,6 +2,8 @@ package com.mx.path.core.common.serialization
 
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -34,10 +36,12 @@ class SystemTypeAdapterFactoryTest extends Specification {
     def deserialized = subject.fromJson(serialized, SystemSerializationType)
 
     then:
-    deserialized.throwable != null
-    deserialized.throwable instanceof UnauthorizedException
-    deserialized.throwable.cause != null
-    deserialized.throwable.cause instanceof IllegalArgumentException
+    verifyAll(deserialized) {
+      throwable != null
+      throwable instanceof UnauthorizedException
+      throwable.cause != null
+      throwable.cause instanceof IllegalArgumentException
+    }
   }
 
   def "handles date times"() {
@@ -45,6 +49,7 @@ class SystemTypeAdapterFactoryTest extends Specification {
     def target = SystemSerializationType.builder()
         .localDate(LocalDate.of(2015, 10, 21))
         .localDateTime(LocalDateTime.of(2015, 10, 21, 4, 29))
+        .zonedDateTime(ZonedDateTime.of(2015, 10, 21, 4, 29, 0, 0, ZoneId.of("-04:00")))
         .build()
 
     when:
@@ -52,7 +57,10 @@ class SystemTypeAdapterFactoryTest extends Specification {
     def deserialized = subject.fromJson(serialized, SystemSerializationType)
 
     then:
-    deserialized.localDate == LocalDate.of(2015, 10, 21)
-    deserialized.localDateTime == LocalDateTime.of(2015, 10, 21, 4, 29)
+    verifyAll(deserialized) {
+      localDate == LocalDate.of(2015, 10, 21)
+      localDateTime == LocalDateTime.of(2015, 10, 21, 4, 29)
+      zonedDateTime == ZonedDateTime.of(2015, 10, 21, 4, 29, 0, 0, ZoneId.of("-04:00"))
+    }
   }
 }

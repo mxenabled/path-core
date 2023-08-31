@@ -8,12 +8,12 @@ import com.mx.testing.serialization.ClassWithZonedDateTime
 
 import spock.lang.Specification
 
-class ZonedDateTimeDeserializerTest extends Specification {
+class ZonedDateTimeTypeAdapterTest extends Specification {
 
   def "deserialize string dates"() {
     given:
     def subject = new GsonBuilder()
-        .registerTypeAdapter(ZonedDateTime, ZonedDateTimeDeserializer.builder()
+        .registerTypeAdapter(ZonedDateTime, ZonedDateTimeTypeAdapter.builder()
         .format("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
         .build())
         .create()
@@ -41,7 +41,7 @@ class ZonedDateTimeDeserializerTest extends Specification {
   def "deserialize string dates (default)"() {
     given:
     def subject = new GsonBuilder()
-        .registerTypeAdapter(ZonedDateTime, ZonedDateTimeDeserializer.builder()
+        .registerTypeAdapter(ZonedDateTime, ZonedDateTimeTypeAdapter.builder()
         .build())
         .create()
 
@@ -68,7 +68,7 @@ class ZonedDateTimeDeserializerTest extends Specification {
   def "deserialize from object (Java 8)"() {
     given:
     def subject = new GsonBuilder()
-        .registerTypeAdapter(ZonedDateTime, ZonedDateTimeDeserializer.builder().build())
+        .registerTypeAdapter(ZonedDateTime, ZonedDateTimeTypeAdapter.builder().build())
         .create()
 
     String json = "{\n" +
@@ -104,10 +104,50 @@ class ZonedDateTimeDeserializerTest extends Specification {
     }
   }
 
+  def "deserialize from object (Java 8) missing ZoneId"() {
+    given:
+    def subject = new GsonBuilder()
+        .registerTypeAdapter(ZonedDateTime, ZonedDateTimeTypeAdapter.builder()
+        .defaultZoneId(ZoneId.of("-04:00"))
+        .build())
+        .create()
+
+    String json = "{\n" +
+        "  \"zonedDateTime\": {\n" +
+        "    \"date\": {\n" +
+        "      \"year\": 2022,\n" +
+        "      \"month\": 8,\n" +
+        "      \"day\": 12\n" +
+        "    },\n" +
+        "    \"time\": {\n" +
+        "      \"hour\": 18,\n" +
+        "      \"minute\": 20,\n" +
+        "      \"second\": 48,\n" +
+        "      \"nano\": 878000000\n" +
+        "    }\n" +
+        "  }\n" +
+        "}"
+
+    when:
+    def result = subject.fromJson(json, ClassWithZonedDateTime)
+
+    then:
+    verifyAll (result.zonedDateTime) {
+      getYear() == 2022
+      getMonthValue() == 8
+      getDayOfMonth() == 12
+      getHour() == 18
+      getMinute() == 20
+      getSecond() == 48
+      getNano() == 878000000
+      getZone() == ZoneId.of("-04:00")
+    }
+  }
+
   def "Serialize as string"() {
     given:
     def subject = new GsonBuilder()
-        .registerTypeAdapter(ZonedDateTime, ZonedDateTimeDeserializer.builder()
+        .registerTypeAdapter(ZonedDateTime, ZonedDateTimeTypeAdapter.builder()
         .serializeFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
         .build())
         .create()
@@ -126,7 +166,7 @@ class ZonedDateTimeDeserializerTest extends Specification {
   def "Serialize as object (default)"() {
     given:
     def subject = new GsonBuilder()
-        .registerTypeAdapter(ZonedDateTime, ZonedDateTimeDeserializer.builder().build())
+        .registerTypeAdapter(ZonedDateTime, ZonedDateTimeTypeAdapter.builder().build())
         .create()
 
     def obj = new ClassWithZonedDateTime().tap {
@@ -143,7 +183,7 @@ class ZonedDateTimeDeserializerTest extends Specification {
   def "Serialize as object"() {
     given:
     def subject = new GsonBuilder()
-        .registerTypeAdapter(ZonedDateTime, ZonedDateTimeDeserializer.builder().serializeFormat("OBJECT")
+        .registerTypeAdapter(ZonedDateTime, ZonedDateTimeTypeAdapter.builder().serializeFormat("OBJECT")
         .build())
         .create()
 
