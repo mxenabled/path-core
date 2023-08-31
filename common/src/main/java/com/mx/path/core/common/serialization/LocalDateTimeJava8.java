@@ -34,7 +34,10 @@ import lombok.Data;
  * <p>This class is used to (de)serialize LocalDateTime to/from the Java 8 object format.
  *
  * <p>It is used by {@link LocalDateTimeDeserializer}
+ *
+ * @deprecated Will be removed with {@link LocalDateTimeDeserializer}
  */
+@Deprecated
 @Data
 class LocalDateTimeJava8 {
   @Data
