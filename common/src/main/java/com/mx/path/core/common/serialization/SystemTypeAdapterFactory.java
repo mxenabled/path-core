@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.regex.Pattern;
 
 import lombok.Builder;
@@ -28,6 +29,9 @@ public class SystemTypeAdapterFactory implements TypeAdapterFactory {
   @Builder.Default
   private TypeAdapter<LocalDateTime> localDateTimeTypeAdapter = LocalDateTimeTypeAdapter.builder().build();
 
+  @Builder.Default
+  private TypeAdapter<ZonedDateTime> zonedDateTimeTypeAdapter = ZonedDateTimeTypeAdapter.builder().build();
+
   @SuppressWarnings("unchecked")
   @Override
   public final <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
@@ -47,12 +51,16 @@ public class SystemTypeAdapterFactory implements TypeAdapterFactory {
       return (TypeAdapter<T>) throwableTypeAdapter;
     }
 
-    if (LocalDate.class.isAssignableFrom(type.getRawType())) {
-      return (TypeAdapter<T>) localDateTypeAdapter;
+    if (ZonedDateTime.class.isAssignableFrom(type.getRawType())) {
+      return (TypeAdapter<T>) zonedDateTimeTypeAdapter;
     }
 
     if (LocalDateTime.class.isAssignableFrom(type.getRawType())) {
       return (TypeAdapter<T>) localDateTimeTypeAdapter;
+    }
+
+    if (LocalDate.class.isAssignableFrom(type.getRawType())) {
+      return (TypeAdapter<T>) localDateTypeAdapter;
     }
 
     return null;

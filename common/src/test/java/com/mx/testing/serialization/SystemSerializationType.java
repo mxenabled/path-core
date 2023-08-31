@@ -3,6 +3,7 @@ package com.mx.testing.serialization;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.regex.Pattern;
 
 import lombok.Builder;
@@ -21,6 +22,9 @@ public class SystemSerializationType {
 
   @Builder.Default
   private LocalDateTime localDateTime = null;
+
+  @Builder.Default
+  private ZonedDateTime zonedDateTime = null;
 
   @Builder.Default
   private Duration duration = null;
