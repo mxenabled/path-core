@@ -1,6 +1,6 @@
 package com.mx.path.core.common.serialization;
 
-import java.lang.reflect.Type;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -11,17 +11,13 @@ import java.util.List;
 import lombok.Builder;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-import com.mx.path.core.common.lang.Strings;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 /**
- * LocalDate deserializer for use with Gson
+ * LocalDate TypeAdapter for use with Gson
  *
  * <p>Default Behavior:
  *
@@ -37,14 +33,14 @@ import com.mx.path.core.common.lang.Strings;
  *   // Take default behavior
  *   Gson gson = new GsonBuilder().registerTypeAdapter(
  *     LocalDate.class,
- *     LocalDateDeserializer.builder().build()
+ *     LocalDateTypeAdapter.builder().build()
  *   ).create();
  *
  *   // Add acceptable deserialization formats (will still handle object)
  *   // Removes default format. Needs to be added using .format() if still needed.
  *   Gson gson = new GsonBuilder().registerTypeAdapter(
  *     LocalDate.class,
- *     LocalDateDeserializer.builder()
+ *     LocalDateTypeAdapter.builder()
  *       .format("yyyy-MM-dd")
  *       .build()
  *   ).create();
@@ -53,22 +49,20 @@ import com.mx.path.core.common.lang.Strings;
  *   // Must add it to accepted formats using .format in order to deserialize.
  *   Gson gson = new GsonBuilder().registerTypeAdapter(
  *     LocalDate.class,
- *     LocalDateDeserializer.builder()
+ *     LocalDateTypeAdapter.builder()
  *       .serializeFormat("yyyy-MM-dd")
  *       .format("yyyy-MM-dd")
  *       .build()
  *   ).create();
  * }</pre>
- *
- * @deprecated Use {@link LocalDateTypeAdapter}
  */
-@Deprecated
 @Builder
-public class LocalDateDeserializer implements JsonDeserializer<LocalDate>, JsonSerializer<LocalDate> {
+public class LocalDateTypeAdapter extends TypeAdapter<LocalDate> {
 
   public static final String DEFAULT_FORMAT = "yyyy-MM-dd";
 
   private static final List<DateTimeFormatter> DEFAULT_FORMAT_STRINGS;
+
   static {
     List<DateTimeFormatter> dateTimeFormatters = new ArrayList<>();
     dateTimeFormatters.add(DateTimeFormatter.ofPattern(DEFAULT_FORMAT));
@@ -82,7 +76,7 @@ public class LocalDateDeserializer implements JsonDeserializer<LocalDate>, JsonS
 
   private String serializeFormat;
 
-  public static class LocalDateDeserializerBuilder {
+  public static class LocalDateTypeAdapterBuilder {
 
     private List<DateTimeFormatter> formats = new ArrayList<>();
 
@@ -98,54 +92,99 @@ public class LocalDateDeserializer implements JsonDeserializer<LocalDate>, JsonS
      * @param format Format string of acceptable LocalDate format
      * @return
      */
-    public final LocalDateDeserializerBuilder format(String format) {
+    public final LocalDateTypeAdapterBuilder format(String format) {
       formats.add(DateTimeFormatter.ofPattern(format));
       return this;
     }
 
     /**
      * Provide format for serializing a LocalDate object to JSON
+     *
      * @param format A DateTimeFormatter format String or
      *               OBJECT to serialize as an object (default)
      * @return builder
      */
-    public final LocalDateDeserializerBuilder serializeFormat(String format) {
+    public final LocalDateTypeAdapterBuilder serializeFormat(String format) {
       serializeFormat = format;
       return this;
     }
   }
 
   @Override
-  public final LocalDate deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
-      throws JsonParseException {
-
-    if (json.isJsonObject()) {
-      LocalDateJava8 localDateJava8 = GSON.fromJson(json, LocalDateJava8.class);
-      return localDateJava8.toLocalDate();
+  public final void write(JsonWriter out, LocalDate value) throws IOException {
+    if (value == null) {
+      out.nullValue();
+      return;
     }
 
-    JsonPrimitive dateJson = json.getAsJsonPrimitive();
-    if (dateJson.isJsonNull()) {
+    if ("OBJECT".equals(serializeFormat)) {
+      writeDateObject(out, value);
+    } else {
+      out.value(value.format(DateTimeFormatter.ofPattern(serializeFormat)));
+    }
+  }
+
+  @Override
+  public final LocalDate read(JsonReader in) throws IOException {
+    if (in.peek() == null) {
+      in.skipValue();
       return null;
     }
-    String localDateStr = dateJson.getAsString();
+
+    LocalDate year = readDateObject(in);
+    if (year != null) {
+      return year;
+    }
+
+    String localDateStr = in.nextString();
     for (DateTimeFormatter s : formats.isEmpty() ? DEFAULT_FORMAT_STRINGS : formats) {
       try {
         return LocalDate.parse(localDateStr, s);
-      } catch (DateTimeParseException e) {
-        continue;
+      } catch (DateTimeParseException ignored) {
       }
     }
 
     throw new JsonParseException("Invalid date: " + localDateStr);
   }
 
-  @Override
-  public final JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
-    if (Strings.isBlank(serializeFormat) || serializeFormat.equals("OBJECT")) {
-      return GSON.toJsonTree(new LocalDateJava8(src));
-    } else {
-      return new JsonPrimitive(src.format(DateTimeFormatter.ofPattern(serializeFormat)));
+  private LocalDate readDateObject(JsonReader in) throws IOException {
+    try {
+      Integer year = null;
+      Integer month = null;
+      Integer day = null;
+
+      in.beginObject();
+      while (in.hasNext()) {
+        switch (in.nextName()) {
+          case "year":
+            year = in.nextInt();
+            break;
+          case "month":
+            month = in.nextInt();
+            break;
+          case "day":
+            day = in.nextInt();
+            break;
+          default:
+            in.skipValue();
+        }
+      }
+      in.endObject();
+
+      return LocalDate.of(year, month, day);
+    } catch (IllegalStateException ignored) {
     }
+
+    return null;
+  }
+
+  private void writeDateObject(JsonWriter out, LocalDate value) throws IOException {
+    out.beginObject();
+
+    out.name("year").value(value.getYear());
+    out.name("month").value(value.getMonthValue());
+    out.name("day").value(value.getDayOfMonth());
+
+    out.endObject();
   }
 }
