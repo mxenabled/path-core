@@ -44,6 +44,12 @@ class LocalDateTypeAdapterTest extends Specification {
 
     then:
     result == LocalDate.of(2000, 2, 1)
+
+    when:
+    result = gson.fromJson("{ \"localDate\": null }", ClassWithLocalDate.class).localDate
+
+    then:
+    result == null
   }
 
   def "deserialize with default format"() {

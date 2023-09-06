@@ -65,6 +65,24 @@ class ZonedDateTimeTypeAdapterTest extends Specification {
     }
   }
 
+  def "deserialize handles null"() {
+    given:
+    def subject = new GsonBuilder()
+        .registerTypeAdapter(ZonedDateTime, ZonedDateTimeTypeAdapter.builder()
+        .build())
+        .create()
+
+    String json = "{\n" +
+        "  \"zonedDateTime\": null\n" +
+        "}"
+
+    when:
+    def result = subject.fromJson(json, ClassWithZonedDateTime)
+
+    then:
+    result.zonedDateTime == null
+  }
+
   def "deserialize from object (Java 8)"() {
     given:
     def subject = new GsonBuilder()
