@@ -17,6 +17,7 @@ import lombok.Getter;
 import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 /**
@@ -160,7 +161,7 @@ public class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
 
   @Override
   public final ZonedDateTime read(JsonReader in) throws IOException {
-    if (in.peek() == null) {
+    if (in.peek() == JsonToken.NULL) {
       in.skipValue();
       return null;
     }

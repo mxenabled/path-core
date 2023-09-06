@@ -65,6 +65,24 @@ class OffsetDateTimeTypeAdapterTest extends Specification {
     }
   }
 
+  def "deserialize handles null"() {
+    given:
+    def subject = new GsonBuilder()
+        .registerTypeAdapter(OffsetDateTime, OffsetDateTimeTypeAdapter.builder()
+        .build())
+        .create()
+
+    String json = "{\n" +
+        "  \"offsetDateTime\": null\n" +
+        "}"
+
+    when:
+    def result = subject.fromJson(json, ClassWithOffsetDateTime)
+
+    then:
+    result.offsetDateTime == null
+  }
+
   def "deserialize from object (Java 8)"() {
     given:
     def subject = new GsonBuilder()
