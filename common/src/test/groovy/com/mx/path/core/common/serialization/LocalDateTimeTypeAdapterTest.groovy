@@ -63,6 +63,24 @@ class LocalDateTimeTypeAdapterTest extends Specification {
     }
   }
 
+  def "deserialize handles null"() {
+    given:
+    def subject = new GsonBuilder()
+        .registerTypeAdapter(LocalDateTime, LocalDateTimeTypeAdapter.builder()
+        .build())
+        .create()
+
+    String json = "{\n" +
+        "  \"localDateTime\": null\n" +
+        "}"
+
+    when:
+    def result = subject.fromJson(json, ClassWithLocalDateTime)
+
+    then:
+    result.localDateTime == null
+  }
+
   def "deserialize from object (Java 8)"() {
     given:
     def subject = new GsonBuilder()
