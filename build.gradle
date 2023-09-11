@@ -68,6 +68,11 @@ subprojects {
             require "[31.0,32.0)"
           }
         }
+        api("com.github.rholder:guava-retrying") {
+          version {
+            require "[2.0,3.0)"
+          }
+        }
         api "commons-lang:commons-lang:2.6"
         api "org.slf4j:slf4j-api:1.7.30"
         api "org.apache.httpcomponents:httpclient:4.5.13"

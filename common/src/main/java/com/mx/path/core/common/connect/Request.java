@@ -2,6 +2,8 @@ package com.mx.path.core.common.connect;
 
 import java.time.Duration;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -9,6 +11,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import com.github.rholder.retry.RetryException;
+import com.github.rholder.retry.Retryer;
 import com.mx.path.core.common.collection.MultiValueMap;
 import com.mx.path.core.common.collection.MultiValueMappable;
 import com.mx.path.core.common.collection.SingleValueMap;
@@ -120,6 +124,10 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   private SingleValueMap<String, String> queryStringParams = new SingleValueMap<>();
 
   @Getter
+  @Setter
+  private Retryer<RESP> retryer = null;
+
+  @Getter
   private long startNano = 0;
 
   @Setter
@@ -161,7 +169,16 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
    * Execute this request
    * @return Response
    */
-  public abstract RESP execute();
+  public RESP execute() {
+    if (retryer != null) {
+      return executeWithRetryer();
+    }
+
+    RESP response = newResponse();
+    getFilterChain().execute(this, response);
+
+    return response;
+  }
 
   public final String getAccept() {
     return headers.get("Accept");
@@ -212,6 +229,13 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   public final boolean hasBody() {
     return body != null;
   }
+
+  /**
+   * Override to build new instance of concrete request type
+   *
+   * @return instance of {@link RESP}
+   */
+  public abstract RESP newResponse();
 
   public final Object process(RESP currentResponse) {
     if (this.processor != null) {
@@ -363,6 +387,56 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   }
 
   /**
+   * Use {@link Retryer} to execute this request.
+   *
+   * <p>The reties will attempt to execute the request from the top of the request filter stack. Each attempt will get
+   * a new {@link Response}. Be sure to set a retryIfResult predicate, otherwise retries will never occur.
+   *
+   * <p><strong>Considerations</strong>
+   * <p>Given that fault-tolerant executor executes within each retry, care must be taken when retrying long-running.
+   * This will likely result in global timeouts or non-responsive request executes. Ideally, retries can be used when
+   * the upstream system responds quickly with a particular status if the system is too busy, indicating that a retry
+   * is likely to succeed.
+   *
+   * <p>When a retryer is set, if all attempts fail, a {@link UpstreamSystemUnavailableAfterRetries} exception
+   * will be set on the response. It's cause will be the exception from the last attempt, if there was one.
+   *
+   * <p><strong>Examples:</strong>
+   *
+   * <p><strong>Simple retry</strong>
+   *
+   * <p>This will attempt the call 3 times with no delay. A retry will occur when the HttpStatus is ACCEPTED
+   *
+   * <pre>{@code
+   *   .withRetryer(RetryerBuilder.<TestResponse>newBuilder()
+   *                              .retryIfResult((response) -> response.getStatus() == HttpStatus.ACCEPTED) // always retry
+   *                              .withStopStrategy(StopStrategies.stopAfterAttempt(3))
+   *                              .build())
+   * }</pre>
+   *
+   * <p><strong>Backoff Retry</strong>
+   *
+   * <p>This will attempt the call with an increasing delay between attempts. It will stop attempts 15 seconds
+   * after the first attempt. A retry will occur when the HttpStatus is BANDWIDTH_LIMIT_EXCEEDED
+   *
+   * <pre>{@code
+   *   .withRetryer(RetryerBuilder.<TestResponse>newBuilder()
+   *                              .retryIfResult((response) -> response.getStatus() == HttpStatus.BANDWIDTH_LIMIT_EXCEEDED) // always retry
+   *                              .withStopStrategy(StopStrategies.stopAfterDelay(15, TimeUnit.SECONDS))
+   *                              .withWaitStrategy(WaitStrategies.incrementingWait(500, TimeUnit.MILLISECONDS, 500, TimeUnit.MILLISECONDS))
+   *                              .build())
+   * }</pre>
+   *
+   * @param newRetryer Retryer to use when executing this request. (default: null)
+   * @return this
+   */
+  @SuppressWarnings("unchecked")
+  public final REQ withRetryer(Retryer<RESP> newRetryer) {
+    setRetryer(newRetryer);
+    return (REQ) this;
+  }
+
+  /**
    * Request timeout as Duration
    * @return this
    */
@@ -370,5 +444,25 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   public final REQ withTimeOut(Duration requestTimeOut) {
     setTimeOut(requestTimeOut);
     return (REQ) this;
+  }
+
+  /**
+   * Execute this request using configured retryer.
+   *
+   * @return response
+   */
+  protected RESP executeWithRetryer() {
+    AtomicReference<RESP> response = new AtomicReference<>();
+    try {
+      return retryer.call(() -> {
+        response.set(newResponse());
+        getFilterChain().execute(this, response.get());
+        return response.get();
+      });
+    } catch (ExecutionException | RetryException e) {
+      response.get().setException(new UpstreamSystemUnavailableAfterRetries("Upstream call failed after retries", response.get().getException()));
+    }
+
+    return response.get();
   }
 }

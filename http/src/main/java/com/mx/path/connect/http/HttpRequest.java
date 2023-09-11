@@ -17,14 +17,13 @@ public class HttpRequest extends Request<HttpRequest, HttpResponse> {
   }
 
   /**
-   * Execute this request
-   * @return HttpResponse
+   * Create new instance of HttpResponse
+   *
+   * @return new response instance
    */
   @Override
-  public HttpResponse execute() {
-    HttpResponse response = new HttpResponse(this);
-    getFilterChain().execute(this, response);
-    return response;
+  public HttpResponse newResponse() {
+    return new HttpResponse(this);
   }
 
   /**
