@@ -26,4 +26,9 @@ public class RequestImpl extends Request<RequestImpl, ResponseImpl> {
   public ResponseImpl execute() {
     return new ResponseImpl(this);
   }
+
+  @Override
+  public ResponseImpl newResponse() {
+    return null;
+  }
 }

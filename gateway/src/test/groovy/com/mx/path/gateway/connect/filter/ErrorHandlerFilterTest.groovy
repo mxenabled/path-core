@@ -14,8 +14,17 @@ import spock.lang.Specification
 
 class ErrorHandlerFilterTest extends Specification {
   class TestRequest extends Request<TestRequest, TestResponse> {
+    TestRequest(RequestFilter filterChain) {
+      super(filterChain)
+    }
+
     @Override
     TestResponse execute() {
+      return null
+    }
+
+    @Override
+    TestResponse newResponse() {
       return null
     }
   }

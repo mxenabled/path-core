@@ -1,11 +1,19 @@
 package com.mx.path.core.common.connect
 
+import static org.mockito.ArgumentMatchers.any
+import static org.mockito.Mockito.mock
+import static org.mockito.Mockito.times
+import static org.mockito.Mockito.verify
+
 import java.time.Duration
 
+import com.github.rholder.retry.RetryerBuilder
+import com.github.rholder.retry.StopStrategies
 import com.mx.path.core.common.collection.SingleValueMap
 import com.mx.path.core.common.request.Feature
 import com.mx.testing.connect.TestFilterA
 import com.mx.testing.connect.TestRequest
+import com.mx.testing.connect.TestResponse
 
 import spock.lang.Specification
 
@@ -126,6 +134,34 @@ class RequestTest extends Specification {
     expect:
     subject.getQueryStringParams().get("q1") == "v1"
     subject.getQueryStringParams().size() == 1
+  }
+
+  def "execute"() {
+    given:
+    filterChain = mock(RequestFilter)
+    subject = new TestRequest(filterChain)
+
+    when:
+    subject.execute()
+
+    then:
+    verify(filterChain, times(1)).execute(any(), any())
+  }
+
+  def "execute with retryer"() {
+    given:
+    filterChain = mock(RequestFilter)
+    subject = new TestRequest(filterChain)
+    subject.withRetryer(RetryerBuilder.<TestResponse>newBuilder()
+        .retryIfResult({response -> true }) // always retry
+        .withStopStrategy(StopStrategies.stopAfterAttempt(3))
+        .build())
+
+    when:
+    subject.execute()
+
+    then:
+    verify(filterChain, times(3)).execute(any(), any())
   }
 
   class TestMutualAuthSettings implements ConnectionSettings {

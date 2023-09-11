@@ -3,6 +3,7 @@
 # This file is expected to be part of source control.
 antlr:antlr:2.7.7=checkstyle
 com.beust:jcommander:1.48=pmd
+com.github.rholder:guava-retrying:2.0.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 com.github.spotbugs:spotbugs-annotations:4.7.2=runtimeClasspath,testRuntimeClasspath
 com.github.spotbugs:spotbugs-annotations:4.7.3=compileClasspath,spotbugs,testCompileClasspath
 com.github.spotbugs:spotbugs:4.7.3=spotbugs
