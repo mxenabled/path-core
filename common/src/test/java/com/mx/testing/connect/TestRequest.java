@@ -9,7 +9,7 @@ public class TestRequest extends Request<TestRequest, TestResponse> {
   }
 
   @Override
-  public TestResponse execute() {
-    return null;
+  public TestResponse newResponse() {
+    return new TestResponse();
   }
 }

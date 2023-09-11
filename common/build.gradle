@@ -7,6 +7,7 @@ coppuccino {
 dependencies {
   api "org.apache.commons:commons-text:latest.release" // For string manipulation utilities. There is a very small overlap with Guava's strings class, but adds many more features.
   api "com.google.guava:guava"
+  api "com.github.rholder:guava-retrying" // For Request retries
   api "com.github.spotbugs:spotbugs-annotations:4.7.2" // For annotating classes and methods to suppress SpotBugs violations
   api "com.google.code.gson:gson"
   api "org.yaml:snakeyaml:1.33"

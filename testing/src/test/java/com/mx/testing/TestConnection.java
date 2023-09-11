@@ -29,6 +29,11 @@ public class TestConnection extends AccessorConnectionBase<TestConnection.Reques
     public Response execute() {
       return null;
     }
+
+    @Override
+    public Response newResponse() {
+      return null;
+    }
   }
 
 }

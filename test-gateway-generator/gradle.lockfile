@@ -6,6 +6,7 @@ com.fasterxml.jackson.core:jackson-annotations:2.14.2=runtimeClasspath,testRunti
 com.fasterxml.jackson.core:jackson-core:2.14.2=runtimeClasspath,testRuntimeClasspath
 com.fasterxml.jackson.core:jackson-databind:2.14.2=runtimeClasspath,testRuntimeClasspath
 com.fasterxml.jackson:jackson-bom:2.14.2=runtimeClasspath,testRuntimeClasspath
+com.github.rholder:guava-retrying:2.0.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 com.github.spotbugs:spotbugs-annotations:4.7.2=runtimeClasspath,testRuntimeClasspath
 com.github.spotbugs:spotbugs-annotations:4.7.3=compileClasspath,spotbugs,testCompileClasspath
 com.github.spotbugs:spotbugs:4.7.3=spotbugs
