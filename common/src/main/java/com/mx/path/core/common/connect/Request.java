@@ -65,6 +65,9 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   // Fields
 
   @Getter
+  private int attemptCount = 0;
+
+  @Getter
   @Setter
   private String baseUrl = null;
 
@@ -125,7 +128,7 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
 
   @Getter
   @Setter
-  private Retryer<RESP> retryer = null;
+  private RetryConfiguration retryConfiguration = null;
 
   @Getter
   private long startNano = 0;
@@ -170,8 +173,8 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
    * @return Response
    */
   public RESP execute() {
-    if (retryer != null) {
-      return executeWithRetryer();
+    if (retryConfiguration != null) {
+      return executeWithRetryConfiguration();
     }
 
     RESP response = newResponse();
@@ -257,9 +260,20 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
    * Called before the request starts. Sets start time. Override to add behavior. Be sure to call {@code super.start()}
    */
   public void start() {
+    if (attemptCount < 1) {
+      attemptCount = 1;
+    }
     if (startNano == 0) {
       startNano = System.nanoTime();
     }
+  }
+
+  /**
+   * Called before retrying request. Sets start time. Override to add behavior. Be sure to call {@code super.startRetry()}
+   */
+  public void startRetry() {
+    attemptCount++;
+    startNano = 0;
   }
 
   @SuppressWarnings("unchecked")
@@ -389,6 +403,9 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   /**
    * Use {@link Retryer} to execute this request.
    *
+   * <p>To streamline the configuration of retryers prefer {@link #withRetryConfiguration(RetryConfiguration)}. Only use this
+   * if you need more advanced control over the construction of the {@link Retryer} (rare).
+   *
    * <p>The reties will attempt to execute the request from the top of the request filter stack. Each attempt will get
    * a new {@link Response}. Be sure to set a retryIfResult predicate, otherwise retries will never occur.
    *
@@ -432,7 +449,21 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
    */
   @SuppressWarnings("unchecked")
   public final REQ withRetryer(Retryer<RESP> newRetryer) {
-    setRetryer(newRetryer);
+    setRetryConfiguration(new RetryConfiguration(newRetryer));
+    return (REQ) this;
+  }
+
+  /**
+   * The preferred way to provide a retryer
+   *
+   * <p>{@link RetryConfiguration} can be added to bound configuration POJO and passed directly into this for relevant
+   * configurations.
+   * @param newRetryConfiguration
+   * @return this
+   */
+  @SuppressWarnings("unchecked")
+  public final REQ withRetryConfiguration(RetryConfiguration newRetryConfiguration) {
+    setRetryConfiguration(newRetryConfiguration);
     return (REQ) this;
   }
 
@@ -451,10 +482,13 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
    *
    * @return response
    */
-  protected RESP executeWithRetryer() {
+  protected RESP executeWithRetryConfiguration() {
     AtomicReference<RESP> response = new AtomicReference<>();
     try {
-      return retryer.call(() -> {
+      return retryConfiguration.call(() -> {
+        if (attemptCount > 0) { // This is a retry. Setup for next attempt
+          startRetry();
+        }
         response.set(newResponse());
         getFilterChain().execute(this, response.get());
         return response.get();
