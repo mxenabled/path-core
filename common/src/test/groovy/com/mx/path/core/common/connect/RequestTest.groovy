@@ -136,6 +136,48 @@ class RequestTest extends Specification {
     subject.getQueryStringParams().size() == 1
   }
 
+  def "start"() {
+    when:
+    filterChain = mock(RequestFilter)
+    subject = new TestRequest(filterChain)
+
+    then:
+    subject.getAttemptCount() == 0
+
+    when:
+    subject.start()
+
+    then:
+    subject.getAttemptCount() == 1
+
+    when:
+    subject.start()
+
+    then: // Does not increment
+    subject.getAttemptCount() == 1
+  }
+
+  def "startRetry"() {
+    when:
+    filterChain = mock(RequestFilter)
+    subject = new TestRequest(filterChain)
+
+    then:
+    subject.getAttemptCount() == 0
+
+    when:
+    subject.start()
+
+    then:
+    subject.getAttemptCount() == 1
+
+    when:
+    subject.startRetry()
+
+    then: // Does not increment
+    subject.getAttemptCount() == 2
+  }
+
   def "execute"() {
     given:
     filterChain = mock(RequestFilter)
@@ -155,6 +197,23 @@ class RequestTest extends Specification {
     subject.withRetryer(RetryerBuilder.<TestResponse>newBuilder()
         .retryIfResult({response -> true }) // always retry
         .withStopStrategy(StopStrategies.stopAfterAttempt(3))
+        .build())
+
+    when:
+    subject.execute()
+
+    then:
+    verify(filterChain, times(3)).execute(any(), any())
+  }
+
+  def "execute with retryer from configuration node"() {
+    given:
+    filterChain = mock(RequestFilter)
+    subject = new TestRequest(filterChain)
+    subject.withRetryConfiguration(RetryConfiguration.builder()
+        .stopStrategy(RetryConfiguration.StopStrategy.COUNT)
+        .count(3)
+        .retryOn(Collections.singletonList(ResponseMatcher.builder().predicate({ t -> true }).build()))
         .build())
 
     when:

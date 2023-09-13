@@ -30,6 +30,10 @@ public abstract class Response<REQ extends Request<?, ?>, RESP extends Response<
 
   @Getter
   @Setter
+  private int attempt;
+
+  @Getter
+  @Setter
   private String body = "";
 
   private MultiValueMap<String, String> cookies = new MultiValueMap<>();
@@ -60,6 +64,7 @@ public abstract class Response<REQ extends Request<?, ?>, RESP extends Response<
       request.start();
       long endNano = System.nanoTime();
       withDuration(Duration.ofNanos(endNano - request.getStartNano()));
+      withAttempt(request.getAttemptCount());
     }
   }
 
@@ -129,6 +134,12 @@ public abstract class Response<REQ extends Request<?, ?>, RESP extends Response<
 
       throw new ResponseProcessingException(exception);
     }
+    return (RESP) this;
+  }
+
+  @SuppressWarnings("unchecked")
+  public final RESP withAttempt(int newAttempt) {
+    setAttempt(newAttempt);
     return (RESP) this;
   }
 

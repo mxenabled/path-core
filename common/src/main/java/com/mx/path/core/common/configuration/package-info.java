@@ -125,5 +125,15 @@
  *  <p><strong>ZoneId</strong>
  *  <p>Parses provided string using {@link java.time.ZoneId}. Can use offsets (e.g. -08:00),
  *  time-zone name (America/Los_Angelos) or time-zone short id (PST).
+ *
+ *  <p><strong>Pre Defined Configuration Classes</strong>
+ *
+ *  <p>The configuration binder can inflate complex sub-objects. The following are predefined configuration classes that
+ *  can be added as sub-objects.
+ *
+ *  <p><strong>RetryConfiguration</strong>
+ *  <p>{@link com.mx.path.core.common.connect.RetryConfiguration} defines configurations and builds an instance of
+ *  {@link com.github.rholder.retry.Retryer} based on the configurations.
+ *
  */
 package com.mx.path.core.common.configuration;
