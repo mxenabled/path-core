@@ -73,6 +73,7 @@ class UpstreamLoggerTest extends Specification implements WithSessionRepository 
     MDC.get("api_request_payload") == null
     MDC.get("device_trace_id") == null
     MDC.get("log_guid") == null
+    MDC.get("request_attempt") == null
   }
 
   def "with empty request context and response"() {
