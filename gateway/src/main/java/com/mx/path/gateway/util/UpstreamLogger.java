@@ -115,6 +115,7 @@ public class UpstreamLogger {
     }
 
     MDC.put("api_call_payload", buildApiPayload(response, request));
+    MDC.put("request_attempt", String.valueOf(response.getAttempt()));
 
     if (response.getDuration() != null) {
       MDC.put("request_duration", String.valueOf(response.getDuration().toMillis()));
@@ -162,6 +163,7 @@ public class UpstreamLogger {
     MDC.remove("exception");
     MDC.remove("parent_id");
     MDC.remove("path");
+    MDC.remove("request_attempt");
     MDC.remove("request_body");
     MDC.remove("request_duration");
     MDC.remove("request_headers");
