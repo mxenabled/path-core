@@ -131,9 +131,12 @@
  *  <p>The configuration binder can inflate complex sub-objects. The following are predefined configuration classes that
  *  can be added as sub-objects.
  *
- *  <p><strong>RetryConfiguration</strong>
- *  <p>{@link com.mx.path.core.common.connect.RetryConfiguration} defines configurations and builds an instance of
- *  {@link com.github.rholder.retry.Retryer} based on the configurations.
+ *  <p><strong>ResponseRetryConfiguration</strong>
+ *  <p>{@link com.mx.path.core.common.connect.ResponseRetryConfiguration} can be provided to a {@link com.mx.path.core.common.connect.Request}
+ *  to retry on configurable responses.
  *
+ *  <p><strong>BlockRetryConfiguration</strong>
+ *  <p>{@link com.mx.path.core.common.process.BlockRetryConfiguration} can be used to execute an arbitrary block of code
+ *  to retry the block on rejected results.
  */
 package com.mx.path.core.common.configuration;

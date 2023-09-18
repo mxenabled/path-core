@@ -1,4 +1,4 @@
-package com.mx.path.core.common.connect;
+package com.mx.path.core.common.process;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -7,13 +7,12 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.SneakyThrows;
+import lombok.experimental.SuperBuilder;
 
 import com.github.rholder.retry.RetryException;
 import com.github.rholder.retry.Retryer;
@@ -53,52 +52,12 @@ import com.mx.path.gateway.configuration.ConfigurationState;
  *   <li>{@link #maxPause} - maximum duration to pause (used with {@link PauseStrategy#FIBONACCI})
  * </ul>
  *
- * <p><strong>Example:</strong>
- *
- * <pre>{@code
- *
- * // Configuration POJO
- * @Data
- * public class FakeBankConnectionConfiguration {
- *   @ConfigurationField(required = true)
- *   private RetryConfiguration accountsRetry;
- * }
- *
- * // Connection class (uses configuration POJO)
- * public class FakeBankConnection extends HttpConnection {
- *   private FakeBankConnectionConfiguration config;
- *
- *   public FakeBankConnection(@Configuration FakeBankConnectionConfiguration config) {
- *     this.config = config;
- *   }
- *
- *   public final List<FakeAccount> loadAccounts(String memberId) {
- *     return request("/" + memberId + "/accountSvc")
- *       .withRetryConfiguration(configs.getAccountsRetry())
- *       .withProcess((response) -> buildResponse(response))
- *       .get()
- *       .throwException();
- *   }
- * }
- *
- * // gateway.yaml (provides values to configuration POJO
- * ...
- * accessor:
- *   class: FakeAccessor
- *   connections:
- *     fakeBank:
- *       configurations:
- *         accountsRetry:
- *           pauseStrategy: fibonacci
- *           multiplier: 100,s
- *           maxPause: 2s
- *
- * }</pre>
+ * <p>See {@link BlockRetryConfiguration}
+ * <p>See {@link com.mx.path.core.common.connect.ResponseRetryConfiguration}
  */
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class RetryConfiguration implements Configurable {
+@Data
+@SuperBuilder
+public abstract class RetryConfiguration<T> implements Configurable {
 
   /**
    * Strategy for determining when to stop retrying failed attempts
@@ -117,16 +76,7 @@ public class RetryConfiguration implements Configurable {
     FIBONACCI
   }
 
-  /**
-   * Build the default instance.
-   *
-   * @return non-retying instance
-   */
-  public static RetryConfiguration defaults() {
-    return builder()
-        .stopStrategy(StopStrategy.COUNT)
-        .count(1)
-        .build();
+  public RetryConfiguration() {
   }
 
   /**
@@ -214,48 +164,54 @@ public class RetryConfiguration implements Configurable {
   // -----------------------------------
   // Rejection settings
   // -----------------------------------
-  @ConfigurationField(elementType = ResponseMatcher.class)
-  @Builder.Default
-  private List<ResponseMatcher> retryOn = new ArrayList<>();
+  private Predicate<T> rejectOn;
 
-  @Getter
-  @Setter
-  private transient Function<Throwable, Throwable> exceptionSupplier;
+  // -----------------------------------
+  // Exception settings
+  // -----------------------------------
+  private transient Function<Throwable, RuntimeException> exceptionSupplier;
 
-  private transient Retryer<? extends Response<?, ?>> instance;
+  @Getter(AccessLevel.PROTECTED)
+  private transient Retryer<T> instance;
 
   /**
    * Execute callable block using configured retryer
    *
    * @param callable block to call
    * @return result of first successful attempt
-   * @param <T>
-   * @throws ExecutionException thrown when called throws an exception
-   * @throws RetryException thrown when no attempts succeed
    */
-  @SneakyThrows
-  @SuppressWarnings("unchecked")
-  public <T extends Response<?, ?>> T call(Callable<T> callable) throws ExecutionException, RetryException {
+  @SuppressWarnings("PMD.CyclomaticComplexity")
+  public T call(Callable<T> callable) {
     try {
-      return (T) instance().call((Callable<Response<?, ?>>) callable);
-    } catch (ExecutionException | RetryException e) {
+      return (T) instance().call(callable);
+    } catch (RetryException e) {
       if (exceptionSupplier != null) {
         throw exceptionSupplier.apply(e);
       }
 
-      throw e;
+      throw new RetriesFailedException(e).withNumberOfFailedAttempts(e.getNumberOfFailedAttempts());
+    } catch (ExecutionException e) {
+      if (e.getCause() != null) {
+        if (e.getCause() instanceof RuntimeException) {
+          throw (RuntimeException) e.getCause();
+        }
+
+        throw new RuntimeException(e.getCause());
+      }
+
+      // Last chance. Not sure if this will ever happen. Docs say that exceptions thrown will be wrapped in ExecutionException
+      throw new RuntimeException(e);
     }
   }
 
   /**
    * Get instance of {@link Retryer}
-   * @return
-   * @param <T>
+   * @return instance
    */
   @SuppressWarnings("unchecked")
-  public <T extends Response<?, ?>> Retryer<T> instance() {
+  public Retryer<T> instance() {
     if (instance == null) {
-      instance = build();
+      instance = buildInstance();
     }
 
     return (Retryer<T>) instance;
@@ -331,7 +287,19 @@ public class RetryConfiguration implements Configurable {
     }
   }
 
-  private <T extends Response<?, ?>> Retryer<T> build() {
+  /**
+   * Builds instance of {@link Retryer}. Override to add to build logic.
+   * @return
+   */
+  protected Retryer<T> buildInstance() {
+    return (Retryer<T>) instanceBuilder().build();
+  }
+
+  /**
+   * Creates instance of {@link RetryerBuilder} and adds configuration. Override to modify the builder before build.
+   * @return instance of {@link RetryerBuilder}
+   */
+  protected RetryerBuilder<T> instanceBuilder() {
     RetryerBuilder<T> builder = RetryerBuilder.newBuilder();
     if (stopStrategy == StopStrategy.COUNT) {
       builder.withStopStrategy(StopStrategies.stopAfterAttempt(count));
@@ -350,10 +318,10 @@ public class RetryConfiguration implements Configurable {
       builder.withWaitStrategy(WaitStrategies.fibonacciWait(multiplier.toMillis(), maxPause.toMillis(), TimeUnit.MILLISECONDS));
     }
 
-    retryOn.forEach((retryRule) -> {
-      builder.retryIfResult(retryRule::test);
-    });
+    if (rejectOn != null) {
+      builder.retryIfResult(rejectOn::test);
+    }
 
-    return builder.build();
+    return builder;
   }
 }
