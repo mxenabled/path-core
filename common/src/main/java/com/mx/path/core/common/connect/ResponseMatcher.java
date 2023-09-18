@@ -12,9 +12,10 @@ import com.mx.path.core.common.configuration.ConfigurationField;
 import com.mx.path.core.common.http.HttpStatus;
 
 /**
- * Rule for matching a failed, retriable {@link Response}. Used in {@link RetryConfiguration}
+ * Rule for matching a {@link Response}, based on attributes. Also provides a way to provide a {@link Predicate} so
+ * code can be executed with the response to determine if it matches.
  *
- * <p>When all present conditions are satisfied, the rule will reject the {@link Response}
+ * <p>When all present conditions are satisfied, the rule will match the {@link Response}
  */
 @SuppressWarnings("PMD.UnusedPrivateMethod")
 @NoArgsConstructor
@@ -29,6 +30,9 @@ public class ResponseMatcher<T extends Response<?, ?>> implements Predicate<T> {
   @Getter(value = AccessLevel.PRIVATE)
   private transient Predicate<T> instance;
 
+  /**
+   * Code-provided predicate used to evaluate response for match.
+   */
   private transient Predicate<T> predicate;
 
   /**
@@ -50,8 +54,9 @@ public class ResponseMatcher<T extends Response<?, ?>> implements Predicate<T> {
   /**
    * Test instance of {@link Request} {@link T} against this matcher
    *
+   *
    * @param request instance of request
-   * @return true, if match
+   * @return true, if all conditions match
    */
   @Override
   public boolean test(T request) {
