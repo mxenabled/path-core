@@ -2,7 +2,6 @@ package com.mx.path.core.common.connect;
 
 import java.time.Duration;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -11,11 +10,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import com.github.rholder.retry.RetryException;
 import com.github.rholder.retry.Retryer;
 import com.mx.path.core.common.collection.MultiValueMap;
 import com.mx.path.core.common.collection.MultiValueMappable;
 import com.mx.path.core.common.collection.SingleValueMap;
+import com.mx.path.core.common.process.RetriesFailedException;
 import com.mx.path.core.common.request.Feature;
 
 /**
@@ -128,7 +127,7 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
 
   @Getter
   @Setter
-  private RetryConfiguration retryConfiguration = null;
+  private ResponseRetryConfiguration<RESP> responseRetryConfiguration = null;
 
   @Getter
   private long startNano = 0;
@@ -173,7 +172,7 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
    * @return Response
    */
   public RESP execute() {
-    if (retryConfiguration != null) {
+    if (responseRetryConfiguration != null) {
       return executeWithRetryConfiguration();
     }
 
@@ -403,7 +402,7 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   /**
    * Use {@link Retryer} to execute this request.
    *
-   * <p>To streamline the configuration of retryers prefer {@link #withRetryConfiguration(RetryConfiguration)}. Only use this
+   * <p>To streamline the configuration of retryers prefer {@link #withResponseRetryConfiguration(ResponseRetryConfiguration)}. Only use this
    * if you need more advanced control over the construction of the {@link Retryer} (rare).
    *
    * <p>The reties will attempt to execute the request from the top of the request filter stack. Each attempt will get
@@ -449,21 +448,21 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
    */
   @SuppressWarnings("unchecked")
   public final REQ withRetryer(Retryer<RESP> newRetryer) {
-    setRetryConfiguration(new RetryConfiguration(newRetryer));
+    setResponseRetryConfiguration(new ResponseRetryConfiguration(newRetryer));
     return (REQ) this;
   }
 
   /**
    * The preferred way to provide a retryer
    *
-   * <p>{@link RetryConfiguration} can be added to bound configuration POJO and passed directly into this for relevant
+   * <p>{@link ResponseRetryConfiguration} can be added to bound configuration POJO and passed directly into this for relevant
    * configurations.
-   * @param newRetryConfiguration
+   * @param newResponseRetryConfiguration
    * @return this
    */
   @SuppressWarnings("unchecked")
-  public final REQ withRetryConfiguration(RetryConfiguration newRetryConfiguration) {
-    setRetryConfiguration(newRetryConfiguration);
+  public final REQ withResponseRetryConfiguration(ResponseRetryConfiguration newResponseRetryConfiguration) {
+    setResponseRetryConfiguration(newResponseRetryConfiguration);
     return (REQ) this;
   }
 
@@ -485,7 +484,7 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   protected RESP executeWithRetryConfiguration() {
     AtomicReference<RESP> response = new AtomicReference<>();
     try {
-      return retryConfiguration.call(() -> {
+      return responseRetryConfiguration.call(() -> {
         if (attemptCount > 0) { // This is a retry. Setup for next attempt
           startRetry();
         }
@@ -493,8 +492,8 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
         getFilterChain().execute(this, response.get());
         return response.get();
       });
-    } catch (ExecutionException | RetryException e) {
-      response.get().setException(new UpstreamSystemUnavailableAfterRetries("Upstream call failed after retries", response.get().getException()));
+    } catch (RetriesFailedException e) {
+      response.get().setException(new UpstreamSystemUnavailableAfterRetries("Upstream call failed after retries", e));
     }
 
     return response.get();

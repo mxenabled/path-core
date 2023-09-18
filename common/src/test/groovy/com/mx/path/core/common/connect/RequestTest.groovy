@@ -210,10 +210,10 @@ class RequestTest extends Specification {
     given:
     filterChain = mock(RequestFilter)
     subject = new TestRequest(filterChain)
-    subject.withRetryConfiguration(RetryConfiguration.builder()
-        .stopStrategy(RetryConfiguration.StopStrategy.COUNT)
+    subject.withResponseRetryConfiguration(ResponseRetryConfiguration.<TestResponse>builder()
+        .stopStrategy(ResponseRetryConfiguration.StopStrategy.COUNT)
         .count(3)
-        .retryOn(Collections.singletonList(ResponseMatcher.builder().predicate({ t -> true }).build()))
+        .onResponse(Collections.singletonList(ResponseMatcher.builder().predicate({ t -> true }).build()))
         .build())
 
     when:
