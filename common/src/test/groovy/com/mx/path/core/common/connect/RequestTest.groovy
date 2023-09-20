@@ -9,6 +9,7 @@ import java.time.Duration
 
 import com.github.rholder.retry.RetryerBuilder
 import com.github.rholder.retry.StopStrategies
+import com.mx.path.core.common.accessor.UpstreamSystemUnavailable
 import com.mx.path.core.common.collection.SingleValueMap
 import com.mx.path.core.common.request.Feature
 import com.mx.testing.connect.TestFilterA
@@ -217,10 +218,32 @@ class RequestTest extends Specification {
         .build())
 
     when:
-    subject.execute()
+    subject.execute().throwException()
+
+    then:
+    def err = thrown(UpstreamSystemUnavailableAfterRetries)
+    verify(filterChain, times(3)).execute(any(), any())
+  }
+
+  def "execute with retryer from configuration node with exception supplier"() {
+    given:
+    def retry = ResponseRetryConfiguration.<TestResponse>builder()
+        .stopStrategy(ResponseRetryConfiguration.StopStrategy.COUNT)
+        .count(3)
+        .onResponse(Collections.singletonList(ResponseMatcher.builder().predicate({ t -> true }).build()))
+        .build()
+
+    filterChain = mock(RequestFilter)
+    subject = new TestRequest(filterChain)
+    def response = subject.withResponseRetryConfiguration(retry, { e -> new UpstreamSystemUnavailable("System is not ready", e) })
+
+    when:
+    subject.execute().throwException()
 
     then:
     verify(filterChain, times(3)).execute(any(), any())
+    def err = thrown(UpstreamSystemUnavailable)
+    err.message == "System is not ready"
   }
 
   class TestMutualAuthSettings implements ConnectionSettings {
