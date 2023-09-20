@@ -1,6 +1,5 @@
 package com.mx.path.core.common.connect
 
-
 import static org.mockito.Mockito.any
 import static org.mockito.Mockito.mock
 import static org.mockito.Mockito.times
@@ -10,6 +9,7 @@ import static org.mockito.Mockito.when
 import java.time.Duration
 import java.util.concurrent.Callable
 
+import com.mx.path.core.common.accessor.UpstreamSystemMaintenance
 import com.mx.path.core.common.accessor.UpstreamSystemUnavailable
 import com.mx.path.core.common.process.BlockRetryConfiguration
 import com.mx.path.core.common.process.RetriesFailedException
@@ -79,6 +79,44 @@ class ResponseRetryConfigurationTest extends Specification implements WithMocker
 
     then: "is valid"
     noExceptionThrown()
+  }
+
+  def "with exception supplier"() {
+    given:
+    subject = ResponseRetryConfiguration.<TestResponse>builder()
+        .stopStrategy(RetryConfiguration.StopStrategy.COUNT)
+        .count(2)
+        .onResponse(Collections.singletonList(ResponseMatcher.builder().predicate( { t-> true }).build()))
+        .exceptionSupplier({ e -> new UpstreamSystemMaintenance("System is not ready", e) })
+        .build()
+
+    request.withResponseRetryConfiguration(subject)
+
+    when:
+    request.execute().throwException()
+
+    then: "executes 2 times"
+    def err = thrown(UpstreamSystemMaintenance)
+    verify(requestFilter, times(2)).execute(any(Request), any(Response))
+  }
+
+  def "with exception supplier override"() {
+    given:
+    subject = ResponseRetryConfiguration.<TestResponse>builder()
+        .stopStrategy(RetryConfiguration.StopStrategy.COUNT)
+        .count(2)
+        .onResponse(Collections.singletonList(ResponseMatcher.builder().predicate( { t-> true }).build()))
+        .exceptionSupplier({ e -> new UpstreamSystemMaintenance("System is not ready", e) })
+        .build()
+
+    request.withResponseRetryConfiguration(subject, { e -> new UpstreamSystemUnavailable("System is not available") })
+
+    when:
+    request.execute().throwException()
+
+    then: "executes 2 times"
+    def err = thrown(UpstreamSystemUnavailable)
+    verify(requestFilter, times(2)).execute(any(Request), any(Response))
   }
 
   @Unroll

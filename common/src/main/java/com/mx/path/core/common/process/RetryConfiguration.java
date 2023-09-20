@@ -169,6 +169,16 @@ public abstract class RetryConfiguration<T> implements Configurable {
   // -----------------------------------
   // Exception settings
   // -----------------------------------
+
+  /**
+   * Function that supplies a custom exception to be thrown if all attempts fail
+   *
+   * <p>Only affects {@link #call(Callable)}. If {@link #call(Callable, Function)} or {@link #instance()} are used, this
+   * has no effect.
+   *
+   * <p>Note: {@link Retryer} does not support custom exceptions. If {@link #instance()} is called the used,
+   * this {@link #exceptionSupplier} will be ignored.
+   */
   private transient Function<Throwable, RuntimeException> exceptionSupplier;
 
   @Getter(AccessLevel.PROTECTED)
@@ -182,11 +192,22 @@ public abstract class RetryConfiguration<T> implements Configurable {
    */
   @SuppressWarnings("PMD.CyclomaticComplexity")
   public T call(Callable<T> callable) {
+    return call(callable, this.exceptionSupplier);
+  }
+
+  /**
+   * Execute callable block using configured retryer
+   *
+   * @param callable block to call
+   * @return result of first successful attempt
+   */
+  @SuppressWarnings("PMD.CyclomaticComplexity")
+  public T call(Callable<T> callable, Function<Throwable, RuntimeException> exceptionSupplierOverride) {
     try {
       return (T) instance().call(callable);
     } catch (RetryException e) {
-      if (exceptionSupplier != null) {
-        throw exceptionSupplier.apply(e);
+      if (exceptionSupplierOverride != null) {
+        throw exceptionSupplierOverride.apply(e);
       }
 
       throw new RetriesFailedException(e).withNumberOfFailedAttempts(e.getNumberOfFailedAttempts());

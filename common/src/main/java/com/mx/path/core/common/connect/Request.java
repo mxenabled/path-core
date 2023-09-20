@@ -130,6 +130,10 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   private ResponseRetryConfiguration<RESP> responseRetryConfiguration = null;
 
   @Getter
+  @Setter
+  private Function<Throwable, RuntimeException> responseRetryExceptionSupplier = null;
+
+  @Getter
   private long startNano = 0;
 
   @Setter
@@ -467,6 +471,22 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   }
 
   /**
+   * The preferred way to provide a retryer
+   *
+   * <p>{@link ResponseRetryConfiguration} can be added to bound configuration POJO and passed directly into this for relevant
+   * configurations.
+   * @param newResponseRetryConfiguration
+   * @param exceptionSupplierOverride
+   * @return this
+   */
+  @SuppressWarnings("unchecked")
+  public final REQ withResponseRetryConfiguration(ResponseRetryConfiguration newResponseRetryConfiguration, Function<Throwable, RuntimeException> exceptionSupplierOverride) {
+    setResponseRetryConfiguration(newResponseRetryConfiguration);
+    setResponseRetryExceptionSupplier(exceptionSupplierOverride);
+    return (REQ) this;
+  }
+
+  /**
    * Request timeout as Duration
    * @return this
    */
@@ -484,18 +504,30 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   protected RESP executeWithRetryConfiguration() {
     AtomicReference<RESP> response = new AtomicReference<>();
     try {
-      return responseRetryConfiguration.call(() -> {
-        if (attemptCount > 0) { // This is a retry. Setup for next attempt
-          startRetry();
-        }
-        response.set(newResponse());
-        getFilterChain().execute(this, response.get());
-        return response.get();
-      });
+      if (responseRetryExceptionSupplier != null) { // Call with exceptionSupplier override
+        return responseRetryConfiguration.call(() -> {
+          if (attemptCount > 0) { // This is a retry. Setup for next attempt
+            startRetry();
+          }
+          response.set(newResponse());
+          getFilterChain().execute(this, response.get());
+          return response.get();
+        }, responseRetryExceptionSupplier);
+      } else {
+        return responseRetryConfiguration.call(() -> {
+          if (attemptCount > 0) { // This is a retry. Setup for next attempt
+            startRetry();
+          }
+          response.set(newResponse());
+          getFilterChain().execute(this, response.get());
+          return response.get();
+        });
+      }
     } catch (RetriesFailedException e) {
       response.get().setException(new UpstreamSystemUnavailableAfterRetries("Upstream call failed after retries", e));
     }
 
     return response.get();
   }
+
 }
