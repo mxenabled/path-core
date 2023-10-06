@@ -5,6 +5,29 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.8.0](https://github.com/mxenabled/path-core/compare/v3.7.0...v3.8.0) (2023-10-06)
+
+
+### Features
+
+* add retry configuration node ([f3dab3a](https://github.com/mxenabled/path-core/commit/f3dab3a15815131a64350dbc181a110c5ba7bd37))
+* add retry exception supplier override ([19af9cd](https://github.com/mxenabled/path-core/commit/19af9cdb247082e6def31cbd333000ce43c246dc))
+* add support for request retries ([0512ea7](https://github.com/mxenabled/path-core/commit/0512ea7f7bb61af6f784a1703c0689ab5f0a2edb))
+* add throwable type adapter ([41bca46](https://github.com/mxenabled/path-core/commit/41bca46d45eaa96b97d12273a2dc0050e51feb02))
+* log request attempt ([352fd84](https://github.com/mxenabled/path-core/commit/352fd841e283a35224a7a3e622eb2eccab639fce))
+* **serialization:** add LocalDateTimeTypeAdapter ([cf54aa9](https://github.com/mxenabled/path-core/commit/cf54aa9c46faa9f11a278f2c473cfff610c9350d))
+* **serialization:** add LocalDateTypeAdapter ([6f2f0aa](https://github.com/mxenabled/path-core/commit/6f2f0aac1ed1f4ec8d51609515cdf35bb4876fec))
+* **serialization:** convert OffsetDateTimeDeserializer to TypeAdapter ([8b3cde3](https://github.com/mxenabled/path-core/commit/8b3cde33f5643e47be5cfb9dade389d9a47960f4))
+* **serialization:** convert ZonedDateTimeDeserializer to TypeAdapter ([141886b](https://github.com/mxenabled/path-core/commit/141886b1e7ab9d5517f914f751c3aad908e2fff3))
+
+
+### Bug Fixes
+
+* adding OffsetDateTime and ZonedDateTime serializers ([d9521a3](https://github.com/mxenabled/path-core/commit/d9521a371eadea3468f3d0459e5cb536f6dde269))
+* handle nulls in Date/Time deserialization ([09eb67d](https://github.com/mxenabled/path-core/commit/09eb67d9d0110fba25948f79463202fe0011b46b))
+* **serialization:** implement Duration deserialization ([e217457](https://github.com/mxenabled/path-core/commit/e2174579261469279666197be6d479e658161dd0))
+* **serialization:** implement Pattern deserialization ([32dcda7](https://github.com/mxenabled/path-core/commit/32dcda740b51ddca5ba7ac2b5b50e94df0641c2c))
+
 ## [3.7.0](https://github.com/mxenabled/path-core/compare/v3.6.0...v3.7.0) (2023-08-23)
 
 
