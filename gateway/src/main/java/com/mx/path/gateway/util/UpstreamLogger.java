@@ -17,6 +17,7 @@ import com.mx.path.core.common.connect.Response;
 import com.mx.path.core.common.security.LogValueMasker;
 import com.mx.path.core.context.RequestContext;
 import com.mx.path.core.context.Session;
+import com.mx.path.gateway.context.Scope;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -60,6 +61,11 @@ public class UpstreamLogger {
       MDC.put("user_id", requestContext.getUserId());
     } else {
       MDC.remove("user_id");
+    }
+    if (Session.current() != null && Session.current().get(Scope.Session, "login") != null) {
+      MDC.put("login", Session.current().get(Scope.Session, "login"));
+    } else {
+      MDC.remove("login");
     }
     if (requestContext.getFeature() != null) {
       MDC.put("feature", requestContext.getFeature());
