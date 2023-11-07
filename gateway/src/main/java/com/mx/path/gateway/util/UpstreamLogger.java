@@ -62,10 +62,10 @@ public class UpstreamLogger {
     } else {
       MDC.remove("user_id");
     }
-    if (Session.current() != null && Session.current().get(Scope.Session, "login") != null) {
-      MDC.put("login", Session.current().get(Scope.Session, "login"));
+    if (Session.current() != null && Session.current().get(Scope.Session, "loginHash") != null) {
+      MDC.put("login_hash", Session.current().get(Scope.Session, "loginHash"));
     } else {
-      MDC.remove("login");
+      MDC.remove("login_hash");
     }
     if (requestContext.getFeature() != null) {
       MDC.put("feature", requestContext.getFeature());
