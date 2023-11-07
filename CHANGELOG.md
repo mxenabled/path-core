@@ -5,6 +5,14 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.9.0](https://github.com/mxenabled/path-core/compare/v3.8.0...v3.9.0) (2023-11-07)
+
+
+### Features
+
+* add login to logs for troubleshooting failed authentication ([a6bec24](https://github.com/mxenabled/path-core/commit/a6bec24db901d3455ec9d5a236a1bbe5d2d208e2))
+* move session key to "loginHash" and rename log field to "login_hash" ([057eff6](https://github.com/mxenabled/path-core/commit/057eff65daf2f064d3d01c9f2a438f5275730be0))
+
 ## [3.8.0](https://github.com/mxenabled/path-core/compare/v3.7.0...v3.8.0) (2023-10-06)
 
 
