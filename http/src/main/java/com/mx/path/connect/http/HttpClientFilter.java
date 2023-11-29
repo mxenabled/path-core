@@ -4,6 +4,10 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +16,7 @@ import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLHandshakeException;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mx.path.connect.http.certificate.MutualAuthProvider;
 import com.mx.path.connect.http.certificate.MutualAuthProviderFactory;
 import com.mx.path.core.common.collection.MultiValueMap;
@@ -21,6 +26,11 @@ import com.mx.path.core.common.connect.Request;
 import com.mx.path.core.common.connect.RequestFilterBase;
 import com.mx.path.core.common.connect.Response;
 import com.mx.path.core.common.http.HttpStatus;
+import com.mx.path.core.common.lang.Strings;
+import com.mx.path.core.common.serialization.LocalDateTimeTypeAdapter;
+import com.mx.path.core.common.serialization.LocalDateTypeAdapter;
+import com.mx.path.core.common.serialization.OffsetDateTimeTypeAdapter;
+import com.mx.path.core.common.serialization.ZonedDateTimeTypeAdapter;
 import com.mx.path.gateway.connect.filter.HttpClientConnectException;
 
 import org.apache.http.HttpEntity;
@@ -55,11 +65,17 @@ public class HttpClientFilter extends RequestFilterBase {
    */
   private static final List<String> RAW_BODY_CONTENT_TYPE_HINTS = Arrays.asList("image", "pdf", "msword");
 
-  // Statics
-
-  private static final Gson GSON = new Gson();
-
-  // Public
+  private static GsonBuilder gsonBuilder = new GsonBuilder();
+  private static final Gson GSON = gsonBuilder
+      .registerTypeAdapter(LocalDate.class,
+          LocalDateTypeAdapter.builder().build())
+      .registerTypeAdapter(LocalDateTime.class,
+          LocalDateTimeTypeAdapter.builder().build())
+      .registerTypeAdapter(ZonedDateTime.class,
+          ZonedDateTimeTypeAdapter.builder().build())
+      .registerTypeAdapter(OffsetDateTime.class,
+          OffsetDateTimeTypeAdapter.builder().build())
+      .create();
 
   @SuppressWarnings("PMD.CyclomaticComplexity")
   @Override
@@ -91,7 +107,7 @@ public class HttpClientFilter extends RequestFilterBase {
       try (CloseableHttpClient client = clientBuilder.setDefaultRequestConfig(requestConfig).build()) {
         RequestBuilder req = RequestBuilder.create(httpRequest.getMethod());
 
-        if (httpRequest.getQueryStringParams().size() != 0) {
+        if (!httpRequest.getQueryStringParams().isEmpty()) {
           List<NameValuePair> parameters = new ArrayList<>();
           httpRequest.getQueryStringParams().forEach((name, value) -> {
             parameters.add(new BasicNameValuePair(name, value));
@@ -159,8 +175,6 @@ public class HttpClientFilter extends RequestFilterBase {
 
     next(request, response);
   }
-
-  // Package Private
 
   /**
    * Looks at the Content-Type headers and decides whether the response should be returned as a block
@@ -245,8 +259,6 @@ public class HttpClientFilter extends RequestFilterBase {
     return EntityUtils.toByteArray(httpEntity);
   }
 
-  // Private
-
   private void applySkipHostNameVerifySetting(HttpRequest request, HttpClientBuilder clientBuilder) {
     if (request.getConnectionSettings() != null && request.getConnectionSettings().getSkipHostNameVerify()) {
       clientBuilder.setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE);
@@ -262,6 +274,8 @@ public class HttpClientFilter extends RequestFilterBase {
         entity = new ByteArrayEntity(byteBody, ContentType.APPLICATION_OCTET_STREAM);
       } else if (request.getBody().getClass() == String.class) {
         entity = new StringEntity(request.getBody().toString());
+      } else if (Strings.isNotBlank(request.getBodyJson())) {
+        entity = new StringEntity(request.getBodyJson());
       } else {
         // todo: Need to look at content type to determine the payload format.
         entity = new StringEntity(GSON.toJson(request.getBody()));
