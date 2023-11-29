@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.9.1](https://github.com/mxenabled/path-core/compare/v3.9.0...v3.9.1) (2023-11-29)
+
+
+### Bug Fixes
+
+* adding Java17 fix for requests with non-string bodies ([8097673](https://github.com/mxenabled/path-core/commit/8097673e750a35cc04c655c419421dfa4fbd5fd3))
+
 ## [3.9.0](https://github.com/mxenabled/path-core/compare/v3.8.0...v3.9.0) (2023-11-07)
 
 
