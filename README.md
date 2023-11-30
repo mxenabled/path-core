@@ -230,7 +230,7 @@ $ ./gradlew publishToMavenLocal
 This will create a local build in your local maven repository that you can
 then reference in other services.
 
-On macOS using gradle the default location for the local maven repository is
+On macOS using gradle the default location for the local maven repository is:
 
 ```shell
 ~/.m2/repository/
