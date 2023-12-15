@@ -90,7 +90,7 @@ public class UpstreamLogger {
 
     Request request = response.getRequest();
     MDC.put("request_method", request.getMethod());
-    MDC.put("request_uri", request.getUri());
+    MDC.put("request_uri", LOGMASKER.maskPayload(request.getUri()));
     MDC.put("span_id", request.getTraceSpanId());
     MDC.put("trace_id", request.getTraceId());
 
@@ -212,7 +212,7 @@ public class UpstreamLogger {
     b.append("= Request\n\n");
     b.append(request.getMethod());
     b.append(" ");
-    b.append(request.getUri());
+    b.append(LOGMASKER.maskPayload(request.getUri()));
     b.append("\n\n");
     Map<String, String> requestHeaders = maskHeaders(request.getHeaders());
     if (requestHeaders != null) {
