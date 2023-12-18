@@ -5,4 +5,8 @@ dependencies {
   implementation project(":common")
   implementation "io.opentracing:opentracing-api"
   implementation "commons-lang:commons-lang"
+  implementation "io.github.cdimascio:dotenv-java:[2.0,3.0)" // provides access to environment variables, including .env files
+
+  testImplementation "uk.org.webcompere:system-stubs-core:2.1.5" // used to test with system environment variables
+  testImplementation "uk.org.webcompere:system-stubs-jupiter:2.1.5" // used to test with system environment variables
 }
