@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.9.2](https://github.com/mxenabled/path-core/compare/v3.9.1...v3.9.2) (2023-12-18)
+
+
+### Bug Fixes
+
+* masking request URIs in UpstreamLogger ([4aed61f](https://github.com/mxenabled/path-core/commit/4aed61f3413bbc7cb55b27b4321fda0ec2cb7c8c))
+
 ## [3.9.1](https://github.com/mxenabled/path-core/compare/v3.9.0...v3.9.1) (2023-11-29)
 
 
