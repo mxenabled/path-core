@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.10.1](https://github.com/mxenabled/path-core/compare/v3.10.0...v3.10.1) (2023-12-20)
+
+
+### Reverts
+
+* 2b70c91ee0cbabe9b524d62cd0362285bed3e048 ([20480f5](https://github.com/mxenabled/path-core/commit/20480f5c08d8b585e1016454ddea64519f3753a7))
+
 ## [3.10.0](https://github.com/mxenabled/path-core/compare/v3.9.2...v3.10.0) (2023-12-20)
 
 
