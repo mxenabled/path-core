@@ -37,7 +37,7 @@ import com.mx.path.gateway.behavior.GatewayBehavior;
 import com.mx.path.gateway.event.GatewayEventBus;
 import com.mx.path.gateway.service.GatewayService;
 
-import org.apache.commons.text.StringSubstitutor;
+import org.apache.commons.text.EnvironmentStringSubstitutor;
 
 /**
  * Base abstract class for Gateway Configurators.
@@ -112,7 +112,7 @@ public abstract class Configurator<T extends Gateway<?>> {
     GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(ObjectMap.class, new ObjectMapJsonDeserializer());
     Gson gson = gsonBuilder.create();
 
-    json = StringSubstitutor.createInterpolator().replace(json);
+    json = EnvironmentStringSubstitutor.replace(json);
     ObjectMap map = gson.fromJson(json, ObjectMap.class);
 
     return buildGateways(map);
@@ -122,8 +122,8 @@ public abstract class Configurator<T extends Gateway<?>> {
     if (Strings.isBlank(document)) {
       return new LinkedHashMap<>();
     }
-    document = StringSubstitutor.createInterpolator().replace(document);
 
+    document = EnvironmentStringSubstitutor.replace(document);
     ObjectMapYamlDeserializer yamlSerializer = new ObjectMapYamlDeserializer(ObjectMapYamlDeserializer.Parameters.builder()
         .maxYamlAliases(MAX_YAML_ALIASES)
         .build());
