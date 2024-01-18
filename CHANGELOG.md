@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.11.0](https://github.com/mxenabled/path-core/compare/v3.10.1...v3.11.0) (2024-01-18)
+
+
+### Features
+
+* add support for .env files ([1d69da5](https://github.com/mxenabled/path-core/commit/1d69da509df62d8b7594856544540c71eb0ce550))
+
 ## [3.10.1](https://github.com/mxenabled/path-core/compare/v3.10.0...v3.10.1) (2023-12-20)
 
 
