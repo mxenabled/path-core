@@ -17,4 +17,6 @@ public @interface API {
   String notes() default "";
 
   String specificationUrl() default "";
+
+  String version() default "";
 }

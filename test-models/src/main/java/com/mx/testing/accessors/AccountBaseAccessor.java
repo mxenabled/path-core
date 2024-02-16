@@ -8,6 +8,7 @@ import com.mx.path.core.common.accessor.AccessorMethodNotImplementedException;
 import com.mx.path.core.common.gateway.GatewayAPI;
 import com.mx.path.core.common.gateway.GatewayClass;
 import com.mx.path.core.common.model.ModelList;
+import com.mx.path.core.common.remote.RemoteOperation;
 import com.mx.path.gateway.accessor.Accessor;
 import com.mx.path.gateway.accessor.AccessorConfiguration;
 import com.mx.path.gateway.accessor.AccessorResponse;
@@ -45,6 +46,17 @@ public class AccountBaseAccessor extends Accessor {
   @GatewayAPI
   @API(description = "Get all user's account")
   public AccessorResponse<ModelList<Account>> list() {
+    throw new AccessorMethodNotImplementedException();
+  }
+
+  /**
+   * Get all accounts
+   * @return
+   */
+  @GatewayAPI
+  @API(description = "Get all user's account", version = "20240101")
+  @RemoteOperation("list20240101")
+  public AccessorResponse<ModelList<com.mx.testing.models.v20240101.Account>> list(boolean includeDeleted) {
     throw new AccessorMethodNotImplementedException();
   }
 

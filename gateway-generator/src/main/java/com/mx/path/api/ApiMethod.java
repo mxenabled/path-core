@@ -35,14 +35,6 @@ public class ApiMethod {
     return Arrays.asList(method.getParameters());
   }
 
-  public final String getParameterizedReturnType() {
-    if (isListOp()) {
-      return typeAsClass(unwrappedReturnType()).getSimpleName() + ".ofClass(" + typeAsClass(getModel()).getSimpleName() + ".class)";
-    }
-
-    return typeAsClass(getModel()).getSimpleName() + ".class";
-  }
-
   public final boolean isValid() {
     if (method.getReturnType() != AccessorResponse.class) {
       return false;
