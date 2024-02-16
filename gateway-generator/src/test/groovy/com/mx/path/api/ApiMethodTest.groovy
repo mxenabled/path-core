@@ -83,13 +83,4 @@ class ApiMethodTest extends Specification {
     invalidReturnType.getName() == "invalidReturnType"
     invalidReturnListType.getName() == "invalidReturnListType"
   }
-
-  def "getParameterizedReturnType"() {
-    when:
-    true
-
-    then:
-    get.getParameterizedReturnType() == "Account.class"
-    list.getParameterizedReturnType() == "TestMdxList.ofClass(Account.class)"
-  }
 }

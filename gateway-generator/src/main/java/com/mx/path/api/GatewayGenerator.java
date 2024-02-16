@@ -12,6 +12,7 @@ import javax.lang.model.element.TypeElement;
 import lombok.experimental.SuperBuilder;
 
 import com.mx.path.core.common.collection.ObjectMap;
+import com.mx.path.core.common.model.ModelList;
 import com.mx.path.gateway.configuration.RootGateway;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
@@ -147,7 +148,11 @@ public class GatewayGenerator {
           .addStatement("      afterAccessor(root(), accessor, gatewayRequestContext)")
           .addStatement("    }})");
 
-      methodBuilder.addStatement("  result.set(($T) executeBehaviorStack($L, gatewayRequestContext, terminatingBehavior))", method.getGenericReturnType(), method.getParameterizedReturnType());
+      if (method.isListOp()) {
+        methodBuilder.addStatement("  result.set(($T) executeBehaviorStack($T.ofClass($T.class), gatewayRequestContext, terminatingBehavior))", method.getGenericReturnType(), ModelList.class, method.getModel());
+      } else {
+        methodBuilder.addStatement("  result.set(($T) executeBehaviorStack($T.class, gatewayRequestContext, terminatingBehavior))", method.getGenericReturnType(), method.getModel());
+      }
 
       methodBuilder.addStatement("})")
           .endControlFlow("finally {\n\tif (originalRequestContext != null) {\n\t\toriginalRequestContext.register();\n\t}\n}")
