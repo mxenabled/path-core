@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.11.2](https://github.com/mxenabled/path-core/compare/v3.11.1...v3.11.2) (2024-02-21)
+
+
+### Bug Fixes
+
+* fix ambiguous cast of incoming object in gateway methods ([6b3bd48](https://github.com/mxenabled/path-core/commit/6b3bd488fe00215421a4fd9963ef60e97c1176a7))
+
 ## [3.11.1](https://github.com/mxenabled/path-core/compare/v3.11.0...v3.11.1) (2024-02-20)
 
 
