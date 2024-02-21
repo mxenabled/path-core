@@ -69,4 +69,38 @@ public class AccountBaseAccessor extends Accessor {
   public AccessorResponse<Account> get(String id) {
     throw new AccessorMethodNotImplementedException();
   }
+
+  /**
+   * Get account by id
+   * @param id
+   * @return
+   */
+  @GatewayAPI
+  @API(description = "Get user's account by account", version = "20240101")
+  public AccessorResponse<com.mx.testing.models.v20240101.Account> get20240101(String id) {
+    throw new AccessorMethodNotImplementedException();
+  }
+
+  /**
+   * Create account
+   * @param account
+   * @return
+   */
+  @GatewayAPI
+  @API(description = "Create account")
+  public AccessorResponse<Account> create(Account account) {
+    throw new AccessorMethodNotImplementedException();
+  }
+
+  /**
+   * Create account
+   * @param account
+   * @return
+   */
+  @GatewayAPI
+  @API(description = "Create account", version = "20240101")
+  @RemoteOperation("create20240101")
+  public AccessorResponse<com.mx.testing.models.v20240101.Account> create(com.mx.testing.models.v20240101.Account account) {
+    throw new AccessorMethodNotImplementedException();
+  }
 }
