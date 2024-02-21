@@ -27,14 +27,14 @@ class GatewayMethodSpec extends Specification {
 
     then:
     result != null
-    result.getResult() instanceof com.mx.testing.models.v20240101.Account
+    result.result instanceof com.mx.testing.models.v20240101.Account
 
     when:
     result = subject.get("123")
 
     then:
     result != null
-    result.getResult() instanceof Account
+    result.result instanceof Account
   }
 
   def "invoke create"() {
@@ -43,13 +43,13 @@ class GatewayMethodSpec extends Specification {
 
     then:
     result != null
-    result.getResult() instanceof com.mx.testing.models.v20240101.Account
+    result.result instanceof com.mx.testing.models.v20240101.Account
 
     when:
     result = subject.create(new Account())
 
     then:
     result != null
-    result.getResult() instanceof Account
+    result.result instanceof Account
   }
 }
