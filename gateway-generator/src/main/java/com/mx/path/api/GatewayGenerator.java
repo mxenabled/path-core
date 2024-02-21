@@ -106,8 +106,7 @@ public class GatewayGenerator {
       }).collect(Collectors.toList());
 
       String parameterPasser = method.getParameters().stream().map(p -> {
-
-        return "(" + p.getType().getSimpleName() + ") req.getParams().get(\"" + p.getName() + "\")";
+        return "(" + p.getType().getCanonicalName() + ") req.getParams().get(\"" + p.getName() + "\")";
       }).collect(Collectors.joining(",")).trim();
 
       MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(method.getName())

@@ -28,4 +28,20 @@ public class AccountAccessorImpl extends AccountBaseAccessor {
     Account account = new Account();
     return AccessorResponse.<Account>builder().result(account).status(PathResponseStatus.OK).build();
   }
+
+  @Override
+  public AccessorResponse<com.mx.testing.models.v20240101.Account> get20240101(String id) {
+    com.mx.testing.models.v20240101.Account account = new com.mx.testing.models.v20240101.Account();
+    return AccessorResponse.<com.mx.testing.models.v20240101.Account>builder().result(account).status(PathResponseStatus.OK).build();
+  }
+
+  @Override
+  public AccessorResponse<Account> create(Account account) {
+    return AccessorResponse.<Account>builder().result(account).status(PathResponseStatus.OK).build();
+  }
+
+  @Override
+  public AccessorResponse<com.mx.testing.models.v20240101.Account> create(com.mx.testing.models.v20240101.Account account) {
+    return AccessorResponse.<com.mx.testing.models.v20240101.Account>builder().result(account).status(PathResponseStatus.OK).build();
+  }
 }
