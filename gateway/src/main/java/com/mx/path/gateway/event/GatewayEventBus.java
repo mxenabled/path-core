@@ -1,6 +1,7 @@
 package com.mx.path.gateway.event;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import com.google.common.eventbus.Subscribe;
 import com.mx.path.core.common.collection.ObjectMap;
 import com.mx.path.core.common.event.EventBus;
 import com.mx.path.core.common.reflection.Annotations;
+import com.mx.path.core.utility.reflection.ClassHelper;
 import com.mx.path.gateway.util.UpstreamRequestLoggingEventListener;
 
 /**
@@ -19,11 +21,16 @@ import com.mx.path.gateway.util.UpstreamRequestLoggingEventListener;
  * <p>Wraps Google's Guava EventBus
  *
  * <p>configurations:
- *   <ul>
- *     <li>NO OPTIONS</li>
- *   </ul>
+ * <ul>
+ *   <li>NO OPTIONS</li>
+ * </ul>
  */
 public class GatewayEventBus implements EventBus {
+
+  /**
+   * List of registered subscriber types
+   */
+  private final List<Class<?>> subscriberTypes = new ArrayList<>();
 
   private final com.google.common.eventbus.EventBus eventBus;
 
@@ -44,6 +51,7 @@ public class GatewayEventBus implements EventBus {
    * </ul>
    *
    * <p><i>Notes:</i>
+   *
    * @param event
    */
   @Override
@@ -75,10 +83,38 @@ public class GatewayEventBus implements EventBus {
   @Override
   public void register(Object subscriber) {
     checkSubscriber(subscriber);
-    eventBus.register(subscriber);
+    if (!isEventBusSubscriberRegistered(subscriber.getClass())) {
+      eventBus.register(subscriber);
+    }
+  }
+
+  /**
+   * Safely registers event bus subscribers, ensuring they are only registered once.
+   *
+   * <p>Subscriber must have a no arg constructor.
+   *
+   * <p>Example:
+   * <pre>{@code
+   *   Facilities. registerEventBusSubscriber(clientId, subscriberType);
+   * }</pre>
+   *
+   * @param subscriberClass type of the subscriber
+   * @return true if a subscriber was created
+   */
+  @Override
+  public boolean registerByClass(Class<?> subscriberClass) {
+    if (!isEventBusSubscriberRegistered(subscriberClass)) {
+      return synchronizedRegisterByClass(subscriberClass);
+    }
+
+    return false;
   }
 
   private void checkSubscriber(Object subscriber) {
+    if (subscriber == null) {
+      throw new GatewayEventBusException("Invalid event bus subscriber - cannot be null");
+    }
+
     List<Method> subscribeMethods = Annotations.methodsWithAnnotation(Subscribe.class, subscriber.getClass());
     if (subscribeMethods.size() == 0) {
       throw new GatewayEventBusException("Invalid event bus subscriber class - " + subscriber.getClass() + " has no methods annotated @Subscriber");
@@ -96,4 +132,20 @@ public class GatewayEventBus implements EventBus {
     });
   }
 
+  private boolean isEventBusSubscriberRegistered(Class<?> subscriberClass) {
+    return subscriberTypes.contains(subscriberClass);
+  }
+
+  private synchronized boolean synchronizedRegisterByClass(Class<?> subscriberClass) {
+    if (!isEventBusSubscriberRegistered(subscriberClass)) {
+      Object subscriber = new ClassHelper().buildInstance(subscriberClass, subscriberClass);
+
+      checkSubscriber(subscriber);
+      eventBus.register(subscriber);
+      subscriberTypes.add(subscriberClass);
+      return true;
+    }
+
+    return false;
+  }
 }
