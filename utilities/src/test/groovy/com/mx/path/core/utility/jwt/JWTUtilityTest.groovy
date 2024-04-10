@@ -135,4 +135,17 @@ class JWTUtilityTest extends Specification  {
     then:
     claimTestDouble == 23.45
   }
+
+  def "Test getAllClaimsFromIdToken method with Map<String, String> return type"() {
+    given:
+    def idToken = "eyJraWQiOiJmMFI5d0lnbmtBTmJsNWFaWERQYy00OFhiRjlhdkhuZ0NsTWpvYlVacnBnIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIwMHUxdmo3MTQyY0FuM3psNTBoOCIsInZlciI6MSwiaXNzIjoiaHR0cHM6Ly9oYW5jb2Nrd2hpdG5leS1zaXQub2t0YXByZXZpZXcuY29tL29hdXRoMi9kZWZhdWx0IiwiYXVkIjoiMG9hMXM0MTF0MXIzMElGMjMwaDgiLCJpYXQiOjE3MTI3NjY2ODAsImV4cCI6MTcxMjc3MDI4MCwianRpIjoiSUQuM01GMDA3czFPZlIyNGFza2lmcmRTSWxZeXFnVnBqUXFjUXkyNVg4c2FjMCIsImFtciI6WyJwd2QiXSwiaWRwIjoiMDBvcGJlaDl2OXJNaFVSeDkwaDciLCJhdXRoX3RpbWUiOjE3MTI3NjY2NzgsImF0X2hhc2giOiJoM0ZxcDZURTF0bElxcUtMckR6bTdnIiwiaHR0cDovL2V6c2Rldi5uZXQvY2xhaW1zL3BhY2thZ2VfaWQvRElTQUJMRUQiOiJIV0IwMDAwMSIsImxhc3ROYW1lIjoiUE9PTCIsImZpcnN0TmFtZSI6IkRPTkFMRCIsImV4dGVybmFsSUQiOiIwMDAwMDAyMDI2OTc2NyIsInVzZXJUeXBlIjoiUGVyc29uIiwibG9naW4iOiJzaXR0ZXN0ZXI0IiwidXNlcklkIjoiMDB1MXZqNzE0MmNBbjN6bDUwaDgiLCJwcmltYXJ5RW1haWwiOiJteC10ZXN0LWVtYWlsQGZuaXMuY29tIiwidHlwZUNvZGUiOiI3In0.ThNRon2OIjLxnMzeoDMx7Qf9pN0hyiaV3an9OPW17JByWR37KGRI3TJ4adxXCDHOUsvHgFn5y6NoM53kJ6O0XdrPrhub9H5b_0DfuCcqrX34EtOj73ozdrQ4gpsV-q1YSTm3wIPidO_je5DUPgef5yZAoJ8w658oeOuh_Uo30PyB1g76pTVNxFvvZHcsb8doq3N-Sh-jKvytXYA_6f2bRWCKzw7dREIWx7ezsR7Nc_5e3bmLpFpMNMHFi2TsUoFWv0my49d_neMM1rcMxjljrYHK1MtG3XLYCLi_lR2VGfm6Kk86FhOijEe38rKwqkxjjIjSE_25SO0wc38amXcv-g"
+
+    when:
+    def claimsMap = JWTUtility.getAllClaimsFromIdToken(idToken)
+
+    then:
+    claimsMap.size() == 20
+    claimsMap.sub == "00u1vj7142cAn3zl50h8"
+    claimsMap.typeCode == "7"
+  }
 }

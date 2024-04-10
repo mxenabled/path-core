@@ -1,6 +1,9 @@
 package com.mx.path.core.utility.jwt;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -106,5 +109,18 @@ public class JWTUtility {
       return defaultValue;
     }
     return claim.as(returnType);
+  }
+
+  public static Map<String, Object> getAllClaimsFromIdToken(String idToken) {
+    DecodedJWT idDecodedToken = JWT.decode(idToken);
+    Map<String, Object> claimsMap = new HashMap<>();
+
+    idDecodedToken.getClaims().forEach((key, claim) -> {
+      Optional.ofNullable(claim)
+          .filter(c -> !c.isNull() && !c.isMissing())
+          .ifPresent(c -> claimsMap.put(key, c.as(Object.class)));
+    });
+
+    return claimsMap;
   }
 }
