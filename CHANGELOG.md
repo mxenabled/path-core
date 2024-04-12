@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.13.0](https://github.com/mxenabled/path-core/compare/v3.12.0...v3.13.0) (2024-04-12)
+
+
+### Features
+
+* removing LoginHash From Logging ([f9d3c9e](https://github.com/mxenabled/path-core/commit/f9d3c9e3926dbf5527d413d9abd2fe8bbcb0672e))
+
 ## [3.12.0](https://github.com/mxenabled/path-core/compare/v3.11.2...v3.12.0) (2024-04-10)
 
 
