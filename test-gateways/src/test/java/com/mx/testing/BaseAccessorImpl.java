@@ -2,7 +2,6 @@ package com.mx.testing;
 
 import lombok.Setter;
 
-import com.mx.path.gateway.accessor.AccessorConfiguration;
 import com.mx.testing.accessors.AccountBaseAccessor;
 import com.mx.testing.accessors.BaseAccessor;
 import com.mx.testing.accessors.IdBaseAccessor;
@@ -15,10 +14,9 @@ public class BaseAccessorImpl extends BaseAccessor {
   @Setter
   IdBaseAccessor id;
 
-  public BaseAccessorImpl(AccessorConfiguration configuration) {
-    super(configuration);
-    id = new IdAccessorImpl(configuration);
-    accounts = new AccountAccessorImpl(configuration);
+  public BaseAccessorImpl() {
+    id = new IdAccessorImpl();
+    accounts = new AccountAccessorImpl();
   }
 
   @Override

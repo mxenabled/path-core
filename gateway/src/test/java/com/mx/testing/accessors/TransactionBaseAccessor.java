@@ -6,7 +6,6 @@ import com.mx.path.core.common.gateway.GatewayAPI;
 import com.mx.path.core.common.gateway.GatewayClass;
 import com.mx.path.core.common.model.ModelList;
 import com.mx.path.gateway.accessor.Accessor;
-import com.mx.path.gateway.accessor.AccessorConfiguration;
 import com.mx.path.gateway.accessor.AccessorResponse;
 import com.mx.testing.model.Transaction;
 
@@ -14,10 +13,6 @@ import com.mx.testing.model.Transaction;
 @GatewayClass
 public class TransactionBaseAccessor extends Accessor {
   public TransactionBaseAccessor() {
-  }
-
-  public TransactionBaseAccessor(AccessorConfiguration configuration) {
-    super(configuration);
   }
 
   /**

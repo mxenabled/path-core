@@ -26,7 +26,7 @@ public abstract class BaseAccessorProxy extends BaseAccessor implements Accessor
 
   public BaseAccessorProxy(AccessorConfiguration configuration,
       Class<? extends BaseAccessor> accessorClass) {
-    super(configuration);
+    this.setConfiguration(configuration);
     this.accessorConstructionContext = new AccessorConstructionContext<BaseAccessor>(accessorClass, configuration);
   }
 

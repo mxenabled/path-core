@@ -3,7 +3,6 @@ package com.mx.testing;
 import lombok.Setter;
 
 import com.mx.path.core.common.accessor.PathResponseStatus;
-import com.mx.path.gateway.accessor.AccessorConfiguration;
 import com.mx.path.gateway.accessor.AccessorResponse;
 import com.mx.testing.accessors.AccountBaseAccessor;
 import com.mx.testing.accessors.TransactionBaseAccessor;
@@ -13,9 +12,8 @@ public class AccountAccessorImpl extends AccountBaseAccessor {
   @Setter
   TransactionBaseAccessor transactions;
 
-  public AccountAccessorImpl(AccessorConfiguration configuration) {
-    super(configuration);
-    transactions = new TransactionAccessorImpl(configuration);
+  public AccountAccessorImpl() {
+    transactions = new TransactionAccessorImpl();
   }
 
   @Override
