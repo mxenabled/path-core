@@ -10,7 +10,6 @@ import com.mx.path.core.common.gateway.GatewayClass;
 import com.mx.path.core.common.model.ModelList;
 import com.mx.path.core.common.remote.RemoteOperation;
 import com.mx.path.gateway.accessor.Accessor;
-import com.mx.path.gateway.accessor.AccessorConfiguration;
 import com.mx.path.gateway.accessor.AccessorResponse;
 import com.mx.testing.model.Account;
 
@@ -22,8 +21,7 @@ public class AccountBaseAccessor extends Accessor {
   @Setter
   private TransactionBaseAccessor transactions;
 
-  public AccountBaseAccessor(AccessorConfiguration configuration) {
-    super(configuration);
+  public AccountBaseAccessor() {
   }
 
   /**

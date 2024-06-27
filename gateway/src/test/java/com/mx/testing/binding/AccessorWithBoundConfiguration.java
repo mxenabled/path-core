@@ -3,7 +3,6 @@ package com.mx.testing.binding;
 import lombok.Getter;
 
 import com.mx.path.core.common.configuration.Configuration;
-import com.mx.path.gateway.accessor.AccessorConfiguration;
 import com.mx.testing.accessors.AccountBaseAccessor;
 
 public class AccessorWithBoundConfiguration extends AccountBaseAccessor {
@@ -11,9 +10,7 @@ public class AccessorWithBoundConfiguration extends AccountBaseAccessor {
   @Getter
   private final BasicConfigurationObj configurationObj;
 
-  public AccessorWithBoundConfiguration(AccessorConfiguration configuration, @Configuration BasicConfigurationObj config) {
-    super(configuration);
-
+  public AccessorWithBoundConfiguration(@Configuration BasicConfigurationObj config) {
     this.configurationObj = config;
   }
 

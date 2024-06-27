@@ -15,7 +15,7 @@ public abstract class IdBaseAccessorProxy extends IdBaseAccessor implements Acce
 
   public IdBaseAccessorProxy(AccessorConfiguration configuration,
       Class<? extends IdBaseAccessor> accessorClass) {
-    super(configuration);
+    this.setConfiguration(configuration);
     this.accessorConstructionContext = new AccessorConstructionContext<IdBaseAccessor>(accessorClass, configuration);
   }
 

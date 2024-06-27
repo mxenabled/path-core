@@ -16,8 +16,8 @@ class GatewayMethodSpec extends Specification {
   AccountGateway subject
 
   def setup() {
-    def baseAccessor = new BaseAccessorImpl(null)
-    baseAccessor.setAccounts(new AccountAccessorImpl(null))
+    def baseAccessor = new BaseAccessorImpl()
+    baseAccessor.setAccounts(new AccountAccessorImpl())
     subject = AccountGateway.builder().baseAccessor(baseAccessor).build()
   }
 

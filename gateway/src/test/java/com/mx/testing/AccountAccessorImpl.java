@@ -2,16 +2,14 @@ package com.mx.testing;
 
 import lombok.Setter;
 
-import com.mx.path.gateway.accessor.AccessorConfiguration;
 import com.mx.testing.accessors.AccountBaseAccessor;
 
 public class AccountAccessorImpl extends AccountBaseAccessor {
   @Setter
   TransactionAccessorImpl transactions;
 
-  public AccountAccessorImpl(AccessorConfiguration configuration) {
-    super(configuration);
-    transactions = new TransactionAccessorImpl(configuration);
+  public AccountAccessorImpl() {
+    transactions = new TransactionAccessorImpl();
   }
 
   public TransactionAccessorImpl transactions() {

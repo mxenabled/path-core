@@ -26,7 +26,7 @@ public abstract class AccountBaseAccessorProxy extends AccountBaseAccessor imple
 
   public AccountBaseAccessorProxy(AccessorConfiguration configuration,
       Class<? extends AccountBaseAccessor> accessorClass) {
-    super(configuration);
+    this.setConfiguration(configuration);
     this.accessorConstructionContext = new AccessorConstructionContext<AccountBaseAccessor>(accessorClass, configuration);
   }
 

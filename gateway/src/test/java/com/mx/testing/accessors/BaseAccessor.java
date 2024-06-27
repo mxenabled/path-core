@@ -7,7 +7,6 @@ import com.mx.path.core.common.accessor.AccessorMethodNotImplementedException;
 import com.mx.path.core.common.accessor.RootAccessor;
 import com.mx.path.core.common.gateway.GatewayAPI;
 import com.mx.path.gateway.accessor.Accessor;
-import com.mx.path.gateway.accessor.AccessorConfiguration;
 
 @API(description = "Base Gateway Accessor that serves as the main entrypoint to all other Gateway Accessors", specificationUrl = "https://developer.mx.com/drafts/mdx/overview/#what-is-helios")
 @RootAccessor
@@ -21,12 +20,12 @@ public class BaseAccessor extends Accessor {
   @Getter
   private IdBaseAccessor id;
 
-  public BaseAccessor(AccessorConfiguration configuration) {
-    super(configuration);
+  public BaseAccessor() {
   }
 
   /**
    * Accessor for account operations
+   *
    * @return accessor
    */
   @API
@@ -40,6 +39,7 @@ public class BaseAccessor extends Accessor {
 
   /**
    * Accessor for account operations
+   *
    * @return accessor
    */
   @API

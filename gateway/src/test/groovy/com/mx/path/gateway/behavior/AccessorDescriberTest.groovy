@@ -1,6 +1,5 @@
 package com.mx.path.gateway.behavior
 
-
 import com.google.gson.GsonBuilder
 import com.mx.path.core.common.accessor.API
 import com.mx.path.core.common.accessor.AccessorMethodNotImplementedException
@@ -23,9 +22,7 @@ class AccessorDescriberTest extends Specification {
     @GatewayAPI
     private AccountBaseAccessor accounts;
 
-    AccessorImplBase(AccessorConfiguration configuration) {
-      super(configuration)
-    }
+    AccessorImplBase() {}
 
     @API(description = "test", notes = "notes", specificationUrl = "http://google.com")
     public AccessorResponse<Account> get(String id) {
@@ -38,7 +35,7 @@ class AccessorDescriberTest extends Specification {
 
     @API
     public final AccountBaseAccessor accounts() {
-      if (accounts!= null) {
+      if (accounts != null) {
         return accounts;
       }
 
@@ -47,9 +44,7 @@ class AccessorDescriberTest extends Specification {
   }
 
   class AccessorImpl extends AccessorImplBase {
-    AccessorImpl(AccessorConfiguration configuration) {
-      super(configuration)
-    }
+    AccessorImpl() {}
 
     @API(description = "test", notes = "notes", specificationUrl = "http://google.com")
     @Override
@@ -65,7 +60,8 @@ class AccessorDescriberTest extends Specification {
   def "describe"() {
     given:
     def configuration = AccessorConfiguration.builder().configuration("key", "value").build()
-    def accessor = new AccessorImpl(configuration)
+    def accessor = new AccessorImpl()
+    accessor.setConfiguration(configuration)
 
     when:
     def description = subject.describe(accessor)
@@ -81,9 +77,8 @@ class AccessorDescriberTest extends Specification {
 
   def "describeDeep"() {
     given:
-    def configuration = AccessorConfiguration.builder().configuration("key", "value").build()
-    def accessor = new AccessorImpl(configuration).tap {
-      accounts = new AccountAccessorImpl(configuration)
+    def accessor = new AccessorImpl().tap {
+      accounts = new AccountAccessorImpl()
     }
 
     when:
@@ -91,7 +86,7 @@ class AccessorDescriberTest extends Specification {
     System.out.print(new GsonBuilder().setPrettyPrinting().create().toJson(description))
 
     then:
-    verifyAll (description) {
+    verifyAll(description) {
       !isEmpty()
       getAsString("class") == "com.mx.path.gateway.behavior.AccessorDescriberTest.AccessorImpl"
       getMap("accessors").getMap("accounts").getAsString("class") == "com.mx.testing.AccountAccessorImpl"

@@ -75,7 +75,7 @@ public class AccessorProxyGenerator {
                 .addModifiers(Modifier.PUBLIC)
                 .addParameter(AccessorConfiguration.class, "configuration")
                 .addParameter(ParameterizedTypeName.get(ClassName.get(Class.class), WildcardTypeName.subtypeOf(klass)), "accessorClass")
-                .addStatement("super(configuration)")
+                .addStatement("this.setConfiguration(configuration)")
                 .addStatement("this.accessorConstructionContext = new $T(accessorClass, configuration)", ParameterizedTypeName.get(ClassName.get("com.mx.path.gateway.configuration", "AccessorConstructionContext"), TypeName.get(klass)))
                 .build())
 

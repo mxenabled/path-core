@@ -31,8 +31,8 @@ class ScopeTest extends Specification {
   SessionRepository repository
 
   def setup() {
-    accessor = new TestAccessor(AccessorConfiguration.builder().build())
-    baseAccessor = new TestBaseAccessor(AccessorConfiguration.builder().build())
+    accessor = new TestAccessor()
+    baseAccessor = new TestBaseAccessor()
     gateway = mock(Gateway)
     repository = spy(new TestSessionRepository())
     def encryptionService = new TestEncryptionService(new ObjectMap())
@@ -65,7 +65,7 @@ class ScopeTest extends Specification {
     given:
     GatewayRequestContext.builder()
         .gateway(gateway)
-        .currentAccessor(new TestAccessorNoServiceScope(AccessorConfiguration.builder().build()))
+        .currentAccessor(new TestAccessorNoServiceScope())
         .build()
         .register()
 
@@ -172,11 +172,11 @@ class ScopeTest extends Specification {
     given:
     GatewayRequestContext.builder()
         .gateway(gateway)
-        .currentAccessor(new TestAccessorNoServiceScope(AccessorConfiguration.builder().build()))
+        .currentAccessor(new TestAccessorNoServiceScope())
         .build()
         .register()
 
-    doReturn(new TestBaseAccessorNoServiceScope(AccessorConfiguration.builder().build())).when(gateway).getBaseAccessor()
+    doReturn(new TestBaseAccessorNoServiceScope()).when(gateway).getBaseAccessor()
 
     when:
     subject.put(Scope.Service, "key1", "value1")
@@ -187,28 +187,24 @@ class ScopeTest extends Specification {
 }
 
 class TestBaseAccessorNoServiceScope extends BaseAccessor {
-  TestBaseAccessorNoServiceScope(AccessorConfiguration configuration) {
-    super(configuration)
+  TestBaseAccessorNoServiceScope() {
   }
 }
 
 class TestAccessorNoServiceScope extends AccountBaseAccessor {
-  TestAccessorNoServiceScope(AccessorConfiguration configuration) {
-    super(configuration)
+  TestAccessorNoServiceScope() {
   }
 }
 
 @ServiceScope("BigBank")
 class TestAccessor extends AccountBaseAccessor {
-  TestAccessor(AccessorConfiguration configuration) {
-    super(configuration)
+  TestAccessor() {
   }
 }
 
 @ServiceScope("BiggerBank")
 class TestBaseAccessor extends BaseAccessor {
-  TestBaseAccessor(AccessorConfiguration configuration) {
-    super(configuration)
+  TestBaseAccessor() {
   }
 }
 
