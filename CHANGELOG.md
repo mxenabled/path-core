@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.13.1](https://github.com/mxenabled/path-core/compare/v3.13.0...v3.13.1) (2024-07-01)
+
+
+### Bug Fixes
+
+* removing uses of deprecated constructor from gateways ([f60a580](https://github.com/mxenabled/path-core/commit/f60a580c81b0845fe3eae4fda1b12b664f5db1d1))
+
 ## [3.13.0](https://github.com/mxenabled/path-core/compare/v3.12.0...v3.13.0) (2024-04-12)
 
 
