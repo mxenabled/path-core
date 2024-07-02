@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.13.2](https://github.com/mxenabled/path-core/compare/v3.13.1...v3.13.2) (2024-07-02)
+
+
+### Bug Fixes
+
+* set Cookie Spec ([a241460](https://github.com/mxenabled/path-core/commit/a241460687bf1babd82d234efc22c715e117c0ad))
+
 ## [3.13.1](https://github.com/mxenabled/path-core/compare/v3.13.0...v3.13.1) (2024-07-01)
 
 
