@@ -37,6 +37,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.RequestBuilder;
@@ -102,6 +103,7 @@ public class HttpClientFilter extends RequestFilterBase {
           .setConnectionRequestTimeout((int) httpRequest.getRequestTimeOut().toMillis())
           .setConnectTimeout((int) httpRequest.getRequestTimeOut().toMillis())
           .setSocketTimeout((int) httpRequest.getRequestTimeOut().toMillis())
+          .setCookieSpec(CookieSpecs.STANDARD)
           .build();
 
       try (CloseableHttpClient client = clientBuilder.setDefaultRequestConfig(requestConfig).build()) {
