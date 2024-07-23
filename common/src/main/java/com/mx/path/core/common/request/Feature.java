@@ -14,6 +14,7 @@ public enum Feature {
   ORIGINATIONS("originations"),
   PAYMENTS("payments"),
   PAYOUTS("payouts"),
+  PRODUCTS("products"),
   PROFILES("profiles"),
   REMOTE_DEPOSITS("remote_deposits"),
   STATUS("status"),
