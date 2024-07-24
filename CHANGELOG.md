@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.14.0](https://github.com/mxenabled/path-core/compare/v3.13.2...v3.14.0) (2024-07-24)
+
+
+### Features
+
+* adding products feature ([7c66094](https://github.com/mxenabled/path-core/commit/7c66094c4aa5d97aeb184135283bf66b62a87d93))
+
 ## [3.13.2](https://github.com/mxenabled/path-core/compare/v3.13.1...v3.13.2) (2024-07-02)
 
 
