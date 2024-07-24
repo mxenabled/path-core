@@ -22,4 +22,14 @@ public interface EventBus {
    * @param subscriber to register
    */
   void register(Object subscriber);
+
+  /**
+   * Safely register an event subscriber. Ensure there is at one and only one subscriber of each type. Will create
+   * instance of subscriberType if subscriber of the same type does not exist
+   *
+   * @param subscriberType to register
+   */
+  default boolean registerByClass(Class<?> subscriberType) {
+    throw new UnsupportedOperationException();
+  };
 }
