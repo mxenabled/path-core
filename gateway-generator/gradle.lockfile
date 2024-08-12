@@ -4,6 +4,7 @@
 antlr:antlr:2.7.7=checkstyle
 com.auth0:java-jwt:4.4.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 com.beust:jcommander:1.48=pmd
+com.datadoghq:dd-trace-api:1.38.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 com.fasterxml.jackson.core:jackson-annotations:2.14.2=runtimeClasspath,testRuntimeClasspath
 com.fasterxml.jackson.core:jackson-core:2.14.2=runtimeClasspath,testRuntimeClasspath
 com.fasterxml.jackson.core:jackson-databind:2.14.2=runtimeClasspath,testRuntimeClasspath
@@ -40,6 +41,8 @@ commons-logging:commons-logging:1.2=runtimeClasspath,testRuntimeClasspath
 info.picocli:picocli:4.1.4=checkstyle
 io.github.cdimascio:dotenv-java:2.3.2=runtimeClasspath,testRuntimeClasspath
 io.opentracing:opentracing-api:0.33.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+io.opentracing:opentracing-noop:0.33.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+io.opentracing:opentracing-util:0.33.0=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 jakarta.activation:jakarta.activation-api:1.2.2=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 jakarta.xml.bind:jakarta.xml.bind-api:2.3.3=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 jakarta.xml.soap:jakarta.xml.soap-api:1.4.2=compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath

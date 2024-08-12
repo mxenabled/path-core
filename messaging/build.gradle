@@ -9,6 +9,7 @@ dependencies {
   implementation project(":common")
 
   implementation "io.opentracing:opentracing-api"
+  implementation "io.opentracing:opentracing-util"
   compileOnly "org.slf4j:slf4j-api"
 
   testImplementation "io.opentracing:opentracing-mock:0.33.0"
