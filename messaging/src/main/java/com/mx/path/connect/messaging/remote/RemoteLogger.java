@@ -13,11 +13,12 @@ import com.mx.path.connect.messaging.MessageResponse;
 import com.mx.path.core.common.lang.Strings;
 import com.mx.path.core.common.security.LogValueMasker;
 import com.mx.path.core.context.RequestContext;
-import com.mx.path.core.context.tracing.CustomTracer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+
+import io.opentracing.util.GlobalTracer;
 
 // todo: Come up with a better name for this.
 public class RemoteLogger {
@@ -75,8 +76,8 @@ public class RemoteLogger {
     MDC.put("request_uri", request.getChannel());
 
     if (request.getMessageHeaders() != null) {
-      MDC.put("span_id", CustomTracer.getSpanId());
-      MDC.put("trace_id", CustomTracer.getTraceId());
+      MDC.put("span_id", GlobalTracer.get().activeSpan().context().toSpanId());
+      MDC.put("trace_id", GlobalTracer.get().activeSpan().context().toTraceId());
 
       Map<String, String> maskedRequestHeaders = maskHeaders(request.getMessageHeaders().getHeaders());
       MDC.put("request_headers_json", GSON.toJson(maskedRequestHeaders));

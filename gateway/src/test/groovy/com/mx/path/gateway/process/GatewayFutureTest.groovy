@@ -1,6 +1,5 @@
 package com.mx.path.gateway.process
 
-
 import static org.mockito.Mockito.mock
 import static org.mockito.Mockito.spy
 import static org.mockito.Mockito.verify
@@ -14,6 +13,7 @@ import com.mx.path.core.context.store.SessionRepository
 import com.mx.path.core.context.tracing.CustomTracer
 
 import io.opentracing.Tracer
+import io.opentracing.util.GlobalTracer
 
 import spock.lang.Specification
 
@@ -24,7 +24,7 @@ class FutureWithGatewayContextTest extends Specification {
     repository = Mock()
     RequestContext.builder().clientId("Kasigi Yabu").build().register()
     Session.setRepositorySupplier({ -> repository })
-    CustomTracer.setTracer(mock(Tracer))
+    GlobalTracer.registerIfAbsent(mock(Tracer))
   }
 
   def cleanup() {
@@ -32,7 +32,7 @@ class FutureWithGatewayContextTest extends Specification {
     Session.setRepositorySupplier(null)
     Session.setEncryptionServiceSupplier(null)
     Session.clearSession()
-    CustomTracer.setTracer(null)
+    //    CustomTracer.setTracer(null)
   }
 
   def "calls the supplied lambda"() {

@@ -19,7 +19,6 @@ import com.mx.path.core.common.messaging.MessageResponder;
 import com.mx.path.core.common.messaging.MessageStatus;
 import com.mx.path.core.context.RequestContext;
 import com.mx.path.core.context.Session;
-import com.mx.path.core.context.tracing.CustomTracer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +26,7 @@ import org.slf4j.MDC;
 
 import io.opentracing.Scope;
 import io.opentracing.Span;
+import io.opentracing.util.GlobalTracer;
 
 /**
  * Service that enables Path Connectors to listen for events and respond to requests for data
@@ -380,7 +380,7 @@ public abstract class RemoteService<T> implements MessageResponder, EventListene
     MDC.put("operation", channel.getOperation());
 
     Span extractedSpan = RemoteTracePropagation.extract(message);
-    try (Scope scope = CustomTracer.activateSpan(extractedSpan)) {
+    try (Scope scope = GlobalTracer.get().activateSpan(extractedSpan)) {
       return f.get();
     } finally {
       MDC.remove("channel");
@@ -394,7 +394,7 @@ public abstract class RemoteService<T> implements MessageResponder, EventListene
     MDC.put("operation", channel.getOperation());
 
     Span extractedSpan = RemoteTracePropagation.extract(message);
-    try (Scope scope = CustomTracer.activateSpan(extractedSpan)) {
+    try (Scope scope = GlobalTracer.get().activateSpan(extractedSpan)) {
       f.run();
     } finally {
       MDC.remove("channel");

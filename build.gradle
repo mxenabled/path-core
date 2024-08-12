@@ -63,6 +63,16 @@ subprojects {
             require "[0.33,0.34)"
           }
         }
+        api("io.opentracing:opentracing-noop") {
+          version {
+            require "[0.33,0.34)"
+          }
+        }
+        api("io.opentracing:opentracing-util") {
+          version {
+            require "[0.33,0.34)"
+          }
+        }
         api("com.google.guava:guava") {
           version {
             require "[31.0,32.0)"
@@ -73,6 +83,7 @@ subprojects {
             require "[2.0,3.0)"
           }
         }
+        api "com.datadoghq:dd-trace-api:1.38.0"
         api "commons-lang:commons-lang:2.6"
         api "org.slf4j:slf4j-api:1.7.30"
         api "org.apache.httpcomponents:httpclient:4.5.13"
