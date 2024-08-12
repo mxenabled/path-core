@@ -4,6 +4,7 @@ dependencies {
 
   implementation project(":common")
   implementation "io.opentracing:opentracing-api"
+  implementation "io.opentracing:opentracing-util"
   implementation "commons-lang:commons-lang"
   implementation "io.github.cdimascio:dotenv-java:[2.0,3.0)" // provides access to environment variables, including .env files
 

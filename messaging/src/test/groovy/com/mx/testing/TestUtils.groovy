@@ -13,7 +13,6 @@ class TestUtils {
   static startFakedSession() {
     def sessionRepository = new FakeSessionRepository()
     Session.setRepositorySupplier({ -> sessionRepository })
-    CustomTracer.setTracer(mock(Tracer))
 
     Session.createSession()
     RequestContext.builder().clientId("clientId").build().register()
@@ -22,7 +21,6 @@ class TestUtils {
   static endFakedSession() {
     Session.setRepositorySupplier({ -> null })
     Session.setEncryptionServiceSupplier({ -> null })
-    CustomTracer.setTracer(null)
     Session.clearSession()
     RequestContext.clear()
   }

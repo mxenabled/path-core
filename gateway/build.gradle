@@ -16,6 +16,8 @@ dependencies {
   api project(":context")
   api project(":messaging")
   api "io.opentracing:opentracing-api"
+  api "io.opentracing:opentracing-util"
+  api "com.datadoghq:dd-trace-api:1.38.0"
   api "jakarta.xml.bind:jakarta.xml.bind-api"
   api "jakarta.xml.soap:jakarta.xml.soap-api"
   api "com.sun.xml.bind:jaxb-impl"
