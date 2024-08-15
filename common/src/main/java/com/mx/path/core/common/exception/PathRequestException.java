@@ -63,7 +63,7 @@ import com.mx.path.core.common.messaging.MessageError;
  *   {@link PathRequestExceptionWrapper} - Wraps a cause so that other attributes can be added. This exception's cause should be inspected.
  * </pre>
  *
- * <p>Each exception sets its own default Report and Status attributes. Most have constructors that allow setting
+ * <p>Each exception sets its own default Report, IsInternal, and Status attributes. Most have constructors that allow setting
  * fields common for their type. {@link PathRequestException} provides fluent setters for all attributes that will
  * allow defaults to be overridden or additional attributes to be set.
  *
@@ -90,8 +90,14 @@ public abstract class PathRequestException extends RuntimeException {
   @Setter
   private String errorTitle;
 
-  @Getter
   private final Map<String, String> headers = new LinkedHashMap<>();
+
+  /**
+   * Indicates whether this exception is internal to the system or occurred upstream
+   */
+  @Getter
+  @Setter
+  private boolean internal = false;
 
   @Setter
   private String message = "Unknown error";
@@ -129,6 +135,16 @@ public abstract class PathRequestException extends RuntimeException {
     setMessage(message);
   }
 
+  public final Map<String, String> getHeaders() {
+    if (internal) {
+      headers.put("X-Internal-Error", "true");
+    } else {
+      headers.remove("X-Internal-Error");
+    }
+
+    return headers;
+  }
+
   /**
    * Set message
    *
@@ -147,16 +163,18 @@ public abstract class PathRequestException extends RuntimeException {
    * @param newCode - String api error code
    * @return - AccessorException with newCode
    */
-  public final PathRequestException withCode(String newCode) {
+  @SuppressWarnings("unchecked")
+  public final <T extends PathRequestException> T withCode(String newCode) {
     setCode(newCode);
 
-    return this;
+    return (T) this;
   }
 
-  public final PathRequestException withErrorTitle(String newErrorTitle) {
+  @SuppressWarnings("unchecked")
+  public final <T extends PathRequestException> T withErrorTitle(String newErrorTitle) {
     setErrorTitle(newErrorTitle);
 
-    return this;
+    return (T) this;
   }
 
   /**
@@ -166,10 +184,18 @@ public abstract class PathRequestException extends RuntimeException {
    * @param value
    * @return
    */
-  public final PathRequestException withHeader(String name, String value) {
+  @SuppressWarnings("unchecked")
+  public final <T extends PathRequestException> T withHeader(String name, String value) {
     this.headers.put(name, value);
 
-    return this;
+    return (T) this;
+  }
+
+  @SuppressWarnings("unchecked")
+  public final <T extends PathRequestException> T withIsInternal(boolean isInternal) {
+    this.internal = isInternal;
+
+    return (T) this;
   }
 
   /**
@@ -178,10 +204,11 @@ public abstract class PathRequestException extends RuntimeException {
    * @param newMessage
    * @return
    */
-  public final PathRequestException withMessage(String newMessage) {
+  @SuppressWarnings("unchecked")
+  public final <T extends PathRequestException> T withMessage(String newMessage) {
     this.setMessage(newMessage);
 
-    return this;
+    return (T) this;
   }
 
   /**
@@ -190,28 +217,32 @@ public abstract class PathRequestException extends RuntimeException {
    * @param newReason - String newReason for exception (for userMessage)
    * @return - AccessorException with newReason
    */
-  public final PathRequestException withReason(String newReason) {
+  @SuppressWarnings("unchecked")
+  public final <T extends PathRequestException> T withReason(String newReason) {
     this.setReason(newReason);
 
-    return this;
+    return (T) this;
   }
 
-  public final PathRequestException withReport(boolean shouldReport) {
+  @SuppressWarnings("unchecked")
+  public final <T extends PathRequestException> T withReport(boolean shouldReport) {
     this.setReport(shouldReport);
 
-    return this;
+    return (T) this;
   }
 
-  public final PathRequestException withStatus(PathResponseStatus newStatus) {
+  @SuppressWarnings("unchecked")
+  public final <T extends PathRequestException> T withStatus(PathResponseStatus newStatus) {
     this.setStatus(newStatus);
 
-    return this;
+    return (T) this;
   }
 
-  public final PathRequestException withUserMessage(String newUserMessage) {
+  @SuppressWarnings("unchecked")
+  public final <T extends PathRequestException> T withUserMessage(String newUserMessage) {
     this.setUserMessage(newUserMessage);
 
-    return this;
+    return (T) this;
   }
 
   /**

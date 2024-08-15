@@ -10,11 +10,13 @@ import com.mx.path.core.common.exception.PathRequestException;
 public class ResponsePayloadException extends AccessorSystemException {
   public ResponsePayloadException(String message) {
     super(message);
+    setInternal(true);
     setReport(true);
   }
 
   public ResponsePayloadException(String message, Throwable cause) {
     super(message, cause);
+    setInternal(true);
     setReport(true);
   }
 }

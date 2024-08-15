@@ -1,6 +1,5 @@
 package com.mx.path.core.common.exception
 
-
 import com.mx.path.core.common.accessor.PathResponseStatus
 
 import spock.lang.Specification
@@ -33,6 +32,7 @@ class PathRequestExceptionTest extends Specification {
     verifyAll(subject) {
       getMessage() == "Unknown error"
       getCause() == null
+      !isInternal()
       getStatus() == PathResponseStatus.INTERNAL_ERROR
       shouldReport()
     }
@@ -44,6 +44,7 @@ class PathRequestExceptionTest extends Specification {
     verifyAll(subject) {
       getMessage() == "Original message"
       getCause() == null
+      !isInternal()
       getStatus() == PathResponseStatus.INTERNAL_ERROR
       shouldReport()
     }
@@ -56,6 +57,7 @@ class PathRequestExceptionTest extends Specification {
     verifyAll(subject) {
       getMessage() == "Unknown error"
       getCause() == cause
+      !isInternal()
       getStatus() == PathResponseStatus.INTERNAL_ERROR
       shouldReport()
     }
@@ -68,6 +70,7 @@ class PathRequestExceptionTest extends Specification {
     verifyAll(subject) {
       getMessage() == "Original message"
       getCause() == cause
+      !isInternal()
       getStatus() == PathResponseStatus.INTERNAL_ERROR
       shouldReport()
     }
@@ -83,6 +86,7 @@ class PathRequestExceptionTest extends Specification {
       getCause() == null
       getErrorTitle() == null
       getHeaders().isEmpty()
+      !isInternal()
       getMessage() == "Unknown error"
       getReason() == null
       shouldReport()
@@ -95,6 +99,7 @@ class PathRequestExceptionTest extends Specification {
       withCode("1401")
       withErrorTitle("Error title")
       withHeader("header", "value")
+      withIsInternal(true)
       withMessage("New message")
       withReason("Because")
       withReport(false)
@@ -108,6 +113,8 @@ class PathRequestExceptionTest extends Specification {
       getCause() == null
       getErrorTitle() == "Error title"
       getHeaders().get("header") == "value"
+      getHeaders().get("X-Internal-Error") == "true"
+      isInternal()
       getMessage() == "New message"
       getReason() == "Because"
       !shouldReport()
