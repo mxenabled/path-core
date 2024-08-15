@@ -10,5 +10,6 @@ import com.mx.path.core.common.exception.PathRequestException;
 public class CircuitOpenException extends ServiceUnavailableException {
   public CircuitOpenException(String message, Throwable cause) {
     super(message, cause);
+    setInternal(true);
   }
 }

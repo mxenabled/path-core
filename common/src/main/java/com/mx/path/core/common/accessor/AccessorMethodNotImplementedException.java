@@ -10,6 +10,7 @@ import com.mx.path.core.common.exception.PathRequestException;
 public class AccessorMethodNotImplementedException extends AccessorSystemException {
   public AccessorMethodNotImplementedException() {
     super("Method not implemented");
+    setInternal(true);
     setReport(false);
     setStatus(PathResponseStatus.NOT_IMPLEMENTED);
   }
