@@ -11,12 +11,14 @@ import com.mx.path.core.common.exception.PathRequestException;
 public class BehaviorException extends GatewayException {
   public BehaviorException(String message) {
     super(message);
+    setInternal(true);
     setReport(true);
     setStatus(PathResponseStatus.INTERNAL_ERROR);
   }
 
   public BehaviorException(String message, Throwable cause) {
     super(message, cause);
+    setInternal(true);
     setReport(true);
     setStatus(PathResponseStatus.INTERNAL_ERROR);
   }

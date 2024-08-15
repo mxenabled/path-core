@@ -15,6 +15,7 @@ public class TooManyRequestsException extends ConnectException {
   public TooManyRequestsException(String message, Throwable cause) {
     super(message, cause);
     setCode(String.valueOf(PathResponseStatus.TOO_MANY_REQUESTS.value()));
+    setInternal(true);
     setReport(false);
     setStatus(PathResponseStatus.UPSTREAM_SERVICE_UNAVAILABLE);
   }
