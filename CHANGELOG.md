@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [3.15.0](https://github.com/mxenabled/path-core/compare/v3.14.0...v3.15.0) (2024-08-16)
+
+
+### Features
+
+* add internal flag to PathRequestException ([6d954c7](https://github.com/mxenabled/path-core/commit/6d954c7a0d7086dba8a7e3efdce1bc30a3d50797))
+
 ## [3.14.0](https://github.com/mxenabled/path-core/compare/v3.13.2...v3.14.0) (2024-07-24)
 
 
