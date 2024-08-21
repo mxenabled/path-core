@@ -5,6 +5,17 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [4.0.0](https://github.com/mxenabled/path-core/compare/v3.15.0...v4.0.0) (2024-08-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* Updating classes used for tracing
+
+### Code Refactoring
+
+* change from brave tracing to datadog tracing ([5915de7](https://github.com/mxenabled/path-core/commit/5915de75f807e44fe10da9ba177a985ac426eaf4))
+
 ## [3.15.0](https://github.com/mxenabled/path-core/compare/v3.14.0...v3.15.0) (2024-08-16)
 
 
