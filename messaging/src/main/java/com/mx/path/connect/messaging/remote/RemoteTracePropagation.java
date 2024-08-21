@@ -10,7 +10,7 @@ import io.opentracing.tag.Tags;
 import io.opentracing.util.GlobalTracer;
 
 /**
- * Injects and extracts Message trace propagation headers using B3 format.
+ * Injects and extracts Message trace propagation headers using opentracing format.
  */
 public class RemoteTracePropagation {
   /**

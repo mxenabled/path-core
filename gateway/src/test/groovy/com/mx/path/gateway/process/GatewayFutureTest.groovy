@@ -10,7 +10,6 @@ import com.mx.path.core.common.gateway.GatewayException
 import com.mx.path.core.context.RequestContext
 import com.mx.path.core.context.Session
 import com.mx.path.core.context.store.SessionRepository
-import com.mx.path.core.context.tracing.CustomTracer
 
 import io.opentracing.Tracer
 import io.opentracing.util.GlobalTracer
@@ -32,7 +31,6 @@ class FutureWithGatewayContextTest extends Specification {
     Session.setRepositorySupplier(null)
     Session.setEncryptionServiceSupplier(null)
     Session.clearSession()
-    //    CustomTracer.setTracer(null)
   }
 
   def "calls the supplied lambda"() {
