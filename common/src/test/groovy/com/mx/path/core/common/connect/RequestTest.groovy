@@ -248,28 +248,8 @@ class RequestTest extends Specification {
 
   class TestMutualAuthSettings implements ConnectionSettings {
     @Override
-    String getKeystorePath() {
-      return null
-    }
-
-    @Override
-    char[] getKeystorePassword() {
-      return null
-    }
-
-    @Override
-    int mutualAuthProviderHashcode() {
-      return 0
-    }
-
-    @Override
     List<RequestFilter> getBaseRequestFilters() {
       return null
-    }
-
-    @Override
-    boolean getSkipHostNameVerify() {
-      return false
     }
 
     @Override
@@ -280,6 +260,36 @@ class RequestTest extends Specification {
     @Override
     String getCertificateAlias() {
       return null
+    }
+
+    @Override
+    Duration getConnectTimeout() {
+      return null
+    }
+
+    @Override
+    String getKeystorePath() {
+      return null
+    }
+
+    @Override
+    char[] getKeystorePassword() {
+      return null
+    }
+
+    @Override
+    Duration getRequestTimeout() {
+      return null
+    }
+
+    @Override
+    boolean getSkipHostNameVerify() {
+      return false
+    }
+
+    @Override
+    int mutualAuthProviderHashcode() {
+      return 0
     }
   }
 
@@ -297,12 +307,13 @@ class RequestTest extends Specification {
     def request = new TestRequest(filterChain)
         .withAccept("application/json")
         .withBaseUrl("https://example.com")
+        .withConnectTimeout(Duration.ofMillis((1000)))
         .withContentType("application/json")
         .withFeature(Feature.ACCOUNTS)
         .withHeader("headerKey", "headerValue")
         .withPath("/some/path")
         .withQueryStringParams(new SingleValueMap<String, String>().tap {put("key", "value")})
-        .withTimeOut(Duration.ofMillis(100))
+        .withTimeout(Duration.ofMillis(100))
 
     when: "same instance"
     def sameRequestInstance = request
@@ -321,12 +332,13 @@ class RequestTest extends Specification {
     def requestWithSameProperties = new TestRequest(filterChain)
         .withAccept("application/json")
         .withBaseUrl("https://example.com")
+        .withConnectTimeout(Duration.ofMillis((1000)))
         .withContentType("application/json")
         .withFeature(Feature.ACCOUNTS)
         .withHeader("headerKey", "headerValue")
         .withPath("/some/path")
         .withQueryStringParams(new SingleValueMap<String, String>().tap {put("key", "value")})
-        .withTimeOut(Duration.ofMillis(100))
+        .withTimeout(Duration.ofMillis(100))
 
     then:
     request.equals(requestWithSameProperties)
@@ -336,12 +348,13 @@ class RequestTest extends Specification {
     def requestWithDifferentProperties = new TestRequest(filterChain)
         .withAccept("application/json")
         .withBaseUrl("https://example.com")
+        .withConnectTimeout(Duration.ofMillis((1000)))
         .withContentType("application/json")
         .withFeature(Feature.TRANSFERS)
         .withHeader("headerKey", "headerValue2")
         .withPath("/some/other/path")
         .withQueryStringParams(new SingleValueMap<String, String>().tap {put("key", "value2")})
-        .withTimeOut(Duration.ofMillis(100))
+        .withTimeout(Duration.ofMillis(100))
 
     then:
     !request.equals(requestWithDifferentProperties)

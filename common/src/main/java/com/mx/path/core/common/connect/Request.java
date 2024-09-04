@@ -59,6 +59,7 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
     STRING_AND_RAW
   }
 
+  private static final Duration DEFAULT_CONNECT_TIMEOUT = Duration.ofMillis(30000);
   private static final Duration DEFAULT_REQUEST_TIMEOUT = Duration.ofMillis(30000);
 
   // Fields
@@ -81,6 +82,9 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   @Getter
   @Setter
   private ConnectionSettings connectionSettings;
+
+  @Setter
+  private Duration connectTimeout;
 
   @Getter
   @Setter
@@ -137,7 +141,10 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   private long startNano = 0;
 
   @Setter
+  @Deprecated
   private Duration timeOut;
+
+  private Duration timeout;
 
   @Getter
   @Setter
@@ -190,6 +197,15 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
     return headers.get("Accept");
   }
 
+  /**
+   * @return Connect timeout in milliseconds
+   */
+  public final Duration getConnectTimeout() {
+    connectTimeout = (connectTimeout == null) ? connectionSettings.getConnectTimeout() : connectTimeout;
+    connectTimeout = (connectTimeout == null) ? DEFAULT_CONNECT_TIMEOUT : connectTimeout;
+    return connectTimeout;
+  }
+
   public final String getContentType() {
     return headers.get("Content-Type");
   }
@@ -205,8 +221,18 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   /**
    * @return Request timeout in milliseconds
    */
+  @Deprecated
   public final Duration getRequestTimeOut() {
     return timeOut == null ? DEFAULT_REQUEST_TIMEOUT : timeOut;
+  }
+
+  /**
+   * @return Request timeout in milliseconds
+   */
+  public final Duration getRequestTimeout() {
+    timeout = (timeout == null) ? connectionSettings.getRequestTimeout() : timeout;
+    timeout = (timeout == null) ? DEFAULT_REQUEST_TIMEOUT : timeout;
+    return timeout;
   }
 
   public final String getTraceKey() {
@@ -257,6 +283,10 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
 
   public final void setHeaders(MultiValueMappable<String, String> singleValueMap) {
     this.headers = new SingleValueMap<>(singleValueMap);
+  }
+
+  public final void setTimeout(Duration timeout) {
+    this.timeout = timeout;
   }
 
   /**
@@ -311,6 +341,16 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   @SuppressWarnings("unchecked")
   public final REQ withConnectionSettings(ConnectionSettings newConnectionSettings) {
     setConnectionSettings(newConnectionSettings);
+    return (REQ) this;
+  }
+
+  /**
+   * Connect timeout as Duration
+   * @return this
+   */
+  @SuppressWarnings("unchecked")
+  public final REQ withConnectTimeout(Duration connectionTimeout) {
+    setConnectTimeout(connectionTimeout);
     return (REQ) this;
   }
 
@@ -490,9 +530,20 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
    * Request timeout as Duration
    * @return this
    */
+  @Deprecated
   @SuppressWarnings("unchecked")
   public final REQ withTimeOut(Duration requestTimeOut) {
-    setTimeOut(requestTimeOut);
+    setTimeout(requestTimeOut);
+    return (REQ) this;
+  }
+
+  /**
+   * Request timeout as Duration
+   * @return this
+   */
+  @SuppressWarnings("unchecked")
+  public final REQ withTimeout(Duration requestTimeout) {
+    setTimeout(requestTimeout);
     return (REQ) this;
   }
 

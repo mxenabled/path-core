@@ -1,10 +1,19 @@
 package com.mx.path.core.common.connect;
 
+import java.time.Duration;
 import java.util.List;
 
 import com.mx.path.core.common.collection.ObjectMap;
 
 public interface ConnectionSettings {
+
+  default void describe(ObjectMap description) {
+  }
+
+  /**
+   * @return list of configured request filters to be used when executing connection's requests
+   */
+  List<RequestFilter> getBaseRequestFilters();
 
   /**
    * @return connection's base URL
@@ -17,6 +26,11 @@ public interface ConnectionSettings {
   String getCertificateAlias();
 
   /**
+   * @return connect timeout
+   */
+  Duration getConnectTimeout();
+
+  /**
    * @return path to keystore used to store certificates
    */
   String getKeystorePath();
@@ -25,6 +39,16 @@ public interface ConnectionSettings {
    * @return password used to access certificates in keystore
    */
   char[] getKeystorePassword();
+
+  /**
+   * @return request timeout
+   */
+  Duration getRequestTimeout();
+
+  /**
+   * @return true, if host name should be checked against the certificate
+   */
+  boolean getSkipHostNameVerify();
 
   /**
    * Used to represent this connection's uniqueness for mutual auth
@@ -46,18 +70,5 @@ public interface ConnectionSettings {
     result = result * 59 + (thisKeystorePath == null ? 43 : thisKeystorePath.hashCode());
 
     return result;
-  }
-
-  /**
-   * @return list of configured request filters to be used when executing connection's requests
-   */
-  List<RequestFilter> getBaseRequestFilters();
-
-  /**
-   * @return true, if host name should be checked against the certificate
-   */
-  boolean getSkipHostNameVerify();
-
-  default void describe(ObjectMap description) {
   }
 }
