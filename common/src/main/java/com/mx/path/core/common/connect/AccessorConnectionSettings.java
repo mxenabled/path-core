@@ -1,5 +1,6 @@
 package com.mx.path.core.common.connect;
 
+import java.time.Duration;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,12 +21,14 @@ import com.mx.path.core.common.lang.Strings;
 @AllArgsConstructor
 public class AccessorConnectionSettings implements ConnectionSettings {
 
+  private List<RequestFilter> baseRequestFilters;
   private String baseUrl;
   private String certificateAlias;
   private ObjectMap configurations;
+  private Duration connectTimeout;
   private char[] keystorePassword;
   private String keystorePath;
-  private List<RequestFilter> baseRequestFilters;
+  private Duration requestTimeout;
   private boolean skipHostNameVerify;
 
   public static class AccessorConnectionSettingsBuilder {
@@ -45,6 +48,16 @@ public class AccessorConnectionSettings implements ConnectionSettings {
       return this;
     }
 
+  }
+
+  @Override
+  public final Duration getConnectTimeout() {
+    return connectTimeout;
+  }
+
+  @Override
+  public final Duration getRequestTimeout() {
+    return requestTimeout;
   }
 
   @Override

@@ -100,9 +100,9 @@ public class HttpClientFilter extends RequestFilterBase {
       // NOTE: Good writeup on timeouts: https://www.baeldung.com/httpclient-timeout
       RequestConfig requestConfig = RequestConfig
           .custom()
-          .setConnectionRequestTimeout((int) httpRequest.getRequestTimeOut().toMillis())
-          .setConnectTimeout((int) httpRequest.getRequestTimeOut().toMillis())
-          .setSocketTimeout((int) httpRequest.getRequestTimeOut().toMillis())
+          .setConnectionRequestTimeout((int) httpRequest.getRequestTimeout().toMillis())
+          .setConnectTimeout((int) httpRequest.getConnectTimeout().toMillis())
+          .setSocketTimeout((int) httpRequest.getRequestTimeout().toMillis())
           .setCookieSpec(CookieSpecs.STANDARD)
           .build();
 
