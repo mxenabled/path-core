@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [4.1.0](https://github.com/mxenabled/path-core/compare/v4.0.0...v4.1.0) (2024-09-05)
+
+
+### Features
+
+* add configurable ConnectTimeout and RequestTimeout ([232987d](https://github.com/mxenabled/path-core/commit/232987dfbab9924e79244f1c2e231a4d3ca4a9e4))
+
 ## [4.0.0](https://github.com/mxenabled/path-core/compare/v3.15.0...v4.0.0) (2024-08-21)
 
 
