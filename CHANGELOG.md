@@ -5,6 +5,15 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [4.1.1](https://github.com/mxenabled/path-core/compare/v4.1.0...v4.1.1) (2024-09-05)
+
+
+### Bug Fixes
+
+* change name of variable to avoid http://checkstyle.sourceforge.io/config_coding.html#HiddenField ([1cdb774](https://github.com/mxenabled/path-core/commit/1cdb774e552a7651c92a4375901f4a3430ba682b))
+* deprecate function ([fbedb5d](https://github.com/mxenabled/path-core/commit/fbedb5d636505765b99ddff852cf22ae041549a1))
+* drop default connect timeout to 5 seconds ([d57c26a](https://github.com/mxenabled/path-core/commit/d57c26afe6805af5b3b05ded25402e5c8a7ccfd7))
+
 ## [4.1.0](https://github.com/mxenabled/path-core/compare/v4.0.0...v4.1.0) (2024-09-05)
 
 
