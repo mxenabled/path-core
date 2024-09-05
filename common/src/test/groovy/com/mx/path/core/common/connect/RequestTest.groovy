@@ -313,7 +313,7 @@ class RequestTest extends Specification {
         .withHeader("headerKey", "headerValue")
         .withPath("/some/path")
         .withQueryStringParams(new SingleValueMap<String, String>().tap {put("key", "value")})
-        .withTimeout(Duration.ofMillis(100))
+        .withRequestTimeout(Duration.ofMillis(100))
 
     when: "same instance"
     def sameRequestInstance = request
@@ -338,7 +338,7 @@ class RequestTest extends Specification {
         .withHeader("headerKey", "headerValue")
         .withPath("/some/path")
         .withQueryStringParams(new SingleValueMap<String, String>().tap {put("key", "value")})
-        .withTimeout(Duration.ofMillis(100))
+        .withRequestTimeout(Duration.ofMillis(100))
 
     then:
     request.equals(requestWithSameProperties)
@@ -354,7 +354,7 @@ class RequestTest extends Specification {
         .withHeader("headerKey", "headerValue2")
         .withPath("/some/other/path")
         .withQueryStringParams(new SingleValueMap<String, String>().tap {put("key", "value2")})
-        .withTimeout(Duration.ofMillis(100))
+        .withRequestTimeout(Duration.ofMillis(100))
 
     then:
     !request.equals(requestWithDifferentProperties)

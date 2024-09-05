@@ -144,7 +144,8 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   @Deprecated
   private Duration timeOut;
 
-  private Duration timeout;
+  @Setter
+  private Duration requestTimeout;
 
   @Getter
   @Setter
@@ -223,16 +224,16 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
    */
   @Deprecated
   public final Duration getRequestTimeOut() {
-    return timeOut == null ? DEFAULT_REQUEST_TIMEOUT : timeOut;
+    return requestTimeout == null ? DEFAULT_REQUEST_TIMEOUT : requestTimeout;
   }
 
   /**
    * @return Request timeout in milliseconds
    */
   public final Duration getRequestTimeout() {
-    timeout = (timeout == null) ? connectionSettings.getRequestTimeout() : timeout;
-    timeout = (timeout == null) ? DEFAULT_REQUEST_TIMEOUT : timeout;
-    return timeout;
+    requestTimeout = (requestTimeout == null) ? connectionSettings.getRequestTimeout() : requestTimeout;
+    requestTimeout = (requestTimeout == null) ? DEFAULT_REQUEST_TIMEOUT : requestTimeout;
+    return requestTimeout;
   }
 
   public final String getTraceKey() {
@@ -285,8 +286,9 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
     this.headers = new SingleValueMap<>(singleValueMap);
   }
 
+  @Deprecated
   public final void setTimeout(Duration timeout) {
-    this.timeout = timeout;
+    this.requestTimeout = timeout;
   }
 
   /**
@@ -533,7 +535,7 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   @Deprecated
   @SuppressWarnings("unchecked")
   public final REQ withTimeOut(Duration requestTimeOut) {
-    setTimeout(requestTimeOut);
+    setRequestTimeout(requestTimeOut);
     return (REQ) this;
   }
 
@@ -542,8 +544,8 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
    * @return this
    */
   @SuppressWarnings("unchecked")
-  public final REQ withTimeout(Duration requestTimeout) {
-    setTimeout(requestTimeout);
+  public final REQ withRequestTimeout(Duration requestTimeout) {
+    setRequestTimeout(requestTimeout);
     return (REQ) this;
   }
 
