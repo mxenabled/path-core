@@ -544,8 +544,8 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
    * @return this
    */
   @SuppressWarnings("unchecked")
-  public final REQ withRequestTimeout(Duration requestTimeout) {
-    setRequestTimeout(requestTimeout);
+  public final REQ withRequestTimeout(Duration timeout) {
+    setRequestTimeout(timeout);
     return (REQ) this;
   }
 
