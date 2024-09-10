@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.google.common.base.Strings;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -84,6 +85,11 @@ public class UpstreamLogger {
 
     Request request = response.getRequest();
     MDC.put("request_method", request.getMethod());
+    if (Strings.isNullOrEmpty(request.getMethod())) {
+      MDC.put("method", request.getMethod().toUpperCase()); // Duplicated and upcased for consistency with other logs
+    } else {
+      MDC.remove("method");
+    }
     MDC.put("request_uri", LOGMASKER.maskPayload(request.getUri()));
     MDC.put("span_id", request.getTraceSpanId());
     MDC.put("trace_id", request.getTraceId());
@@ -148,10 +154,14 @@ public class UpstreamLogger {
 
     if (response.getException() != null) {
       Exception exception = response.getException();
-      MDC.put("exception", LoggingExceptionFormatter.formatLoggingExceptionWithStacktrace(exception));
+      MDC.put("exception", exception.getClass().getCanonicalName());
+      MDC.put("exception_message", exception.getMessage());
+      MDC.put("exception_stacktrace", LoggingExceptionFormatter.formatLoggingExceptionWithStacktrace(exception));
       logger.error("Upstream request failed", exception);
     } else {
       MDC.remove("exception");
+      MDC.remove("exception_message");
+      MDC.remove("exception_stacktrace");
       logger.info("Upstream Request");
     }
 
@@ -161,6 +171,9 @@ public class UpstreamLogger {
     MDC.remove("client_id");
     MDC.remove("device_trace_id");
     MDC.remove("exception");
+    MDC.remove("exception_message");
+    MDC.remove("exception_stacktrace");
+    MDC.remove("method");
     MDC.remove("parent_id");
     MDC.remove("path");
     MDC.remove("request_attempt");
