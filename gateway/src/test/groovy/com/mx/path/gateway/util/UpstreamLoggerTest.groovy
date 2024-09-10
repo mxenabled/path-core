@@ -72,6 +72,10 @@ class UpstreamLoggerTest extends Specification implements WithSessionRepository 
     then:
     MDC.get("api_request_payload") == null
     MDC.get("device_trace_id") == null
+    MDC.get("exception") == null
+    MDC.get("exception_message") == null
+    MDC.get("exception_stacktrace") == null
+    MDC.get("method") == null
     MDC.get("log_guid") == null
     MDC.get("request_attempt") == null
   }
