@@ -1,6 +1,8 @@
 package com.mx.path.gateway.configuration;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,6 +14,7 @@ import java.util.stream.Collectors;
 
 import lombok.Setter;
 
+import com.mx.path.core.common.accessor.AfterAccessorInitialize;
 import com.mx.path.core.common.accessor.RootAccessor;
 import com.mx.path.core.common.collection.ObjectMap;
 import com.mx.path.core.common.connect.AccessorConnectionSettings;
@@ -147,6 +150,8 @@ public class AccessorStackConfigurator {
     validateServiceScope(accessorType);
     AccessorScope accessorScope = determineAccessorScope(node, accessorType);
     Class<?> proxyType = AccessorProxyMap.get(accessorScope.getName(), Accessor.getAccessorBase(accessorType));
+
+    invokeAfterInitializeMethods(accessorType);
 
     return new ClassHelper().buildInstance(Accessor.class, proxyType, configurationBuilder.build(), accessorType);
   }
@@ -322,6 +327,20 @@ public class AccessorStackConfigurator {
   private void validateServiceScope(Class<? extends Accessor> accessor) {
     if (!accessor.isAnnotationPresent(ServiceScope.class)) {
       LOGGER.warn("Class missing ServiceScope annotation. This will be required in the future. (" + accessor.getCanonicalName() + ")");
+    }
+  }
+
+  private void invokeAfterInitializeMethods(Class<?> accessorClass) {
+    Method[] methods = accessorClass.getMethods();
+
+    for (Method method : methods) {
+      if (method.isAnnotationPresent(AfterAccessorInitialize.class) && (method.getModifiers() & Modifier.STATIC) != 0) {
+        try {
+          method.invoke(null);
+        } catch (Exception e) {
+          throw new RuntimeException("Failed to invoke @AfterAccessorInitialize method: " + method.getName(), e);
+        }
+      }
     }
   }
 }

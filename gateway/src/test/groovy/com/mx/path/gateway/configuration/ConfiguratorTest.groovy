@@ -7,7 +7,6 @@ import static org.mockito.Mockito.times
 import static org.mockito.Mockito.verify
 
 import com.mx.path.gateway.Gateway
-import com.mx.testing.gateway.BaseGateway
 import com.mx.testing.gateway.TestAccountGateway
 import com.mx.testing.gateway.TestGateway
 import com.mx.testing.gateway.TestIdGateway
