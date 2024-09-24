@@ -15,11 +15,15 @@ public @interface Connection {
 
   /**
    * The connection name to be bound from gateway configuration.
+   *
+   * @return connection name
    */
   String value();
 
   /**
    * Indicates whether the connection is optionally required to be configured in the gateway configuration. Default is false.
+   *
+   * @return false if connection is not required to be configured on gateway, true otherwise
    */
   boolean optional() default false;
 }

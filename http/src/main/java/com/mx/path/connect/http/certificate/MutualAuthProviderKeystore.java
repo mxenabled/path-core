@@ -23,6 +23,11 @@ public class MutualAuthProviderKeystore implements MutualAuthProvider {
 
   // MutualAuthProvider
 
+  /**
+   * Build new {@link MutualAuthProviderKeystore} using provided {@link ConnectionSettings}.
+   *
+   * @param settings {@link ConnectionSettings} used to configure {@link KeyStoreBuilder}
+   */
   public MutualAuthProviderKeystore(ConnectionSettings settings) {
     this.keyStoreBuilder = new KeyStoreBuilder(settings);
   }
@@ -31,7 +36,7 @@ public class MutualAuthProviderKeystore implements MutualAuthProvider {
    * Add keystores to webclient.
    * <p>For more info, see https://stackoverflow.com/questions/45418523/spring-5-webclient-using-ssl
    *
-   * @param builder
+   * @param builder helper client builder class
    * @return Builder
    */
   @Override

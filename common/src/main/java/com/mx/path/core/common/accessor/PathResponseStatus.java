@@ -14,37 +14,37 @@ import com.mx.path.core.common.http.HttpStatus;
 public enum PathResponseStatus {
 
   /**
-   * Request successful with a response body
+   * Request successful with a response body.
    */
   OK(200, "Successful", false),
 
   /**
-   * Request successful with a challenge response body
+   * Request successful with a challenge response body.
    */
   ACCEPTED(202, "Accepted", false),
 
   /**
-   * Request successful with no response body
+   * Request successful with no response body.
    */
   NO_CONTENT(204, "No response context", false),
 
   /**
-   * The request body is incorrect or failed validation
+   * The request body is incorrect or failed validation.
    */
   BAD_REQUEST(400, "Bad request", true),
 
   /**
-   * The request not allowed because user is not authenticated, the session is no longer valid
+   * The request not allowed because user is not authenticated, the session is no longer valid.
    */
   UNAUTHORIZED(401, "Unauthorized", true),
 
   /**
-   * The current user is not allowed to perform the requested operation
+   * The current user is not allowed to perform the requested operation.
    */
   NOT_ALLOWED(403, "Operation not allowed", true),
 
   /**
-   * The requested resource does not exist or does not belong to the user
+   * The requested resource does not exist or does not belong to the user.
    * <p>This should <i>not</i> be used in the case a list is requested and the list is empty. In that case,
    * the response status should be OK with an empty list.
    */
@@ -111,6 +111,13 @@ public enum PathResponseStatus {
 
   private final int value;
 
+  /**
+   * Build new {@link PathResponseStatus} instance with specified parameters.
+   *
+   * @param value value associated with status
+   * @param description description
+   * @param error true if is error
+   */
   PathResponseStatus(int value, String description, boolean error) {
     this.description = description;
     this.error = error;
@@ -119,13 +126,17 @@ public enum PathResponseStatus {
 
   /**
    * Return the integer value of this status code.
+   *
+   * @return value
    */
   public int value() {
     return this.value;
   }
 
   /**
-   * Return the integer value of this status code.
+   * Return if this response is error.
+   *
+   * @return true if is error
    */
   public boolean isError() {
     return this.error;
@@ -133,6 +144,8 @@ public enum PathResponseStatus {
 
   /**
    * Return the reason phrase of this status code.
+   *
+   * @return phrase
    */
   public String getReasonPhrase() {
     return this.description;
@@ -141,6 +154,8 @@ public enum PathResponseStatus {
   /**
    * Return the HTTP status series of this status code.
    * @see PathResponseStatus.Series
+   *
+   * @return series
    */
   public PathResponseStatus.Series series() {
     return PathResponseStatus.Series.valueOf(this);
@@ -155,6 +170,8 @@ public enum PathResponseStatus {
 
   /**
    * Return a string representation of this status code.
+   *
+   * @return string representation
    */
   @Override
   public String toString() {
@@ -197,16 +214,47 @@ public enum PathResponseStatus {
    */
   public enum Series {
 
-    INFORMATIONAL(1), SUCCESSFUL(2), REDIRECTION(3), CLIENT_ERROR(4), SERVER_ERROR(5);
+    /**
+     * This category indicates that the request was received and understood,
+     * and that the client should proceed with the request.
+     */
+    INFORMATIONAL(1),
+    /**
+     * This category indicates that the request was successfully received,
+     * understood, and accepted.
+     */
+    SUCCESSFUL(2),
+    /**
+     * This category indicates that further action needs to be taken
+     * by the client to complete the request (e.g., a redirect).
+     */
+    REDIRECTION(3),
+    /**
+     * This category indicates that the client made an error in the request
+     * (e.g., malformed syntax or unauthorized access).
+     */
+    CLIENT_ERROR(4),
+    /**
+     * This category indicates that the server failed to fulfill a valid request
+     * due to an error on the server's side.
+     */
+    SERVER_ERROR(5);
 
     private final int value;
 
+    /**
+     * Build new {@link Series} with specified value.
+     *
+     * @param value value
+     */
     Series(int value) {
       this.value = value;
     }
 
     /**
      * Return the integer value of this status series. Ranges from 1 to 5.
+     *
+     * @return value
      */
     public int value() {
       return this.value;
@@ -214,6 +262,7 @@ public enum PathResponseStatus {
 
     /**
      * Return the enum constant of this type with the corresponding series.
+     *
      * @param status a standard HTTP status enum value
      * @return the enum constant of this type with the corresponding series
      * @throws IllegalArgumentException if this enum has no corresponding constant
@@ -224,6 +273,7 @@ public enum PathResponseStatus {
 
     /**
      * Return the enum constant of this type with the corresponding series.
+     *
      * @param statusCode the HTTP status code (potentially non-standard)
      * @return the enum constant of this type with the corresponding series
      * @throws IllegalArgumentException if this enum has no corresponding constant
@@ -238,6 +288,7 @@ public enum PathResponseStatus {
 
     /**
      * Resolve the given status code to an {@code PathResponseStatus.Series}, if possible.
+     *
      * @param statusCode the HTTP status code (potentially non-standard)
      * @return the corresponding {@code Series}, or {@code null} if not found
      * @since 5.1.3

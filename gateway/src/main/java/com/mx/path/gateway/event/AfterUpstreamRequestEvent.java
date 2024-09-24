@@ -9,7 +9,7 @@ import com.mx.path.core.context.RequestContext;
 import com.mx.path.core.context.Session;
 
 /**
- * Fires after a request is executed
+ * Fires after a request is executed.
  */
 @Builder
 @Getter
@@ -18,6 +18,11 @@ public class AfterUpstreamRequestEvent implements UpstreamRequestEvent {
   private final RequestContext requestContext;
   private final Session session;
 
+  /**
+   * Return event request.
+   *
+   * @return request
+   */
   @Override
   public final Request getRequest() {
     if (getResponse() == null) {

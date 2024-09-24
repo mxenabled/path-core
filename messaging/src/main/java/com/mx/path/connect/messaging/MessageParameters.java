@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 
 import com.google.gson.Gson;
 
+/**
+ * Data class for http request parameters.
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -17,9 +20,19 @@ import com.google.gson.Gson;
 public class MessageParameters {
   private static final Gson GSON = new Gson();
 
+  /**
+   * Helper class with fields and methods for {@link MessageParameters}.
+   */
   public static class MessageParametersBuilder {
     private Map<String, String> parameters = new LinkedHashMap<>();
 
+    /**
+     * Add a parameter to the request with the specified name and value.
+     *
+     * @param name name of the parameter to be added
+     * @param value value associated with parameter
+     * @return current {@link MessageParametersBuilder} instance
+     */
     public final MessageParametersBuilder parameter(String name, String value) {
       parameters.put(name, value);
       return this;
@@ -34,8 +47,49 @@ public class MessageParameters {
     return GSON.fromJson(json, MessageParameters.class);
   }
 
+  /**
+   * Map of parameters.
+   *
+   * -- GETTER --
+   * Return parameter's map.
+   *
+   * @return parameter's map
+   *
+   * -- SETTER --
+   * Set parameter's map.
+   *
+   * @param parameters parameter's map to set
+   */
   private Map<String, String> parameters = new LinkedHashMap<>();
+
+  /**
+   * Id of request.
+   *
+   * -- GETTER --
+   * Return id value.
+   *
+   * @return id value
+   *
+   * -- SETTER --
+   * Set id value.
+   *
+   * @param id id value to set
+   */
   private String id;
+
+  /**
+   * User id of request.
+   *
+   * -- GETTER --
+   * Return user id value.
+   *
+   * @return user id value
+   *
+   * -- SETTER --
+   * Set user id value.
+   *
+   * @param userId user id value to set
+   */
   private String userId;
 
   /**

@@ -7,7 +7,7 @@ import com.mx.path.core.common.connect.Response;
 import com.mx.path.gateway.util.UpstreamLogger;
 
 /**
- * Handles request exceptions
+ * Handles request exceptions.
  *
  * <pre>
  *   Runs next
@@ -21,16 +21,30 @@ public class ErrorHandlerFilter extends RequestFilterBase {
 
   private static UpstreamLogger upstreamLogger = new UpstreamLogger();
 
+  /**
+   * Create and set new instance of {@link UpstreamLogger}.
+   */
   public static void resetUpstreamLogger() {
     ErrorHandlerFilter.upstreamLogger = new UpstreamLogger();
   }
 
+  /**
+   * Set upstream logger.
+   *
+   * @param upstreamLogger logger to set
+   */
   public static void setUpstreamLogger(UpstreamLogger upstreamLogger) {
     ErrorHandlerFilter.upstreamLogger = upstreamLogger;
   }
 
   // Public
 
+  /**
+   * Execute request.
+   *
+   * @param request  Request
+   * @param response Response
+   */
   @Override
   public final void execute(Request request, Response response) {
     try {

@@ -28,19 +28,27 @@ import com.mx.path.gateway.accessor.AccessorMethodDefinition;
 import com.mx.path.gateway.accessor.AccessorResponse;
 
 /**
- * Utility class for generating accessor descriptions
+ * Utility class for generating accessor descriptions.
  *
  * <p>Uses the {@link API} annotation from base accessors and implementing classes
  * to build a description of the implementation.
  */
 public class AccessorDescriber {
 
+  /**
+   * Data class with accessor description fields.
+   */
   @Data
   static class Description {
     private String description;
     private String notes;
     private String specification;
 
+    /**
+     * Add this description fields to provided {@link ObjectMap}.
+     *
+     * @param desc map to add fields
+     */
     public final void describe(ObjectMap desc) {
       if (Strings.isNotBlank(description)) {
         desc.put("description", description);
@@ -56,6 +64,9 @@ public class AccessorDescriber {
     }
   }
 
+  /**
+   * Data class with method definition fields.
+   */
   @Builder
   static class MethodDefinition {
     private String name;
@@ -63,12 +74,24 @@ public class AccessorDescriber {
     private API annotation;
   }
 
+  /**
+   * Describe given accessor and return description on {@link ObjectMap}.
+   *
+   * @param accessor accessor to describe
+   * @return {@link ObjectMap} with description
+   */
   public final ObjectMap describe(@Nonnull Accessor accessor) {
     ObjectMap result = new ObjectMap();
     describe(accessor, result);
     return result;
   }
 
+  /**
+   * Fill {@link ObjectMap} with accessor description.
+   *
+   * @param accessor accessor to describe
+   * @param result object to set accessor description
+   */
   public final void describe(@Nonnull Accessor accessor, @Nonnull ObjectMap result) {
     Class<? extends Accessor> klass;
     Class<? extends Accessor> proxyClass = null;
@@ -86,6 +109,12 @@ public class AccessorDescriber {
     describeConfiguration(result, accessor);
   }
 
+  /**
+   * Include child accessors on {@link ObjectMap} descriptions.
+   *
+   * @param accessor accessor to describe
+   * @return description of accessor and accessor's children
+   */
   public final ObjectMap describeDeep(@Nonnull Accessor accessor) {
     ObjectMap description = new ObjectMap();
     describeDeep(accessor, description);
@@ -93,6 +122,12 @@ public class AccessorDescriber {
     return description;
   }
 
+  /**
+   * Fill {@link ObjectMap} with acessor and accessor's children description.
+   *
+   * @param accessor accessor to describe
+   * @param description object to set accessor and accessor's children description
+   */
   public final void describeDeep(@Nonnull Accessor accessor, @Nonnull ObjectMap description) {
     AccessorDescriber describer = new AccessorDescriber();
     describer.describe(accessor, description);

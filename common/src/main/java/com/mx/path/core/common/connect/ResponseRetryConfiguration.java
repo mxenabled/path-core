@@ -76,8 +76,9 @@ import com.mx.path.core.common.process.RetryConfiguration;
 @SuperBuilder
 public class ResponseRetryConfiguration<RESP extends Response<?, ?>> extends RetryConfiguration<RESP> {
   /**
-   * Bypass configuration and wrap existing retryer
-   * @param instance
+   * Bypass configuration and wrap existing retryer.
+   *
+   * @param instance instance
    */
   public ResponseRetryConfiguration(Retryer<?> instance) {
     super(instance);
@@ -105,6 +106,10 @@ public class ResponseRetryConfiguration<RESP extends Response<?, ?>> extends Ret
   @ConfigurationField(elementType = ResponseMatcher.class)
   private List<ResponseMatcher<Response<?, ?>>> onResponse;
 
+  /**
+   * Helper builder class.
+   * @return self
+   */
   @Override
   protected final RetryerBuilder<RESP> instanceBuilder() {
     if (onResponse != null) {

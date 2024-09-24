@@ -4,12 +4,16 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
+/**
+ * Utility class to build generic classes.
+ */
 public class Constructors {
 
   /**
-   * Get no-argument constructor for given class
-   * @param klass
-   * @return no argument constructor if defined, other wise null.
+   * Get no-argument constructor for given class.
+   *
+   * @param klass class to build
+   * @return no argument constructor if defined, otherwise null.
    */
   @SuppressWarnings("unchecked")
   public static <T> Constructor<T> getNoArgumentConstructor(Class<T> klass) {
@@ -21,9 +25,10 @@ public class Constructors {
   }
 
   /**
-   * Create instance of given class using no-argument constructor
-   * @param klass
-   * @return
+   * Create instance of given class using no-argument constructor.
+   *
+   * @param klass class to build
+   * @return new class instance
    */
   @SuppressWarnings("unchecked")
   public static <T> T instantiateWithNoArgumentConstructor(Class<T> klass) {
@@ -47,10 +52,11 @@ public class Constructors {
 
   /**
    * Gets constructor with matching arg types. Returns null if not found.
-   * @param klass
-   * @param argClasses
-   * @return
-   * @param <T>
+   *
+   * @param klass class to build
+   * @param argClasses arguments
+   * @return new instance of class
+   * @param <T> class type
    */
   public static <T> Constructor<T> safeGetConstructor(Class<T> klass, Class<?>... argClasses) {
     try {
@@ -62,10 +68,11 @@ public class Constructors {
 
   /**
    * Create instance using constructor. Returns null if construction fails.
-   * @param constructor
-   * @param args
-   * @return
-   * @param <T>
+   *
+   * @param constructor constructor
+   * @param args arguments
+   * @return new instance of class
+   * @param <T> class type
    */
   public static <T> T safeInstantiate(Constructor<T> constructor, Object... args) {
     if (constructor == null) {

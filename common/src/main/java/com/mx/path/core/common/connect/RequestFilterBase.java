@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Base class for all executors
+ * Base class for all executors.
  *
  * <p>Provides handle to next item in chain.
  *
@@ -22,11 +22,14 @@ public abstract class RequestFilterBase implements RequestFilter {
     this.next = next;
   }
 
+  /**
+   * Default constructor.
+   */
   public RequestFilterBase() {
   }
 
   /**
-   * Execute next executor in chain
+   * Execute next executor in chain.
    *
    * @param request  Request
    * @param response Response
@@ -39,7 +42,7 @@ public abstract class RequestFilterBase implements RequestFilter {
   }
 
   /**
-   * Does the work of the executor
+   * Does the work of the executor.
    *
    * @param request  Request
    * @param response Response

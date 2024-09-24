@@ -17,6 +17,13 @@ import com.mx.path.gateway.event.BeforeUpstreamRequestEvent;
  * Uses the client-configured EventBus facility to post the events
  */
 public class UpstreamRequestEventFilter extends RequestFilterBase {
+
+  /**
+   * Execute this filter.
+   *
+   * @param request  Request
+   * @param response Response
+   */
   @Override
   public final void execute(Request request, Response response) {
     RequestContext requestContext = RequestContext.current();

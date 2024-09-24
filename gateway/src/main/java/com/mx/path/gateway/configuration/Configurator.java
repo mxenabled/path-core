@@ -61,6 +61,8 @@ import org.apache.commons.text.EnvironmentStringSubstitutor;
  *
  * <p><b>Lifecycle events</b>
  * <p>See {@link ConfiguratorObserver}</p>
+ *
+ * @param <T> extended gateway
  */
 public abstract class Configurator<T extends Gateway<?>> {
   private static final int MAX_YAML_ALIASES = 100;
@@ -70,14 +72,34 @@ public abstract class Configurator<T extends Gateway<?>> {
   private final AccessorStackConfigurator accessorConfigurator = new AccessorStackConfigurator(state);
   private final BehaviorStackConfigurator behaviorStackConfigurator = new BehaviorStackConfigurator(state);
   private final GatewayObjectConfigurator gatewayObjectConfigurator = new GatewayObjectConfigurator(state);
+
+  /**
+   * Return configurator root gateway class.
+   *
+   * @return root gateway class
+   */
   @Getter
   private final Class<T> rootGatewayClass;
+
+  /**
+   * -- GETTER --
+   * Return configurator observer.
+   *
+   * @return observer
+   * -- SETTER --
+   * Set configurator observer.
+   *
+   * @param observer observer to set
+   */
   @Getter
   @Setter(AccessLevel.PACKAGE)
   private ConfiguratorObserver<T> observer;
 
   // Constructors
 
+  /**
+   * Configurator default constructor.
+   */
   @SuppressWarnings("unchecked")
   public Configurator() {
     this.rootGatewayClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -85,11 +107,11 @@ public abstract class Configurator<T extends Gateway<?>> {
   }
 
   /**
-   * Build gateway from a configuration ObjectMap
+   * Build gateway from a configuration ObjectMap.
    *
-   * @param map ObjectMap of configuration
-   * @param clientId Client ID
-   * @return Configured gateway
+   * @param map objectMap of configuration
+   * @param clientId client ID
+   * @return configured gateway
    */
   public final T buildGateway(ObjectMap map, String clientId) {
     behaviorStackConfigurator.setRootBehaviors(map.getArray("rootBehaviors"));
@@ -103,7 +125,7 @@ public abstract class Configurator<T extends Gateway<?>> {
   }
 
   /**
-   * Build gateway from json string
+   * Build gateway from json string.
    *
    * @param json string
    * @return T
@@ -118,6 +140,12 @@ public abstract class Configurator<T extends Gateway<?>> {
     return buildGateways(map);
   }
 
+  /**
+   * Build gateway from yaml file.
+   *
+   * @param document path to yaml
+   * @return T
+   */
   public final Map<String, T> buildFromYaml(String document) {
     if (Strings.isBlank(document)) {
       return new LinkedHashMap<>();

@@ -15,14 +15,31 @@ import com.mx.path.core.common.configuration.InvalidStateException;
  * </pre>
  */
 public abstract class PathSystemException extends RuntimeException {
+
+  /**
+   * Build new {@link PathSystemException} with specified parameters.
+   *
+   * @param message message
+   */
   public PathSystemException(String message) {
     super(message == null ? "" : message);
   }
 
+  /**
+   * Build new {@link PathSystemException} with specified parameters.
+   *
+   * @param cause cause
+   */
   public PathSystemException(Throwable cause) {
     super(cause);
   }
 
+  /**
+   * Build new {@link PathSystemException} with specified parameters.
+   *
+   * @param message message
+   * @param cause cause
+   */
   public PathSystemException(String message, Throwable cause) {
     super(message == null ? "" : message, cause);
   }

@@ -26,8 +26,8 @@ public interface FaultTolerantExecutor {
    * configurations should be selected for the provided task. Finally, if the scope {@code remote.payouts.update} is provided,
    * none of the custom configurations should be selected and the defaults should be used.
    *
-   * @param scope
-   * @param task
+   * @param scope scope
+   * @param task task
    */
   void submit(String scope, FaultTolerantTask task);
 }

@@ -3,7 +3,7 @@ package com.mx.path.core.common.process;
 import lombok.experimental.SuperBuilder;
 
 /**
- * Used to retry an arbitrary block of code according to configuration values
+ * Used to retry an arbitrary block of code according to configuration values.
  *
  * <p>See {@link RetryConfiguration} for base behavior.
  * <p>For Request retries, see {@link com.mx.path.core.common.connect.ResponseRetryConfiguration}

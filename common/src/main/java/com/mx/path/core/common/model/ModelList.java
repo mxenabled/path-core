@@ -14,9 +14,9 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * List of ModelBase
+ * List of ModelBase.
  *
- * @param <T>
+ * @param <T> model type
  */
 public class ModelList<T extends ModelBase<?>> implements List<T>, ModelWrappable<ModelList<T>> {
   private static final Map<Class<?>, Class<?>> CACHED_TYPE_TO_LIST_TYPE = new LinkedHashMap<>();

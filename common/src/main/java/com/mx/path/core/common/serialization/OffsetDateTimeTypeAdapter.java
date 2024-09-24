@@ -23,7 +23,7 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * OffsetDateTime deserializer for use with Gson
+ * OffsetDateTime deserializer for use with Gson.
  *
  * <p>Default Behavior:
  *
@@ -72,6 +72,10 @@ import com.google.gson.stream.JsonWriter;
  */
 @Builder
 public class OffsetDateTimeTypeAdapter extends TypeAdapter<OffsetDateTime> {
+
+  /**
+   * Default TypeAdapter serialization format.
+   */
   public static final String DEFAULT_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
 
   private static final List<DateTimeFormatter> DEFAULT_FORMAT_STRINGS;
@@ -92,6 +96,9 @@ public class OffsetDateTimeTypeAdapter extends TypeAdapter<OffsetDateTime> {
 
   private String serializeFormat;
 
+  /**
+   * Helper builder class.
+   */
   public static class OffsetDateTimeTypeAdapterBuilder {
 
     private ZoneOffset defaultZoneOffset = ZoneOffset.UTC;
@@ -101,7 +108,7 @@ public class OffsetDateTimeTypeAdapter extends TypeAdapter<OffsetDateTime> {
     private String serializeFormat = "OBJECT";
 
     /**
-     * Provide a ZoneOffset to be used if no ZoneOffset is present
+     * Provide a ZoneOffset to be used if no ZoneOffset is present.
      *
      * @param zoneOffset ZoneOffset
      * @return builder
@@ -112,7 +119,7 @@ public class OffsetDateTimeTypeAdapter extends TypeAdapter<OffsetDateTime> {
     }
 
     /**
-     * Provide a OffsetDateTime string format that is accepted
+     * Provide a OffsetDateTime string format that is accepted.
      *
      * <p>The formats need to be provided according to {@link DateTimeFormatter} specs.
      *
@@ -125,7 +132,7 @@ public class OffsetDateTimeTypeAdapter extends TypeAdapter<OffsetDateTime> {
     }
 
     /**
-     * Provide format for serializing a OffsetDateTime object to JSON
+     * Provide format for serializing a OffsetDateTime object to JSON.
      *
      * @param format A DateTimeFormatter format String or
      *               OBJECT to serialize as an object (default)
@@ -137,19 +144,48 @@ public class OffsetDateTimeTypeAdapter extends TypeAdapter<OffsetDateTime> {
     }
   }
 
+  /**
+   * LocalTime with offset logic.
+   */
   static class LocalTimeWithOffset {
+
+    /**
+     * -- GETTER --
+     * Return local time.
+     *
+     * @return local time
+     */
     @Getter
     private final LocalTime time;
 
+    /**
+     * -- GETTER --
+     * Return zone offset.
+     *
+     * @return zone offset
+     */
     @Getter
     private final ZoneOffset zoneOffset;
 
+    /**
+     * Build new {@link LocalTimeWithOffset} with specified parameters.
+     *
+     * @param time time
+     * @param zoneOffset offset
+     */
     LocalTimeWithOffset(LocalTime time, ZoneOffset zoneOffset) {
       this.time = time;
       this.zoneOffset = zoneOffset;
     }
   }
 
+  /**
+   * Write to json.
+   *
+   * @param out output
+   * @param value the Java object to write. May be null.
+   * @throws IOException to be thrown
+   */
   @Override
   public final void write(JsonWriter out, OffsetDateTime value) throws IOException {
     if (value == null) {
@@ -164,6 +200,13 @@ public class OffsetDateTimeTypeAdapter extends TypeAdapter<OffsetDateTime> {
     }
   }
 
+  /**
+   * Read from json.
+   *
+   * @param in input
+   * @return value
+   * @throws IOException to be thrown
+   */
   @Override
   public final OffsetDateTime read(JsonReader in) throws IOException {
     if (in.peek() == JsonToken.NULL) {

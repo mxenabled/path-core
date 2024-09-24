@@ -16,8 +16,16 @@ import java.util.Map;
 
 import com.mx.path.core.common.lang.Strings;
 
+/**
+ * Represents a keystore that has been loaded from a file and is ready for use.
+ * This class encapsulates the keystore data and associated metadata.
+ */
 public final class LoadedKeystore {
 
+  /**
+   * Represents a pair of cryptographic keys consisting of a public key and a private key,
+   * along with an associated certificate.
+   */
   public static class KeyPair {
     private X509Certificate certificate;
     private PrivateKey key;
@@ -29,14 +37,29 @@ public final class LoadedKeystore {
       this.certificate = certificate;
     }
 
+    /**
+     * Return private key.
+     *
+     * @return {@link PrivateKey}
+     */
     public final PrivateKey getKey() {
       return key;
     }
 
+    /**
+     * Return certificate.
+     *
+     * @return {@link X509Certificate}
+     */
     public final X509Certificate getCertificate() {
       return certificate;
     }
 
+    /**
+     * Return public key.
+     *
+     * @return {@link PublicKey}
+     */
     public final PublicKey getPublicKey() {
       return publicKey;
     }
@@ -49,6 +72,13 @@ public final class LoadedKeystore {
   private char[] password;
   private Map<String, KeyPair> keyPairs = new HashMap<>();
 
+  /**
+   * Load {@link LoadedKeystore} from specified file path using provided password.
+   *
+   * @param path file path to the keystore
+   * @param password password used to access the keystore
+   * @return {@link LoadedKeystore} instance loaded from specified path
+   */
   public static LoadedKeystore load(String path, char[] password) {
     if (Strings.isBlank(path)) {
       throw new RuntimeException("Keystore path cannot be blank");
@@ -73,10 +103,20 @@ public final class LoadedKeystore {
     return loadedKeyStores.get(path);
   }
 
+  /**
+   * Return key store path.
+   *
+   * @return path
+   */
   public String getPath() {
     return path;
   }
 
+  /**
+   * Return key store.
+   *
+   * @return {@link KeyStore}
+   */
   public KeyStore getKeyStore() {
     return keyStore;
   }
@@ -87,6 +127,12 @@ public final class LoadedKeystore {
     this.password = password;
   }
 
+  /**
+   * Retrieve {@link KeyPair} associated with the specified alias.
+   *
+   * @param alias alias associated with key pair to be retrieved
+   * @return {@link KeyPair} associated with specified alias
+   */
   public KeyPair getKeyPair(String alias) {
     if (!keyPairs.containsKey(alias)) {
       synchronized (this) {

@@ -36,6 +36,14 @@ public class SystemTypeAdapterFactory implements TypeAdapterFactory {
   @Builder.Default
   private TypeAdapter<ZonedDateTime> zonedDateTimeTypeAdapter = ZonedDateTimeTypeAdapter.builder().build();
 
+  /**
+   * Create new type adapter for type T.
+   *
+   * @param gson gson
+   * @param type type to create type adapter
+   * @return new type adapter instance
+   * @param <T> type of object
+   */
   @SuppressWarnings("unchecked")
   @Override
   public final <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {

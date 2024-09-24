@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import lombok.Data;
 
 /**
- * Used by {@link LocalDateDeserializer}
+ * Used by {@link LocalDateDeserializer}.
  *
  * @deprecated Will be removed with {@link LocalDateDeserializer}
  */
@@ -16,12 +16,22 @@ public class LocalDateJava8 {
   private int month;
   private int year;
 
+  /**
+   * Build new {@link LocalDateJava8} instance.
+   *
+   * @param localDate local date
+   */
   public LocalDateJava8(LocalDate localDate) {
     this.day = localDate.getDayOfMonth();
     this.month = localDate.getMonthValue();
     this.year = localDate.getYear();
   }
 
+  /**
+   * Return local date.
+   *
+   * @return local date
+   */
   public final LocalDate toLocalDate() {
     return LocalDate.of(
         this.getYear(),

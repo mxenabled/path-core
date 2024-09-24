@@ -34,12 +34,27 @@ import com.squareup.javapoet.TypeSpec;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * Generate remote gateway classes.
+ */
 public class RemoteGatewayGenerator {
   private final Filer filer;
 
+  /**
+   * Build {@link RemoteGatewayGenerator} with the provided processing environment.
+   *
+   * @param processingEnvironment environment used during annotation processing.
+   */
   public RemoteGatewayGenerator(ProcessingEnvironment processingEnvironment) {
     this.filer = processingEnvironment.getFiler();
   }
+
+  /**
+   * Generates a remote class that extends RemoteService for the specified gateway class element.
+   *
+   * @param gatewayClassElement gateway class element to wrap and generate a remote class for
+   * @throws IOException to be thrown
+   */
 
   public final void generate(GatewayClassElement gatewayClassElement) throws IOException {
     String className = "Remote" + gatewayClassElement.getSimpleName();

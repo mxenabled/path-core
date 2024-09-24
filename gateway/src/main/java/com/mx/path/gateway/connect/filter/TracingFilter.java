@@ -18,6 +18,13 @@ import io.opentracing.util.GlobalTracer;
  * <p>Starts new span, sets propagation headers, runs next, closes span.
  */
 public class TracingFilter extends RequestFilterBase {
+
+  /**
+   * Execute this filter.
+   *
+   * @param request  Request
+   * @param response Response
+   */
   @Override
   public final void execute(Request request, Response response) {
     Tracer tracer = GlobalTracer.get();

@@ -29,13 +29,17 @@ import io.opentracing.Span;
 import io.opentracing.util.GlobalTracer;
 
 /**
- * Service that enables Path Connectors to listen for events and respond to requests for data
+ * Service that enables Path Connectors to listen for events and respond to requests for data.
  */
 public abstract class RemoteService<T> implements MessageResponder, EventListener {
 
   // Statics
 
   private static final Logger LOGGER = LoggerFactory.getLogger(RemoteService.class);
+
+  /**
+   * Helper constant to convert between seconds and milliseconds.
+   */
   public static final Integer NANO_TO_MILLISECONDS = 1000000;
 
   // Fields
@@ -47,6 +51,11 @@ public abstract class RemoteService<T> implements MessageResponder, EventListene
 
   /// Constructor
 
+  /**
+   * Build new {@link RemoteService} instance for given client id.
+   *
+   * @param clientId client id
+   */
   @SuppressWarnings("unchecked")
   public RemoteService(String clientId) {
     this.classOfT = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -57,6 +66,11 @@ public abstract class RemoteService<T> implements MessageResponder, EventListene
 
   // Getter/Setters
 
+  /**
+   * Set message broker supplier.
+   *
+   * @param messageBrokerSupplier message broker supplier
+   */
   public final void setMessageBrokerSupplier(Supplier<MessageBroker> messageBrokerSupplier) {
     this.messageBrokerSupplier = messageBrokerSupplier;
   }

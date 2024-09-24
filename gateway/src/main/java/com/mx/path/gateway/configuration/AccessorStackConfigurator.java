@@ -40,27 +40,41 @@ import com.mx.path.gateway.connect.filter.UpstreamRequestProcessorFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Builds and configure accessor stack.
+ */
 public class AccessorStackConfigurator {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AccessorStackConfigurator.class);
 
+  /**
+   * -- SETTER --
+   * Set configurator root accessor.
+   *
+   * @param rootAccessor root accessor to set
+   */
   @Setter
   private Accessor rootAccessor;
   private final ConfigurationState state;
 
+  /**
+   * Build new {@link AccessorStackConfigurator} instance with provided {@link ConfigurationState}.
+   *
+   * @param state state to set
+   */
   public AccessorStackConfigurator(ConfigurationState state) {
     this.state = state;
   }
 
   /**
-   * Build accessor proxy
+   * Build accessor proxy.
    *
-   * @param name
-   * @param map
-   * @param clientId
-   * @param builder
-   * @param parent
-   * @return
+   * @param name name of built accessor
+   * @param map configuration data map
+   * @param clientId clientId for built accessor
+   * @param builder builder object to build accessor
+   * @param parent parent of built accessor
+   * @return new accessor instance, null if accessor can't be created
    */
   @SuppressWarnings("unchecked")
   public Accessor buildAccessor(String name, ObjectMap map, String clientId, Object builder, Accessor parent) {
@@ -110,9 +124,10 @@ public class AccessorStackConfigurator {
 
   /**
    * Build an accessor given an accessor configuration node.
-   * @param clientId
-   * @param node
-   * @return new Accessor
+   *
+   * @param clientId clientId for built accessor
+   * @param node configuration map for built accessor
+   * @return new {@link Accessor} instance
    */
   @SuppressWarnings("unchecked")
   public final Accessor buildFromNode(String clientId, ObjectMap node) {
@@ -137,7 +152,8 @@ public class AccessorStackConfigurator {
   }
 
   /**
-   * Build an accessor from a parent's child accessor annotations
+   * Build an accessor from a parent's child accessor annotations.
+   *
    * @param name Name of accessor
    * @param clientId Client ID
    * @param parent Parent Accessor

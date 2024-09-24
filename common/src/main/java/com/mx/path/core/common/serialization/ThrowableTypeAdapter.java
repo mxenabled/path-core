@@ -45,6 +45,13 @@ public class ThrowableTypeAdapter extends TypeAdapter<Throwable> {
   @Builder.Default
   private Class<? extends Throwable> fallbackType = RuntimeException.class;
 
+  /**
+   * Write to json output.
+   *
+   * @param out output
+   * @param value the Java object to write. May be null.
+   * @throws IOException to be thrown
+   */
   @Override
   @SuppressFBWarnings("BC_UNCONFIRMED_CAST")
   @SuppressWarnings("PMD.CyclomaticComplexity")
@@ -106,6 +113,13 @@ public class ThrowableTypeAdapter extends TypeAdapter<Throwable> {
     // todo: handle headers?
   }
 
+  /**
+   * Read from json.
+   *
+   * @param in input
+   * @return object
+   * @throws IOException to be thrown
+   */
   @SuppressWarnings({ "unchecked", "PMD.CyclomaticComplexity" })
   @Override
   public final Throwable read(JsonReader in) throws IOException {

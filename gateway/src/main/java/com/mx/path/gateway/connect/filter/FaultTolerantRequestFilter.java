@@ -15,6 +15,13 @@ import com.mx.path.gateway.context.GatewayRequestContext;
  * (if enabled) and calls next.
  */
 public class FaultTolerantRequestFilter extends RequestFilterBase {
+
+  /**
+   * Execute this filter.
+   *
+   * @param request  Request
+   * @param response Response
+   */
   @SuppressWarnings("PMD.CyclomaticComplexity")
   @Override
   public final void execute(Request request, Response response) {
@@ -45,6 +52,11 @@ public class FaultTolerantRequestFilter extends RequestFilterBase {
     }
   }
 
+  /**
+   * Build scope.
+   *
+   * @return scope
+   */
   final String buildScope() {
     StringBuilder sb = new StringBuilder();
     sb.append("http");

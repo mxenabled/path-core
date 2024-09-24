@@ -27,6 +27,12 @@ public class ResponseMatcher<T extends Response<?, ?>> implements Predicate<T> {
   @ConfigurationField
   private Class<? extends Throwable> exception;
 
+  /**
+   * -- GETTER --
+   * Return predicate instance.
+   *
+   * @return predicate instance
+   */
   @Getter(value = AccessLevel.PRIVATE)
   private transient Predicate<T> instance;
 
@@ -52,7 +58,7 @@ public class ResponseMatcher<T extends Response<?, ?>> implements Predicate<T> {
   }
 
   /**
-   * Test instance of {@link Request} {@link T} against this matcher
+   * Test instance of {@link Request} {@link T} against this matcher.
    *
    *
    * @param request instance of request

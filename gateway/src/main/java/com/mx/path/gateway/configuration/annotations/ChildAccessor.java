@@ -19,5 +19,11 @@ import com.mx.path.gateway.configuration.Configurator;
 @Repeatable(ChildAccessors.class)
 @Target(ElementType.TYPE)
 public @interface ChildAccessor {
+
+  /**
+   * Return accessor class type.
+   *
+   * @return type
+   */
   Class<? extends Accessor> value();
 }

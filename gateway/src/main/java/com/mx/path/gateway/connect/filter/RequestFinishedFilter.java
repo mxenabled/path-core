@@ -5,11 +5,18 @@ import com.mx.path.core.common.connect.RequestFilterBase;
 import com.mx.path.core.common.connect.Response;
 
 /**
- * Request finisher
+ * Request finisher.
  *
  * <p>Ensures that the request is set to finished so all timing is set before exceptions go further up the stack.
  */
 public class RequestFinishedFilter extends RequestFilterBase {
+
+  /**
+   * Execute this filter.
+   *
+   * @param request  Request
+   * @param response Response
+   */
   @Override
   public final void execute(Request request, Response response) {
     try {

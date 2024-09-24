@@ -19,7 +19,8 @@ public final class ParameterizedTypeImpl<T> implements ParameterizedType {
 
   /**
    * Constructor that specifies the actual type. e.g. rawType&lt;actualType&gt;
-   * rawType will be ModelList
+   * rawType will be ModelList.
+   *
    * @param actualType - The type inside the brackets
    */
   public ParameterizedTypeImpl(Class<T> actualType) {
@@ -29,6 +30,7 @@ public final class ParameterizedTypeImpl<T> implements ParameterizedType {
 
   /**
    * Constructor that specifies the raw type, and the actual type. e.g. rawType&lt;actualType&gt;
+   *
    * @param rawType - The type outside the brackets
    * @param actualType - The type inside the brackets
    */
@@ -38,7 +40,9 @@ public final class ParameterizedTypeImpl<T> implements ParameterizedType {
   }
 
   /**
-   * Gets the types inside the brackets of the ParameterizedType
+   * Gets the types inside the brackets of the ParameterizedType.
+   *
+   * @return actual type arguments
    */
   @Override
   public Type[] getActualTypeArguments() {
@@ -46,7 +50,9 @@ public final class ParameterizedTypeImpl<T> implements ParameterizedType {
   }
 
   /**
-   * Gets the type outside the brackets of the ParameterizedType
+   * Gets the type outside the brackets of the ParameterizedType.
+   *
+   * @return raw type
    */
   @Override
   public Type getRawType() {
@@ -54,7 +60,9 @@ public final class ParameterizedTypeImpl<T> implements ParameterizedType {
   }
 
   /**
-   * Returns null for this implementation of ParameterizedType
+   * Returns null for this implementation of ParameterizedType.
+   *
+   * @return owner type
    */
   @Override
   public Type getOwnerType() {

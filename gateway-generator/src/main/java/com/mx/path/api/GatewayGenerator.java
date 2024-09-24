@@ -23,18 +23,33 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
+/**
+ * Generator for creating gateway classes based on {@link GatewayClassElement} instances.
+ */
 public class GatewayGenerator {
 
   private final Filer filer;
   private final ProcessingEnvironment roundEnvironment;
   private final CodeBlock accessorProxyMappingCodeBlock;
 
+  /**
+   * Build new {@link GatewayGenerator} instance.
+   *
+   * @param processingEnvironment processing environment provided by the annotation processing tool.
+   * @param accessorProxyMappingCodeBlock code block used for accessor proxy mappings.
+   */
   public GatewayGenerator(ProcessingEnvironment processingEnvironment, CodeBlock accessorProxyMappingCodeBlock) {
     this.roundEnvironment = processingEnvironment;
     this.accessorProxyMappingCodeBlock = accessorProxyMappingCodeBlock;
     this.filer = processingEnvironment.getFiler();
   }
 
+  /**
+   * Generates code for a gateway class based on the provided {@link GatewayClassElement}.
+   *
+   * @param gatewayClassElement element representing the gateway class to be generated.
+   * @throws IOException to be thrown
+   */
   @SuppressWarnings("MethodLength")
   public final void generate(GatewayClassElement gatewayClassElement) throws IOException {
 

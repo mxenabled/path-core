@@ -2,6 +2,13 @@ package com.mx.path.core.common.lang;
 
 import java.util.Objects;
 
+/**
+ * Tri consumer notation.
+ *
+ * @param <T> first input type
+ * @param <U> second input type
+ * @param <V> third input type
+ */
 @FunctionalInterface
 public interface TriConsumer<T, U, V> {
 

@@ -14,5 +14,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Order {
+
+  /**
+   * Object integer order.
+   *
+   * @return order
+   */
   int value();
 }

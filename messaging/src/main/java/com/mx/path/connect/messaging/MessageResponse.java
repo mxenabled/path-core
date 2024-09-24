@@ -16,6 +16,9 @@ import com.mx.path.core.common.serialization.LocalDateDeserializer;
 import com.mx.path.core.common.serialization.SystemTypeAdapterFactory;
 import com.mx.path.core.common.serialization.ThrowableTypeAdapter;
 
+/**
+ * Request message response.
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -35,11 +38,25 @@ public class MessageResponse {
   public static class MessageResponseBuilder {
     private String body;
 
+    /**
+     * -- GETTER --
+     * Set new value on body.
+     *
+     * @param body body to set
+     * @return self
+     */
     public final MessageResponseBuilder body(String body) {
       this.body = body;
       return this;
     }
 
+    /**
+     * -- GETTER --
+     * Set new value on body.
+     *
+     * @param body body to set
+     * @return self
+     */
     public final MessageResponseBuilder body(Object body) {
       this.body = gson.toJson(body);
       return this;
@@ -80,19 +97,22 @@ public class MessageResponse {
   }
 
   /**
-   * Get body deserialized as classOfT
-   * @param classOfT
-   * @return body cast to classOfT
+   * Get body deserialized as classOfT.
+   *
+   * @param <T> type of object to deserialize into
+   * @param classOfT class of object to deserialize into
+   * @return deserialized object of type T
    */
   public final <T> T getBodyAs(Class<T> classOfT) {
     return gson.fromJson(body, classOfT);
   }
 
   /**
-   * Get body deserialized as typeOfT
+   * Get body deserialized as typeOfT.
    *
-   * @param typeOfT
-   * @return body cast to typeOfT
+   * @param <T> type of object to deserialize into
+   * @param typeOfT type of the object to deserialize into
+   * @return deserialized object of type T
    */
   public final <T> T getBodyAs(Type typeOfT) {
     return gson.fromJson(body, typeOfT);

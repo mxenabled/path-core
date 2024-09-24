@@ -68,6 +68,10 @@ import com.google.gson.stream.JsonWriter;
  */
 @Builder
 public class LocalDateTimeTypeAdapter extends TypeAdapter<LocalDateTime> {
+
+  /**
+   * Default date format.
+   */
   public static final String DEFAULT_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
 
   private static final List<DateTimeFormatter> DEFAULT_FORMAT_STRINGS;
@@ -85,6 +89,9 @@ public class LocalDateTimeTypeAdapter extends TypeAdapter<LocalDateTime> {
 
   private String serializeFormat;
 
+  /**
+   * Helper builder class.
+   */
   public static class LocalDateTimeTypeAdapterBuilder {
 
     private List<DateTimeFormatter> formats = new ArrayList<>();
@@ -99,7 +106,7 @@ public class LocalDateTimeTypeAdapter extends TypeAdapter<LocalDateTime> {
      * <p>Providing any formats will remove the default format.
      *
      * @param format Format string of acceptable LocalDate format
-     * @return
+     * @return self
      */
     public final LocalDateTimeTypeAdapterBuilder format(String format) {
       formats.add(DateTimeFormatter.ofPattern(format));
@@ -111,7 +118,7 @@ public class LocalDateTimeTypeAdapter extends TypeAdapter<LocalDateTime> {
      *
      * @param format A DateTimeFormatter format String or
      *               OBJECT to serialize as an object (default)
-     * @return builder
+     * @return self
      */
     public final LocalDateTimeTypeAdapterBuilder serializeFormat(String format) {
       serializeFormat = format;
@@ -119,6 +126,13 @@ public class LocalDateTimeTypeAdapter extends TypeAdapter<LocalDateTime> {
     }
   }
 
+  /**
+   * Write object to json.
+   *
+   * @param out output json
+   * @param value the Java object to write. May be null.
+   * @throws IOException to be thrown
+   */
   @Override
   public final void write(JsonWriter out, LocalDateTime value) throws IOException {
     if (value == null) {
@@ -133,6 +147,13 @@ public class LocalDateTimeTypeAdapter extends TypeAdapter<LocalDateTime> {
     }
   }
 
+  /**
+   * Read object from json.
+   *
+   * @param in input json
+   * @return object
+   * @throws IOException to be thrown
+   */
   @Override
   public final LocalDateTime read(JsonReader in) throws IOException {
     if (in.peek() == JsonToken.NULL) {

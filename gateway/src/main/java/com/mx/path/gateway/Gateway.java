@@ -31,42 +31,101 @@ import com.mx.path.gateway.event.AfterAccessorEvent;
 import com.mx.path.gateway.event.BeforeAccessorEvent;
 import com.mx.path.gateway.service.GatewayService;
 
+/**
+ * Gateway for accessor.
+ *
+ * @param <T> type of gateway
+ */
 @SuperBuilder
 public abstract class Gateway<T extends Accessor> {
+
+  /**
+   * -- GETTER --
+   * Return client id.
+   *
+   * @return client id
+   */
   @Getter
   private String clientId;
 
+  /**
+   * -- GETTER --
+   * Return gateway base accessor.
+   *
+   * @return base accessor
+   */
   @Getter
   private T baseAccessor;
 
+  /**
+   * -- GETTER --
+   * Return parent gateway.
+   *
+   * @return parent gateway
+   */
   @Setter
   private Gateway parent;
 
+  /**
+   * -- GETTER --
+   * Return gateway remote service.
+   *
+   * @return remote service
+   * -- SETTER --
+   * Set gateway remote service.
+   *
+   * @param remote remote service to set
+   */
   @Getter
   @Setter
   private RemoteService<?> remote;
 
+  /**
+   * -- GETTER --
+   * Return gateway behaviors.
+   *
+   * @return gateway behaviors
+   */
   @Getter
   @Singular
   private List<GatewayBehavior> behaviors = Collections.emptyList();
 
+  /**
+   * -- GETTER --
+   * Return gateway services.
+   *
+   * @return list of gateway services
+   */
   @Getter
   @Singular
   private List<GatewayService> services;
 
+  /**
+   * Default constructor.
+   */
   public Gateway() {
   }
 
+  /**
+   * Build new {@link Gateway} instance with specified client.
+   *
+   * @param clientId client id
+   */
   public Gateway(String clientId) {
     this.clientId = clientId;
   }
 
+  /**
+   * Check if is root gateway.
+   *
+   * @return true if gateway is root
+   */
   public final boolean isTopLevel() {
     return Annotations.hasAnnotation(getClass(), RootGateway.class);
   }
 
   /**
-   * Use reflection to discover all child gateways belonging to this
+   * Use reflection to discover all child gateways belonging to this.
    *
    * <p>Gateways must be exposed via a getter
    *
@@ -88,7 +147,7 @@ public abstract class Gateway<T extends Accessor> {
   }
 
   /**
-   * Registers all remote gateways
+   * Registers all remote gateways.
    */
   public void registerRemotes() {
     if (remote != null) {
@@ -98,7 +157,7 @@ public abstract class Gateway<T extends Accessor> {
   }
 
   /**
-   * Start all services
+   * Start all services.
    */
   public void startServices() {
     services.forEach(service -> {
@@ -111,7 +170,7 @@ public abstract class Gateway<T extends Accessor> {
   }
 
   /**
-   * Describe this gateway
+   * Describe this gateway.
    *
    * @return new description
    */
@@ -123,7 +182,7 @@ public abstract class Gateway<T extends Accessor> {
   }
 
   /**
-   * Fill in description
+   * Fill in description.
    *
    * <p>Override and call super to get complete description.
    *
@@ -151,7 +210,7 @@ public abstract class Gateway<T extends Accessor> {
   }
 
   /**
-   * Generate description for all accessors in given
+   * Generate description for all accessors in given.
    *
    * @param accessorToDescribe accessor to describe
    * @param description description being built
@@ -161,6 +220,12 @@ public abstract class Gateway<T extends Accessor> {
     accessorDescriber.describe(accessorToDescribe, description);
   }
 
+  /**
+   * Get gateway parent.
+   *
+   * @return parent
+   * @param <T> gateway type
+   */
   @SuppressWarnings("unchecked")
   public final <T extends Gateway> T getParent() {
     return (T) parent;
@@ -189,10 +254,24 @@ public abstract class Gateway<T extends Accessor> {
     return stack;
   }
 
+  /**
+   * Execute stack of behaviors.
+   *
+   * @param responseType type of response
+   * @param request request
+   * @param terminatingBehavior next behavior
+   * @return response
+   * @param <T> type of response
+   */
   protected final <T> AccessorResponse<T> executeBehaviorStack(Class<T> responseType, GatewayRequestContext request, GatewayBehavior terminatingBehavior) {
     return buildStack().execute(responseType, request, terminatingBehavior);
   }
 
+  /**
+   * Get root gateway.
+   *
+   * @return root gateway
+   */
   public final Gateway root() {
     if (parent != null) {
       return parent.root();
@@ -202,7 +281,7 @@ public abstract class Gateway<T extends Accessor> {
   }
 
   /**
-   * Emit afterAccessorEvent
+   * Emit afterAccessorEvent.
    *
    * @param gateway current gateway
    * @param callingAccessor the current accessor
@@ -225,7 +304,7 @@ public abstract class Gateway<T extends Accessor> {
   }
 
   /**
-   * Emit beforeAccessorEvent
+   * Emit beforeAccessorEvent.
    *
    * @param gateway current gateway
    * @param callingAccessor current accessor

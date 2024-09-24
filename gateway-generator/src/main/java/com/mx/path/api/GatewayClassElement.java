@@ -19,6 +19,9 @@ import com.mx.path.core.common.gateway.GatewayBaseClass;
 import com.mx.path.core.common.lang.Strings;
 import com.mx.path.gateway.accessor.Accessor;
 
+/**
+ * Element of a gateway class.
+ */
 public class GatewayClassElement {
   private final List<ApiMethod> methods = new ArrayList<>();
   private final List<Field> fields = new ArrayList<>();
@@ -31,6 +34,13 @@ public class GatewayClassElement {
   private final String accessorFollow;
   private boolean rootGateway = false;
 
+  /**
+   * Build new {@link GatewayClassElement} based on a parent gateway class and a target class.
+   *
+   * @param parent parent of {@link GatewayClassElement}
+   * @param target target class for this gateway
+   * @param accessorFollow optional accessor follow path for the gateway
+   */
   public GatewayClassElement(GatewayClassElement parent, Class<?> target, String accessorFollow) {
     this.target = target;
     this.basePackage = parent.basePackage;
@@ -49,6 +59,11 @@ public class GatewayClassElement {
     validateClassStructure();
   }
 
+  /**
+   * Build new {@link GatewayClassElement} based on {@link TypeElement}.
+   *
+   * @param baseClassElement base class element to initialize from
+   */
   public GatewayClassElement(TypeElement baseClassElement) throws IllegalArgumentException {
     this.baseClass = baseClassElement;
     this.annotation = baseClassElement.getAnnotation(GatewayBaseClass.class);
@@ -65,50 +80,88 @@ public class GatewayClassElement {
     validateClassStructure();
   }
 
+  /**
+   * @return gateway base class for annotation
+   */
   public final GatewayBaseClass getAnnotation() {
     return annotation;
   }
 
+  /**
+   * @return list of {@link ApiMethod}
+   */
   public final List<ApiMethod> getMethods() {
     return methods;
   }
 
+  /**
+   * @return base class {@link TypeElement}
+   */
   public final TypeElement getBaseClass() {
     return baseClass;
   }
 
+  /**
+   * @return target class
+   */
   public final Class<?> getTarget() {
     return target;
   }
 
+  /**
+   * @return base package
+   */
   public final String getBasePackage() {
     return basePackage;
   }
 
+  /**
+   * @return accessor follow
+   */
   public final String getAccessorFollow() {
     return accessorFollow;
   }
 
+  /**
+   * @return package
+   */
   public final String getPackage() {
     return chomp(this.basePackage + target.getPackage().getName().replace(targetBasePackage, ""), '.');
   }
 
+  /**
+   * @return qualified name
+   */
   public final String getQualifiedName() {
     return getPackage() + "." + simpleName;
   }
 
+  /**
+   * @return simple name
+   */
   public final String getSimpleName() {
     return simpleName;
   }
 
+  /**
+   * @return list of {@link Field}
+   */
   public final List<Field> getFields() {
     return fields;
   }
 
+  /**
+   * @return true if gateway is root, false otherwise
+   */
   public final boolean isRootGateway() {
     return this.rootGateway;
   }
 
+  /**
+   * Set if gateway is root or not.
+   *
+   * @param rootGateway value to set
+   */
   public final void setRootGateway(boolean rootGateway) {
     this.rootGateway = rootGateway;
   }

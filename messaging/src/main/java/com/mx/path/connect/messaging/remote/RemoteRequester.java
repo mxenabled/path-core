@@ -16,7 +16,7 @@ import com.mx.path.core.context.Session;
 import com.mx.path.core.context.facility.Facilities;
 
 /**
- * Service that enables Path services to request data
+ * Service that enables Path services to request data.
  */
 public abstract class RemoteRequester<T> {
   // Fields
@@ -27,6 +27,9 @@ public abstract class RemoteRequester<T> {
 
   // Constructor
 
+  /**
+   * Build new {@link RemoteRequester} instance.
+   */
   @SuppressWarnings("unchecked")
   public RemoteRequester() {
     this.classOfT = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -36,10 +39,11 @@ public abstract class RemoteRequester<T> {
   // Public
 
   /**
-   * Request data with messageRequest
+   * Request data with messageRequest.
    *
-   * @param messageRequest
-   * @return response
+   * @param messageRequest message request to get data
+   * @param clientId  client id
+   * @return message response
    */
   public final MessageResponse request(String clientId, MessageRequest messageRequest) {
     String responseStr;
@@ -80,10 +84,10 @@ public abstract class RemoteRequester<T> {
   }
 
   /**
-   * Emit an event with messageEvent
+   * Emit an event with messageEvent.
    *
-   * @param clientId
-   * @param messageEvent
+   * @param clientId client to emit message
+   * @param messageEvent message event
    */
   public final void send(String clientId, MessageEvent messageEvent) {
     String channel = RemoteChannel.buildEventChannel(clientId, classOfT, messageEvent);
@@ -94,8 +98,10 @@ public abstract class RemoteRequester<T> {
   // Protected
 
   /**
-   * @param clientId
-   * @param messageRequest to execute
+   * Execute request with given message and client id.
+   *
+   * @param clientId client to execute request
+   * @param messageRequest message to execute
    * @return remote response to request
    */
   protected MessageResponse executeRequest(String clientId, MessageRequest messageRequest) {
@@ -121,9 +127,9 @@ public abstract class RemoteRequester<T> {
   /**
    * Saves the Session, forwards relevant headers, and re-inflates the Session for the given request.
    *
-   * @param messageRequest
-   * @param f
-   * @return MessageResponse
+   * @param messageRequest message to get data from
+   * @param f function to apply on message
+   * @return {@link MessageResponse}
    */
   MessageResponse withSession(MessageRequest messageRequest, Function<MessageRequest, MessageResponse> f) {
     String sessionId = null;

@@ -4,12 +4,26 @@ import com.mx.path.core.common.store.Store;
 import com.mx.path.core.context.GatewayContextException;
 import com.mx.path.core.context.RequestContext;
 
+/**
+ * Extends store to provide additional functionality for storage of client keys.
+ */
 public class ScopedStoreClient extends ScopedStore {
 
+  /**
+   * Build new {@link ScopedStoreClient} instance with specified store.
+   *
+   * @param store store
+   */
   public ScopedStoreClient(Store store) {
     super(store);
   }
 
+  /**
+   * Build new key with client scope.
+   *
+   * @param key key to add to scope
+   * @return key
+   */
   @Override
   protected final String buildKey(String key) {
     if (RequestContext.current() == null) {

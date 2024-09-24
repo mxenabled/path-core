@@ -9,15 +9,23 @@ import com.mx.path.gateway.accessor.Accessor;
 import com.mx.path.gateway.accessor.AccessorResponse;
 import com.mx.testing.model.Transaction;
 
+/**
+ * Test class for transaction accessor.
+ */
 @API(description = "Test transaction accessor")
 @GatewayClass
 public class TransactionBaseAccessor extends Accessor {
+
+  /**
+   * Default constructor.
+   */
   public TransactionBaseAccessor() {
   }
 
   /**
-   * Get all accounts
-   * @return
+   * Retrieve list of transactions for specified account.
+   * @param accountId id of account from which to search for transactions
+   * @return list of transactions
    */
   @GatewayAPI
   @API(description = "List transactions in account")

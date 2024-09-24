@@ -16,6 +16,9 @@ import javax.annotation.Nullable;
 */
 public class ObjectMap extends LinkedHashMap<String, Object> {
 
+  /**
+   * List of reference values.
+   */
   public static final List<Object> TRUE_VALUES;
   static {
     List<Object> newTrueList = new ArrayList<>();
@@ -30,7 +33,8 @@ public class ObjectMap extends LinkedHashMap<String, Object> {
   }
 
   /**
-   * Creates and adds an ObjectArray
+   * Creates and adds an ObjectArray.
+   *
    * @param key of item
    * @return the new ObjectArray
    */
@@ -42,7 +46,8 @@ public class ObjectMap extends LinkedHashMap<String, Object> {
   }
 
   /**
-   * Creates and adds an ObjectMap
+   * Creates and adds an ObjectMap.
+   *
    * @param key of item
    * @return the new ObjectMap
    */
@@ -57,7 +62,7 @@ public class ObjectMap extends LinkedHashMap<String, Object> {
    * Deep copy given into this.
    *
    * Maps are deep copied. Arrays are appended by reference. Other values are copied by reference.
-   * @param m
+   * @param m map to copy from
    * @return this
    */
   public final ObjectMap deepMerge(ObjectMap m) {
@@ -75,6 +80,8 @@ public class ObjectMap extends LinkedHashMap<String, Object> {
   }
 
   /**
+   * Get value as specified type.
+   *
    * @param t type
    * @param key of item
    * @param <T> type
@@ -86,6 +93,8 @@ public class ObjectMap extends LinkedHashMap<String, Object> {
   }
 
   /**
+   * Get value as specified type.
+   *
    * @param t type
    * @param key of item
    * @param <T> type
@@ -102,9 +111,10 @@ public class ObjectMap extends LinkedHashMap<String, Object> {
   }
 
   /**
-   * Get key as an ObjectArray
+   * Get key as an ObjectArray.
+   *
    * @param key of item
-   * @return
+   * @return key as array
    */
   @SuppressWarnings("unchecked")
   public final ObjectArray getArray(String key) {
@@ -116,7 +126,7 @@ public class ObjectMap extends LinkedHashMap<String, Object> {
   }
 
   /**
-   * Get key as a Boolean
+   * Get key as a Boolean.
    *
    * <p>Does a flexible conversion to boolean.
    * True values are {@code true, "true", "True", "1", 1, 1.0 }
@@ -151,7 +161,7 @@ public class ObjectMap extends LinkedHashMap<String, Object> {
   }
 
   /**
-   * Get key as a Boolean
+   * Get key as a Boolean.
    *
    * <p>Does a flexible conversion to boolean.
    * True values are {@code true, "true", "True", "1", 1, 1.0 }
@@ -285,9 +295,10 @@ public class ObjectMap extends LinkedHashMap<String, Object> {
   }
 
   /**
-   * Get key as an ObjectMap
+   * Get key as an ObjectMap.
+   *
    * @param key of item
-   * @return
+   * @return key as ObjectMap
    */
   public final ObjectMap getMap(String key) {
     if (isMap(key)) {

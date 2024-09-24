@@ -12,6 +12,13 @@ import com.mx.path.core.common.process.FaultTolerantExecutor;
  * <p>See {@link PathRequestException} for usage details
  */
 public class TooManyRequestsException extends ConnectException {
+
+  /**
+   * Build new {@link TooManyRequestsException} with specified message and cause.
+   *
+   * @param message message
+   * @param cause cause
+   */
   public TooManyRequestsException(String message, Throwable cause) {
     super(message, cause);
     setCode(String.valueOf(PathResponseStatus.TOO_MANY_REQUESTS.value()));

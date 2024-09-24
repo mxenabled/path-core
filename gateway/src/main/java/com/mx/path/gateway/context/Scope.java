@@ -9,12 +9,22 @@ import com.mx.path.gateway.configuration.AccessorProxy;
 
 public enum Scope implements ScopeKeyGenerator {
   Session {
+    /**
+     * Generate.
+     *
+     * @return string generated
+     */
     @Override
     public String generate() {
       return "Session";
     }
   },
   Service {
+    /**
+     * Generate.
+     *
+     * @return string generated
+     */
     @Override
     public String generate() {
       GatewayRequestContext requestContext = GatewayRequestContext.current();

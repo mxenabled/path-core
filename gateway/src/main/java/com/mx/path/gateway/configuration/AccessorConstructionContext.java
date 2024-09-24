@@ -31,19 +31,79 @@ import com.mx.path.gateway.configuration.annotations.Connection;
  */
 public class AccessorConstructionContext<T extends Accessor> {
 
+  /**
+   * Arguments used to construct accessor.
+   *
+   * -- GETTER --
+   * Return accessor constructor arguments.
+   *
+   * @return accessor constructor arguments
+   */
   @Getter
   private final List<Object> constructorArgs = new ArrayList<>();
+
+  /**
+   * Map of accessor construction contexts.
+   *
+   * -- GETTER --
+   * Return accessor construction contexts.
+   *
+   * @return accessor construction contexts
+   */
   @Getter
   private final Map<String, ConnectionConstructionContext> connections = new HashMap<>();
+
+  /**
+   * Class of accessor being constructed.
+   *
+   * -- GETTER --
+   * Return accessor class.
+   *
+   * @return accessor class
+   */
   @Getter
   private final Class<? extends T> accessorClass;
+
+  /**
+   * Configuration of accessor being constructed.
+   *
+   * -- GETTER --
+   * Return accessor configuration.
+   *
+   * @return accessor configuration
+   */
   @Getter
   private final AccessorConfiguration accessorConfiguration;
+
+  /**
+   * State of accessor being constructed.
+   *
+   * -- GETTER --
+   * Return accessor state.
+   *
+   * @return accessor state
+   */
   @Getter
   private final ConfigurationState state;
+
+  /**
+   * Constructor of accessor being constructed.
+   *
+   * -- GETTER --
+   * Return accessor constructor.
+   *
+   * @return accessor constructor
+   */
   @Getter
   private Constructor<? extends T> constructor;
 
+  /**
+   * Build new {@link AccessorConstructionContext} instance with provided class and configuration.
+   *
+   * @param accessorClass class of accessor to be built
+   * @param configuration configuration for accessor
+   * @param <V> accessor class type
+   */
   public <V extends T> AccessorConstructionContext(Class<V> accessorClass, AccessorConfiguration configuration) {
     this.accessorConfiguration = configuration;
     this.accessorClass = accessorClass;
@@ -97,6 +157,11 @@ public class AccessorConstructionContext<T extends Accessor> {
     });
   }
 
+  /**
+   * Build new accessor instance.
+   *
+   * @return accessor
+   */
   public final T build() {
     try {
       T accessor = getConstructor().newInstance(buildConstructorArgs().toArray());
@@ -108,6 +173,11 @@ public class AccessorConstructionContext<T extends Accessor> {
     }
   }
 
+  /**
+   * Describe accessor.
+   *
+   * @param description object to fill with accessor description.
+   */
   public final void describe(ObjectMap description) {
     GsonBuilder gsonBuilder = new GsonBuilder()
         .registerTypeAdapterFactory(new ConfigurationTypeAdapter.Factory())

@@ -60,6 +60,9 @@ import com.google.gson.stream.JsonWriter;
 @Builder
 public class LocalDateTypeAdapter extends TypeAdapter<LocalDate> {
 
+  /**
+   * Default format for this TypeAdapter.
+   */
   public static final String DEFAULT_FORMAT = "yyyy-MM-dd";
 
   private static final List<DateTimeFormatter> DEFAULT_FORMAT_STRINGS;
@@ -77,6 +80,9 @@ public class LocalDateTypeAdapter extends TypeAdapter<LocalDate> {
 
   private String serializeFormat;
 
+  /**
+   * Helper builder class.
+   */
   public static class LocalDateTypeAdapterBuilder {
 
     private List<DateTimeFormatter> formats = new ArrayList<>();
@@ -91,7 +97,7 @@ public class LocalDateTypeAdapter extends TypeAdapter<LocalDate> {
      * <p>Providing any formats will remove the default format.
      *
      * @param format Format string of acceptable LocalDate format
-     * @return
+     * @return format
      */
     public final LocalDateTypeAdapterBuilder format(String format) {
       formats.add(DateTimeFormatter.ofPattern(format));
@@ -111,6 +117,13 @@ public class LocalDateTypeAdapter extends TypeAdapter<LocalDate> {
     }
   }
 
+  /**
+   * Write to json.
+   *
+   * @param out output object
+   * @param value the Java object to write. May be null.
+   * @throws IOException to thrown
+   */
   @Override
   public final void write(JsonWriter out, LocalDate value) throws IOException {
     if (value == null) {
@@ -125,6 +138,13 @@ public class LocalDateTypeAdapter extends TypeAdapter<LocalDate> {
     }
   }
 
+  /**
+   * Read from json.
+   *
+   * @param in input
+   * @return object
+   * @throws IOException to thrown
+   */
   @Override
   public final LocalDate read(JsonReader in) throws IOException {
     if (in.peek() == JsonToken.NULL) {

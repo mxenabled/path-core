@@ -31,7 +31,7 @@ import com.mx.path.core.common.gateway.GatewayException;
 import com.mx.path.core.common.messaging.MessageError;
 
 /**
- * Base exception for any request-based error. These are errors that occur at any level during a request
+ * Base exception for any request-based error. These are errors that occur at any level during a request:
  *
  * <p>For Path system startup errors, use {@link PathSystemException}
  *
@@ -82,10 +82,35 @@ import com.mx.path.core.common.messaging.MessageError;
  * }</pre>
  */
 public abstract class PathRequestException extends RuntimeException {
+
+  /**
+   * Exception code.
+   *
+   * -- GETTER --
+   * Return code.
+   *
+   * @return code
+   * -- SETTER --
+   * Set code.
+   *
+   * @param code code to set
+   */
   @Getter
   @Setter
   private String code;
 
+  /**
+   * Title for exception modal screen.
+   *
+   * -- GETTER --
+   * Return title.
+   *
+   * @return title
+   * -- SETTER --
+   * Set title.
+   *
+   * @param errorTitle title to set
+   */
   @Getter
   @Setter
   private String errorTitle;
@@ -93,48 +118,131 @@ public abstract class PathRequestException extends RuntimeException {
   private final Map<String, String> headers = new LinkedHashMap<>();
 
   /**
-   * Indicates whether this exception is internal to the system or occurred upstream
+   * Indicates whether this exception is internal to the system or occurred upstream.
+   *
+   * -- GETTER --
+   * Return is internal.
+   *
+   * @return is internal
+   * -- SETTER --
+   * Set is internal.
+   *
+   * @param internal is internal value to set
    */
   @Getter
   @Setter
   private boolean internal = false;
 
+  /**
+   * Description message (not prompted to user).
+   *
+   * -- SETTER --
+   * Set message.
+   *
+   * @param message message to set
+   */
   @Setter
   private String message = "Unknown error";
 
+  /**
+   * Reason for exception.
+   *
+   * -- GETTER --
+   * Return reason.
+   *
+   * @return reason
+   * -- SETTER --
+   * Set reason.
+   *
+   * @param reason reason to set
+   */
   @Getter
   @Setter
   private String reason;
 
+  /**
+   * -- SETTER --
+   * Set report.
+   *
+   * @param report report to set
+   */
   @Setter
   private boolean report = true;
 
+  /**
+   * Path response status.
+   *
+   * -- GETTER --
+   * Return status.
+   *
+   * @return status
+   * -- SETTER --
+   * Set status.
+   *
+   * @param status status to set
+   */
   @Getter
   @Setter
   private PathResponseStatus status = PathResponseStatus.INTERNAL_ERROR;
 
+  /**
+   * Exception description message prompted to user.
+   *
+   * -- GETTER --
+   * Return user message.
+   *
+   * @return user message
+   * -- SETTER --
+   * Set user message.
+   *
+   * @param userMessage user message to set
+   */
   @Getter
   @Setter
   private String userMessage;
 
+  /**
+   * Default constructor.
+   */
   public PathRequestException() {
     this("Unknown error");
   }
 
+  /**
+   * Build new {@link PathRequestException} with specified parameters.
+   *
+   * @param message message
+   */
   public PathRequestException(String message) {
     super(message);
     setMessage(message);
   }
 
+  /**
+   * Build new {@link PathRequestException} with specified parameters.
+   *
+   * @param cause cause
+   */
   public PathRequestException(Throwable cause) {
     super(cause);
   }
 
+  /**
+   * Build new {@link PathRequestException} with specified parameters.
+   *
+   * @param message message
+   * @param cause cause
+   */
   public PathRequestException(String message, Throwable cause) {
     super(message, cause);
     setMessage(message);
   }
 
+  /**
+   * Return headers.
+   *
+   * @return headers
+   */
   public final Map<String, String> getHeaders() {
     if (internal) {
       headers.put("X-Internal-Error", "true");
@@ -146,11 +254,11 @@ public abstract class PathRequestException extends RuntimeException {
   }
 
   /**
-   * Set message
+   * Return message.
    *
    * <p>Note: {@link PathRequestException} overrides base exception message to allow it to be overridden.
    *
-   * @return
+   * @return message
    */
   @Override
   public String getMessage() {
@@ -158,10 +266,11 @@ public abstract class PathRequestException extends RuntimeException {
   }
 
   /**
-   * Used to append MDX API error code to exception
+   * Used to append MDX API error code to exception.
    *
    * @param newCode - String api error code
    * @return - AccessorException with newCode
+   * @param <T> exception type
    */
   @SuppressWarnings("unchecked")
   public final <T extends PathRequestException> T withCode(String newCode) {
@@ -170,6 +279,13 @@ public abstract class PathRequestException extends RuntimeException {
     return (T) this;
   }
 
+  /**
+   * Used to append title to exception.
+   *
+   * @param newErrorTitle title
+   * @return AccessorException with new title
+   * @param <T> exception type
+   */
   @SuppressWarnings("unchecked")
   public final <T extends PathRequestException> T withErrorTitle(String newErrorTitle) {
     setErrorTitle(newErrorTitle);
@@ -178,11 +294,12 @@ public abstract class PathRequestException extends RuntimeException {
   }
 
   /**
-   * Used to add a header to be sent with error
+   * Used to add a header to be sent with error.
    *
-   * @param name
-   * @param value
-   * @return
+   * @param name name
+   * @param value value
+   * @return self
+   * @param <T> exception type
    */
   @SuppressWarnings("unchecked")
   public final <T extends PathRequestException> T withHeader(String name, String value) {
@@ -191,6 +308,13 @@ public abstract class PathRequestException extends RuntimeException {
     return (T) this;
   }
 
+  /**
+   * Used to append is internal parameter to exception.
+   *
+   * @param isInternal is internal
+   * @return self
+   * @param <T> exception type
+   */
   @SuppressWarnings("unchecked")
   public final <T extends PathRequestException> T withIsInternal(boolean isInternal) {
     this.internal = isInternal;
@@ -199,10 +323,11 @@ public abstract class PathRequestException extends RuntimeException {
   }
 
   /**
-   * Used to override message on exception
+   * Used to override message on exception.
    *
-   * @param newMessage
-   * @return
+   * @param newMessage new message
+   * @return self
+   * @param <T> exception type
    */
   @SuppressWarnings("unchecked")
   public final <T extends PathRequestException> T withMessage(String newMessage) {
@@ -212,10 +337,11 @@ public abstract class PathRequestException extends RuntimeException {
   }
 
   /**
-   * Used to append reason to userMessage
+   * Used to append reason to userMessage.
    *
-   * @param newReason - String newReason for exception (for userMessage)
-   * @return - AccessorException with newReason
+   * @param newReason string newReason for exception (for userMessage)
+   * @return AccessorException with newReason
+   * @param <T> exception type
    */
   @SuppressWarnings("unchecked")
   public final <T extends PathRequestException> T withReason(String newReason) {
@@ -224,6 +350,13 @@ public abstract class PathRequestException extends RuntimeException {
     return (T) this;
   }
 
+  /**
+   * Used to set should report parameter to exception.
+   *
+   * @param shouldReport should report
+   * @return self
+   * @param <T> exception type
+   */
   @SuppressWarnings("unchecked")
   public final <T extends PathRequestException> T withReport(boolean shouldReport) {
     this.setReport(shouldReport);
@@ -231,6 +364,13 @@ public abstract class PathRequestException extends RuntimeException {
     return (T) this;
   }
 
+  /**
+   * Used to set status on exception.
+   *
+   * @param newStatus new status
+   * @return self
+   * @param <T> exception type
+   */
   @SuppressWarnings("unchecked")
   public final <T extends PathRequestException> T withStatus(PathResponseStatus newStatus) {
     this.setStatus(newStatus);
@@ -238,6 +378,13 @@ public abstract class PathRequestException extends RuntimeException {
     return (T) this;
   }
 
+  /**
+   * Used to set user message to exception.
+   *
+   * @param newUserMessage user message
+   * @return self
+   * @param <T> exception type
+   */
   @SuppressWarnings("unchecked")
   public final <T extends PathRequestException> T withUserMessage(String newUserMessage) {
     this.setUserMessage(newUserMessage);
@@ -246,7 +393,7 @@ public abstract class PathRequestException extends RuntimeException {
   }
 
   /**
-   * Report accessor fct for boolean
+   * Report accessor fct for boolean.
    *
    * @return boolean report
    */

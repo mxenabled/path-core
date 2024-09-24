@@ -39,7 +39,7 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
   // Static Methods
 
   /**
-   * Convenience method for constructing a SingleValueMap for an existing Map
+   * Convenience method for constructing a SingleValueMap for an existing Map.
    *
    * @param rawMap the raw map
    * @param <K> key type
@@ -68,7 +68,7 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
   }
 
   /**
-   * Set raw map
+   * Set raw map.
    *
    * @param rawMap the map
    */
@@ -79,6 +79,9 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
 
   // Constructors
 
+  /**
+   * Default constructor.
+   */
   public SingleValueMap() {
     this.rawMap = new LinkedHashMap<>();
   }
@@ -86,7 +89,7 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
   /**
    * Copy constructor to move raw map from any MultiValueMappable object.
    *
-   * @param multiValueMap
+   * @param multiValueMap map to copy
    */
   public SingleValueMap(MultiValueMappable<K, V> multiValueMap) {
     this.rawMap = multiValueMap.getRawMap();
@@ -95,7 +98,7 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
   // Public Methods
 
   /**
-   * Clear all keys and values
+   * Clear all keys and values.
    */
   @Override
   public void clear() {
@@ -129,9 +132,9 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
   }
 
   /**
-   * Compares this with other. Will compare the rawMap's if other is MultiValueMappable
+   * Compares this with other. Will compare the rawMap's if other is MultiValueMappable.
    *
-   * @param other
+   * @param other to compare
    * @return true if they are equal
    */
   @Override
@@ -166,9 +169,9 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
   }
 
   /**
-   * hashCode of rawMap
+   * Return hashCode of rawMap.
    *
-   * @return
+   * @return hash code
    */
   @Override
   public int hashCode() {
@@ -176,9 +179,9 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
   }
 
   /**
-   * isEmpty of rawMap
+   * Check if rawMap isEmpty.
    *
-   * @return
+   * @return true if map is empty
    */
   @Override
   public boolean isEmpty() {
@@ -186,9 +189,9 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
   }
 
   /**
-   * keySet of rawMap
+   * keySet of rawMap.
    *
-   * @return
+   * @return key set
    */
   @Override
   public Set<K> keySet() {
@@ -203,7 +206,7 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
    *
    * @param key the key
    * @param value the value
-   * @return
+   * @return value
    */
   @Override
   public V put(K key, V value) {
@@ -224,7 +227,7 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
   }
 
   /**
-   * Remove key
+   * Remove key.
    *
    * <p><i>Multi-value Support:</i>
    * <p>This operation will remove all other values associated with provided key. If multi-value support is needed, convert this collection to a {@link MultiValueMap}
@@ -275,7 +278,7 @@ public class SingleValueMap<K, V> implements Map<K, V>, MultiValueMappable<K, V>
   }
 
   /**
-   * Convert to regular Map
+   * Convert to regular Map.
    *
    * @return map of key first-value pairs
    */

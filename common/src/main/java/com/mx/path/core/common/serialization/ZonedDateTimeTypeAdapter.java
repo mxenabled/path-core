@@ -70,6 +70,10 @@ import com.google.gson.stream.JsonWriter;
  */
 @Builder
 public class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
+
+  /**
+   * Default date format.
+   */
   public static final String DEFAULT_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
 
   private static final List<DateTimeFormatter> DEFAULT_FORMAT_STRINGS;
@@ -88,6 +92,9 @@ public class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
 
   private String serializeFormat;
 
+  /**
+   * Helper builder class.
+   */
   public static class ZonedDateTimeTypeAdapterBuilder {
 
     private ZoneId defaultZoneId = UTC;
@@ -132,19 +139,48 @@ public class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
     }
   }
 
+  /**
+   * Local time with zone id.
+   */
   static class LocalTimeWithZone {
+
+    /**
+     * -- GETTER --
+     * Return time.
+     *
+     * @return time
+     */
     @Getter
     private final LocalTime time;
 
+    /**
+     * -- GETTER --
+     * Return zone id.
+     *
+     * @return zone id
+     */
     @Getter
     private final ZoneId zoneId;
 
+    /**
+     * Build new {@link LocalTimeWithZone} with specified parameters.
+     *
+     * @param time time
+     * @param zoneId zone id
+     */
     LocalTimeWithZone(LocalTime time, ZoneId zoneId) {
       this.time = time;
       this.zoneId = zoneId;
     }
   }
 
+  /**
+   * Write to json output.
+   *
+   * @param out output
+   * @param value the Java object to write. May be null.
+   * @throws IOException to be thrown
+   */
   @Override
   public final void write(JsonWriter out, ZonedDateTime value) throws IOException {
     if (value == null) {
@@ -159,6 +195,13 @@ public class ZonedDateTimeTypeAdapter extends TypeAdapter<ZonedDateTime> {
     }
   }
 
+  /**
+   * Read from json input.
+   *
+   * @param in input
+   * @return object
+   * @throws IOException to be thrown
+   */
   @Override
   public final ZonedDateTime read(JsonReader in) throws IOException {
     if (in.peek() == JsonToken.NULL) {

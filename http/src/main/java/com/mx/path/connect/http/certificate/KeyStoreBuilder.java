@@ -6,6 +6,9 @@ import java.util.List;
 
 import com.mx.path.core.common.connect.ConnectionSettings;
 
+/**
+ * Utility class to load and build keystores.
+ */
 public class KeyStoreBuilder {
 
   // Fields
@@ -17,6 +20,11 @@ public class KeyStoreBuilder {
 
   // Constructors
 
+  /**
+   * Build new {@link KeyStoreBuilder} using provided {@link ConnectionSettings}.
+   *
+   * @param settings {@link ConnectionSettings} containing configuration for keystore
+   */
   public KeyStoreBuilder(ConnectionSettings settings) {
     this.certificateAlias = settings.getCertificateAlias();
     this.keystorePassword = settings.getKeystorePassword();
@@ -24,22 +32,47 @@ public class KeyStoreBuilder {
     keyStore = LoadedKeystore.load(this.keystorePath, this.keystorePassword);
   }
 
+  /**
+   * Return loaded keystore.
+   *
+   * @return loaded keystore
+   */
   public final LoadedKeystore getKeyStore() {
     return keyStore;
   }
 
+  /**
+   * Return keystore password.
+   *
+   * @return keystore password
+   */
   public final char[] getKeystorePassword() {
     return keystorePassword.clone();
   }
 
+  /**
+   * Return alias to keystore certificate.
+   *
+   * @return keystore certificate alias
+   */
   public final String getCertificateAlias() {
     return certificateAlias;
   }
 
+  /**
+   * Return keystore path.
+   *
+   * @return keystore path
+   */
   public final String getKeystorePath() {
     return keystorePath;
   }
 
+  /**
+   * Validate current settings for keystore configuration.
+   *
+   * @throws FieldSettingsValidationError to be thrown
+   */
   @SuppressWarnings("PMD.CyclomaticComplexity")
   public final void validateSettings() throws FieldSettingsValidationError {
     List<FieldSettingsValidationError.Field> fieldErrors = new ArrayList<FieldSettingsValidationError.Field>();

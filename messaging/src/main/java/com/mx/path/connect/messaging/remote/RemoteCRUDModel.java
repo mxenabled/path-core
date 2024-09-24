@@ -18,12 +18,19 @@ import com.mx.path.core.common.model.ParameterizedTypeImpl;
 public class RemoteCRUDModel<T extends ModelBase<?>> extends RemoteRequester<T> {
   private final String clientId;
 
+  /**
+   * Build new {@link RemoteCRUDModel} instance for given client id.
+   *
+   * @param clientId client id
+   */
   public RemoteCRUDModel(String clientId) {
     this.clientId = clientId;
   }
 
   /**
-   * Delete T by id
+   * Delete object with given id.
+   *
+   * @param id object id
    */
   public void delete(String id) {
     MessageRequest request = MessageRequest.builder()
@@ -44,8 +51,10 @@ public class RemoteCRUDModel<T extends ModelBase<?>> extends RemoteRequester<T> 
   }
 
   /**
-   * Get instance of T by id
-   * @return requested T
+   * Get object with given id.
+   *
+   * @param id object id
+   * @return updated T
    */
   public T get(String id) {
     MessageRequest request = MessageRequest.builder()
@@ -68,7 +77,9 @@ public class RemoteCRUDModel<T extends ModelBase<?>> extends RemoteRequester<T> 
   }
 
   /**
-   * @return list of T
+   * Return list of objects.
+   *
+   * @return list of objects
    */
   public ModelList<T> list() {
     MessageRequest request = MessageRequest.builder()
@@ -88,6 +99,10 @@ public class RemoteCRUDModel<T extends ModelBase<?>> extends RemoteRequester<T> 
   }
 
   /**
+   * Update object with given id.
+   *
+   * @param id object id
+   * @param obj object to update
    * @return updated T
    */
   public T update(String id, T obj) {
@@ -112,6 +127,9 @@ public class RemoteCRUDModel<T extends ModelBase<?>> extends RemoteRequester<T> 
   }
 
   /**
+   * Create new object with given body.
+   *
+   * @param obj object to create
    * @return created T
    */
   public T create(T obj) {

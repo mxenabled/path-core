@@ -16,6 +16,9 @@ import com.mx.path.core.common.messaging.MessageError;
 import com.mx.path.core.common.messaging.MessageStatus;
 import com.mx.path.core.common.messaging.RemoteException;
 
+/**
+ * Utility class to deserialize {@link JsonElement}.
+ */
 public class MessageErrorThrowableSerializer implements JsonDeserializer<Throwable>, JsonSerializer<Throwable> {
   private final Gson gson = new GsonBuilder().create();
 

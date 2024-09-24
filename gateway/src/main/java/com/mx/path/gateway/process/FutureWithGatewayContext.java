@@ -42,24 +42,53 @@ public final class FutureWithGatewayContext<T> {
   private long timeoutMillis = DEFAULT_RETRIEVAL_TIMEOUT_MILLIS;
   private final Future<T> future;
 
+  /**
+   * Build new {@link FutureWithGatewayContext} instance with specified lambda.
+   *
+   * @param lambda lambda
+   */
   public FutureWithGatewayContext(Supplier<T> lambda) {
     future = DEFAULT_EXECUTOR.submit(new AsyncWithGatewayContext<>(lambda));
   }
 
+  /**
+   * Build new {@link FutureWithGatewayContext} instance with specified parameters.
+   *
+   * @param lambda lambda
+   * @param timeoutMillis timeout duration
+   */
   public FutureWithGatewayContext(Supplier<T> lambda, long timeoutMillis) {
     this.future = DEFAULT_EXECUTOR.submit(new AsyncWithGatewayContext<>(lambda));
     this.timeoutMillis = timeoutMillis;
   }
 
+  /**
+   * Build new {@link FutureWithGatewayContext} instance with specified parameters.
+   *
+   * @param lambda lambda
+   * @param executorService service executor
+   */
   public FutureWithGatewayContext(Supplier<T> lambda, ExecutorService executorService) {
     this.future = executorService.submit(new AsyncWithGatewayContext<>(lambda));
   }
 
+  /**
+   * Build new {@link FutureWithGatewayContext} instance with specified parameters.
+   *
+   * @param lambda lambda
+   * @param executorService service executor
+   * @param timeoutMillis timeout duration
+   */
   public FutureWithGatewayContext(Supplier<T> lambda, ExecutorService executorService, long timeoutMillis) {
     this.future = executorService.submit(new AsyncWithGatewayContext<>(lambda));
     this.timeoutMillis = timeoutMillis;
   }
 
+  /**
+   * Return future.
+   *
+   * @return future
+   */
   public T get() {
     try {
       return future.get(timeoutMillis, TimeUnit.MILLISECONDS);

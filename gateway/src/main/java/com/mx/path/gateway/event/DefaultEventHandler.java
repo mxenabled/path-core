@@ -12,16 +12,18 @@ import com.google.common.eventbus.Subscribe;
 public class DefaultEventHandler {
 
   /**
-   * Noop subscriber for all {@link AccessorEvent} events
-   * @param event
+   * Noop subscriber for all {@link AccessorEvent} events.
+   *
+   * @param event event
    */
   @Subscribe
   public void handleAccessorEvent(AccessorEvent event) {
   }
 
   /**
-   * Noop subscriber for all {@link GatewayEvent} events
-   * @param event
+   * Noop subscriber for all {@link GatewayEvent} events.
+   *
+   * @param event event
    */
   @Subscribe
   public void handleGatewayEvent(GatewayEvent event) {

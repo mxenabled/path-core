@@ -15,72 +15,138 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+/**
+ * Annotation feature.
+ */
 public class Annotations {
 
+  /**
+   * Field annotation.
+   *
+   * @param <T> type of annotation
+   */
   public static class AnnotatedField<T extends Annotation> {
 
     private T annotation;
     private Class<?> elementType;
     private Field field;
 
+    /**
+     * Set annotation with type T.
+     *
+     * @param annotation annotation to set
+     */
     public final void setAnnotation(T annotation) {
       this.annotation = annotation;
     }
 
+    /**
+     * Return annotation.
+     *
+     * @return annotation
+     */
     public final T getAnnotation() {
       return annotation;
     }
 
+    /**
+     * Set type of annotated element.
+     *
+     * @param elementType element type to set
+     */
     public final void setElementType(Type elementType) {
       this.elementType = (Class<?>) elementType;
     }
 
+    /**
+     * Set type of annotated element.
+     *
+     * @param elementType element type to set
+     */
     public final void setElementType(Class<?> elementType) {
       this.elementType = elementType;
     }
 
+    /**
+     * Return type of annotated element.
+     *
+     * @return element type
+     */
     public final Class<?> getElementType() {
       return elementType;
     }
 
+    /**
+     * Set field annotated.
+     *
+     * @param field field to set
+     */
     public final void setField(Field field) {
       this.field = field;
     }
 
+    /**
+     * Get field annotated.
+     *
+     * @return field
+     */
     public final Field getField() {
       return field;
     }
 
   }
 
+  /**
+   * Field with multiple annotations.
+   */
   public static class FieldWithAnnotations {
 
     private final Map<Class<? extends Annotation>, Annotation> annotations = new HashMap<>();
     private Class<?> elementType;
     private Field field;
 
+    /**
+     * Set type of annotated element.
+     *
+     * @param elementType element type to set
+     */
     public final void setElementType(Class<?> elementType) {
       this.elementType = elementType;
     }
 
+    /**
+     * Return type of annotated element.
+     *
+     * @return element type
+     */
     public final Class<?> getElementType() {
       return elementType;
     }
 
+    /**
+     * Set annotated field.
+     *
+     * @param field field to set
+     */
     public final void setField(Field field) {
       this.field = field;
     }
 
+    /**
+     * Return annotated field.
+     *
+     * @return field
+     */
     public final Field getField() {
       return field;
     }
 
     /**
-     * Convert to annotatedField with given annotation type
+     * Convert to annotatedField with given annotation type.
      *
-     * @param annotationType
-     * @param <T>
-     * @return
+     * @param annotationType annotation type to convert
+     * @param <T> type of annotation
+     * @return annotation
      */
     public final <T extends Annotation> AnnotatedField<T> asAnnotatedField(Class<T> annotationType) {
       AnnotatedField<T> annotatedField = new AnnotatedField<>();
@@ -91,10 +157,22 @@ public class Annotations {
       return annotatedField;
     }
 
+    /**
+     * Add new annotation.
+     *
+     * @param annotation annotation to add
+     */
     public final void putAnnotation(Annotation annotation) {
       this.annotations.put(resolveAnnotationType(annotation), annotation);
     }
 
+    /**
+     * Return annotation with specified type.
+     *
+     * @param annotationType type of annotation
+     * @param <T> type of annotation
+     * @return annotation
+     */
     @SuppressWarnings("unchecked")
     public final <T extends Annotation> T getAnnotation(Class<T> annotationType) {
       return (T) annotations.get(annotationType);
@@ -102,32 +180,67 @@ public class Annotations {
 
   }
 
+  /**
+   * Parameter annotation.
+   *
+   * @param <T> type of annotation
+   */
   public static class AnnotatedParameter<T extends Annotation> {
 
     private T annotation;
     private Parameter parameter;
     private int position;
 
+    /**
+     * Return annotation.
+     *
+     * @return annotation
+     */
     public final T getAnnotation() {
       return annotation;
     }
 
+    /**
+     * Set annotation.
+     *
+     * @param annotation annotation to set
+     */
     public final void setAnnotation(T annotation) {
       this.annotation = annotation;
     }
 
+    /**
+     * Return annotated parameter.
+     *
+     * @return parameter
+     */
     public final Parameter getParameter() {
       return parameter;
     }
 
+    /**
+     * Set annotated parameter.
+     *
+     * @param parameter parameter to set
+     */
     public final void setParameter(Parameter parameter) {
       this.parameter = parameter;
     }
 
+    /**
+     * Return annotation position.
+     *
+     * @return position
+     */
     public final int getPosition() {
       return position;
     }
 
+    /**
+     * Set annotation position.
+     *
+     * @param position position to set
+     */
     public final void setPosition(int position) {
       this.position = position;
     }
@@ -136,8 +249,8 @@ public class Annotations {
   /**
    * Get all fields with their annotations. This is deprecated as the name indicates filtering.
    *
-   * @param klass
-   * @return a list of FieldWithAnnotation objects
+   * @param klass klass
+   * @return a list of {@link FieldWithAnnotations} objects
    * @deprecated Use {@link Annotations#fieldsAndAnnotations(Class)}
    */
   @Deprecated
@@ -146,10 +259,10 @@ public class Annotations {
   }
 
   /**
-   * Get all fields with their annotations
+   * Get all fields with their annotations.
    *
-   * @param klass
-   * @return List of FieldWithAnnotation
+   * @param klass klass
+   * @return List of {@link FieldWithAnnotations}
    */
   public static List<FieldWithAnnotations> fieldsAndAnnotations(Class<?> klass) {
     return getAllFields(klass).stream()
@@ -169,16 +282,21 @@ public class Annotations {
 
   /**
    * Find all methods in given class with given annotation.
+   *
+   * @param annotation annotation to search for
+   * @param klass klass to search on
+   * @param <T> type of annotation
+   * @return list of annotation
    */
   public static <T extends Annotation> List<Method> methodsWithAnnotation(Class<T> annotation, Class<?> klass) {
     return Arrays.stream(klass.getMethods()).filter(method -> method.getAnnotation(annotation) != null).collect(Collectors.toList());
   }
 
   /**
-   * Get only fields with given annotation
+   * Get only fields with given annotation.
    *
-   * @param annotationType
-   * @param klass
+   * @param annotationType annotation type
+   * @param klass klass to search on
    * @param <T> annotationType
    * @return List of AnnotatedField
    */
@@ -196,22 +314,24 @@ public class Annotations {
   }
 
   /**
+   * Check if klass has annotation.
+   *
    * @param klass class to check
    * @param annotation annotation searching for
    * @return true, if the annotation is found on klass
-   * @param <T>
+   * @param <T> type of annotation
    */
   public static <T extends Annotation> boolean hasAnnotation(Class<?> klass, Class<T> annotation) {
     return klass.getAnnotation(annotation) != null;
   }
 
   /**
-   * Get only constructor parameters with given annotation
+   * Get only constructor parameters with given annotation.
    *
-   * @param annotationType
-   * @param constructor
+   * @param annotationType type of annotation to search for
+   * @param constructor constructor to search on
    * @param <T> annotationType
-   * @return
+   * @return list of constructors
    */
   public static <T extends Annotation> List<AnnotatedParameter<T>> parametersWithAnnotation(Class<T> annotationType, Constructor<?> constructor) {
     AtomicInteger position = new AtomicInteger();
@@ -232,8 +352,8 @@ public class Annotations {
   /**
    * Resolve annotation type for given Annotation. These are sometimes wrapped in a Proxy. This resolve the true class.
    *
-   * @param annotation
-   * @return
+   * @param annotation annotation to get type
+   * @return annotation type
    */
   public static Class<? extends Annotation> resolveAnnotationType(Annotation annotation) {
     if (annotation instanceof Proxy) {

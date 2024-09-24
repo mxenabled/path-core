@@ -13,6 +13,13 @@ import com.mx.path.core.common.exception.PathRequestException;
  *
  */
 public class ServiceUnavailableException extends ConnectException {
+
+  /**
+   * Build new {@link ServiceUnavailableException} with specified message and cause.
+   *
+   * @param message message
+   * @param cause cause
+   */
   public ServiceUnavailableException(String message, Throwable cause) {
     super(message, cause);
     setCode(String.valueOf(PathResponseStatus.UNAVAILABLE.value()));

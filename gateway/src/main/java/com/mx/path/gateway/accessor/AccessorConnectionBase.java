@@ -20,19 +20,22 @@ public abstract class AccessorConnectionBase<REQ> extends AccessorConnectionSett
   /**
    * Implement to provide filters specific to connection type. At least one filter should be provided that executes the
    * request and sets the response body and other information about the result.
+   *
    * @return list of connection-specific request filters
    */
   public abstract List<RequestFilter> connectionRequestFilters();
 
   /**
-   * Override to create and configure a new REQ
-   * @param path
-   * @return new Request of type REQ
+   * Override to create and configure a new REQ.
+   *
+   * @param path request path
+   * @return new request of type REQ
    */
   public abstract REQ request(String path);
 
   /**
    * Builds and caches filterChain.
+   *
    * @return linked filter chain
    */
   protected RequestFilter buildFilterChain() {
