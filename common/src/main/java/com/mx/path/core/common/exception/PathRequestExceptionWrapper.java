@@ -30,14 +30,28 @@ package com.mx.path.core.common.exception;
  * }</pre>
  */
 public class PathRequestExceptionWrapper extends PathRequestException {
+  /**
+   * Default constructor.
+   */
   public PathRequestExceptionWrapper() {
     super();
   }
 
+  /**
+   * Build new {@link PathRequestExceptionWrapper} with specified cause.
+   *
+   * @param cause cause
+   */
   public PathRequestExceptionWrapper(Throwable cause) {
     super(cause);
   }
 
+  /**
+   * Build new {@link PathRequestExceptionWrapper} with specified description message and cause.
+   *
+   * @param message message
+   * @param cause cause
+   */
   public PathRequestExceptionWrapper(String message, Throwable cause) {
     super(message, cause);
   }

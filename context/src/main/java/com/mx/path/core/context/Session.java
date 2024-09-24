@@ -53,6 +53,11 @@ public class Session implements SessionInfo {
       .registerTypeAdapter(LocalDate.class, LocalDateDeserializer.builder().build())
       .create();
 
+  /**
+   * Return session repository.
+   *
+   * @return session repository
+   */
   public static SessionRepository getRepository() {
     if (Objects.isNull(repositorySupplier)) {
       throw new GatewayContextException("No repositorySupplier registered for Session");
@@ -61,6 +66,11 @@ public class Session implements SessionInfo {
     return repositorySupplier.get();
   }
 
+  /**
+   * Return session encryption service.
+   *
+   * @return encryption service
+   */
   public static EncryptionService getEncryptionService() {
     if (Objects.isNull(encryptionServiceSupplier)) {
       throw new GatewayContextException("No encryptionServiceSupplier registered for Session");
@@ -69,6 +79,11 @@ public class Session implements SessionInfo {
     return encryptionServiceSupplier.get();
   }
 
+  /**
+   * Return session compression service.
+   *
+   * @return compression service
+   */
   public static CompressionService getCompressionService() {
     if (compressionServiceSupplier == null) {
       return null;
@@ -77,14 +92,27 @@ public class Session implements SessionInfo {
     return compressionServiceSupplier.get();
   }
 
+  /**
+   * Set session service supplier.
+   *
+   * @param supplier supplier to set
+   */
   public static void setCompressionServiceSupplier(Supplier<CompressionService> supplier) {
     compressionServiceSupplier = supplier;
   }
 
+  /**
+   * Remove session compression service.
+   */
   static void resetCompressionService() {
     compressionServiceSupplier = null;
   }
 
+  /**
+   * Set default session expiry duration.
+   *
+   * @param sessionExpiry session expiry duration
+   */
   public static void setDefaultSessionExpiration(Duration sessionExpiry) {
     defaultSessionExpiration = sessionExpiry;
   }
@@ -102,7 +130,7 @@ public class Session implements SessionInfo {
   }
 
   /**
-   * Creates a new session object and sets it as the current session
+   * Creates a new session object and sets it as the current session.
    */
   public static void createSession() {
     UUID uuid = UUID.randomUUID();
@@ -113,7 +141,7 @@ public class Session implements SessionInfo {
   }
 
   /**
-   * Current, active session for LocalThread
+   * Current, active session for {@link ThreadLocal}.
    * @return Session
    */
   public static Session current() {
@@ -131,6 +159,11 @@ public class Session implements SessionInfo {
     }
   }
 
+  /**
+   * Return session event listener.
+   *
+   * @return session event listener
+   */
   public static List<SessionEventListener> getSessionEventListeners() {
     List<SessionEventListener> listeners = eventListenersThreadLocal.get();
 
@@ -142,13 +175,19 @@ public class Session implements SessionInfo {
     return listeners;
   }
 
+  /**
+   * Add new event listener to session.
+   *
+   * @param listener listener to add
+   */
   public static void registerSessionEventListener(SessionEventListener listener) {
     getSessionEventListeners().add(listener);
   }
 
   /**
-   * Loads new session by given sessionId and sets it as the current session
-   * @param sessionId
+   * Loads new session by given sessionId and sets it as the current session.
+   *
+   * @param sessionId session ID
    */
   public static void loadSession(String sessionId) {
     if (sessionId == null) {
@@ -167,7 +206,7 @@ public class Session implements SessionInfo {
    * Sets Session.current() to given session instance.
    *
    * <p>Used to set in new threads forked by normal request thread. Prefer {@link Session#loadSession}
-   * @param session
+   * @param session session to set
    */
   public static void setCurrent(Session session) {
     sessionThreadLocal.set(session);
@@ -175,24 +214,45 @@ public class Session implements SessionInfo {
 
   // Static methods
 
+  /**
+   * Return session repository supplier.
+   *
+   * @return repository supplier
+   */
   public static Supplier<SessionRepository> getRepositorySupplier() {
     return repositorySupplier;
   }
 
+  /**
+   * Return session encryption service supplier.
+   *
+   * @return encryption service supplier
+   */
   public static Supplier<EncryptionService> getEncryptionServiceSupplier() {
     return encryptionServiceSupplier;
   }
 
+  /**
+   * Set session repository supplier.
+   *
+   * @param supplier repository supplier to set
+   */
   public static void setRepositorySupplier(Supplier<SessionRepository> supplier) {
     repositorySupplier = supplier;
   }
 
+  /**
+   * Set session encryption service supplier
+   *
+   * @param supplier encryption service supplier to set
+   */
   public static void setEncryptionServiceSupplier(Supplier<EncryptionService> supplier) {
     encryptionServiceSupplier = supplier;
   }
 
   /**
    * Generate a new session. Does not persist.
+   *
    * @param sessionId new session's ID
    * @return new Session
    */
@@ -206,6 +266,7 @@ public class Session implements SessionInfo {
 
   /**
    * Generate a new session. Does not persist.
+   *
    * @param sessionId new session's ID
    * @param userId the userId for this session
    * @return new Session
@@ -217,6 +278,9 @@ public class Session implements SessionInfo {
     return newSession;
   }
 
+  /**
+   * Enum for session states.
+   */
   public enum SessionState {
     UNAUTHENTICATED, AUTHENTICATED, CHALLENGED, PINTOPASSWORD
   }
@@ -245,7 +309,9 @@ public class Session implements SessionInfo {
   // Getter/setters
 
   /**
-   * @return the clientId - replaced by Request object encapsulating clientid
+   * Return client ID.
+   *
+   * @return the clientId - replaced by Request object encapsulating clientId
    */
   @Deprecated
   public final String getClientId() {
@@ -253,6 +319,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set client ID.
+   *
    * @param clientId the clientId to set
    */
   public final void setClientId(String clientId) {
@@ -260,6 +328,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return session device ID.
+   *
    * @return identifier for the session's device
    */
   public final String getDeviceId() {
@@ -267,6 +337,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set session device ID.
+   *
    * @param deviceId identifier for session's device
    */
   public final void setDeviceId(String deviceId) {
@@ -274,6 +346,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return device height.
+   *
    * @return the deviceHeight
    */
   public final Integer getDeviceHeight() {
@@ -281,6 +355,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set device height.
+   *
    * @param deviceHeight the deviceHeight to set
    */
   public final void setDeviceHeight(Integer deviceHeight) {
@@ -288,6 +364,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return device latitude.
+   *
    * @return the deviceLatitude
    */
   public final Double getDeviceLatitude() {
@@ -295,6 +373,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set device latitude.
+   *
    * @param deviceLatitude the deviceLatitude to set
    */
   public final void setDeviceLatitude(Double deviceLatitude) {
@@ -302,6 +382,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return device longitude.
+   *
    * @return the deviceLongitude
    */
   public final Double getDeviceLongitude() {
@@ -309,6 +391,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set device longitude.
+   *
    * @param deviceLongitude the deviceLongitude to set
    */
   public final void setDeviceLongitude(Double deviceLongitude) {
@@ -316,6 +400,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return device make.
+   *
    * @return the deviceMake
    */
   public final String getDeviceMake() {
@@ -323,6 +409,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set device make.
+   *
    * @param deviceMake the deviceMake to set
    */
   public final void setDeviceMake(String deviceMake) {
@@ -330,6 +418,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return device model.
+   *
    * @return the deviceModel
    */
   public final String getDeviceModel() {
@@ -337,6 +427,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set device model.
+   *
    * @param deviceModel the deviceModel to set
    */
   public final void setDeviceModel(String deviceModel) {
@@ -344,6 +436,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return device OS.
+   *
    * @return the deviceOperatingSystem
    */
   public final String getDeviceOperatingSystem() {
@@ -351,6 +445,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set device OS.
+   *
    * @param deviceOperatingSystem the deviceOperatingSystem to set
    */
   public final void setDeviceOperatingSystem(String deviceOperatingSystem) {
@@ -358,6 +454,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return device OS version.
+   *
    * @return the deviceOperatingSystemVersion
    */
   public final String getDeviceOperatingSystemVersion() {
@@ -365,6 +463,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set device OS version.
+   *
    * @param deviceOperatingSystemVersion the deviceOperatingSystemVersion to set
    */
   public final void setDeviceOperatingSystemVersion(String deviceOperatingSystemVersion) {
@@ -372,6 +472,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return device width.
+   *
    * @return the deviceWidth
    */
   public final Integer getDeviceWidth() {
@@ -379,6 +481,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set device width.
+   *
    * @param deviceWidth the deviceWidth to set
    */
   public final void setDeviceWidth(Integer deviceWidth) {
@@ -386,6 +490,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return email.
+   *
    * @return the email
    */
   public final String getEmail() {
@@ -393,6 +499,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set email.
+   *
    * @param email the email to set
    */
   public final void setEmail(String email) {
@@ -400,6 +508,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set session ID.
+   *
    * @param newId this session's id
    */
   public final void setId(String newId) {
@@ -407,18 +517,27 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return session ID.
+   *
    * @return this session's id
    */
   public final String getId() {
     return id;
   }
 
+  /**
+   * Alias for {@link #getId()}.
+   *
+   * @return id
+   */
   @Override
   public final String getSessionId() {
     return getId();
   }
 
   /**
+   * Set session expiration time.
+   *
    * @param newExpiresAt hard expiration time for this session
    */
   public final void setExpiresAt(Long newExpiresAt) {
@@ -426,6 +545,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return session expiration time.
+   *
    * @return expiresAt hard expiration time for this session
    */
   public final Long getExpiresAt() {
@@ -433,6 +554,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return user first name.
+   *
    * @return the user's first name
    */
   public final String getFirstName() {
@@ -440,6 +563,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set user first name.
+   *
    * @param firstName the user's first name
    */
   public final void setFirstName(String firstName) {
@@ -447,6 +572,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return user last name.
+   *
    * @return the user's last name
    */
   public final String getLastName() {
@@ -454,6 +581,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set user last name.
+   *
    * @param lastName the user's last name
    */
   public final void setLastName(String lastName) {
@@ -461,6 +590,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return session state.
+   *
    * @return the sessionState
    */
   public final SessionState getSessionState() {
@@ -468,6 +599,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set session state.
+   *
    * @param sessionState the sessionState to set
    */
   public final void setSessionState(SessionState sessionState) {
@@ -475,6 +608,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set session start timestamp.
+   *
    * @param newStartedAt start timestamp for this session
    */
   public final void setStartedAt(LocalDateTime newStartedAt) {
@@ -482,6 +617,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return session start timestamp.
+   *
    * @return start timestamp for this session
    */
   public final LocalDateTime getStartedAt() {
@@ -489,6 +626,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Set session user ID.
+   *
    * @param newUserId user id to whom this session belongs
    */
   public final void setUserId(String newUserId) {
@@ -496,6 +635,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return session user ID.
+   *
    * @return user id to whom this session belongs
    */
   public final String getUserId() {
@@ -505,7 +646,7 @@ public class Session implements SessionInfo {
   // Public methods
 
   /**
-   * Clears session from repository and memory
+   * Clears session from repository and memory.
    */
   public final void delete() {
     getRepository().delete(this);
@@ -513,8 +654,9 @@ public class Session implements SessionInfo {
   }
 
   /**
-   * Clears value from session
-   * @param key
+   * Clears value from session.
+   *
+   * @param key key associated with value
    *
    * @deprecated Use {@link Session#delete(ScopeKeyGenerator, String)}
    */
@@ -524,17 +666,20 @@ public class Session implements SessionInfo {
   }
 
   /**
-   * Clears value from session
-   * @param key
+   * Clears value from session.
+   *
+   * @param key key associated with value
+   * @param scope session scope
    */
   public final void delete(ScopeKeyGenerator scope, String key) {
     getRepository().deleteValue(this, buildScopeKey(scope, key));
   }
 
   /**
-   * Get the value for given key
-   * @param key
-   * @return
+   * Get the value for given key.
+   *
+   * @param key key associated with value
+   * @return value
    *
    * @deprecated Use {@link Session#get(ScopeKeyGenerator, String)}
    */
@@ -545,10 +690,11 @@ public class Session implements SessionInfo {
   }
 
   /**
-   * Get the value for given key
-   * @param scope
-   * @param key
-   * @return
+   * Get the value for given key.
+   *
+   * @param scope scope
+   * @param key key
+   * @return value
    */
   public final String get(ScopeKeyGenerator scope, String key) {
     String value = getRepository().getValue(this, buildScopeKey(scope, key));
@@ -556,6 +702,8 @@ public class Session implements SessionInfo {
   }
 
   /**
+   * Return seconds to session expiration.
+   *
    * @return seconds to expiration
    */
   @Override
@@ -565,19 +713,23 @@ public class Session implements SessionInfo {
   }
 
   /**
-   * Get the value for given key, scoped to a service where value is an Object
-   * @param scope
-   * @param key
-   * @param klass
+   * Get the value for given key, scoped to a service where value is an Object.
+   *
+   * @param scope scope
+   * @param key key
+   * @param klass klass
+   * @param <T> object type
+   * @return object
    */
   public final <T> T getObj(ScopeKeyGenerator scope, String key, Class<T> klass) {
     return gson.fromJson(get(scope, key), klass);
   }
 
   /**
-   * Put a key/value pair
-   * @param key
-   * @param value
+   * Put a key-value pair on session.
+   *
+   * @param key key
+   * @param value value
    *
    * @deprecated Use {@link Session#put(ScopeKeyGenerator, String, String)}
    */
@@ -587,20 +739,22 @@ public class Session implements SessionInfo {
   }
 
   /**
-   * Put a key/value pair
-   * @param scope
-   * @param key
-   * @param value
+   * Put a key/value pair.
+   *
+   * @param scope scope
+   * @param key key
+   * @param value value
    */
   public final void put(ScopeKeyGenerator scope, String key, String value) {
     getRepository().saveValue(this, buildScopeKey(scope, key), compressValue(value));
   }
 
   /**
-   * Put a key/value pair, scoped to a service where value is an Object
-   * @param scope
-   * @param key
-   * @param obj
+   * Put a key/value pair, scoped to a service where value is an Object.
+   *
+   * @param scope scope
+   * @param key key
+   * @param obj object
    */
   public final void putObj(ScopeKeyGenerator scope, String key, Object obj) {
     getRepository().saveValue(this, buildScopeKey(scope, key), compressValue(gson.toJson(obj)));
@@ -611,9 +765,9 @@ public class Session implements SessionInfo {
    *
    * Encrypts the value before writing to value hash
    *
-   * @param scope
-   * @param key
-   * @param value
+   * @param scope scope
+   * @param key key
+   * @param value value
    */
   public final void sput(ScopeKeyGenerator scope, String key, String value) {
     getRepository().saveValue(this, buildScopeKey(scope, key), encryptValue(compressValue(value)));
@@ -624,16 +778,16 @@ public class Session implements SessionInfo {
    *
    * Encrypts the value before writing to value hash
    *
-   * @param scope
-   * @param key
-   * @param value
+   * @param scope scope
+   * @param key key
+   * @param value value
    */
   public final void sputObj(ScopeKeyGenerator scope, String key, Object value) {
     getRepository().saveValue(this, buildScopeKey(scope, key), encryptValue(compressValue(gson.toJson(value))));
   }
 
   /**
-   * Saves this session to repository
+   * Saves this session to repository.
    */
   public final void save() {
     notifyBeforeSave();
@@ -693,7 +847,7 @@ public class Session implements SessionInfo {
   }
 
   /**
-   * Invokes beforeSave on all registered listeners
+   * Invokes beforeSave on all registered listeners.
    */
   private void notifyBeforeSave() {
     getSessionEventListeners().stream().forEach((listener) -> {

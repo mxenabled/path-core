@@ -18,9 +18,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Utility class with methods based on java standard types and functions.
+ */
 public class ClassHelper {
   private final Set<String> whiteListedMethods = new HashSet<>();
 
+  /**
+   * Class default constructor.
+   */
   public ClassHelper() {
   }
 
@@ -31,6 +37,15 @@ public class ClassHelper {
     this.whiteListedMethods.addAll(Arrays.asList(whileListedMethods));
   }
 
+  /**
+   * Create instance of specified type using provided constructor arguments.
+   *
+   * @param <T> type of object to return
+   * @param returnType expected type of returned instance, which created instance must extend or implement
+   * @param instanceType class of instance to create
+   * @param args arguments to pass to constructor of instance
+   * @return new instance of specified type
+   */
   @SuppressWarnings("unchecked")
   public final <T> T buildInstance(Class<T> returnType, Class<?> instanceType, Object... args) {
     T instance = null;
@@ -53,6 +68,12 @@ public class ClassHelper {
     return instance;
   }
 
+  /**
+   * Attempts to load class by its fully qualified name.
+   *
+   * @param klassName fully qualified name of class to be loaded
+   * @return {@link Class} object representing class with specified name
+   */
   public final Class<?> getClass(String klassName) {
     // todo: replace this with Strings.isEmpty(...) after we move lang.Strings from Commons to this library.
     if (klassName == null || klassName.trim().isEmpty()) {
@@ -130,7 +151,7 @@ public class ClassHelper {
   }
 
   /**
-   * Attempts to invoke given method on
+   * Attempts to invoke given method on.
    *
    * <p>Will attempt to locate and invoke the method
    *
@@ -232,12 +253,13 @@ public class ClassHelper {
   }
 
   /**
-   * Attempts to invoke given method on
+   * Attempts to invoke given method on.
    *
    * <p>Will attempt to locate and invoke the method
    *
    * <p>See {@link #getMethod(Class, String, Class[])} for description of method locator strategy.
    *
+   * @param <T> type of result
    * @param resultType type of result
    * @param target to invoke method against
    * @param name of method
@@ -271,7 +293,7 @@ public class ClassHelper {
   /**
    * Takes in a field and returns a list of resolved generic types.
    *
-   * @param field
+   * @param field to return {@link Type}
    * @return list of {@link Type} for each generic field parameter
    */
   public final List<Type> resolveParameterizedFieldTypes(Field field) {
@@ -283,8 +305,8 @@ public class ClassHelper {
    *
    * <p>i.e. {@code List<String>} would return [String] and {@code Map<String, Integer>} would return [String, Integer]
    *
-   * @param method
-   * @return list of types
+   * @param method to return {@link Type}
+   * @return list of {@link Type}
    */
   public final List<Type> resolveParameterizedMethodReturnTypes(Method method) {
     return resolveParameterizedTypes(method.getGenericReturnType());
@@ -293,8 +315,8 @@ public class ClassHelper {
   /**
    * Takes in a parameterized type and resolves the actual type arguments.
    *
-   * @param parameterizedType
-   * @return list of types
+   * @param parameterizedType to return list of {@link Type}
+   * @return list of {@link Type}
    */
   public final List<Type> resolveParameterizedTypes(Type parameterizedType) {
     if (!(parameterizedType instanceof ParameterizedType)) {

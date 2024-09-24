@@ -33,16 +33,28 @@ import com.squareup.javapoet.WildcardTypeName;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Generates a proxy wrapper for each accessor
+ * Generates a proxy wrapper for each accessor.
  */
 public class AccessorProxyGenerator {
   private final Filer filer;
   private CodeBlock.Builder accessorProxyMappings;
 
+  /**
+   * Build new {@link AccessorProxyGenerator} instance with provided processing environment.
+   *
+   * @param processingEnvironment processing environment to interact with {@link Filer} file generation.
+   */
   public AccessorProxyGenerator(ProcessingEnvironment processingEnvironment) {
     this.filer = processingEnvironment.getFiler();
   }
 
+  /**
+   * Entry point for generating an accessor proxy based on the provided root accessor class.
+   *
+   * @param rootAccessor class of the root accessor to generate an accessor proxy for.
+   * @return accessor proxy
+   * @throws IOException to be thrown
+   */
   public final CodeBlock generateAll(Class<? extends Accessor> rootAccessor) throws IOException {
     if (!Annotations.hasAnnotation(rootAccessor, RootAccessor.class)) {
       throw new ConnectException("Accessor " + rootAccessor.getCanonicalName() + " is missing @RootAccessor annotation");

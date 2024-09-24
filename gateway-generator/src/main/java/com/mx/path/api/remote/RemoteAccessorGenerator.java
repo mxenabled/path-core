@@ -42,7 +42,14 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
 
+/**
+ * Generator for creating remove accessors.
+ */
 public final class RemoteAccessorGenerator {
+
+  /**
+   * Holds metadata about a sub-accessor within an accessor class.
+   */
   @Data
   private static class SubAccessor {
     private Class<? extends Accessor> klass;
@@ -53,10 +60,20 @@ public final class RemoteAccessorGenerator {
 
   private final Filer filer;
 
+  /**
+   * Build new {@link RemoteAccessorGenerator} instance with provided processing environment.
+   *
+   * @param processingEnvironment processing environment to interact with {@link Filer} file generation.
+   */
   public RemoteAccessorGenerator(ProcessingEnvironment processingEnvironment) {
     this.filer = processingEnvironment.getFiler();
   }
 
+  /**
+   * Entry point for generating a remote accessor based on the provided root accessor class.
+   *
+   * @param rootAccessorClass class of the root accessor to generate a remote accessor for.
+   */
   public void generate(Class<? extends Accessor> rootAccessorClass) {
     generateRemoteAccessor(rootAccessorClass);
   }

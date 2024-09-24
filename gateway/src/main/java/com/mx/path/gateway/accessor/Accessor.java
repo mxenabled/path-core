@@ -15,7 +15,7 @@ import com.mx.path.core.common.accessor.PathResponseStatus;
 import com.mx.path.core.common.gateway.GatewayAPI;
 
 /**
- * Base for all accessor implementations
+ * Base class for all accessor implementations.
  *
  * <p>Provides configuration and some static utility methods
  */
@@ -24,8 +24,8 @@ public abstract class Accessor {
   /**
    * Find first ancestor class of {@code klass} that extends {@link Accessor}, including self.
    *
-   * @param klass
-   * @return finds ancestor class that extends {@link Accessor}.
+   * @param klass class to begin searching
+   * @return finds ancestor class that extends {@link Accessor}
    */
   public static @Nonnull Class<? extends Accessor> getAccessorBase(Class<? extends Accessor> klass) {
     Class<?> currentClass = klass;
@@ -46,6 +46,7 @@ public abstract class Accessor {
    *
    * <p>The methods must have the  {@link API} annotation and should _not_ have {@link GatewayAPI} annotation.
    *
+   * @param klass class to start searching
    * @return list of methods
    */
   public static List<AccessorMethodDefinition> getBaseChildAccessorMethods(Class<? extends Accessor> klass) {
@@ -70,16 +71,25 @@ public abstract class Accessor {
 
   private AccessorConfiguration accessorConfiguration;
 
+  /**
+   * Default constructor.
+   */
   public Accessor() {
   }
 
+  /**
+   * Build new {@link Accessor} instance and set configuration.
+   *
+   * @param configuration configuration to set
+   * @deprecated use default constructor, configuration is now set by accessor construction context
+   */
   @Deprecated
   public Accessor(AccessorConfiguration configuration) {
     this.accessorConfiguration = configuration;
   }
 
   /**
-   * Get implemented accessors
+   * Get implemented accessors.
    * <p>Finds methods from {@link Accessor} annotated with {@link API} and have been overriden in this instance.
    *
    * @return list of implemented accessors
@@ -114,10 +124,10 @@ public abstract class Accessor {
   }
 
   /**
-   * Get configuration
+   * Get configuration.
    *
-   * @return
-   * @deprecated Use bound @Configuration objects
+   * @return accessor configuration
+   * @deprecated use bound @Configuration objects
    */
   @Deprecated
   public AccessorConfiguration getConfiguration() {
@@ -125,9 +135,9 @@ public abstract class Accessor {
   }
 
   /**
-   * Set configuration
+   * Set configuration.
    *
-   * @param configuration
+   * @param configuration configuration to set
    */
   public void setConfiguration(AccessorConfiguration configuration) {
     this.accessorConfiguration = configuration;

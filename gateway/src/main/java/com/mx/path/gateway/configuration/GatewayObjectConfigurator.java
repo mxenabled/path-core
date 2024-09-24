@@ -44,10 +44,24 @@ import com.mx.path.core.utility.reflection.ClassHelper;
 public final class GatewayObjectConfigurator {
   private final ConfigurationState state;
 
+  /**
+   * Build new {@link GatewayObjectConfigurator} instance with specified state.
+   *
+   * @param state state
+   */
   public GatewayObjectConfigurator(ConfigurationState state) {
     this.state = state;
   }
 
+  /**
+   * Build object from node.
+   *
+   * @param map object map
+   * @param clientId client id
+   * @param klass klass
+   * @return object
+   * @param <T> object type
+   */
   @SuppressWarnings("unchecked")
   public <T> T buildFromNode(ObjectMap map, String clientId, Class<T> klass) {
     ConfigurationBinder binder = new ConfigurationBinder(clientId, state);

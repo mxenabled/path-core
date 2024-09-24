@@ -14,8 +14,9 @@ import io.opentracing.util.GlobalTracer;
  */
 public class RemoteTracePropagation {
   /**
-   * Extract propagation headers and set next span in context
-   * @param message
+   * Extract propagation headers and set next span in context.
+   *
+   * @param message message
    * @return new Span
    */
   public static Span extract(Message message) {
@@ -25,8 +26,9 @@ public class RemoteTracePropagation {
   }
 
   /**
-   * Inject tracing propagation headers into event
-   * @param message
+   * Inject tracing propagation headers into event.
+   *
+   * @param message message
    */
   public static void inject(Message message) {
     Tracer tracer = GlobalTracer.get();

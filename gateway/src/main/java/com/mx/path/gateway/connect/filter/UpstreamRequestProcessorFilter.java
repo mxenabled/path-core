@@ -8,7 +8,17 @@ import com.mx.path.core.common.connect.Response;
 import com.mx.path.core.context.RequestContext;
 import com.mx.path.core.context.UpstreamRequestProcessor;
 
+/**
+ * Upstream request processor filter.
+ */
 public class UpstreamRequestProcessorFilter extends RequestFilterBase {
+
+  /**
+   * Execute this filter.
+   *
+   * @param request  Request
+   * @param response Response
+   */
   @Override
   public final void execute(Request request, Response response) {
     List<UpstreamRequestProcessor> processors = null;

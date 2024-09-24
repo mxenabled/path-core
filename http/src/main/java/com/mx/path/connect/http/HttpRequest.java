@@ -3,6 +3,9 @@ package com.mx.path.connect.http;
 import com.mx.path.core.common.connect.Request;
 import com.mx.path.core.common.connect.RequestFilter;
 
+/**
+ * Represents an HTTP request.
+ */
 public class HttpRequest extends Request<HttpRequest, HttpResponse> {
 
   /**

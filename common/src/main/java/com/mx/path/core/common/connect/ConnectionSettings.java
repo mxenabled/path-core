@@ -5,8 +5,16 @@ import java.util.List;
 
 import com.mx.path.core.common.collection.ObjectMap;
 
+/**
+ * Connection settings.
+ */
 public interface ConnectionSettings {
 
+  /**
+   * Describe settings.
+   *
+   * @param description to add description
+   */
   default void describe(ObjectMap description) {
   }
 

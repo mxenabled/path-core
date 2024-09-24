@@ -3,7 +3,7 @@ package com.mx.path.core.common.model;
 /**
  * Interface for wrappable objects. Used to determine if a JSON wrapping entity should be added to this.
  *
- * @param <T>
+ * @param <T> model type
  */
 public interface ModelWrappable<T> {
   T wrapped();

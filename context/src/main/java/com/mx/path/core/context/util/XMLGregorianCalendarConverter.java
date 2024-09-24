@@ -12,18 +12,43 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
+/**
+ * Utility class to serialize and deserialize {@link XMLGregorianCalendar}.
+ */
 public class XMLGregorianCalendarConverter {
 
+  /**
+   * Implements JsonSerializer for XMLGregorianCalendar.
+   */
   public static class Serializer implements JsonSerializer<XMLGregorianCalendar> {
 
+    /**
+     * Serialize calendar.
+     *
+     * @param xmlGregorianCalendar the object that needs to be converted to Json.
+     * @param type the actual type (fully genericized version) of the source object.
+     * @param jsonSerializationContext json serializer context
+     * @return serialized object
+     */
     @Override
     public final JsonElement serialize(XMLGregorianCalendar xmlGregorianCalendar, Type type, JsonSerializationContext jsonSerializationContext) {
       return new JsonPrimitive(xmlGregorianCalendar.toXMLFormat());
     }
   }
 
+  /**
+   * Implements JsonDeserializer for XMLGregorianCalendar.
+   */
   public static class Deserializer implements JsonDeserializer<XMLGregorianCalendar> {
 
+    /**
+     * Deserialize calendar.
+     *
+     * @param jsonElement The Json data being deserialized
+     * @param type The type of the Object to deserialize to
+     * @param jsonDeserializationContext json deserializer context
+     * @return deserialized object
+     */
     @Override
     public final XMLGregorianCalendar deserialize(JsonElement jsonElement, Type type,
         JsonDeserializationContext jsonDeserializationContext) {

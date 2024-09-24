@@ -16,6 +16,8 @@ import java.lang.annotation.Target;
 public @interface ServiceScope {
   /**
    * The name of the service the accessor interacts with.
+   *
+   * @return value
    */
   String value();
 }

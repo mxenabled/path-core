@@ -44,5 +44,10 @@ public interface MultiValueMappable<K, V> {
    */
   Map<K, List<V>> getRawMap();
 
+  /**
+   * Raw map to set.
+   *
+   * @param rawMap raw map
+   */
   void setRawMap(Map<K, List<V>> rawMap);
 }

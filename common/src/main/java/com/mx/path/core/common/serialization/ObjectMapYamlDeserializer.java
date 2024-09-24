@@ -30,22 +30,58 @@ public class ObjectMapYamlDeserializer {
   @Data
   @Builder
   public static class Parameters {
+    /**
+     * Protects against https://en.wikipedia.org/wiki/Billion_laughs_attack.
+     *
+     * -- GETTER --
+     * Return maximum number of aliases.
+     *
+     * @return maximum number of aliases
+     * -- SETTER --
+     * Set maximum number of aliases.
+     *
+     * @param maxYamlAliases maximum number of aliases to set
+     */
     @Builder.Default
-    private int maxYamlAliases = DEFAULT_MAX_YAML_ALIASES; // protects against https://en.wikipedia.org/wiki/Billion_laughs_attack
+    private int maxYamlAliases = DEFAULT_MAX_YAML_ALIASES; //
   }
 
+  /**
+   * -- GETTER --
+   * Return parameters.
+   *
+   * @return parameters
+   * -- SETTER --
+   * Set parameters.
+   *
+   * @param parameters parameters to set
+   */
   @Setter
   @Getter
   private Parameters parameters;
 
+  /**
+   * Default constructor.
+   */
   public ObjectMapYamlDeserializer() {
     parameters = Parameters.builder().build();
   }
 
+  /**
+   * Build new {@link ObjectMapYamlDeserializer} instance with specified parameters.
+   *
+   * @param parameters parameters
+   */
   public ObjectMapYamlDeserializer(Parameters parameters) {
     this.parameters = parameters;
   }
 
+  /**
+   * Build new object from YAML.
+   *
+   * @param document string obtained from yaml
+   * @return deserialized object
+   */
   public final Object fromYaml(String document) {
     LoaderOptions options = new LoaderOptions();
     options.setMaxAliasesForCollections(getParameters().getMaxYamlAliases());
@@ -63,6 +99,12 @@ public class ObjectMapYamlDeserializer {
     return root;
   }
 
+  /**
+   * Create string representing YAML object.
+   *
+   * @param yaml object
+   * @return string representation
+   */
   public final String toYaml(Object yaml) {
     return new Yaml().dump(yaml);
   }
@@ -118,6 +160,12 @@ public class ObjectMapYamlDeserializer {
    * set it to a LinkedHashMap (which ObjectMap extends).
    */
   private static class ObjectMapConstructor extends Constructor {
+
+    /**
+     * Build new {@link ObjectMapConstructor} instance with specified options.
+     *
+     * @param loaderOptions options
+     */
     ObjectMapConstructor(LoaderOptions loaderOptions) {
       super(loaderOptions);
     }

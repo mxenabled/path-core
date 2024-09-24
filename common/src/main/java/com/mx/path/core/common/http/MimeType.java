@@ -284,6 +284,8 @@ public class MimeType implements Comparable<MimeType>, Serializable {
   /**
    * Indicates whether the {@linkplain #getType() type} is the wildcard character
    * <code>&#42;</code> or not.
+   *
+   * @return true if is specified wildcard character, false otherwise
    */
   public boolean isWildcardType() {
     return WILDCARD_TYPE.equals(getType());
@@ -301,6 +303,8 @@ public class MimeType implements Comparable<MimeType>, Serializable {
 
   /**
    * Return the primary type.
+   *
+   * @return type
    */
   public String getType() {
     return this.type;
@@ -308,6 +312,8 @@ public class MimeType implements Comparable<MimeType>, Serializable {
 
   /**
    * Return the subtype.
+   *
+   * @return subtype
    */
   public String getSubtype() {
     return this.subtype;
@@ -316,6 +322,8 @@ public class MimeType implements Comparable<MimeType>, Serializable {
   /**
    * Return the subtype suffix as defined in RFC 6839.
    * @since 5.3
+   *
+   * @return subtype suffix
    */
   @Nullable
   public String getSubtypeSuffix() {

@@ -12,13 +12,27 @@ import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
 
+/**
+ * Generator for creating configurator classes for gateways.
+ */
 public class GatewayConfiguratorGenerator {
   private final Filer filer;
 
+  /**
+   * Build new {@link GatewayConfiguratorGenerator} instance.
+   *
+   * @param processingEnv environment provided by the annotation processing tool.
+   */
   public GatewayConfiguratorGenerator(ProcessingEnvironment processingEnv) {
     this.filer = processingEnv.getFiler();
   }
 
+  /**
+   * Generates a configurator class for the given {@link GatewayClassElement}.
+   *
+   * @param target element representing the gateway class for which to generate a configurator.
+   * @throws IOException to be thrown
+   */
   public final void generate(GatewayClassElement target) throws IOException {
     TypeSpec.Builder configuratorClass = TypeSpec.classBuilder(target.getSimpleName() + "Configurator")
         .addModifiers(Modifier.PUBLIC)

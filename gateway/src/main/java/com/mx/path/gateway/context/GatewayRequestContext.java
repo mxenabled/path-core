@@ -40,6 +40,12 @@ public final class GatewayRequestContext extends RequestContext {
     return fromRequestContext(requestContext);
   }
 
+  /**
+   * Build gateway context from request context.
+   *
+   * @param requestContext context
+   * @return gateway context
+   */
   public static GatewayRequestContext fromRequestContext(RequestContext requestContext) {
     if (requestContext instanceof GatewayRequestContext) {
       return (GatewayRequestContext) requestContext;
@@ -55,7 +61,7 @@ public final class GatewayRequestContext extends RequestContext {
 
   /**
    * @return the root gateway
-   * @param <T>
+   * @param <T> type
    */
   @SuppressWarnings("unchecked")
   public <T extends Gateway<?>> T getGateway() {
@@ -64,7 +70,7 @@ public final class GatewayRequestContext extends RequestContext {
 
   /**
    * @return the current gateway
-   * @param <T>
+   * @param <T> type
    */
   @SuppressWarnings("unchecked")
   public <T extends Gateway<?>> T getCurrentGateway() {

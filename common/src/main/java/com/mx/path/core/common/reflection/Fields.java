@@ -14,15 +14,16 @@ import com.mx.path.core.common.configuration.ConfigurationException;
 import com.mx.path.core.common.lang.Durations;
 
 /**
- * Field access utilities
+ * Field access utilities.
  */
 public class Fields {
 
   /**
-   * Get a field's value
-   * @param field
-   * @param obj
-   * @return
+   * Get a field's value.
+   *
+   * @param field field
+   * @param obj object to get from field
+   * @return object
    */
   public static Object getFieldValue(Field field, Object obj) {
     boolean originalAccessibility = field.isAccessible();
@@ -39,10 +40,11 @@ public class Fields {
   }
 
   /**
-   * Get a field's value by name
-   * @param fieldName
-   * @param obj
-   * @return
+   * Get a field's value by name.
+   *
+   * @param fieldName field name
+   * @param obj object
+   * @return object
    */
   public static Object getFieldValue(String fieldName, Object obj) {
     Field field = Arrays.stream(obj.getClass().getDeclaredFields()).filter(f -> Objects.equals(f.getName(), fieldName)).findFirst().orElse(null);
@@ -54,10 +56,11 @@ public class Fields {
   }
 
   /**
-   * Set a field's value
-   * @param field
-   * @param obj
-   * @param val
+   * Set a field's value.
+   *
+   * @param field field
+   * @param obj object
+   * @param val value
    */
   public static void setFieldValue(Field field, Object obj, Object val) {
     try {
@@ -74,10 +77,11 @@ public class Fields {
   }
 
   /**
-   * Set a field's value by name
-   * @param fieldName
-   * @param obj
-   * @param val
+   * Set a field's value by name.
+   *
+   * @param fieldName name
+   * @param obj object
+   * @param val value
    */
   public static void setFieldValue(String fieldName, Object obj, Object val) {
     Field field = Arrays.stream(obj.getClass().getDeclaredFields()).filter(f -> Objects.equals(f.getName(), fieldName)).findFirst().orElse(null);
@@ -88,6 +92,13 @@ public class Fields {
     }
   }
 
+  /**
+   * Coerce object to target type.
+   *
+   * @param targetType type
+   * @param value value
+   * @return coerced object
+   */
   @SuppressWarnings("PMD.CyclomaticComplexity")
   public static Object coerceValueType(Class<?> targetType, Object value) {
     if (value == null) {

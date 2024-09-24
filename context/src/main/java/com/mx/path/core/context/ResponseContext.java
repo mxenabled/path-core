@@ -8,6 +8,9 @@ import lombok.experimental.SuperBuilder;
 
 import com.mx.path.core.common.collection.SingleValueMap;
 
+/**
+ * Context class for response.
+ */
 @Data
 @SuperBuilder(toBuilder = true)
 @AllArgsConstructor
@@ -15,16 +18,16 @@ public class ResponseContext {
   private static final ThreadLocal<ResponseContext> THREAD_LOCAL = new ThreadLocal<>();
 
   /**
-   * Clear ThreadLocal from current ResponseContext
+   * Clear {@link ThreadLocal} from current {@link ResponseContext}.
    */
   public static void clear() {
     THREAD_LOCAL.remove();
   }
 
   /**
-   * Current active ResponseContext on ThreadLocal
+   * Current active {@link ResponseContext} on {@link ThreadLocal}.
    *
-   * @return ResponseContext
+   * @return {@link ResponseContext}
    */
   public static ResponseContext current() {
     return THREAD_LOCAL.get();
@@ -52,11 +55,17 @@ public class ResponseContext {
     }
   }
 
+  /**
+   * Helper class to build response context.
+   *
+   * @param <C> type of response being built
+   * @param <B> type of builder
+   */
   public abstract static class ResponseContextBuilder<C extends ResponseContext, B extends ResponseContext.ResponseContextBuilder<C, B>> {
     private SingleValueMap<String, String> headers = new SingleValueMap<>();
 
     /**
-     * Add a header
+     * Add a header.
      *
      * @param key header key
      * @param value header value
@@ -71,12 +80,15 @@ public class ResponseContext {
 
   private SingleValueMap<String, String> headers;
 
+  /**
+   * Default constructor.
+   */
   public ResponseContext() {
     headers = new SingleValueMap<>();
   }
 
   /**
-   * Registers this instance as ResponseContext.current()
+   * Registers this instance as {@link ResponseContext#current()}.
    */
   public void register() {
     THREAD_LOCAL.set(this);

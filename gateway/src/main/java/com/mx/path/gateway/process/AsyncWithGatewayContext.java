@@ -20,13 +20,30 @@ import lombok.Getter;
  * @param <T> result type
  */
 public final class AsyncWithGatewayContext<T> extends CallableWithGatewayContext<T> {
+
+  /**
+   * Return lambda.
+   *
+   * @return lambda
+   */
   @Getter(AccessLevel.PACKAGE)
   private final Supplier<T> lambda;
 
+  /**
+   * Build new {@link AsyncWithGatewayContext} instance with specified lambda.
+   *
+   * @param lambda lambda to wrap
+   */
   public AsyncWithGatewayContext(Supplier<T> lambda) {
     this.lambda = lambda;
   }
 
+  /**
+   * Executes lambda.
+   *
+   * @return lambda result
+   * @throws Exception exception
+   */
   @Override
   protected T execute() throws Exception {
     return lambda.get();

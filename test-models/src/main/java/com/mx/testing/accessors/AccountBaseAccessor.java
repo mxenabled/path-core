@@ -13,19 +13,37 @@ import com.mx.path.gateway.accessor.Accessor;
 import com.mx.path.gateway.accessor.AccessorResponse;
 import com.mx.testing.model.Account;
 
+/**
+ * Test class for account accessor.
+ */
 @API(description = "Test account accessor")
 @GatewayClass
 public class AccountBaseAccessor extends Accessor {
+
+  /**
+   * -- GETTER --
+   * Return transaction accessor.
+   *
+   * @return transaction accessor
+   *
+   * -- SETTER --
+   * Set transaction accessor.
+   *
+   * @param transactions transactions to set
+   */
   @GatewayAPI
   @Getter
   @Setter
   private TransactionBaseAccessor transactions;
 
+  /**
+   * Default constructor.
+   */
   public AccountBaseAccessor() {
   }
 
   /**
-   * Accessor for account operations
+   * Accessor for account operations.
    * @return accessor
    */
   @API
@@ -38,8 +56,8 @@ public class AccountBaseAccessor extends Accessor {
   }
 
   /**
-   * Get all accounts
-   * @return
+   * Get all accounts.
+   * @return list of accounts
    */
   @GatewayAPI
   @API(description = "Get all user's account")
@@ -48,8 +66,9 @@ public class AccountBaseAccessor extends Accessor {
   }
 
   /**
-   * Get all accounts
-   * @return
+   * Get all accounts.
+   * @param includeDeleted include deleted accounts on response
+   * @return list of accounts
    */
   @GatewayAPI
   @API(description = "Get all user's account", version = "20240101")
@@ -59,8 +78,9 @@ public class AccountBaseAccessor extends Accessor {
   }
 
   /**
-   * Get all accounts
-   * @return
+   * Get all accounts by id.
+   * @param id account id
+   * @return account
    */
   @GatewayAPI
   @API(description = "Get user's account by account")
@@ -69,9 +89,9 @@ public class AccountBaseAccessor extends Accessor {
   }
 
   /**
-   * Get account by id
-   * @param id
-   * @return
+   * Get account by id.
+   * @param id account id
+   * @return account
    */
   @GatewayAPI
   @API(description = "Get user's account by account", version = "20240101")
@@ -80,9 +100,9 @@ public class AccountBaseAccessor extends Accessor {
   }
 
   /**
-   * Create account
-   * @param account
-   * @return
+   * Create account.
+   * @param account account to create
+   * @return account created
    */
   @GatewayAPI
   @API(description = "Create account")
@@ -91,9 +111,9 @@ public class AccountBaseAccessor extends Accessor {
   }
 
   /**
-   * Create account
-   * @param account
-   * @return
+   * Create account.
+   * @param account account to create
+   * @return account created
    */
   @GatewayAPI
   @API(description = "Create account", version = "20240101")

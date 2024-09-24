@@ -9,15 +9,16 @@ package com.mx.path.core.common.event;
  * - Register an event subscriber
  */
 public interface EventBus {
+
   /**
-   * Post an event to the event bus
+   * Post an event to the event bus.
    *
-   * @param event
+   * @param event event
    */
   void post(Object event);
 
   /**
-   * Register an event subscriber
+   * Register an event subscriber.
    *
    * @param subscriber to register
    */

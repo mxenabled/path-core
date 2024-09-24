@@ -9,5 +9,16 @@ import lombok.Data;
  */
 @Data
 public class FaultTolerantScopeConfiguration {
+
+  /**
+   * -- GETTER --
+   * Return tolerance limit.
+   *
+   * @return tolerance limit
+   * -- SETTER --
+   * Set tolerance limit.
+   *
+   * @param timeout tolerance limit to set
+   */
   private Duration timeout;
 }

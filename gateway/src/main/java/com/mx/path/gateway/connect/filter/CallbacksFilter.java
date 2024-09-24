@@ -10,6 +10,13 @@ import com.mx.path.core.common.connect.Response;
  * <p>Runs runs next, records duration, runs complete callback, runs process callback
  */
 public class CallbacksFilter extends RequestFilterBase {
+
+  /**
+   * Execute this filter.
+   *
+   * @param request  Request
+   * @param response Response
+   */
   @Override
   public final void execute(Request request, Response response) {
     next(request, response);

@@ -13,5 +13,11 @@ import java.lang.annotation.Target;
 @Target({ ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RemoteOperation {
+
+  /**
+   * Return operation value.
+   *
+   * @return value
+   */
   String value();
 }

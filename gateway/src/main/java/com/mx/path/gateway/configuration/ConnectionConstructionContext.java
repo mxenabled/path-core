@@ -15,26 +15,73 @@ import com.mx.path.core.common.reflection.Constructors;
 import com.mx.path.core.common.reflection.Fields;
 import com.mx.path.gateway.configuration.annotations.Connection;
 
+/**
+ * Context for a connection construction.
+ */
 public class ConnectionConstructionContext {
 
+  /**
+   * -- GETTER --
+   * Return connection settings.
+   *
+   * @return connection settings
+   */
   @Getter
   private final AccessorConnectionSettings accessorConnectionSettings;
 
+  /**
+   * -- GETTER --
+   * Return client id.
+   *
+   * @return client id
+   */
   @Getter
   private final String clientId;
 
+  /**
+   * -- GETTER --
+   * Return connection settings class.
+   *
+   * @return connection settings class
+   */
   @Getter
   private final Class<? extends AccessorConnectionSettings> connectionClass;
 
+  /**
+   * -- GETTER --
+   * Return connection constructor.
+   *
+   * @return connection constructor
+   */
   @Getter
   private final Constructor<? extends AccessorConnectionSettings> connectionConstructor;
 
+  /**
+   * -- GETTER --
+   * Return constructor arguments.
+   *
+   * @return constructor arguments
+   */
   @Getter
   private final List<Object> constructorArgs;
 
+  /**
+   * -- GETTER --
+   * Return configuration state.
+   *
+   * @return configuration state
+   */
   @Getter
   private final ConfigurationState state;
 
+  /**
+   * Build new instance of {@link ConnectionConstructionContext}.
+   *
+   * @param clientId client id
+   * @param state state
+   * @param connectionClass connection class
+   * @param accessorConnectionSettings connection settings accessor
+   */
   @SuppressWarnings("unchecked")
   public ConnectionConstructionContext(String clientId, ConfigurationState state, Class<?> connectionClass, AccessorConnectionSettings accessorConnectionSettings) {
     this.clientId = clientId;
@@ -71,6 +118,11 @@ public class ConnectionConstructionContext {
     }
   }
 
+  /**
+   * Build settings.
+   *
+   * @return settings
+   */
   public final AccessorConnectionSettings build() {
     try {
       if (accessorConnectionSettings != null) {
@@ -90,6 +142,13 @@ public class ConnectionConstructionContext {
     }
   }
 
+  /**
+   * Find correct constructor to build connection settings.
+   *
+   * @param klass klass of connection settings
+   * @return constructor
+   * @param <T> type of connection
+   */
   private <T extends AccessorConnectionSettings> Constructor<T> findBestConstructor(Class<T> klass) {
     List<Constructor<T>> constructors = getConstructors(klass);
 

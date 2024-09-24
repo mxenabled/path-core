@@ -438,6 +438,12 @@ public enum HttpStatus {
 
   private final String reasonPhrase;
 
+  /**
+   * Build new {@link HttpStatus} instance with specified value and reason phrase.
+   *
+   * @param value value
+   * @param reasonPhrase phrase
+   */
   HttpStatus(int value, String reasonPhrase) {
     this.value = value;
     this.reasonPhrase = reasonPhrase;
@@ -445,6 +451,8 @@ public enum HttpStatus {
 
   /**
    * Return the integer value of this status code.
+   *
+   * @return integer associated value
    */
   public int value() {
     return this.value;
@@ -452,6 +460,8 @@ public enum HttpStatus {
 
   /**
    * Return the reason phrase of this status code.
+   *
+   * @return reason for status
    */
   public String getReasonPhrase() {
     return this.reasonPhrase;
@@ -459,18 +469,23 @@ public enum HttpStatus {
 
   /**
    * Return the HTTP status series of this status code.
+   *
    * @see Series
+   *
+   * @return HTTP series
    */
   public Series series() {
     return Series.valueOf(this);
   }
 
   /**
-   * Whether this status code is in the HTTP series
+   * Whether this status code is in the HTTP series.
    * {@link Series#INFORMATIONAL}.
    * This is a shortcut for checking the value of {@link #series()}.
    * @since 4.0
    * @see #series()
+   *
+   * @return true if in HTTP series
    */
   public boolean is1xxInformational() {
     return series() == Series.INFORMATIONAL;
@@ -482,6 +497,8 @@ public enum HttpStatus {
    * This is a shortcut for checking the value of {@link #series()}.
    * @since 4.0
    * @see #series()
+   *
+   * @return true if in HTTP series
    */
   public boolean is2xxSuccessful() {
     return series() == Series.SUCCESSFUL;
@@ -493,6 +510,8 @@ public enum HttpStatus {
    * This is a shortcut for checking the value of {@link #series()}.
    * @since 4.0
    * @see #series()
+   *
+   * @return true if in HTTP series
    */
   public boolean is3xxRedirection() {
     return series() == Series.REDIRECTION;
@@ -504,6 +523,8 @@ public enum HttpStatus {
    * This is a shortcut for checking the value of {@link #series()}.
    * @since 4.0
    * @see #series()
+   *
+   * @return true if in HTTP series
    */
   public boolean is4xxClientError() {
     return series() == Series.CLIENT_ERROR;
@@ -515,6 +536,8 @@ public enum HttpStatus {
    * This is a shortcut for checking the value of {@link #series()}.
    * @since 4.0
    * @see #series()
+   *
+   * @return true if in HTTP series
    */
   public boolean is5xxServerError() {
     return series() == Series.SERVER_ERROR;
@@ -528,6 +551,8 @@ public enum HttpStatus {
    * @since 5.0
    * @see #is4xxClientError()
    * @see #is5xxServerError()
+   *
+   * @return true if in HTTP series
    */
   public boolean isError() {
     return is4xxClientError() || is5xxServerError();
@@ -535,6 +560,8 @@ public enum HttpStatus {
 
   /**
    * Return a string representation of this status code.
+   *
+   * @return string representation
    */
   @Override
   public String toString() {
@@ -543,8 +570,9 @@ public enum HttpStatus {
 
   /**
    * Attempt to coerce this HttpStatus to a PathResponseStatus.
+   *
    * @param defaultStatus Value to return if value does not resolve to a PathResponseStatus
-   * @return
+   * @return coerced status
    */
   public PathResponseStatus toPathResponseStatus(PathResponseStatus defaultStatus) {
     PathResponseStatus resolved = PathResponseStatus.resolve(value());
@@ -689,7 +717,26 @@ public enum HttpStatus {
    */
   public enum Series {
 
-    INFORMATIONAL(1), SUCCESSFUL(2), REDIRECTION(3), CLIENT_ERROR(4), SERVER_ERROR(5);
+    /**
+     * Informational type series.
+     */
+    INFORMATIONAL(1),
+    /**
+     * Successful type series.
+     */
+    SUCCESSFUL(2),
+    /**
+     * Redirection type series.
+     */
+    REDIRECTION(3),
+    /**
+     * Client error type series.
+     */
+    CLIENT_ERROR(4),
+    /**
+     * Server error type series.
+     */
+    SERVER_ERROR(5);
 
     private final int value;
 
@@ -699,6 +746,8 @@ public enum HttpStatus {
 
     /**
      * Return the integer value of this status series. Ranges from 1 to 5.
+     *
+     * @return integer value
      */
     public int value() {
       return this.value;
@@ -706,6 +755,7 @@ public enum HttpStatus {
 
     /**
      * Return the enum constant of this type with the corresponding series.
+     *
      * @param status a standard HTTP status enum value
      * @return the enum constant of this type with the corresponding series
      * @throws IllegalArgumentException if this enum has no corresponding constant

@@ -8,9 +8,17 @@ import com.mx.path.connect.messaging.MessageHeaders;
 
 import io.opentracing.propagation.TextMap;
 
+/**
+ * Utility class to extract {@link MessageHeaders}.
+ */
 public final class MessageHeadersExtractAdaptor implements TextMap {
   private final MessageHeaders messageHeaders;
 
+  /**
+   * Build a new {@link MessageHeadersExtractAdaptor} with the specified {@link MessageHeaders}.
+   *
+   * @param messageHeaders {@link MessageHeaders} to be set
+   */
   public MessageHeadersExtractAdaptor(MessageHeaders messageHeaders) {
     this.messageHeaders = messageHeaders;
   }

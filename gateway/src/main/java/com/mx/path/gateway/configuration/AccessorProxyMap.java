@@ -10,14 +10,27 @@ import com.mx.path.core.common.gateway.GatewayException;
 import com.mx.path.gateway.accessor.Accessor;
 import com.mx.path.gateway.configuration.annotations.AccessorScope;
 
+/**
+ * Manages accessor and  accessor proxy mapping.
+ */
 public class AccessorProxyMap {
 
   private static Map<String, Map<Class<? extends Accessor>, Class<? extends Accessor>>> accessorProxyMap = new HashMap<>();
 
+  /**
+   * Clear {@code accessorProxyMap}.
+   */
   static void reset() {
     accessorProxyMap = new HashMap<>();
   }
 
+  /**
+   * Add new element to accessor and accessor proxy map.
+   *
+   * @param scopeName name of scope
+   * @param accessorBaseClass base class of map
+   * @param accessorProxyClass accessor proxy of map
+   */
   public static void add(String scopeName, Class<? extends Accessor> accessorBaseClass, Class<? extends Accessor> accessorProxyClass) {
     scopeName = scopeName.toLowerCase(Locale.ROOT);
     try {
@@ -28,6 +41,9 @@ public class AccessorProxyMap {
     }
   }
 
+  /**
+   * Set accessor proxy to immutable state.
+   */
   public static void freeze() {
     Arrays.asList(AccessorScope.values()).forEach((scope) -> {
       String scopeName = scope.getName().toLowerCase(Locale.ROOT);
@@ -38,6 +54,13 @@ public class AccessorProxyMap {
     accessorProxyMap = Collections.unmodifiableMap(accessorProxyMap);
   }
 
+  /**
+   * Find proxy for given scope name and class type.
+   *
+   * @param scopeName scope name
+   * @param klass class type
+   * @return proxy class for given parameters
+   */
   public static Class<?> get(String scopeName, Class<? extends Accessor> klass) {
     scopeName = scopeName.toLowerCase(Locale.ROOT);
     Map<Class<? extends Accessor>, Class<? extends Accessor>> accessorMap = accessorProxyMap.get(scopeName);

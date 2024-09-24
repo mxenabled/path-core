@@ -7,9 +7,17 @@ import com.mx.path.connect.messaging.MessageHeaders;
 
 import io.opentracing.propagation.TextMap;
 
+/**
+ * Utility class to append new header on {@link MessageHeaders}.
+ */
 public final class MessageHeadersCarrier implements TextMap {
   private final MessageHeaders messageHeaders;
 
+  /**
+   * Build a new {@link MessageHeadersCarrier} with the specified {@link MessageHeaders}.
+   *
+   * @param messageHeaders {@link MessageHeaders} to be appended
+   */
   public MessageHeadersCarrier(MessageHeaders messageHeaders) {
     this.messageHeaders = messageHeaders;
   }

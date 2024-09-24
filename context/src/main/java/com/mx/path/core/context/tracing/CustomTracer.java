@@ -9,19 +9,37 @@ import io.opentracing.Tracer;
 import io.opentracing.propagation.Format;
 import io.opentracing.tag.Tags;
 
+/**
+ * Utility class for managing tracers.
+ */
 public class CustomTracer {
   private static Tracer tracer;
 
   // Public
 
+  /**
+   * Set tracer.
+   *
+   * @param tracer tracer to set
+   */
   public static void setTracer(Tracer tracer) {
     CustomTracer.tracer = tracer;
   }
 
+  /**
+   * Get tracer.
+   *
+   * @return tracer
+   */
   public static Tracer getTracer() {
     return tracer;
   }
 
+  /**
+   * Get span id.
+   *
+   * @return span id
+   */
   public static String getSpanId() {
     if (getSpanContext() != null) {
       return getSpanContext().toSpanId();
@@ -30,6 +48,11 @@ public class CustomTracer {
     return null;
   }
 
+  /**
+   * Get trace id.
+   *
+   * @return trace id
+   */
   public static String getTraceId() {
     if (getSpanContext() != null) {
       return getSpanContext().toTraceId();
@@ -38,6 +61,11 @@ public class CustomTracer {
     return null;
   }
 
+  /**
+   * Get tracer span context.
+   *
+   * @return tracer span context
+   */
   public static SpanContext getSpanContext() {
     if (tracer != null && tracer.activeSpan() != null) {
       return tracer.activeSpan().context();
@@ -47,7 +75,8 @@ public class CustomTracer {
   }
 
   /**
-   * Start a child span with name
+   * Start a child span with given name.
+   *
    * @param name of process
    * @return child span
    */
@@ -61,10 +90,11 @@ public class CustomTracer {
   }
 
   /**
-   * Starts a child span with name and sets the parent as spanContext
-   * @param name
-   * @param spanContext
-   * @return
+   * Starts a child span with name and sets the parent as spanContext.
+   *
+   * @param name span name
+   * @param spanContext span context
+   * @return span
    */
   public static Span startChildSpanFromSpanContext(String name, SpanContext spanContext) {
     Span span = tracer
@@ -75,8 +105,9 @@ public class CustomTracer {
   }
 
   /**
-   * Injects the SpanContext into the supplied headers.
-   * @param headers
+   * Injects the {@link SpanContext} into the supplied headers.
+   *
+   * @param headers headers
    */
   public static void injectSpanContextIntoHeaders(Map<String, String> headers) {
     if (getSpanContext() != null) {
@@ -88,9 +119,10 @@ public class CustomTracer {
   }
 
   /**
-   * Activates the provided span and returns a Scope object that must be explicitly closed (or implicitly via `try (Scope scope = ...)`)
-   * @param span
-   * @return
+   * Activates the provided span and returns a Scope object that must be explicitly closed (or implicitly via `try (Scope scope = ...)`).
+   *
+   * @param span span
+   * @return scope
    */
   public static Scope activateSpan(Span span) {
     return tracer.activateSpan(span);

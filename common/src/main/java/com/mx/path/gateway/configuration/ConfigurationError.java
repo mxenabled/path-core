@@ -8,22 +8,56 @@ import com.mx.path.core.common.lang.Strings;
  */
 public class ConfigurationError extends RuntimeException {
 
+  /**
+   * Build new {@link ConfigurationError} with specified parameters.
+   *
+   * @param message message
+   * @param field field
+   */
   public ConfigurationError(String message, String field) {
     super(buildMessage(message, field, null));
   }
 
+  /**
+   * Build new {@link ConfigurationError} with specified parameters.
+   *
+   * @param message message
+   * @param field field
+   * @param cause cause
+   */
   public ConfigurationError(String message, String field, Throwable cause) {
     super(buildMessage(message, field, null), cause);
   }
 
+  /**
+   * Build new {@link ConfigurationError} with specified parameters.
+   *
+   * @param message message
+   * @param state state
+   */
   public ConfigurationError(String message, ConfigurationState state) {
     this(message, state, null);
   }
 
+  /**
+   * Build new {@link ConfigurationError} with specified parameters.
+   *
+   * @param message message
+   * @param state state
+   * @param cause cause
+   */
   public ConfigurationError(String message, ConfigurationState state, Throwable cause) {
     super(buildMessage(message, null, state), cause);
   }
 
+  /**
+   * Build description message for this exception.
+   *
+   * @param message message
+   * @param field field
+   * @param state state
+   * @return description message
+   */
   private static String buildMessage(String message, String field, ConfigurationState state) {
     StringBuilder builder = new StringBuilder();
     builder.append(message);

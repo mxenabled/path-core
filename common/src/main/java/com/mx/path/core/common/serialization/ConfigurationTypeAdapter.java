@@ -53,12 +53,29 @@ public class ConfigurationTypeAdapter<ST> extends TypeAdapter<ST> {
 
   private final TypeAdapter<ST> delegate;
 
+  /**
+   * Build new instance of {@link ConfigurationTypeAdapter}.
+   *
+   * @param delegate delegated type adapter
+   */
   public ConfigurationTypeAdapter(TypeAdapter<ST> delegate) {
     this.delegate = delegate;
   }
 
+  /**
+   * Auxiliary class to build new type adapters.
+   */
   @SuppressWarnings("unchecked")
   public static class Factory implements TypeAdapterFactory {
+
+    /**
+     * Create new instance of {@link TypeAdapter} with type T.
+     *
+     * @param gson class json data
+     * @param type type of class
+     * @return new instance of T
+     * @param <T> type to return
+     */
     @Override
     public final <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
       if (type.getRawType() == Duration.class) {
@@ -81,6 +98,13 @@ public class ConfigurationTypeAdapter<ST> extends TypeAdapter<ST> {
     }
   }
 
+  /**
+   * Write value to output.
+   *
+   * @param out write output
+   * @param value the Java object to write. May be null.
+   * @throws IOException to be thrown
+   */
   @Override
   public final void write(JsonWriter out, ST value) throws IOException {
     out.beginObject();
@@ -93,6 +117,13 @@ public class ConfigurationTypeAdapter<ST> extends TypeAdapter<ST> {
     out.endObject();
   }
 
+  /**
+   * Read valur from input.
+   *
+   * @param in input
+   * @return value
+   * @throws IOException to thrown
+   */
   @Override
   public final ST read(JsonReader in) throws IOException {
     return delegate.read(in);

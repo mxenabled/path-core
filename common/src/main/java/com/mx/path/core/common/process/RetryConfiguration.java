@@ -25,7 +25,7 @@ import com.mx.path.gateway.configuration.ConfigurationError;
 import com.mx.path.gateway.configuration.ConfigurationState;
 
 /**
- * Configuration node that can apply bound configurations to a {@link Retryer} instance
+ * Configuration node that can apply bound configurations to a {@link Retryer} instance.
  *
  * <p>Set this as the type in configuration POJO to support configurable retries. At runtime, grab the instance and
  * call {@link #instance()}.
@@ -60,28 +60,47 @@ import com.mx.path.gateway.configuration.ConfigurationState;
 public abstract class RetryConfiguration<T> implements Configurable {
 
   /**
-   * Strategy for determining when to stop retrying failed attempts
+   * Strategy for determining when to stop retrying failed attempts.
    */
   public enum StopStrategy {
+    /**
+     * Stop by count limit.
+     */
     COUNT,
+    /**
+     * Stop by duration limit.
+     */
     DURATION
   }
 
   /**
-   * Strategy for determining pause between failed attempts
+   * Strategy for determining pause between failed attempts.
    */
   public enum PauseStrategy {
+    /**
+     * Fixed.
+     */
     FIXED,
+    /**
+     * Incrementing.
+     */
     INCREMENTING,
+    /**
+     * Fibonacci.
+     */
     FIBONACCI
   }
 
+  /**
+   * Default constructor.
+   */
   public RetryConfiguration() {
   }
 
   /**
-   * Bypass configuration and wrap existing retryer
-   * @param instance
+   * Bypass configuration and wrap existing retryer.
+   *
+   * @param instance retryer instance
    */
   public RetryConfiguration(Retryer instance) {
     this.instance = instance;
@@ -92,17 +111,35 @@ public abstract class RetryConfiguration<T> implements Configurable {
   // -----------------------------------
 
   /**
-   * Strategy used to calculate the wait between failed attempts
+   * Strategy used to calculate the wait between failed attempts.
    *
    * <p>Default: no pause between failed attempts
+   *
+   * -- GETTER --
+   * Return pause strategy.
+   *
+   * @return pause strategy
+   * -- SETTER --
+   * Set pause strategy.
+   *
+   * @param pauseStrategy pause strategy to set
    */
   @ConfigurationField
   private PauseStrategy pauseStrategy;
 
   /**
-   * The pause duration used between failed attempts
+   * The pause duration used between failed attempts.
    *
    * <p>Used by {@link PauseStrategy#FIXED}
+   *
+   * -- GETTER --
+   * Return pause.
+   *
+   * @return pause
+   * -- SETTER --
+   * Set pause.
+   *
+   * @param pause pause to set
    */
   @ConfigurationField
   private Duration pause;
@@ -111,6 +148,15 @@ public abstract class RetryConfiguration<T> implements Configurable {
    * The first pause duration. Incremented by {@link #increment} between all subsequent failures.
    *
    * <p>Used by {@link PauseStrategy#INCREMENTING}
+   *
+   * -- GETTER --
+   * Return first pause duration.
+   *
+   * @return first pause duration
+   * -- SETTER --
+   * Set first pause duration.
+   *
+   * @param initialPause first pause duration to set
    */
   @ConfigurationField
   private Duration initialPause;
@@ -119,22 +165,49 @@ public abstract class RetryConfiguration<T> implements Configurable {
    * The amount the pause duration is increased between failures. {@link #initialPause} is used after the first failure.
    *
    * <p>Used by {@link PauseStrategy#INCREMENTING}
+   *
+   * -- GETTER --
+   * Return increment duration.
+   *
+   * @return increment duration
+   * -- SETTER --
+   * Set increment duration.
+   *
+   * @param increment increment duration to set
    */
   @ConfigurationField
   private Duration increment;
 
   /**
-   * The maximum pause duration
+   * The maximum pause duration.
    *
    * <p>Used by {@link PauseStrategy#FIBONACCI}
+   *
+   * -- GETTER --
+   * Return max pause duration.
+   *
+   * @return max pause duration
+   * -- SETTER --
+   * Set max pause duration.
+   *
+   * @param maxPause max pause duration to set
    */
   @ConfigurationField
   private Duration maxPause;
 
   /**
-   * Duration that is multiplied by the current fibonacci number to get the next pause
+   * Duration that is multiplied by the current fibonacci number to get the next pause.
    *
    * <p>Used by {@link PauseStrategy#FIBONACCI}
+   *
+   * -- GETTER --
+   * Return duration increment multiplier.
+   *
+   * @return duration increment multiplier
+   * -- SETTER --
+   * Set duration increment multiplier.
+   *
+   * @param multiplier duration increment multiplier to set
    */
   @ConfigurationField
   private Duration multiplier;
@@ -142,21 +215,49 @@ public abstract class RetryConfiguration<T> implements Configurable {
   // -----------------------------------
   // Retry stop settings
   // -----------------------------------
+  /**
+   * -- GETTER --
+   * Return stop strategy.
+   *
+   * @return stop strategy
+   * -- SETTER --
+   * Set stop strategy.
+   *
+   * @param stopStrategy stop strategy to set
+   */
   @ConfigurationField(required = true)
   private StopStrategy stopStrategy;
 
   /**
-   * The number of failed attempts before stopping
+   * The number of failed attempts before stopping.
    *
    * <p>Used in {@link StopStrategy#COUNT}
+   *
+   * -- GETTER --
+   * Return maximum number of failed attempts.
+   *
+   * @return maximum number of failed attempts
+   * -- SETTER --
+   * Set maximum number of failed attempts.
+   *
+   * @param count maximum number of failed attempts to set
    */
   @ConfigurationField
   private Integer count;
 
   /**
-   * The delay before stopping, starting from first attempt
+   * The delay before stopping, starting from first attempt.
    *
    * <p>Used in {@link StopStrategy#DURATION}
+   *
+   * -- GETTER --
+   * Return duration.
+   *
+   * @return duration
+   * -- SETTER --
+   * Set duration.
+   *
+   * @param duration duration to set
    */
   @ConfigurationField
   private Duration duration;
@@ -164,6 +265,16 @@ public abstract class RetryConfiguration<T> implements Configurable {
   // -----------------------------------
   // Rejection settings
   // -----------------------------------
+  /**
+   * -- GETTER --
+   * Return reject on.
+   *
+   * @return reject on
+   * -- SETTER --
+   * Set reject on.
+   *
+   * @param rejectOn reject on to set
+   */
   private Predicate<T> rejectOn;
 
   // -----------------------------------
@@ -171,21 +282,38 @@ public abstract class RetryConfiguration<T> implements Configurable {
   // -----------------------------------
 
   /**
-   * Function that supplies a custom exception to be thrown if all attempts fail
+   * Function that supplies a custom exception to be thrown if all attempts fail.
    *
    * <p>Only affects {@link #call(Callable)}. If {@link #call(Callable, Function)} or {@link #instance()} are used, this
    * has no effect.
    *
    * <p>Note: {@link Retryer} does not support custom exceptions. If {@link #instance()} is called the used,
    * this {@link #exceptionSupplier} will be ignored.
+   *
+   * -- GETTER --
+   * Return exception supplier.
+   *
+   * @return exception supplier
+   * -- SETTER --
+   * Set exception supplier.
+   *
+   * @param exceptionSupplier exception supplier to set
    */
   private transient Function<Throwable, RuntimeException> exceptionSupplier;
 
+  /**
+   * This retryer instance.
+   *
+   * -- GETTER --
+   * Return retryer instance.
+   *
+   * @return retryer instance
+   */
   @Getter(AccessLevel.PROTECTED)
   private transient Retryer<T> instance;
 
   /**
-   * Execute callable block using configured retryer
+   * Execute callable block using configured retryer.
    *
    * @param callable block to call
    * @return result of first successful attempt
@@ -196,9 +324,10 @@ public abstract class RetryConfiguration<T> implements Configurable {
   }
 
   /**
-   * Execute callable block using configured retryer
+   * Execute callable block using configured retryer.
    *
    * @param callable block to call
+   * @param exceptionSupplierOverride supplier
    * @return result of first successful attempt
    */
   @SuppressWarnings("PMD.CyclomaticComplexity")
@@ -226,7 +355,8 @@ public abstract class RetryConfiguration<T> implements Configurable {
   }
 
   /**
-   * Get instance of {@link Retryer}
+   * Get instance of {@link Retryer}.
+   *
    * @return instance
    */
   @SuppressWarnings("unchecked")
@@ -239,9 +369,9 @@ public abstract class RetryConfiguration<T> implements Configurable {
   }
 
   /**
-   * Validate settings
+   * Validate settings.
    *
-   * @param state
+   * @param state state
    */
   @SuppressWarnings("PMD.CyclomaticComplexity")
   @Override
@@ -310,7 +440,8 @@ public abstract class RetryConfiguration<T> implements Configurable {
 
   /**
    * Builds instance of {@link Retryer}. Override to add to build logic.
-   * @return
+   *
+   * @return instance
    */
   protected Retryer<T> buildInstance() {
     return (Retryer<T>) instanceBuilder().build();
@@ -318,6 +449,7 @@ public abstract class RetryConfiguration<T> implements Configurable {
 
   /**
    * Creates instance of {@link RetryerBuilder} and adds configuration. Override to modify the builder before build.
+   *
    * @return instance of {@link RetryerBuilder}
    */
   protected RetryerBuilder<T> instanceBuilder() {

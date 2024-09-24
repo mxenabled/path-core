@@ -34,18 +34,36 @@ import com.mx.path.core.common.exception.PathRequestException;
  * <p>See {@link PathRequestException} for usage details
  */
 public class UpstreamSystemUnavailable extends AccessorSystemException {
+
+  /**
+   * Build new {@link UpstreamSystemUnavailable} with specified parameters.
+   *
+   * @param message message
+   */
   public UpstreamSystemUnavailable(String message) {
     super(message);
     setReport(false);
     setStatus(PathResponseStatus.UPSTREAM_SERVICE_UNAVAILABLE);
   }
 
+  /**
+   * Build new {@link UpstreamSystemUnavailable} with specified parameters.
+   *
+   * @param message message
+   * @param cause cause
+   */
   public UpstreamSystemUnavailable(String message, Throwable cause) {
     super(message, cause);
     setReport(false);
     setStatus(PathResponseStatus.UPSTREAM_SERVICE_UNAVAILABLE);
   }
 
+  /**
+   * Build new {@link UpstreamSystemUnavailable} with specified parameters.
+   *
+   * @param message message
+   * @param userMessage user message
+   */
   @Deprecated
   public UpstreamSystemUnavailable(String message, String userMessage) {
     super(message);
@@ -54,6 +72,13 @@ public class UpstreamSystemUnavailable extends AccessorSystemException {
     setUserMessage(userMessage);
   }
 
+  /**
+   * Build new {@link UpstreamSystemUnavailable} with specified parameters.
+   *
+   * @param message message
+   * @param userMessage user message
+   * @param cause cause
+   */
   @Deprecated
   public UpstreamSystemUnavailable(String message, String userMessage, Throwable cause) {
     super(message, cause);

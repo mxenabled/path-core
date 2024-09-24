@@ -27,6 +27,11 @@ public class GatewayEventBus implements EventBus {
 
   private final com.google.common.eventbus.EventBus eventBus;
 
+  /**
+   * Build {@link GatewayEventBus} with specified configuration.
+   *
+   * @param configuration configuration
+   */
   @SuppressWarnings("PMD.UnusedFormalParameter")
   public GatewayEventBus(ObjectMap configuration) {
     eventBus = new com.google.common.eventbus.EventBus();
@@ -44,7 +49,7 @@ public class GatewayEventBus implements EventBus {
    * </ul>
    *
    * <p><i>Notes:</i>
-   * @param event
+   * @param event event
    */
   @Override
   public void post(Object event) {

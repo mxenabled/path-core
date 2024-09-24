@@ -3,12 +3,15 @@ package com.mx.path.core.utility.oauth;
 import java.nio.charset.Charset;
 import java.util.Base64;
 
+/**
+ * Utility class for handling OAuth-related operations.
+ */
 public class OAuthUtility {
 
   /**
-   * Generates Authorization Token
+   * Generates Authorization Token.
    *
-   * @param clientId     Id of the client
+   * @param clientId Id of the client
    * @param clientSecret Client's Secret
    * @return Authorization Token
    */

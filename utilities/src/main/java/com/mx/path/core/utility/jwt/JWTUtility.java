@@ -13,6 +13,9 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+/**
+ * Utility class for generating, validating, and decoding JSON Web Tokens (JWT).
+ */
 public class JWTUtility {
 
   private static final long ONE_SECOND_IN_MILLIS = 1000;
@@ -102,6 +105,16 @@ public class JWTUtility {
         .sign(algorithm);
   }
 
+  /**
+   * Extract specific claim from provided ID token.
+   *
+   * @param <T> type of claim to be returned
+   * @param idToken JWT from which to extract claim
+   * @param key name of claim to retrieve
+   * @param returnType expected type of claim
+   * @param defaultValue value to return if claim is missing or null
+   * @return value of claim if present and non-null, else provided default value
+   */
   public static <T> T getClaimFromIdToken(String idToken, String key, Class<T> returnType, T defaultValue) {
     DecodedJWT idDecodedToken = JWT.decode(idToken);
     Claim claim = idDecodedToken.getClaim(key);
@@ -111,6 +124,12 @@ public class JWTUtility {
     return claim.as(returnType);
   }
 
+  /**
+   * Extract all claims from provided ID token and returns them as a map.
+   *
+   * @param idToken JWT from which to extract claims
+   * @return map where keys are names of claims and values are corresponding claim values
+   */
   public static Map<String, Object> getAllClaimsFromIdToken(String idToken) {
     DecodedJWT idDecodedToken = JWT.decode(idToken);
     Map<String, Object> claimsMap = new HashMap<>();

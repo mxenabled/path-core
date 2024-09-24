@@ -15,16 +15,42 @@ import com.mx.path.core.common.http.HttpStatus;
  * exception, like {@link AccessorUserException}.
  */
 public class UpstreamErrorException extends ConnectException {
+
+  /**
+   * -- GETTER --
+   * Return original status.
+   *
+   * @return original status
+   * -- SETTER --
+   * Set original status.
+   *
+   * @param originalStatus original status to set
+   */
   @Setter
   @Getter
   private HttpStatus originalStatus;
 
+  /**
+   * Build new {@link UpstreamErrorException} with specified parameters.
+   *
+   * @param message message
+   * @param originalStatus original status
+   * @param status status
+   */
   public UpstreamErrorException(String message, HttpStatus originalStatus, PathResponseStatus status) {
     super(message, status);
     setOriginalStatus(originalStatus);
     setReport(false);
   }
 
+  /**
+   * Build new {@link UpstreamErrorException} with specified parameters.
+   *
+   * @param message message
+   * @param originalStatus original status
+   * @param status status
+   * @param cause cause
+   */
   public UpstreamErrorException(String message, HttpStatus originalStatus, PathResponseStatus status, Throwable cause) {
     super(message, status, cause);
     setOriginalStatus(originalStatus);

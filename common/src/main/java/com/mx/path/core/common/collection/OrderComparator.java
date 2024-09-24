@@ -3,9 +3,12 @@ package com.mx.path.core.common.collection;
 import java.io.Serializable;
 import java.util.Comparator;
 
+/**
+ * Utility class to help with element ordering.
+ */
 public class OrderComparator implements Comparator<Object>, Serializable {
   /**
-   * Compare 2 arbitrary objects using {@link Order} annotation
+   * Compare 2 arbitrary objects using {@link Order} annotation.
    *
    * <p>Lower values will appear first in the list and same values will be unchanged, relative to each other.
    *
@@ -23,6 +26,12 @@ public class OrderComparator implements Comparator<Object>, Serializable {
     return Integer.compare(getObjectOrder(o1), getObjectOrder(o2));
   }
 
+  /**
+   * Get given object order.
+   *
+   * @param obj object to get order
+   * @return object integer order
+   */
   private int getObjectOrder(Object obj) {
     if (obj == null) {
       return Ordered.INDIFFERENT;

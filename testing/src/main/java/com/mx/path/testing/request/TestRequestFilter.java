@@ -10,8 +10,16 @@ import com.mx.path.core.common.lang.Strings;
 
 import org.spockframework.runtime.SpockAssertionError;
 
+/**
+ * utility class for request filters with improved description.
+ */
 public class TestRequestFilter extends RequestFilterBase {
 
+  /**
+   * Create description for request expectations.
+   *
+   * @return formatted string describing each request expectation and its matcher
+   */
   public final String describe() {
     StringBuilder sb = new StringBuilder();
 

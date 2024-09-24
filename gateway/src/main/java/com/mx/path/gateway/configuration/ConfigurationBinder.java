@@ -26,7 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Build and bind configuration POJO from ObjectMap
+ * Build and bind configuration POJO from {@link ObjectMap}.
  *
  * <p>The POJO must have a no-argument constructor. Fields to be populated must
  * be annotated with {@link ConfigurationField}
@@ -42,17 +42,23 @@ public class ConfigurationBinder {
   private final ConfigurationState state;
   private final String clientId;
 
+  /**
+   * Build new {@link ConfigurationBinder} instance with specified client id and state.
+   *
+   * @param clientId client id
+   * @param state state
+   */
   public ConfigurationBinder(String clientId, ConfigurationState state) {
     this.clientId = clientId;
     this.state = state;
   }
 
   /**
-   * Create an instance of klass and populate its fields from configurationMap
+   * Create an instance of klass and populate its fields from configurationMap.
    *
-   * @param klass
-   * @param configurationMap
-   * @return
+   * @param klass klass
+   * @param configurationMap map
+   * @return T
    */
   public <T> T build(Class<T> klass, ObjectMap configurationMap) {
     T configuration = Constructors.instantiateWithNoArgumentConstructor(klass);
@@ -62,7 +68,7 @@ public class ConfigurationBinder {
   }
 
   /**
-   * Populate fields of given configuration POJO with given {@link ObjectMap}
+   * Populate fields of given configuration POJO with given {@link ObjectMap}.
    *
    * @param configuration Configuration POJO instance
    * @param configurationMap Configuration ObjectMap
@@ -83,12 +89,12 @@ public class ConfigurationBinder {
   }
 
   /**
-   * Constructs array for given configuration map
+   * Constructs array for given configuration map.
    *
-   * @param configurationValue
-   * @param annotatedField
-   * @param inArray
-   * @return
+   * @param configurationValue configuration
+   * @param annotatedField field
+   * @param inArray in array
+   * @return array
    */
   private List<Object> buildArray(ObjectArray configurationValue, Annotations.AnnotatedField<ConfigurationField> annotatedField, boolean inArray) {
     List<Object> array = new ArrayList<>();
@@ -114,13 +120,13 @@ public class ConfigurationBinder {
   }
 
   /**
-   * Pushes and pops given level around executing supplier when populating an array
+   * Pushes and pops given level around executing supplier when populating an array.
    *
-   * @param inArray
-   * @param level
-   * @param supplier
-   * @param <T>
-   * @return
+   * @param inArray if false, push and pop level
+   * @param level level to push and pop
+   * @param supplier from who to get T
+   * @param <T> supplied object
+   * @return T
    */
   private <T> T buildInArray(boolean inArray, String level, Supplier<T> supplier) {
     if (!inArray) {
@@ -137,12 +143,12 @@ public class ConfigurationBinder {
   }
 
   /**
-   * Construct Object for given configuration map
+   * Construct Object for given configuration map.
    *
-   * @param configurationMap
-   * @param annotatedField
-   * @param inArray
-   * @return
+   * @param configurationMap map
+   * @param annotatedField field annotated
+   * @param inArray in array
+   * @return object
    */
   private Object buildObject(ObjectMap configurationMap, Annotations.AnnotatedField<ConfigurationField> annotatedField, boolean inArray) {
     return buildInArray(inArray, annotatedField.getField().getName(), () -> {
@@ -156,11 +162,11 @@ public class ConfigurationBinder {
   }
 
   /**
-   * Coerces given, raw value from configuration map to expected type
+   * Coerces given, raw value from configuration map to expected type.
    *
-   * @param configurationValue
-   * @param annotatedField
-   * @return
+   * @param configurationValue value to coerce
+   * @param annotatedField field
+   * @return object
    */
   private Object buildValue(Object configurationValue, Annotations.AnnotatedField<ConfigurationField> annotatedField) {
     return buildValue(configurationValue, annotatedField, false);

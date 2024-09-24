@@ -24,6 +24,9 @@ import com.mx.path.api.reporting.ClassGenerationException;
 import com.mx.path.gateway.accessor.Accessor;
 import com.squareup.javapoet.CodeBlock;
 
+/**
+ * Annotation processor for generating gateway-related code.
+ */
 @SupportedAnnotationTypes({ "com.mx.path.core.common.gateway.GatewayBaseClass" })
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @AutoService(Processor.class)
@@ -34,9 +37,9 @@ public final class GatewayProcessor extends AbstractProcessor {
   private CodeBlock accessorProxyMappingCodeBlock;
 
   /**
-   * Capture processingEnv utilities
+   * Capture processingEnv utilities.
    *
-   * @param processingEnv
+   * @param processingEnv environment being processed
    */
   @Override
   public synchronized void init(ProcessingEnvironment processingEnv) {
@@ -44,11 +47,11 @@ public final class GatewayProcessor extends AbstractProcessor {
   }
 
   /**
-   * Annotation processor
+   * Annotation processor.
    *
-   * @param annotations
-   * @param roundEnv
-   * @return
+   * @param annotations set of annotations that are being processed
+   * @param roundEnv environment for the current annotation processing
+   * @return true if annotations are claimed by processor, false otherwise
    * @see <a href="http://hannesdorfmann.com/annotation-processing/annotationprocessing101">http://hannesdorfmann.com/annotation-processing/annotationprocessing101</a>
    * @see <a href="https://stackoverflow.com/questions/31255098/find-method-arguments-of-annotated-method-using-java-annotation-processor">https://stackoverflow.com/questions/31255098/find-method-arguments-of-annotated-method-using-java-annotation-processor</a>
    */
@@ -149,6 +152,12 @@ public final class GatewayProcessor extends AbstractProcessor {
     });
   }
 
+  /**
+   * Report errors that occur during annotation processing.
+   * Provides detailed information about the error, including potential fixes if applicable.
+   *
+   * @param e the exception that occurred during processing.
+   */
   public void reportError(Exception e) {
     AnsiWrapper ansi = new AnsiWrapper();
     StringBuilder sb = new StringBuilder();

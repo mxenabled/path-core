@@ -10,7 +10,8 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
- * A multi-value backed collection that acts like a multi-value map. This can be used interchangeably with other {@link MultiValueMappable} classes.
+ * A multi-value backed collection that acts like a multi-value map. This can be used interchangeably
+ * with other {@link MultiValueMappable} classes.
  *
  * <pre>
  * The copy constructor will copy the reference to the backing collection (does not copy the collection).
@@ -33,7 +34,7 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
   // Static methods
 
   /**
-   * Convenience method for constructing a MultiValueMap for an existing Map
+   * Convenience method for constructing a MultiValueMap for an existing Map.
    *
    * @param rawMap the raw map
    * @param <K> key type
@@ -62,7 +63,7 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
   }
 
   /**
-   * Set raw map
+   * Set raw map.
    *
    * @param rawMap the map
    */
@@ -73,6 +74,9 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
 
   // Constructors
 
+  /**
+   * Default constructor.
+   */
   public MultiValueMap() {
     this.rawMap = new LinkedHashMap<>();
   }
@@ -80,7 +84,7 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
   /**
    * Copy constructor to move raw map from any MultiValueMappable object.
    *
-   * @param multiValueMappable
+   * @param multiValueMappable map to copy
    */
   public MultiValueMap(MultiValueMappable<K, V> multiValueMappable) {
     this.rawMap = multiValueMappable.getRawMap();
@@ -124,7 +128,7 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
   }
 
   /**
-   * Clear all keys and values
+   * Clear all keys and values.
    */
   @Override
   public void clear() {
@@ -134,8 +138,8 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
   /**
    * True if the key exists. Considered true even if the key's list of values is empty.
    *
-   * @param key
-   * @return
+   * @param key key to check
+   * @return true if key exists
    */
   @Override
   public boolean containsKey(Object key) {
@@ -171,7 +175,7 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
 
   /**
    * Compares this and other
-   * @param other
+   * @param other other to compare
    * @return true, if equal
    */
   @Override
@@ -192,9 +196,10 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
   }
 
   /**
-   * Get value list for key
-   * @param key
-   * @return
+   * Get value list for key.
+   *
+   * @param key key
+   * @return value list
    */
   @Override
   public List<V> get(Object key) {
@@ -203,6 +208,7 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
 
   /**
    * Return the first value for the given key.
+   *
    * @param key the key
    * @return the first value for the specified key, or null if none
    */
@@ -239,10 +245,11 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
   }
 
   /**
-   * Set of overwrite value list for key
-   * @param key
-   * @param value
-   * @return
+   * Set of overwrite value list for key.
+   *
+   * @param key key
+   * @param value value to set
+   * @return updated list
    */
   @Override
   public List<V> put(K key, List<V> value) {
@@ -250,8 +257,9 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
   }
 
   /**
-   * Add all given key, value lists. Overwrites existing
-   * @param map
+   * Add all given key, value lists. Overwrites existing.
+   *
+   * @param map map to add
    */
   @Override
   public void putAll(Map<? extends K, ? extends List<V>> map) {
@@ -259,7 +267,8 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
   }
 
   /**
-   * Remove values for key
+   * Remove values for key.
+   *
    * @param key the key
    * @return value list of removed key
    */
@@ -269,7 +278,8 @@ public class MultiValueMap<K, V> implements Map<K, List<V>>, MultiValueMappable<
   }
 
   /**
-   * Set the given single value under the given key. Overwrites existing value list
+   * Set the given single value under the given key. Overwrites existing value list.
+   *
    * @param key the key
    * @param value the value to set
    */

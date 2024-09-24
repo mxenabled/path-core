@@ -15,7 +15,8 @@ import javax.annotation.Nullable;
 public class ObjectArray extends ArrayList<Object> {
 
   /**
-   * Creates and adds an ObjectArray
+   * Creates and adds an ObjectArray.
+   *
    * @return the new ObjectArray
    */
   public final ObjectArray createArray() {
@@ -26,7 +27,8 @@ public class ObjectArray extends ArrayList<Object> {
   }
 
   /**
-   * Creates and adds an ObjectMap
+   * Creates and adds an ObjectMap.
+   *
    * @return the new ObjectMap
    */
   public final ObjectMap createMap() {
@@ -64,7 +66,8 @@ public class ObjectArray extends ArrayList<Object> {
   }
 
   /**
-   * Get index as an ObjectArray
+   * Get index as an ObjectArray.
+   *
    * @param index of item
    * @return ObjectArray at index or null
    */
@@ -77,7 +80,7 @@ public class ObjectArray extends ArrayList<Object> {
   }
 
   /**
-   * Get index as a Boolean
+   * Get index as a Boolean.
    *
    * <p>Does a flexible conversion to boolean.
    * True values are {@code true, "true", "True", "1", 1, 1.0 }
@@ -112,7 +115,7 @@ public class ObjectArray extends ArrayList<Object> {
   }
 
   /**
-   * Get key as a Boolean
+   * Get key as a Boolean.
    *
    * <p>Does a flexible conversion to boolean.
    * True values are {@code true, "true", "True", "1", 1, 1.0 }
@@ -246,7 +249,8 @@ public class ObjectArray extends ArrayList<Object> {
   }
 
   /**
-   * Get index as an ObjectMap
+   * Get index as an ObjectMap.
+   *
    * @param index of item
    * @return ObjectMap at index or null
    */

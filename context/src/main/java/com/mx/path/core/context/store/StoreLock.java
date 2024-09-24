@@ -50,24 +50,72 @@ public class StoreLock extends Lock {
 
   // Fields
 
+  /**
+   * -- GETTER --
+   * Return lock key.
+   *
+   * @return lock key
+   */
   @Getter
   private final String lockKey;
+
+  /**
+   * -- GETTER --
+   * Return acquire timeout duration.
+   *
+   * @return acquire timeout duration
+   * -- SETTER --
+   * Set acquire timeout duration.
+   *
+   * @param acquireTimeoutMilliseconds acquire timetout duration to set
+   */
   @Getter
   @Setter
   private long acquireTimeoutMilliseconds;
+
+  /**
+   * -- GETTER --
+   * Return poll time.
+   *
+   * @return poll time
+   * -- SETTER --
+   * Set poll time.
+   *
+   * @param pollMilliseconds poll time to set
+   */
   @Getter
   @Setter
   private long pollMilliseconds;
+
+  /**
+   * -- GETTER --
+   * Return max lock length in seconds.
+   *
+   * @return max lock length in seconds
+   * -- SETTER --
+   * Set max lock length.
+   *
+   * @param maxLockLengthSeconds max lock length to set
+   */
   @Getter
   @Setter
   private int maxLockLengthSeconds;
   private final Store store;
+
+  /**
+   * -- GETTER --
+   * Return token.
+   *
+   * @return token
+   */
   @Getter
   private final String token;
 
   // Constructors
 
   /**
+   * Build new instance for {@link StoreLock}.
+   *
    * @param store implementation
    * @param key for resource to lock
    * @param configurations for mutex
@@ -83,12 +131,22 @@ public class StoreLock extends Lock {
 
   // Public
 
+  /**
+   * Value associated with provided key.
+   *
+   * @return value
+   */
   public final String currentLockValue() {
     return store.get(lockKey);
   }
 
   // SessionLock
 
+  /**
+   * Execute operation.
+   *
+   * @return lock state
+   */
   @Override
   public final LockState acquire() {
     long start = System.currentTimeMillis();
@@ -109,11 +167,22 @@ public class StoreLock extends Lock {
     return LockState.Acquired;
   }
 
+  /**
+   * Checks if operation was acquired.
+   *
+   * @return true if acquired
+   */
   @Override
   public final boolean acquired() {
     return Objects.equals(token, currentLockValue());
   }
 
+  /**
+   * Execute operation with condition.
+   *
+   * @param waitUntil this condition is met
+   * @return current lock state
+   */
   @SneakyThrows
   @Override
   public final Lock.LockState acquireOr(Supplier<Boolean> waitUntil) {
@@ -138,6 +207,9 @@ public class StoreLock extends Lock {
     } while (true);
   }
 
+  /**
+   * Delete lock.
+   */
   @Override
   public final void close() {
     if (acquired()) {
@@ -145,6 +217,11 @@ public class StoreLock extends Lock {
     }
   }
 
+  /**
+   * Execute.
+   *
+   * @return current lock state.
+   */
   @Override
   public final LockState request() {
     return store.putIfNotExist(lockKey, token, maxLockLengthSeconds) ? LockState.Acquired : LockState.NotAcquired;

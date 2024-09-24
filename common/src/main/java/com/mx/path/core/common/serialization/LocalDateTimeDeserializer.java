@@ -21,7 +21,7 @@ import com.google.gson.JsonSerializer;
 import com.mx.path.core.common.lang.Strings;
 
 /**
- * LocalDateTime deserializer for use with Gson
+ * LocalDateTime deserializer for use with Gson.
  *
  * <p>Default Behavior:
  *
@@ -65,6 +65,10 @@ import com.mx.path.core.common.lang.Strings;
 @Deprecated
 @Builder
 public class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime>, JsonSerializer<LocalDateTime> {
+
+  /**
+   * Serialization pattern.
+   */
   public static final String DEFAULT_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
 
   private static final List<DateTimeFormatter> DEFAULT_FORMAT_STRINGS;
@@ -81,6 +85,9 @@ public class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime
 
   private String serializeFormat;
 
+  /**
+   * Helper builder.
+   */
   public static class LocalDateTimeDeserializerBuilder {
 
     private List<DateTimeFormatter> formats = new ArrayList<>();
@@ -88,7 +95,7 @@ public class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime
     private String serializeFormat = "OBJECT";
 
     /**
-     * Provide a LocalDateTime string format that is accepted
+     * Provide a LocalDateTime string format that is accepted.
      *
      * <p>The formats need to be provided according to {@link DateTimeFormatter} specs.
      *
@@ -101,7 +108,7 @@ public class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime
     }
 
     /**
-     * Provide format for serializing a LocalDateTime object to JSON
+     * Provide format for serializing a LocalDateTime object to JSON.
      *
      * @param format A DateTimeFormatter format String or
      *               OBJECT to serialize as an object (default)
@@ -114,6 +121,15 @@ public class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime
 
   }
 
+  /**
+   * Deserialize json data.
+   *
+   * @param json The Json data being deserialized
+   * @param typeOfT The type of the Object to deserialize to
+   * @param context serialization context
+   * @return deserialized object
+   * @throws JsonParseException to thrown
+   */
   @Override
   public final LocalDateTime deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
       throws JsonParseException {
@@ -139,6 +155,14 @@ public class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime
     throw new JsonParseException("Invalid dateTime: " + localDateTimeStr);
   }
 
+  /**
+   * Serialize object to json.
+   *
+   * @param src the object that needs to be converted to Json.
+   * @param typeOfSrc the actual type (fully genericized version) of the source object.
+   * @param context serialization context
+   * @return serialized object
+   */
   @Override
   public final JsonElement serialize(LocalDateTime src, Type typeOfSrc, JsonSerializationContext context) {
     if (Strings.isBlank(serializeFormat) || serializeFormat.equals("OBJECT")) {

@@ -4,6 +4,9 @@ import com.mx.path.core.common.collection.ObjectMap;
 import com.mx.path.gateway.accessor.AccessorResponse;
 import com.mx.path.gateway.context.GatewayRequestContext;
 
+/**
+ *
+ */
 public class StartBehavior extends GatewayBehavior {
 
   public StartBehavior() {

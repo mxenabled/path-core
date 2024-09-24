@@ -20,20 +20,37 @@ import org.slf4j.MDC;
 
 import io.opentracing.util.GlobalTracer;
 
-// todo: Come up with a better name for this.
+/**
+ * Utility class to log requests.
+ *
+ * todo: Come up with a better name for this.
+ */
 public class RemoteLogger {
   private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create();
   private static final LogValueMasker LOGMASKER = new LogValueMasker();
   private static Logger logger = LoggerFactory.getLogger(RemoteLogger.class);
 
+  /**
+   * Set logger.
+   *
+   * @param logger logger
+   */
   public static void setLogger(Logger logger) {
     RemoteLogger.logger = logger;
   }
 
+  /**
+   * Reset this instance logger.
+    */
   public static void resetLogger() {
     logger = LoggerFactory.getLogger(RemoteLogger.class);
   }
 
+  /**
+   * Log current request response.
+   *
+   * @param response response to log
+   */
   @SuppressWarnings("PMD.CyclomaticComplexity")
   public final void logRequest(MessageResponse response) {
     RequestContext requestContext = RequestContext.current();

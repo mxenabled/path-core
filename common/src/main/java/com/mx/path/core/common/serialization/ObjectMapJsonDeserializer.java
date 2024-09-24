@@ -13,10 +13,19 @@ import com.mx.path.core.common.collection.ObjectArray;
 import com.mx.path.core.common.collection.ObjectMap;
 
 /**
- * Gson deserializer for deserializing JSON to ObjectMap/ObjectArray
+ * Gson deserializer for deserializing JSON to ObjectMap/ObjectArray.
  */
 public class ObjectMapJsonDeserializer implements JsonDeserializer<ObjectMap> {
 
+  /**
+   * Deserialize object.
+   *
+   * @param json The Json data being deserialized
+   * @param typeOfT The type of the Object to deserialize to
+   * @param context context
+   * @return deserialized object
+   * @throws JsonParseException to be thrown
+   */
   @Override
   public final ObjectMap deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
     return toObjectMap(json);

@@ -8,6 +8,9 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Mask specified characters on logger.
+ */
 public class LogValueMasker {
   // Statics
 
@@ -55,25 +58,25 @@ public class LogValueMasker {
   private static final List<Pattern> COOKIEPATTERNSET = new ArrayList<>();
 
   /**
-   * Register key for cookie value to mask
+   * Register key for cookie value to mask.
    *
-   * @param key
+   * @param key key
    */
   public static void registerCookieKey(String key) {
     COOKIEPATTERNSET.add(Pattern.compile(key.toLowerCase(Locale.ENGLISH) + "=([^;]+)", Pattern.CASE_INSENSITIVE));
   }
 
   /**
-   * Register key name for header to mask
+   * Register key name for header to mask.
    *
-   * @param key
+   * @param key key
    */
   public static void registerHeaderKey(String key) {
     HEADERKEYSET.add(key.toLowerCase(Locale.ENGLISH));
   }
 
   /**
-   * Register new regex pattern for masking request/response payloads
+   * Register new regex pattern for masking request/response payloads.
    *
    * <p>Description:
    *
@@ -87,13 +90,18 @@ public class LogValueMasker {
    *      >> portion to be masked ^^^^^^
    * </pre>
    *
-   * @param pattern
+   * @param pattern regex pattern
    */
   public static void registerPayloadPattern(String pattern) {
     Pattern mask = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
     PAYLOADPATTERNSET.add(mask);
   }
 
+  /**
+   * Reset masking patterns to default value.
+   *
+   * <p>This will clear all existing patterns and reload the default header keys and payload patterns.
+   */
   public static void resetPatterns() {
     HEADERKEYSET.clear();
     PAYLOADPATTERNSET.clear();
@@ -106,6 +114,11 @@ public class LogValueMasker {
 
   }
 
+  /**
+   * Clears all registered masking patterns.
+   *
+   * <p>This method will remove all header keys, payload, and cookie patterns.
+   */
   public static void clearPatterns() {
     HEADERKEYSET.clear();
     PAYLOADPATTERNSET.clear();
@@ -118,6 +131,15 @@ public class LogValueMasker {
 
   // Public
 
+  /**
+   * Mask value of specified header if it matches a registered key.
+   *
+   * <p>If the header is a cookie or set-cookie header, it will apply cookie patterns to the value.
+   *
+   * @param header name of header
+   * @param value value of header
+   * @return masked value if header matches a registered key, otherwise returns the original value
+   */
   public final String maskHeaderValue(String header, String value) {
     if (header.contains("Cookie") || header.contains("Set-Cookie")) {
       return applyPatternsToPayload(value, COOKIEPATTERNSET);

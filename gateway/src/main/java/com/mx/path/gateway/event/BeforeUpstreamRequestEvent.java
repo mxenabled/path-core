@@ -6,7 +6,7 @@ import lombok.Data;
 import com.mx.path.core.common.connect.Request;
 
 /**
- * Fires before a request is executed
+ * Fires before a request is executed.
  */
 @Builder
 @Data

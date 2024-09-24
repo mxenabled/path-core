@@ -7,16 +7,22 @@ import javax.annotation.Nullable;
 import com.mx.path.core.common.collection.MultiValueMap;
 
 /**
- * Interface that provides contextual information about around exception
+ * Interface that provides contextual information about around exception.
  */
 public interface ExceptionContext {
   /**
-   * Additional (arbitrary) contextual information
+   * Additional (arbitrary) contextual information.
+   *
    * @return map of contextual data
    */
   @Nullable
   Map<String, String> getContext();
 
+  /**
+   * Return client ID.
+   *
+   * @return client ID
+   */
   @Nullable
   default String getClientId() {
     // todo: remove default on next major version bump
@@ -121,6 +127,9 @@ public interface ExceptionContext {
    */
   long getSessionCreateTime();
 
+  /**
+   * @return session id
+   */
   @Nullable
   String getSessionId();
 
