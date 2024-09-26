@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.eq
 import static org.mockito.Mockito.*
 
 import com.mx.path.connect.messaging.MessageResponse
+import com.mx.path.core.common.facility.FacilityException
 import com.mx.path.core.common.messaging.MessageBroker
 import com.mx.path.core.common.messaging.MessageError
 import com.mx.path.core.common.messaging.MessageStatus
@@ -190,7 +191,6 @@ class RemoteCRUDModelTest extends Specification {
     subject.create(account)
 
     then:
-    def e = thrown(MessageError)
-    e.getMessageStatus() == MessageStatus.NOT_AUTHORIZED
+    def e = thrown(FacilityException)
   }
 }
