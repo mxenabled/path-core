@@ -2,6 +2,7 @@ package com.mx.path.core.common.messaging;
 
 import com.mx.path.core.common.accessor.PathResponseStatus;
 import com.mx.path.core.common.exception.PathRequestException;
+
 /**
  * All errors from NATS should be wrapped in this exception
  */
