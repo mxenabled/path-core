@@ -4,7 +4,7 @@ import com.mx.path.connect.messaging.MessageHeaders;
 import com.mx.path.connect.messaging.MessageParameters;
 import com.mx.path.connect.messaging.MessageRequest;
 import com.mx.path.connect.messaging.MessageResponse;
-import com.mx.path.core.common.facility.FacilityException;
+import com.mx.path.core.common.messaging.MessageBrokerException;
 import com.mx.path.core.common.messaging.MessageError;
 import com.mx.path.core.common.messaging.MessageStatus;
 import com.mx.path.core.common.model.ModelBase;
@@ -147,7 +147,7 @@ public class RemoteCRUDModel<T extends ModelBase<?>> extends RemoteRequester<T> 
     MessageResponse response = executeRequest(clientId, request);
 
     if (response.getStatus() != MessageStatus.SUCCESS) {
-      throw new FacilityException("Unable to create remote " + RemoteChannel.getModel(getClassOfT()) + " with status " + response.getStatus(), response.getException());
+      throw new MessageBrokerException("Unable to create remote " + RemoteChannel.getModel(getClassOfT()) + " with status " + response.getStatus(), response.getException());
     }
 
     return response.getBodyAs(getClassOfT());
