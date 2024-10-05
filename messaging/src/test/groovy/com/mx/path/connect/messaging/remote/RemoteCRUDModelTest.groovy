@@ -7,6 +7,7 @@ import static org.mockito.Mockito.*
 import com.mx.path.connect.messaging.MessageResponse
 import com.mx.path.core.common.facility.FacilityException
 import com.mx.path.core.common.messaging.MessageBroker
+import com.mx.path.core.common.messaging.MessageBrokerException
 import com.mx.path.core.common.messaging.MessageError
 import com.mx.path.core.common.messaging.MessageStatus
 import com.mx.path.core.common.model.ModelList
@@ -191,6 +192,6 @@ class RemoteCRUDModelTest extends Specification {
     subject.create(account)
 
     then:
-    def e = thrown(FacilityException)
+    def e = thrown(MessageBrokerException)
   }
 }
