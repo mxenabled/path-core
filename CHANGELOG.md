@@ -5,6 +5,20 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [4.2.0](https://github.com/mxenabled/path-core/compare/v4.1.1...v4.2.0) (2024-10-08)
+
+
+### Features
+
+* add all missing documentation and clear javadoc warnings ([3ef4291](https://github.com/mxenabled/path-core/commit/3ef429165a43491decf9b61e849acef6c7df809a))
+
+
+### Bug Fixes
+
+* handle internal error flag for NATs timeout error ([35fe9ad](https://github.com/mxenabled/path-core/commit/35fe9ad3393be5a737b13b1222d9cee6c422edfa))
+* handle internal error flag for NATs timeout error ([d29b62c](https://github.com/mxenabled/path-core/commit/d29b62caba5fd32365d807c9cece2ba0098f76e1))
+* tweak upstream log fields for better log viewing ([bb64241](https://github.com/mxenabled/path-core/commit/bb64241bbfbdcf8ef01c2a7868205a349df253bb))
+
 ## [4.1.1](https://github.com/mxenabled/path-core/compare/v4.1.0...v4.1.1) (2024-09-05)
 
 
