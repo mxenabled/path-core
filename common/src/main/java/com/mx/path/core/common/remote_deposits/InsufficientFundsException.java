@@ -3,7 +3,7 @@ package com.mx.path.core.common.remote_deposits;
 import com.mx.path.core.common.exception.PathRequestException;
 
 /**
-   * Exception thrown when an account has insufficient funds for a remote deposit
+   * Exception thrown when an account has insufficient funds for a remote deposits.
  */
 public class InsufficientFundsException extends PathRequestException {
 
