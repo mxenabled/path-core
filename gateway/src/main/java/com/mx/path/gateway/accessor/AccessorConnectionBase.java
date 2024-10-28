@@ -34,6 +34,25 @@ public abstract class AccessorConnectionBase<REQ> extends AccessorConnectionSett
   public abstract REQ request(String path);
 
   /**
+   * Override to modify the connection request filter chain.
+   *
+   * <p>The chain will be built from the the list after this function is called.
+   * <p>Use this to add filters to the chain.
+   * <p>Example:
+   *
+   * <pre>{@code
+   *   public void preprocessFilterChain(List<RequestFilter> filters) {
+   *     int ix = filters.indexOf(new FaultToleranceFilter());
+   *     filters.insert(ix, new MyFilter());
+   *   }
+   *  }</pre>
+   *
+   * @param filters list of filters to be used in the chain
+   */
+  public void preprocessFilterChain(List<RequestFilter> filters) {
+  }
+
+  /**
    * Builds and caches filterChain.
    *
    * @return linked filter chain
@@ -46,7 +65,12 @@ public abstract class AccessorConnectionBase<REQ> extends AccessorConnectionSett
           if (this.getBaseRequestFilters() != null) {
             requestFilters.addAll(this.getBaseRequestFilters());
           }
+
+          // Add the final request filter for this type of connection
           requestFilters.addAll(connectionRequestFilters());
+
+          // Allow for connection-specific filter chain modification
+          preprocessFilterChain(requestFilters);
 
           RequestFilter last = null;
           for (RequestFilter current : requestFilters) {
