@@ -85,7 +85,7 @@ public class UpstreamLogger {
 
     Request request = response.getRequest();
     MDC.put("request_method", request.getMethod());
-    if (Strings.isNullOrEmpty(request.getMethod())) {
+    if (!Strings.isNullOrEmpty(request.getMethod())) {
       MDC.put("method", request.getMethod().toUpperCase()); // Duplicated and upcased for consistency with other logs
     } else {
       MDC.remove("method");
