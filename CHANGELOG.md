@@ -5,6 +5,23 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [4.2.0](https://github.com/mxenabled/path-core/compare/v4.1.1...v4.2.0) (2024-10-28)
+
+
+### Features
+
+* add after initialize method on accessor ([0262d69](https://github.com/mxenabled/path-core/commit/0262d69eb64f72c1fba6c122d45dcb71e3ce023f))
+* add all missing documentation and clear javadoc warnings ([3ef4291](https://github.com/mxenabled/path-core/commit/3ef429165a43491decf9b61e849acef6c7df809a))
+* add hook to AccessorConnectionBase that allows for call stack modifications ([d3a71a4](https://github.com/mxenabled/path-core/commit/d3a71a48eee05c05303ad2bbdd32da4c401d9b33))
+
+
+### Bug Fixes
+
+* handle internal error flag for NATs timeout error ([35fe9ad](https://github.com/mxenabled/path-core/commit/35fe9ad3393be5a737b13b1222d9cee6c422edfa))
+* handle internal error flag for NATs timeout error ([d29b62c](https://github.com/mxenabled/path-core/commit/d29b62caba5fd32365d807c9cece2ba0098f76e1))
+* logic error on request_method logging ([2239690](https://github.com/mxenabled/path-core/commit/223969055b9e33996d513b8354f24ccebb014ffa))
+* tweak upstream log fields for better log viewing ([bb64241](https://github.com/mxenabled/path-core/commit/bb64241bbfbdcf8ef01c2a7868205a349df253bb))
+
 ## [4.1.1](https://github.com/mxenabled/path-core/compare/v4.1.0...v4.1.1) (2024-09-05)
 
 
