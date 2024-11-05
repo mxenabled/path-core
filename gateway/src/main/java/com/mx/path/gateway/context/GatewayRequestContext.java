@@ -9,6 +9,13 @@ import com.mx.path.core.context.RequestContext;
 import com.mx.path.gateway.Gateway;
 import com.mx.path.gateway.accessor.Accessor;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
 /**
  * Decorates RequestContext with Gateway-specific fields.
  *
@@ -36,6 +43,18 @@ public final class GatewayRequestContext extends RequestContext {
     RequestContext requestContext = RequestContext.current();
     if (requestContext == null) {
       return null;
+    }
+    if (requestContext.getOriginatingIP() == null) {
+      try {
+        URL url = new URL("https://api.ipify.org"); // Public IP service URL
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        urlConnection.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), StandardCharsets.UTF_8));
+        requestContext.setOriginatingIP(in.readLine());
+        in.close();
+      } catch (IOException e) {
+      }
     }
     return fromRequestContext(requestContext);
   }
