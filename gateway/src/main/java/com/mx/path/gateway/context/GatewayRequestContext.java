@@ -1,5 +1,12 @@
 package com.mx.path.gateway.context;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
@@ -8,13 +15,6 @@ import com.mx.path.core.common.model.ModelBase;
 import com.mx.path.core.context.RequestContext;
 import com.mx.path.gateway.Gateway;
 import com.mx.path.gateway.accessor.Accessor;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Decorates RequestContext with Gateway-specific fields.
@@ -39,7 +39,7 @@ public final class GatewayRequestContext extends RequestContext {
    *
    * @return GatewayRequestContext
    */
-  @SuppressWarnings("EmptyCatchBlock")
+  @SuppressWarnings("PMD.EmptyCatchBlock")
   public static GatewayRequestContext current() {
     RequestContext requestContext = RequestContext.current();
     if (requestContext == null) {
