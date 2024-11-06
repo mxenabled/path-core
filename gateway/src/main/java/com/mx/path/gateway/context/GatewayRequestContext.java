@@ -39,6 +39,7 @@ public final class GatewayRequestContext extends RequestContext {
    *
    * @return GatewayRequestContext
    */
+  @SuppressWarnings("EmptyCatchBlock")
   public static GatewayRequestContext current() {
     RequestContext requestContext = RequestContext.current();
     if (requestContext == null) {
@@ -54,6 +55,7 @@ public final class GatewayRequestContext extends RequestContext {
         requestContext.setOriginatingIP(in.readLine());
         in.close();
       } catch (IOException e) {
+        //Do nothing as we don't want to obstruct the flow
       }
     }
     return fromRequestContext(requestContext);
