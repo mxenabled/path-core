@@ -1,12 +1,5 @@
 package com.mx.path.gateway.context;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
@@ -39,24 +32,10 @@ public final class GatewayRequestContext extends RequestContext {
    *
    * @return GatewayRequestContext
    */
-  @SuppressWarnings("PMD.EmptyCatchBlock")
   public static GatewayRequestContext current() {
     RequestContext requestContext = RequestContext.current();
     if (requestContext == null) {
       return null;
-    }
-    if (requestContext.getOriginatingIP() == null) {
-      try {
-        URL url = new URL("https://api.ipify.org"); // Public IP service URL
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        urlConnection.setRequestMethod("GET");
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), StandardCharsets.UTF_8));
-        requestContext.setOriginatingIP(in.readLine());
-        in.close();
-      } catch (IOException e) {
-        //Do nothing as we don't want to obstruct the flow
-      }
     }
     return fromRequestContext(requestContext);
   }

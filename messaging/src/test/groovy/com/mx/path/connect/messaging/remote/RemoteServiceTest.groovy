@@ -225,7 +225,7 @@ class RemoteServiceTest extends Specification {
     def asserter = {
       ->
       def requestContext = RequestContext.current()
-      assert requestContext.originatingIP == null
+      assert requestContext.originatingIP != null
       assert requestContext.sessionTraceId == null
       assert requestContext.feature == null
       assert requestContext.deviceTraceId == null
