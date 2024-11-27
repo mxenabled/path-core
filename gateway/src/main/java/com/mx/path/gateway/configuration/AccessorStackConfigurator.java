@@ -151,7 +151,7 @@ public class AccessorStackConfigurator {
     AccessorScope accessorScope = determineAccessorScope(node, accessorType);
     Class<?> proxyType = AccessorProxyMap.get(accessorScope.getName(), Accessor.getAccessorBase(accessorType));
 
-    invokeAfterInitializeMethods(accessorType);
+    invokeAfterInitializeMethods(accessorType, clientId);
 
     return new ClassHelper().buildInstance(Accessor.class, proxyType, configurationBuilder.build(), accessorType);
   }
@@ -197,6 +197,8 @@ public class AccessorStackConfigurator {
     Accessor accessor;
     Class<?> proxyType = AccessorProxyMap.get(accessorScope.get(), Accessor.getAccessorBase(accessorType.get()));
     accessor = new ClassHelper().buildInstance(Accessor.class, proxyType, configuration.build(), accessorType.get());
+
+    invokeAfterInitializeMethods(accessorType.get(), clientId);
 
     return accessor;
   }
@@ -330,13 +332,17 @@ public class AccessorStackConfigurator {
     }
   }
 
-  private void invokeAfterInitializeMethods(Class<?> accessorClass) {
+  private void invokeAfterInitializeMethods(Class<?> accessorClass, String clientId) {
     Method[] methods = accessorClass.getMethods();
 
     for (Method method : methods) {
       if (method.isAnnotationPresent(AfterAccessorInitialize.class) && (method.getModifiers() & Modifier.STATIC) != 0) {
         try {
-          method.invoke(null);
+          if (method.getParameterCount() == 0) {
+            method.invoke(null);
+          } else if (method.getParameterCount() == 1) {
+            method.invoke(null, clientId);
+          }
         } catch (Exception e) {
           throw new RuntimeException("Failed to invoke @AfterAccessorInitialize method: " + method.getName(), e);
         }

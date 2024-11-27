@@ -18,11 +18,19 @@ class AccessorStackConfiguratorTest extends Specification {
     @AfterAccessorInitialize
     static void afterInitialize() {
     }
+
+    @AfterAccessorInitialize
+    static void afterInitializeWithClientId(String clientId) {
+    }
   }
 
   class ChildMockAccessor extends MockAccessor {
     @AfterAccessorInitialize
     static void afterInitializeChild() {
+    }
+
+    @AfterAccessorInitialize
+    static void afterInitializeChildWithClientId(String clientId) {
     }
   }
 
@@ -48,22 +56,26 @@ class AccessorStackConfiguratorTest extends Specification {
 
   def "invoke afterInitializeMethods"() {
     when:
-    Method method = subject.class.getDeclaredMethod("invokeAfterInitializeMethods", Class)
+    Method method = subject.class.getDeclaredMethod("invokeAfterInitializeMethods", Class, String)
     method.setAccessible(true)
-    method.invoke(subject, MockAccessor.class)
+    method.invoke(subject, MockAccessor.class, "clientId")
 
     then:
     mockAccessor.verify({ MockAccessor.afterInitialize() }, times(1))
+    mockAccessor.verify({ MockAccessor.afterInitializeWithClientId("clientId") }, times(1))
   }
 
   def "invoke both afterInitializeMethods"() {
     when:
-    Method method = subject.class.getDeclaredMethod("invokeAfterInitializeMethods", Class)
+    Method method = subject.class.getDeclaredMethod("invokeAfterInitializeMethods", Class, String)
     method.setAccessible(true)
-    method.invoke(subject, ChildMockAccessor.class)
+    method.invoke(subject, ChildMockAccessor.class, "clientId")
 
     then:
     mockAccessor.verify({ MockAccessor.afterInitialize() }, times(1))
     childMockAccessor.verify({ ChildMockAccessor.afterInitializeChild() }, times(1))
+
+    mockAccessor.verify({ MockAccessor.afterInitializeWithClientId("clientId") }, times(1))
+    childMockAccessor.verify({ ChildMockAccessor.afterInitializeChildWithClientId("clientId") }, times(1))
   }
 }
