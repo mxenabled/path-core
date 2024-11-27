@@ -5,6 +5,14 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [4.2.1](https://github.com/mxenabled/path-core/compare/v4.2.0...v4.2.1) (2024-11-27)
+
+
+### Bug Fixes
+
+* call afterInitialize on all accessors ([ed95a0d](https://github.com/mxenabled/path-core/commit/ed95a0dadaf4d727ae557b75e286d4299ce6b23d))
+* initialize facilities when facilities are empty ([b3ddc6c](https://github.com/mxenabled/path-core/commit/b3ddc6c4f03ff79523cb6422c4152ca6fca7362f))
+
 ## [4.2.0](https://github.com/mxenabled/path-core/compare/v4.1.1...v4.2.0) (2024-10-28)
 
 
