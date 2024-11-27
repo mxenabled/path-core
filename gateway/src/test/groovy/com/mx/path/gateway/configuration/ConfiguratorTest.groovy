@@ -78,4 +78,24 @@ class ConfiguratorTest extends Specification {
     gateways.get("client")
     verify(observer, times(1)).notifyClientFacilitiesInitialized("client")
   }
+
+  def "invokes facilities initialized listeners when facilities are empty"() {
+    given:
+    def yaml =
+        "client:\n" +
+        "  accessor:\n" +
+        "    class: com.mx.testing.accessors.BaseAccessor\n" +
+        "    scope: singleton\n" +
+        "  gateways:\n" +
+        "    id: {}\n" +
+        "    accounts: {}\n"
+
+    when:
+    Map<String, TestGateway> gateways = subject.buildFromYaml(yaml)
+
+    then:
+    gateways.get("client") != null
+    gateways.get("client")
+    verify(observer, times(1)).notifyClientFacilitiesInitialized("client")
+  }
 }

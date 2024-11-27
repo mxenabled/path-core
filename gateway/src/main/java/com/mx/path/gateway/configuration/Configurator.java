@@ -280,53 +280,51 @@ public abstract class Configurator<T extends Gateway<?>> {
 
   private void populateFacilities(String clientId, ObjectMap map) {
     ObjectMap node = map.getMap("facilities");
-    if (node == null) {
-      return;
-    }
 
     state.withLevel("facilities", () -> {
-      node.keySet().forEach(key -> {
-        switch (key) {
-          case "cacheStore":
-            Facilities.setCacheStore(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, Store.class));
-            break;
+      if (node != null) {
+        node.keySet().forEach(key -> {
+          switch (key) {
+            case "cacheStore":
+              Facilities.setCacheStore(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, Store.class));
+              break;
 
-          case "encryptionService":
-            Facilities.setEncryptionService(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, EncryptionService.class));
-            break;
+            case "encryptionService":
+              Facilities.setEncryptionService(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, EncryptionService.class));
+              break;
 
-          case "eventBus":
-            Facilities.addEventBus(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, EventBus.class));
-            break;
+            case "eventBus":
+              Facilities.addEventBus(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, EventBus.class));
+              break;
 
-          case "exceptionReporter":
-            Facilities.setExceptionReporter(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, ExceptionReporter.class));
-            break;
+            case "exceptionReporter":
+              Facilities.setExceptionReporter(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, ExceptionReporter.class));
+              break;
 
-          case "faultTolerantExecutor":
-            Facilities.setFaultTolerantExecutor(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, FaultTolerantExecutor.class));
-            break;
+            case "faultTolerantExecutor":
+              Facilities.setFaultTolerantExecutor(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, FaultTolerantExecutor.class));
+              break;
 
-          case "messageBroker":
-            Facilities.setMessageBroker(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, MessageBroker.class));
-            break;
+            case "messageBroker":
+              Facilities.setMessageBroker(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, MessageBroker.class));
+              break;
 
-          case "sessionStore":
-            Facilities.setSessionStore(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, Store.class));
-            break;
+            case "sessionStore":
+              Facilities.setSessionStore(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, Store.class));
+              break;
 
-          case "secretStore":
-            Facilities.setSecretStore(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, Store.class));
-            break;
+            case "secretStore":
+              Facilities.setSecretStore(clientId, gatewayObjectConfigurator.buildFromNode(node.getMap(key), clientId, Store.class));
+              break;
 
-          default:
-            throw new GatewayException("Invalid facility: " + key);
-        }
-      });
+            default:
+              throw new GatewayException("Invalid facility: " + key);
+          }
+        });
+      }
     });
 
     ensureDefaultFacilities(clientId);
-
     getObserver().notifyClientFacilitiesInitialized(clientId);
   }
 
