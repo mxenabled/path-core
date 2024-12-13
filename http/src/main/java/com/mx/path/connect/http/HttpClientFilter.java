@@ -3,6 +3,7 @@ package com.mx.path.connect.http;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.SocketTimeoutException;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -35,6 +36,7 @@ import com.mx.path.gateway.connect.filter.HttpClientConnectException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
+import org.apache.http.NoHttpResponseException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.config.CookieSpecs;
@@ -42,6 +44,7 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.entity.ByteArrayEntity;
@@ -65,6 +68,7 @@ public class HttpClientFilter extends RequestFilterBase {
    * instead of converting it to a String.
    */
   private static final List<String> RAW_BODY_CONTENT_TYPE_HINTS = Arrays.asList("image", "pdf", "msword");
+  private static final int HTTP_STATUS_EXTERNAL_TIMEOUT = 531;
 
   private static GsonBuilder gsonBuilder = new GsonBuilder();
   private static final Gson GSON = gsonBuilder
@@ -157,6 +161,15 @@ public class HttpClientFilter extends RequestFilterBase {
           } finally {
             response.finish();
           }
+        } catch (ConnectTimeoutException e) {
+          httpResponse.setStatus(HttpStatus.valueOf(HTTP_STATUS_EXTERNAL_TIMEOUT));
+          throw new ConnectException("Connection timeout: " + e.getMessage(), e);
+        } catch (SocketTimeoutException e) {
+          httpResponse.setStatus(HttpStatus.valueOf(HTTP_STATUS_EXTERNAL_TIMEOUT));
+          throw new ConnectException("Read timeout: " + e.getMessage(), e);
+        } catch (NoHttpResponseException e) {
+          httpResponse.setStatus(HttpStatus.valueOf(HTTP_STATUS_EXTERNAL_TIMEOUT));
+          throw new ConnectException("Target server failed to respond: " + e.getMessage(), e);
         } catch (SSLHandshakeException e) {
           throw new HttpClientConnectException("SSL handshake failed", e);
         } catch (SSLException e) {
