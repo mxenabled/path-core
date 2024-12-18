@@ -18,7 +18,20 @@ import com.mx.path.gateway.connect.filter.TracingFilter;
 import com.mx.path.gateway.connect.filter.UpstreamRequestEventFilter;
 import com.mx.path.gateway.connect.filter.UpstreamRequestProcessorFilter;
 
+/**
+ * Builds connections for gateway objects.
+ */
 public class ConnectionBinder {
+
+  /**
+   * Build new connection instance.
+   *
+   * @param klass class type of connection.
+   * @param map connections configuration map.
+   * @param connectionName connection name.
+   * @return new instance of connection.
+   * @param <T> generic class type.
+   */
   public static <T> Object build(Class<T> klass, ObjectMap map, String connectionName) {
     ConfigurationState state = ConfigurationState.getCurrent();
     AtomicReference<ConnectionConstructionContext> builderRef = new AtomicReference<>();
@@ -35,6 +48,13 @@ public class ConnectionBinder {
     return builder.build();
   }
 
+  /**
+   * Helper function to build new AccessorConnectionSettings for given connection.
+   *
+   * @param map connection configuration object map.
+   * @param connectionName connection name.
+   * @return new AccessorConnectionSettings instance.
+   */
   public static AccessorConnectionSettings buildConnection(ObjectMap map, String connectionName) {
     AccessorConnectionSettings.AccessorConnectionSettingsBuilder connection = AccessorConnectionSettings.builder();
     connection.baseUrl(map.getMap(connectionName).getAsString("baseUrl"));
@@ -66,6 +86,11 @@ public class ConnectionBinder {
     return instance;
   }
 
+  /**
+   * Validate AccessorConnectionSettings object.
+   *
+   * @param connection object to be validated.
+   */
   private static void validate(AccessorConnectionSettings connection) {
     String keystorePassword = "";
     if (connection.getKeystorePassword() != null) {
