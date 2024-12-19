@@ -5,6 +5,19 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [4.3.0](https://github.com/mxenabled/path-core/compare/v4.2.1...v4.3.0) (2024-12-19)
+
+
+### Features
+
+* add comments to new ConnectionBinder class ([9a90cca](https://github.com/mxenabled/path-core/commit/9a90ccaee3ebe3510b14f54af7138db84bea1b8e))
+* add connection builder for gateway objects ([860a88f](https://github.com/mxenabled/path-core/commit/860a88f40a42625bff0f4cd81d3fef037ba7df23))
+
+
+### Bug Fixes
+
+* handle external timeout error with status code 531 ([ae407c4](https://github.com/mxenabled/path-core/commit/ae407c42264b07916f2f457f72a59326587c052f))
+
 ## [4.2.1](https://github.com/mxenabled/path-core/compare/v4.2.0...v4.2.1) (2024-11-27)
 
 
