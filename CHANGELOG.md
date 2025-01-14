@@ -5,6 +5,18 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [4.4.0](https://github.com/mxenabled/path-core/compare/v4.3.0...v4.4.0) (2025-01-14)
+
+
+### Features
+
+* add tests to connection binding on gateway objects ([d5901f0](https://github.com/mxenabled/path-core/commit/d5901f08ebd5dda0916b412e8a30a6d21542cdbd))
+
+
+### Bug Fixes
+
+* bump connectTimeout to 10s from 5s ([db7f829](https://github.com/mxenabled/path-core/commit/db7f82923eb6d1eb95dae3df32604313adff0d34))
+
 ## [4.3.0](https://github.com/mxenabled/path-core/compare/v4.2.1...v4.3.0) (2024-12-19)
 
 
