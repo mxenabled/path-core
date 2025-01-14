@@ -67,7 +67,7 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
     STRING_AND_RAW
   }
 
-  private static final Duration DEFAULT_CONNECT_TIMEOUT = Duration.ofMillis(5000);
+  private static final Duration DEFAULT_CONNECT_TIMEOUT = Duration.ofMillis(10000);
   private static final Duration DEFAULT_REQUEST_TIMEOUT = Duration.ofMillis(30000);
 
   // Fields
