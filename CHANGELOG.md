@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [4.4.1](https://github.com/mxenabled/path-core/compare/v4.4.0...v4.4.1) (2025-01-22)
+
+
+### Bug Fixes
+
+* handle external timeout error with status code 531 ([aeba873](https://github.com/mxenabled/path-core/commit/aeba873636199969dbb42f2dde84b285bca54dc5))
+
 ## [4.4.0](https://github.com/mxenabled/path-core/compare/v4.3.0...v4.4.0) (2025-01-14)
 
 
