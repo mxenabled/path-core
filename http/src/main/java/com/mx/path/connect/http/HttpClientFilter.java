@@ -3,6 +3,7 @@ package com.mx.path.connect.http;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
@@ -44,6 +45,7 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.entity.ByteArrayEntity;
@@ -159,8 +161,8 @@ public class HttpClientFilter extends RequestFilterBase {
           } finally {
             response.finish();
           }
-        } catch (ConnectException e) {
-          throw new HttpClientConnectException("Connection Exception", e);
+        } catch (ConnectTimeoutException e) {
+          throw new HttpClientConnectException("Connection timeout Exception", e);
         } catch (SocketTimeoutException e) {
           throw new HttpClientConnectException("Read Timeout Exception", e);
         } catch (NoHttpResponseException e) {
@@ -173,6 +175,10 @@ public class HttpClientFilter extends RequestFilterBase {
           throw new HttpClientConnectException("Host closed connection", e);
         } catch (HttpHostConnectException e) {
           throw new HttpClientConnectException("Host connection failed", e);
+        } catch (SocketException e) {
+          throw new HttpClientConnectException("Socket connection reset", e);
+        } catch (ConnectException e) {
+          throw new HttpClientConnectException("Connection Exception", e);
         } catch (IOException e) {
           throw new ConnectException("HttpClient Execute failed: " + e.getMessage(), e);
         }
