@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [4.4.2](https://github.com/mxenabled/path-core/compare/v4.4.1...v4.4.2) (2025-01-28)
+
+
+### Bug Fixes
+
+* handle Connection Exception and socket exception ([b91af79](https://github.com/mxenabled/path-core/commit/b91af799686eb2a32b6a74b08ba349fd32327a62))
+
 ## [4.4.1](https://github.com/mxenabled/path-core/compare/v4.4.0...v4.4.1) (2025-01-22)
 
 
