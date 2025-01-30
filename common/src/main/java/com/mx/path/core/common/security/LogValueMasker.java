@@ -8,6 +8,8 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.mx.path.core.common.lang.Strings;
+
 /**
  * Mask specified characters on logger.
  */
@@ -173,7 +175,7 @@ public class LogValueMasker {
 
         // Apply masking to all matching groups
         for (int i = 1; i <= m.groupCount(); i++) {
-          if (m.group(i) != null) {
+          if (!Strings.isBlank(m.group(i))) {
             patternMatch = patternMatch.replace(m.group(i), MASK);
           }
         }
