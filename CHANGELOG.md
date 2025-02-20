@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [4.4.3](https://github.com/mxenabled/path-core/compare/v4.4.2...v4.4.3) (2025-02-20)
+
+
+### Bug Fixes
+
+* mc-3689 - centralize some log masker regex strings ([ab52f03](https://github.com/mxenabled/path-core/commit/ab52f03d9658b9925d0f8f2503c6c78807cfc08a))
+
 ## [4.4.2](https://github.com/mxenabled/path-core/compare/v4.4.1...v4.4.2) (2025-01-28)
 
 
