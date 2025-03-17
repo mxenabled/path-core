@@ -15,8 +15,12 @@ import com.mx.path.core.common.accessor.PathResponseStatus;
 import com.mx.path.core.common.accessor.RequestPayloadException;
 import com.mx.path.core.common.accessor.RequestValidationException;
 import com.mx.path.core.common.accessor.ResourceNotFoundException;
-import com.mx.path.core.common.accessor.ResponsePayloadException;
 import com.mx.path.core.common.accessor.UnauthorizedException;
+import com.mx.path.core.common.accessor.UpstreamResponseError;
+import com.mx.path.core.common.accessor.UpstreamResponseException;
+import com.mx.path.core.common.accessor.UpstreamResponseProcessingException;
+import com.mx.path.core.common.accessor.UpstreamResponseUnprocessableException;
+import com.mx.path.core.common.accessor.UpstreamResponseValidationException;
 import com.mx.path.core.common.accessor.UpstreamSystemMaintenance;
 import com.mx.path.core.common.accessor.UpstreamSystemUnavailable;
 import com.mx.path.core.common.connect.CircuitOpenException;
@@ -49,9 +53,13 @@ import com.mx.path.core.common.messaging.MessageError;
  *     {@link AccessorSystemException} - Base class for exceptions thrown on unrecoverable error in accessor code
  *       {@link AccessorMethodNotImplementedException} - Thrown when an accessor method is invoked that has no implementation
  *       {@link RequestPayloadException} - Thrown when an upstream request payload cannot be built
- *       {@link ResponsePayloadException} - Thrown when an upstream response payload is unrecognizable or un-processable
  *       {@link UpstreamSystemUnavailable} - Thrown when an upstream request results in an unknown error or the upstream service is determined to be offline
  *         {@link UpstreamSystemMaintenance} - Thrown when the upstream system is determined to be offline due to maintenance
+ *       {@link UpstreamResponseException} - Base class for exceptions related to upstream responses
+ *         {@link UpstreamResponseError} - Thrown when upstream response is an error that is not user-correctable
+ *         {@link UpstreamResponseUnprocessableException} - Thrown when an upstream response payload is not processable (e.g. unexpected format)
+ *         {@link UpstreamResponseValidationException} - Thrown when a critical value in a response is invalid and no fallback or default is available
+ *         {@link UpstreamResponseProcessingException} - Thrown when an unknown error occurs while processing the response
  *   {@link ConnectException} - Thrown on error in connection code
  *     {@link TimeoutException} - Thrown on a connection/request timeout
  *     {@link ServiceUnavailableException} - Thrown when a service (typically upstream service) is unavailable. The unavailability could be determined by a response from the service or something on the client side
