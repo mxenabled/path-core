@@ -7,9 +7,8 @@ import com.mx.path.core.common.exception.PathRequestException;
  *
  * <p>This can be used as a catch-all exception for situations where something went bad upstream,
  * usually resulting in an unexpected status code, and we couldn't figure out why. This is close relative to
- * {@link ResponsePayloadException}. The difference is that {@link ResponsePayloadException} indicates that we were
- * unable to process a response that was expected to be good. This exception is a bit more general and used when
- * we can determine that the response is not right.
+ * children of {@link UpstreamResponseException}. The difference is that {@link UpstreamResponseException} indicates
+ * specific reasons that we were unable to process a response that was expected to be good.
  *
  * <p>Consider the following code example. In this example, we are attempting to determine why the response did not have
  * a 200 OK status. Keep in mind, this is upstream-system-specific. Determining what happened, may not
@@ -26,7 +25,7 @@ import com.mx.path.core.common.exception.PathRequestException;
  *   } else if ("internal".equals(code)) {
  *     thrown new UpstreamSystemUnavailable("Bank system error", "Bank system failed to process request. Please try again later.")
  *   } else { // default
- *     thrown new UpstreamSystemUnavailable("Bank system unknown state", "Bank system failed to process request. Please try again later.")
+ *     thrown new UpstreamResponseValidationException("Bank system unknown state", "Bank system failed to process request. Please try again later.")
  *   }
  * }
  * }</pre>

@@ -17,7 +17,7 @@ import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
 import com.mx.path.core.common.accessor.RequestPayloadException;
-import com.mx.path.core.common.accessor.ResponsePayloadException;
+import com.mx.path.core.common.accessor.UpstreamResponseUnprocessableException;
 
 /**
  * Static methods for marshalling to and from SOAP Envelopes
@@ -121,7 +121,7 @@ public class SoapMarshaller {
 
       return response.getValue();
     } catch (JAXBException | IOException | SOAPException ex) {
-      throw new ResponsePayloadException(ex.getMessage(), ex);
+      throw new UpstreamResponseUnprocessableException(ex.getMessage(), ex);
     }
   }
 }
