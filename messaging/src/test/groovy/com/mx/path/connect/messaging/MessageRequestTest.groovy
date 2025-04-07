@@ -140,7 +140,7 @@ class MessageRequestTest extends Specification {
   def "start and finish"() {
     when:
     subject.start()
-    Thread.sleep(10);
+    Thread.sleep(10)
     def duration = subject.getDuration()
 
     then:

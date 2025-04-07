@@ -16,6 +16,7 @@ import org.apache.http.HttpEntity
 
 import spock.lang.Specification
 import spock.lang.Unroll
+
 import testing.connect.RequestFilterStub
 
 class HttpClientFilterTest extends Specification {
@@ -129,5 +130,4 @@ class HttpClientFilterTest extends Specification {
     then: "ConnectException is thrown"
     thrown(ConnectException)
   }
-
 }

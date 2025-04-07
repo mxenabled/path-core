@@ -1,10 +1,9 @@
 plugins {
   id "idea"
-  id "com.github.mxenabled.coppuccino" version "3.+" apply false
+  id "com.github.mxenabled.coppuccino" version "4.+" apply false
   id "com.github.mxenabled.vogue" version "1.+"
-  id "com.github.mxenabled.binks" version "0.+"
-  id "io.freefair.lombok" version "8.1.+" apply false
-  id "io.github.gradle-nexus.publish-plugin" version "1.1.0"
+  id "io.freefair.lombok" version "8.+" apply false
+  id "io.github.gradle-nexus.publish-plugin" version "1.1.+"
 }
 
 version "4.5.0" // x-release-please-version
@@ -102,7 +101,7 @@ subprojects {
 
       testImplementation "org.mockito:mockito-inline:[4.0,5.0)"
       testImplementation "org.spockframework:spock-core:2.4-M1-groovy-4.0"
-      testImplementation "org.junit.jupiter:junit-jupiter-api:[5.9,5.10)"
+      testImplementation "org.junit.jupiter:junit-jupiter-api:[5.9.0,5.10.0)"
     }
 
     test { useJUnitPlatform() }
@@ -143,9 +142,9 @@ subprojects {
     }
 
     artifacts {
+      archives sourcesJar
       archives jar
       archives packageJavadoc
-      archives sourcesJar
     }
 
     if (publishedProjects.contains(it.name)) {
@@ -176,11 +175,11 @@ subprojects {
               }
 
               licenses {
-                  license {
-                      name = "Proprietary"
-                      url = "https://github.com/mxenabled/path-core/blob/master/LICENSE"
-                      distribution = "repo"
-                  }
+                license {
+                  name = "Proprietary"
+                  url = "https://github.com/mxenabled/path-core/blob/master/LICENSE"
+                  distribution = "repo"
+                }
               }
 
               scm {
@@ -221,7 +220,6 @@ nexusPublishing {
   }
 }
 
-
 task spotlessApply {
   subprojects.each {
     if (it.name != platformProject) {
@@ -235,9 +233,11 @@ task spotlessApply {
 
 task subdependencies {
   subprojects.each {
-    it.afterEvaluate {
-      def dependenciesTask = it.tasks.findByName("dependencies")
-      dependsOn(dependenciesTask)
+    if (it.name != platformProject) {
+      it.afterEvaluate {
+        def dependenciesTask = it.tasks.findByName("dependencies")
+        dependsOn(dependenciesTask)
+      }
     }
   }
 }

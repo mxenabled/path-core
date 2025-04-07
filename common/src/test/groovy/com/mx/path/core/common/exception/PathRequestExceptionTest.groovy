@@ -8,19 +8,19 @@ class PathRequestExceptionTest extends Specification {
 
   class TestPathRequestException extends PathRequestException {
     public TestPathRequestException() {
-      super();
+      super()
     }
 
     public TestPathRequestException(String message) {
-      super(message);
+      super(message)
     }
 
     public TestPathRequestException(Throwable cause) {
-      super(cause);
+      super(cause)
     }
 
     public TestPathRequestException(String message, Throwable cause) {
-      super(message, cause);
+      super(message, cause)
     }
   }
 
@@ -78,7 +78,7 @@ class PathRequestExceptionTest extends Specification {
 
   def "fluent setters"() {
     when:
-    def subject = new TestPathRequestException();
+    def subject = new TestPathRequestException()
 
     then:
     verifyAll(subject) {

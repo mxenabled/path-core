@@ -11,7 +11,7 @@ import spock.lang.Unroll
 class LocalDateDeserializerTest extends Specification {
 
   class TestType {
-    public LocalDate date;
+    public LocalDate date
   }
 
   @Unroll

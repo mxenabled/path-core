@@ -77,7 +77,7 @@ class SessionRepositoryImplTest extends Specification implements WithMockery {
 
   def "load"() {
     given:
-    GsonBuilder gsonBuilder = new GsonBuilder();
+    GsonBuilder gsonBuilder = new GsonBuilder()
     def json = gsonBuilder.registerTypeAdapter(LocalDateTime.class, LocalDateTimeDeserializer.builder()
         .build()).create()
         .toJson(session)
@@ -93,7 +93,7 @@ class SessionRepositoryImplTest extends Specification implements WithMockery {
 
   def "save"() {
     given:
-    GsonBuilder gsonBuilder = new GsonBuilder();
+    GsonBuilder gsonBuilder = new GsonBuilder()
     def json = gsonBuilder.registerTypeAdapter(LocalDateTime.class, LocalDateTimeDeserializer.builder()
         .build()).create()
         .toJson(session)

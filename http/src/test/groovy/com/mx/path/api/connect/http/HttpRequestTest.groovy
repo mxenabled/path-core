@@ -9,6 +9,7 @@ import com.mx.path.connect.http.HttpResponse
 import com.mx.path.core.common.connect.RequestFilter
 
 import spock.lang.Specification
+
 import testing.connect.RequestFilterStub
 
 class HttpRequestTest extends Specification {

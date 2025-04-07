@@ -11,7 +11,7 @@ import spock.lang.Specification
 class SingletonBaseAccessorProxyTest extends Specification {
   def "constructor"() {
     when:
-    def subject = new BaseAccessorProxySingleton(AccessorConfiguration.builder().clientId("client1").build(), BaseAccessorImpl.class);
+    def subject = new BaseAccessorProxySingleton(AccessorConfiguration.builder().clientId("client1").build(), BaseAccessorImpl.class)
 
     then:
     subject.getConfiguration() != null
@@ -20,7 +20,7 @@ class SingletonBaseAccessorProxyTest extends Specification {
 
   def "build returns the same instance"() {
     given:
-    def subject = new BaseAccessorProxySingleton(AccessorConfiguration.builder().clientId("client1").build(), BaseAccessorImpl.class);
+    def subject = new BaseAccessorProxySingleton(AccessorConfiguration.builder().clientId("client1").build(), BaseAccessorImpl.class)
 
     when:
     def instance = subject.build()
@@ -32,7 +32,7 @@ class SingletonBaseAccessorProxyTest extends Specification {
   def "calls accessors on instance"() {
     given:
     def accessorInstance = org.mockito.Mockito.mock(BaseAccessor)
-    def subject = new BaseAccessorProxySingleton(AccessorConfiguration.builder().clientId("client1").build(), BaseAccessorImpl.class, accessorInstance);
+    def subject = new BaseAccessorProxySingleton(AccessorConfiguration.builder().clientId("client1").build(), BaseAccessorImpl.class, accessorInstance)
 
     when:
     subject.accounts()

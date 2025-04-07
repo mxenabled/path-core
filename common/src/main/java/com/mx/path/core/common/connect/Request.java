@@ -10,6 +10,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import com.github.rholder.retry.Retryer;
 import com.mx.path.core.common.collection.MultiValueMap;
 import com.mx.path.core.common.collection.MultiValueMappable;
@@ -386,6 +388,7 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
    *
    * @param filterChain filter chain
    */
+  @SuppressFBWarnings("CT_CONSTRUCTOR_THROW")
   public Request(RequestFilter filterChain) {
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");

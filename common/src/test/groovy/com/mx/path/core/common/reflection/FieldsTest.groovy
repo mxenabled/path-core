@@ -14,8 +14,8 @@ import spock.lang.Specification
 class FieldsTest extends Specification {
 
   class TestDataClass {
-    private Byte cByte;
-    private Character cCharacter;
+    private Byte cByte
+    private Character cCharacter
     private double pDouble
     private Double cDouble
     private Duration duration
@@ -24,13 +24,13 @@ class FieldsTest extends Specification {
     private Float cFloat
     private int pInt
     private Integer cInt
-    private Class<?> klass;
+    private Class<?> klass
     private long pLong
     private Long cLong
     private Pattern pattern
-    private Short cShort;
+    private Short cShort
     private String string
-    private ZoneId zoneId;
+    private ZoneId zoneId
   }
 
   def "getFieldValue"() {

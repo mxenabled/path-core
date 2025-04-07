@@ -11,15 +11,15 @@ class TestClass {
   private String nonGenericType = ""
 
   public static String staticMethod() {
-    return "Class says \"hi!\"";
+    return "Class says \"hi!\""
   }
 
   static String secretStaticMethod() {
-    return "Class says \"hi!\"";
+    return "Class says \"hi!\""
   }
 
   private static String safeAndSecretStaticMethod() {
-    return "Class says \"hi!\"";
+    return "Class says \"hi!\""
   }
 
   Map<String, Integer> getMap() {
@@ -42,10 +42,10 @@ class TestClass {
 
 class ClassHelperTest extends Specification {
   static class TestParent {
-    private String member;
+    private String member
 
     TestParent(String member) {
-      this.member = member;
+      this.member = member
     }
 
     String getMember() {

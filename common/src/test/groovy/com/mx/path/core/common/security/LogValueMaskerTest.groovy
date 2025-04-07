@@ -36,7 +36,7 @@ class LogValueMaskerTest extends Specification {
 
   def "masksPasswordInJsonStringBody"() {
     given:
-    def json = "{`authentication`:{`username`:`frank`,`password`:`\$up3r\$3cr4t`}}".replace('`', '"');
+    def json = "{`authentication`:{`username`:`frank`,`password`:`\$up3r\$3cr4t`}}".replace('`', '"')
 
     expect:
     "{`authentication`:{`username`:`frank`,`password`:`**MASKED**`}}".replace('`', '"') == subject.maskPayload(json)

@@ -26,8 +26,8 @@ public class UpstreamErrorException extends ConnectException {
    *
    * @param originalStatus original status to set
    */
-  @Setter
   @Getter
+  @Setter
   private HttpStatus originalStatus;
 
   /**

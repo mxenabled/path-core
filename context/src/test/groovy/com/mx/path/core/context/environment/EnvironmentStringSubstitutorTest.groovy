@@ -4,6 +4,7 @@ import org.apache.commons.text.EnvironmentStringSubstitutor
 import org.junit.jupiter.api.extension.ExtendWith
 
 import spock.lang.Specification
+
 import uk.org.webcompere.systemstubs.SystemStubs
 import uk.org.webcompere.systemstubs.jupiter.SystemStubsExtension
 

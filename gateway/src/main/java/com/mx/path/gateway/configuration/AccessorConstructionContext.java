@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mx.path.core.common.collection.ObjectArray;
@@ -104,6 +106,7 @@ public class AccessorConstructionContext<T extends Accessor> {
    * @param configuration configuration for accessor
    * @param <V> accessor class type
    */
+  @SuppressFBWarnings("CT_CONSTRUCTOR_THROW")
   public <V extends T> AccessorConstructionContext(Class<V> accessorClass, AccessorConfiguration configuration) {
     this.accessorConfiguration = configuration;
     this.accessorClass = accessorClass;
