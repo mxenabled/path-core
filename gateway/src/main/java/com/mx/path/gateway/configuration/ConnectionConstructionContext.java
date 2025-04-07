@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import com.mx.path.core.common.configuration.Configuration;
 import com.mx.path.core.common.connect.AccessorConnectionSettings;
 import com.mx.path.core.common.gateway.GatewayException;
@@ -82,6 +84,7 @@ public class ConnectionConstructionContext {
    * @param connectionClass connection class
    * @param accessorConnectionSettings connection settings accessor
    */
+  @SuppressFBWarnings("CT_CONSTRUCTOR_THROW")
   @SuppressWarnings("unchecked")
   public ConnectionConstructionContext(String clientId, ConfigurationState state, Class<?> connectionClass, AccessorConnectionSettings accessorConnectionSettings) {
     this.clientId = clientId;

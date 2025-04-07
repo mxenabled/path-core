@@ -5,7 +5,7 @@ coppuccino {
 }
 
 dependencies {
-  api "com.auth0:java-jwt:[4.0,5.0[" // For JWT Parsing Library
+  api "com.auth0:java-jwt:[4.0,5.0)" // For JWT Parsing Library
 
   constraints {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.0-rc1") {

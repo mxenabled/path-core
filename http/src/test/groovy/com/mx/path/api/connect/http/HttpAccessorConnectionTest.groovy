@@ -12,6 +12,7 @@ import com.mx.path.core.context.RequestContext
 
 import spock.lang.Rollup
 import spock.lang.Specification
+
 import testing.connect.RequestFilterStub
 
 class HttpAccessorConnectionTest extends Specification {
@@ -30,7 +31,7 @@ class HttpAccessorConnectionTest extends Specification {
     subject.setCertificateAlias("secureMe")
 
     when:
-    def request = subject.request("path");
+    def request = subject.request("path")
 
     then:
     request.getUri() == "http://localhost:9999/path"
@@ -47,7 +48,7 @@ class HttpAccessorConnectionTest extends Specification {
     subject.setCertificateAlias("secureMe")
 
     when:
-    def request = subject.request("path");
+    def request = subject.request("path")
 
     then:
     request.getUri() == "http://localhost:9999/path"
@@ -65,7 +66,7 @@ class HttpAccessorConnectionTest extends Specification {
     subject.setCertificateAlias("secureMe")
 
     when:
-    def request = subject.request("path");
+    def request = subject.request("path")
 
     then:
     request.getFeature() == enumeration

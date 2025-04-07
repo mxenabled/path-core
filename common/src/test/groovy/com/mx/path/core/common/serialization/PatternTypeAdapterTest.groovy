@@ -16,7 +16,7 @@ class PatternTypeAdapterTest extends Specification {
   class PatternSerializationTest {
     @Getter
     @Setter
-    private Pattern pattern;
+    private Pattern pattern
   }
 
   def setup() {

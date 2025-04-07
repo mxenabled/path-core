@@ -88,7 +88,7 @@ class RemoteChannelTest extends Specification {
         .model("Account")
         .operation("list")
         .type(RemoteChannel.ChannelType.REQUEST)
-        .build();
+        .build()
 
     then:
     subject.getClientId() == "client1"
@@ -101,7 +101,7 @@ class RemoteChannelTest extends Specification {
     when: "from String"
     def subject = RemoteChannel.builder()
         .model("Account")
-        .build();
+        .build()
 
     then:
     subject.getModel() == "Account"
@@ -120,7 +120,7 @@ class RemoteChannelTest extends Specification {
         .clientId("client123")
         .type(RemoteChannel.ChannelType.REQUEST)
         .operation("list")
-        .build();
+        .build()
 
     then:
     subject.toString() == "path.request.client123.Account.list"
@@ -142,7 +142,7 @@ class RemoteChannelTest extends Specification {
         .clientId("client123")
         .type(RemoteChannel.ChannelType.EVENT)
         .operation("changed")
-        .build();
+        .build()
 
     then:
     subject.toString() == "path.event.client123.Account.changed"

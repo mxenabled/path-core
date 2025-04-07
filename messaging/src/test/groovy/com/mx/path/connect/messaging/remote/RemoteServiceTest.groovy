@@ -269,7 +269,7 @@ class RemoteServiceTest extends Specification {
 
   def "receive not implemented"() {
     given:
-    def noOpSubject = new RemoteServiceValid();
+    def noOpSubject = new RemoteServiceValid()
     def message = MessageEvent.builder().body("hi").build()
 
     when:
@@ -281,7 +281,7 @@ class RemoteServiceTest extends Specification {
 
   def "respond not implemented"() {
     given:
-    def noOpSubject = new RemoteServiceValid();
+    def noOpSubject = new RemoteServiceValid()
     def message = MessageRequest.builder().body("hi").build()
 
     when:

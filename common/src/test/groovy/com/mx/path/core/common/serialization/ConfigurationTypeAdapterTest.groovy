@@ -21,7 +21,7 @@ class ConfigurationTypeAdapterTest extends Specification {
 
   def "Serialize"() {
     when:
-    def original = ConfigurationWithSecrets.builder().defaults().build();
+    def original = ConfigurationWithSecrets.builder().defaults().build()
 
     def serialized = subject.toJson(original)
     println(serialized)

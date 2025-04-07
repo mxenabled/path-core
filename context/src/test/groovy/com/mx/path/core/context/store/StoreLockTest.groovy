@@ -15,7 +15,7 @@ class StoreLockTest extends Specification implements WithMockery {
   ObjectMap configurations
 
   def setup() {
-    store = new StoreImpl();
+    store = new StoreImpl()
     configurations = new ObjectMap()
     subject = new StoreLock(store, "key1", configurations)
   }

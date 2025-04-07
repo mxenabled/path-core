@@ -20,7 +20,7 @@ class AccessorDescriberTest extends Specification {
   @API(description = "test", notes = "notes", specificationUrl = "http://google.com")
   class AccessorImplBase extends BaseAccessor {
     @GatewayAPI
-    private AccountBaseAccessor accounts;
+    private AccountBaseAccessor accounts
 
     AccessorImplBase() {}
 
@@ -30,16 +30,16 @@ class AccessorDescriberTest extends Specification {
     }
 
     public void setAccounts(AccountBaseAccessor accounts) {
-      this.accounts = accounts;
+      this.accounts = accounts
     }
 
     @API
     public final AccountBaseAccessor accounts() {
       if (accounts != null) {
-        return accounts;
+        return accounts
       }
 
-      throw new AccessorMethodNotImplementedException();
+      throw new AccessorMethodNotImplementedException()
     }
   }
 

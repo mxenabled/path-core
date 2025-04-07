@@ -28,9 +28,9 @@ import spock.lang.Specification
 
 class RemoteRequesterTest extends Specification {
 
-  GsonBuilder gsonBuilder = new GsonBuilder();
+  GsonBuilder gsonBuilder = new GsonBuilder()
   Gson gson = gsonBuilder.registerTypeAdapter(LocalDate.class, LocalDateDeserializer.builder()
-  .build()).create();
+  .build()).create()
 
   RemoteRequester subject
   SessionRepository sessionRepository

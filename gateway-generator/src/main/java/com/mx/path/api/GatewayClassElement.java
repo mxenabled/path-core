@@ -13,6 +13,8 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.MirroredTypeException;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import com.mx.path.api.reporting.ClassGenerationException;
 import com.mx.path.core.common.gateway.GatewayAPI;
 import com.mx.path.core.common.gateway.GatewayBaseClass;
@@ -41,6 +43,7 @@ public class GatewayClassElement {
    * @param target target class for this gateway
    * @param accessorFollow optional accessor follow path for the gateway
    */
+  @SuppressFBWarnings("CT_CONSTRUCTOR_THROW")
   public GatewayClassElement(GatewayClassElement parent, Class<?> target, String accessorFollow) {
     this.target = target;
     this.basePackage = parent.basePackage;
@@ -64,6 +67,7 @@ public class GatewayClassElement {
    *
    * @param baseClassElement base class element to initialize from
    */
+  @SuppressFBWarnings("CT_CONSTRUCTOR_THROW")
   public GatewayClassElement(TypeElement baseClassElement) throws IllegalArgumentException {
     this.baseClass = baseClassElement;
     this.annotation = baseClassElement.getAnnotation(GatewayBaseClass.class);

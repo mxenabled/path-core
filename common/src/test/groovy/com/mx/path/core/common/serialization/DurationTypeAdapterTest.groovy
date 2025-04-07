@@ -16,7 +16,7 @@ class DurationTypeAdapterTest extends Specification {
   class DurationSerializationTest {
     @Getter
     @Setter
-    private Duration duration;
+    private Duration duration
   }
 
   def setup() {

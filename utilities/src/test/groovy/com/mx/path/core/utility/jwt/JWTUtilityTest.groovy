@@ -19,7 +19,7 @@ class JWTUtilityTest extends Specification  {
   def "getClaimFromIdToken should return default value"(){
     when:
     def idToken = JWTUtility.generateNewJWT("userID", "sessionID", "ClientName", "secret", 1)
-    def claim = JWTUtility.getClaimFromIdToken(idToken, "blah", String.class, "default");
+    def claim = JWTUtility.getClaimFromIdToken(idToken, "blah", String.class, "default")
 
     then:
     claim == "default"
