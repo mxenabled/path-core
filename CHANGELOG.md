@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [4.5.1](https://github.com/mxenabled/path-core/compare/v4.5.0...v4.5.1) (2025-04-09)
+
+
+### Build System
+
+* upgrade coppuccino and other dependencies ([ea057a9](https://github.com/mxenabled/path-core/commit/ea057a9f9761ae6313b5d98861e268f7ef5e2517))
+
 ## [4.5.0](https://github.com/mxenabled/path-core/compare/v4.4.3...v4.5.0) (2025-03-27)
 
 
