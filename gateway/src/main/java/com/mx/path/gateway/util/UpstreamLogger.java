@@ -216,7 +216,7 @@ public class UpstreamLogger {
 
   private String buildApiPayload(Response response, Request request) {
     StringBuilder b = new StringBuilder();
-    b.append("= Request\n\n");
+    b.append("\n= Request\n\n");
     b.append(request.getMethod());
     b.append(" ");
     b.append(LOGMASKER.maskPayload(request.getUri()));
