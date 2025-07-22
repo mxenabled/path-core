@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [4.5.3](https://github.com/mxenabled/path-core/compare/v4.5.2...v4.5.3) (2025-07-22)
+
+
+### Bug Fixes
+
+* update maven publish url ([a13f8ef](https://github.com/mxenabled/path-core/commit/a13f8efc69869149ec7aa43a36109dfeaaeb83a8))
+
 ## [4.5.2](https://github.com/mxenabled/path-core/compare/v4.5.1...v4.5.2) (2025-05-23)
 
 
