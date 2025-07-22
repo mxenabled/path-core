@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [4.5.4](https://github.com/mxenabled/path-core/compare/v4.5.3...v4.5.4) (2025-07-22)
+
+
+### Bug Fixes
+
+* update lombok dependency lock ([c65b2f0](https://github.com/mxenabled/path-core/commit/c65b2f0bb8ea7441cbbc1538772e20918ff1194d))
+
 ## [4.5.3](https://github.com/mxenabled/path-core/compare/v4.5.2...v4.5.3) (2025-07-22)
 
 
