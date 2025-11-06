@@ -6,47 +6,20 @@ import com.mx.path.testing.request.RequestExpectation
 import com.mx.path.testing.request.RequestExpectations
 import com.mx.path.testing.request.RequestMatcher
 
-/**
- * Wired:
- *   after each: validate expectations, clean out expectations for next test
- * Available:
- *   setupConnectionMocking: usually not needed, can be invoked anywhere you need to connection expectations reset
- *   connectionMock: used to create a testable connection
- *
- * Usage:
- * <pre>
- *   class ConnectyTest extends Specification implements WithRequestExpectations {
- *
- *     def setup() {
- *       // optional
- *       setupConnectionMocking()
- *
- *       // create a testable connection
- *       def connection = setupConnection(new BankConnection(null))
- *       subject = BankAPI(connection)
- *     }
- *
- *     def "test a connection method"() {
- *       given:
- *       expectConnection(withPath("accounts").withMethod("GET")).andRespond({request, response ->
- *         response.setStatus(HTTPStatus.OK)
- *         response.setBody("{'accounts':[]}")
- *       })
- *
- *       when:
- *       def result = connection.getAccounts()
- *
- *       then:
- *       result.size() == 0
- *     }
- *
- *   }
- * </pre>
- *
- * @deprecated Use {@link com.mx.path.testing.TestingBase}
- */
-@Deprecated
-trait WithRequestExpectations extends WithMockery {
+import spock.lang.Specification
+
+class TestingBase extends Specification {
+
+  def setupSpec() {
+    safeInvoke("setupMockery")
+    safeInvoke("setupSessionRepository")
+  }
+
+  def cleanup() {
+    safeInvoke("cleanupRequestExpectations")
+    safeInvoke("cleanupMockery")
+    safeInvoke("clearSessionRepository")
+  }
 
   RequestExpectation allowConnection(RequestMatcher requestMatcher) {
     stubConnection(requestMatcher)
@@ -99,5 +72,12 @@ trait WithRequestExpectations extends WithMockery {
 
   RequestMatcher withPath(String path) {
     RequestMatcher.Fluent.withPath(path)
+  }
+
+  private def safeInvoke(String methodName) {
+    if (respondsTo(methodName)) {
+      println("Invoking ${methodName}")
+      invokeMethod(methodName, [])
+    }
   }
 }

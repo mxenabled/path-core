@@ -277,7 +277,7 @@ public class MimeType implements Comparable<MimeType>, Serializable {
     }
   }
 
-  protected String unquote(String s) {
+  protected final String unquote(String s) {
     return (isQuotedString(s) ? s.substring(1, s.length() - 1) : s);
   }
 
@@ -350,7 +350,7 @@ public class MimeType implements Comparable<MimeType>, Serializable {
    * @return the parameter value, or {@code null} if not present
    */
   @Nullable
-  public String getParameter(String name) {
+  public final String getParameter(String name) {
     return this.parameters.get(name);
   }
 
@@ -611,4 +611,12 @@ public class MimeType implements Comparable<MimeType>, Serializable {
     return map;
   }
 
+  /**
+   * This has been added to protect against a Finalizer attack (because MimeType constructor can throw an exception)
+   * See https://wiki.sei.cmu.edu/confluence/display/java/OBJ11-J.+Be+wary+of+letting+constructors+throw+exceptions for more details
+   */
+  @Override
+  protected final void finalize() {
+    // Do nothing
+  }
 }

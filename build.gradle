@@ -1,7 +1,7 @@
 plugins {
   id "idea"
-  id "com.github.mxenabled.coppuccino" version "4.+" apply false
-  id "com.github.mxenabled.vogue" version "1.+"
+  id "com.github.mxenabled.coppuccino" version "4.4.2" apply false
+  id "com.github.mxenabled.vogue" version "1.1.0"
   id "io.freefair.lombok" version "8.+" apply false
   id "io.github.gradle-nexus.publish-plugin" version "1.1.+"
 }
@@ -29,8 +29,8 @@ allprojects {
   group "com.mx.path-core"
   description "MX Path Core"
   version rootProject.version
-  sourceCompatibility = 1.8
-  targetCompatibility = 1.8
+  sourceCompatibility = JavaVersion.VERSION_11
+  targetCompatibility = JavaVersion.VERSION_11
 
   repositories {
     mavenCentral()
@@ -52,8 +52,8 @@ subprojects {
 
     ext {
       mockitoVersion = "[4.0,5.0)"
-      spockVersion = "2.4-M1-groovy-4.0"
-      junitVersion = "[5.9.0,5.10.0)"
+      spockVersion = "2.4-M6-groovy-3.0"
+      junitVersion = "5.14.0"
     }
 
     dependencies {
@@ -80,7 +80,7 @@ subprojects {
         }
         api("com.google.guava:guava") {
           version {
-            require "[31.0,32.0)"
+              require "[32.0,33.0)"
           }
         }
         api("com.github.rholder:guava-retrying") {
@@ -101,7 +101,7 @@ subprojects {
         api "jakarta.xml.bind:jakarta.xml.bind-api:2.3.3!!"
         api "jakarta.xml.soap:jakarta.xml.soap-api:1.4.2!!"
         api "com.sun.xml.bind:jaxb-impl:2.3.1!!"
-        api "org.glassfish.jaxb:jaxb-runtime:2.3.7!!"
+        api "org.glassfish.jaxb:jaxb-runtime:2.3.9!!"
         // -----------------------------------------------------------------
       }
 
@@ -251,6 +251,6 @@ task subdependencies {
 project.tasks.getByPath("dependencies").finalizedBy("subdependencies")
 
 wrapper {
-  gradleVersion = "7.5.1"
-  distributionType = Wrapper.DistributionType.BIN
+  gradleVersion = "7.6.3"
+  distributionType = Wrapper.DistributionType.ALL
 }

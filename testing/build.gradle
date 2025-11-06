@@ -1,10 +1,7 @@
 dependencies {
-  api "org.spockframework:spock-junit4:${project.ext.spockVersion}"
-
   implementation project(":gateway")
   implementation "org.assertj:assertj-core:[3.0,4.0)"
   implementation "org.mockito:mockito-inline:${project.ext.mockitoVersion}"
   implementation "org.spockframework:spock-core:${project.ext.spockVersion}"
   implementation "org.junit.jupiter:junit-jupiter-api:${project.ext.junitVersion}"
-  runtimeOnly "org.junit.jupiter:junit-jupiter-engine:${project.ext.junitVersion}"
 }

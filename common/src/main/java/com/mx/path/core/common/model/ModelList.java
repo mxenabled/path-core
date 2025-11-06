@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 import com.google.gson.reflect.TypeToken;
 
 /**
@@ -22,7 +20,6 @@ public class ModelList<T extends ModelBase<?>> implements List<T>, ModelWrappabl
   private static final Map<Class<?>, Class<?>> CACHED_TYPE_TO_LIST_TYPE = new LinkedHashMap<>();
   private static final Map<Class<?>, Type> CACHED_TYPE_TO_LIST_TYPETOKEN = new LinkedHashMap<>();
 
-  @SuppressFBWarnings("DM_NEW_FOR_GETCLASS")
   public static <T extends ModelBase<?>> Class<?> ofClass(Class<T> klass) {
     if (!CACHED_TYPE_TO_LIST_TYPE.containsKey(klass)) {
       CACHED_TYPE_TO_LIST_TYPE.put(klass, ModelList.class);

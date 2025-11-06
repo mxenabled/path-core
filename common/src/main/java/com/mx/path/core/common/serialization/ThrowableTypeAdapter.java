@@ -98,7 +98,7 @@ public class ThrowableTypeAdapter extends TypeAdapter<Throwable> {
   }
 
   @Data
-  private static class ErrorInfo {
+  private static final class ErrorInfo {
     private String throwableType = null;
     private String payloadFallbackType = null;
     private Throwable cause = null;

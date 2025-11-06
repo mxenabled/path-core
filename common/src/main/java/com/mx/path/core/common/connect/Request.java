@@ -567,7 +567,7 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   /**
    * Called before the request starts. Sets start time. Override to add behavior. Be sure to call {@code super.start()}
    */
-  public void start() {
+  public synchronized void start() {
     if (attemptCount < 1) {
       attemptCount = 1;
     }
@@ -579,7 +579,7 @@ public abstract class Request<REQ extends Request<?, ?>, RESP extends Response<?
   /**
    * Called before retrying request. Sets start time. Override to add behavior. Be sure to call {@code super.startRetry()}
    */
-  public void startRetry() {
+  public synchronized void startRetry() {
     attemptCount++;
     startNano = 0;
   }

@@ -1,6 +1,6 @@
 coppuccino {
   coverage {
-    minimumCoverage = 0.45
+    minimumCoverage = 0.50
   }
 }
 
@@ -9,7 +9,7 @@ dependencies {
 
   implementation "io.opentracing:opentracing-api"
   implementation "org.apache.httpcomponents:httpclient"
-  implementation "commons-beanutils:commons-beanutils:1.9.4"
+  implementation "commons-beanutils:commons-beanutils:1.11.0"
   compileOnly "org.slf4j:slf4j-api"
 
   testImplementation "io.opentracing:opentracing-mock:0.33.0"
