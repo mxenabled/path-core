@@ -1,19 +1,24 @@
 package com.mx.path.testing
 
-
-import org.junit.After
-import org.junit.Before
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 
 /**
  * Base Trait for Path testing traits. Need to register setup and teardown methods here.
  * This needs to be done because Spock will not execute all included setupSpec and cleanupSpec
  * methods. Only the last one in. :(
+ *
+ * @deprecated Use {@link com.mx.path.testing.TestingBase}
  */
+@Deprecated
 trait BaseTestingTrait {
 
   /**
    * Executes once before the class's test is run (NOT before each test)
+   *
+   * @deprecated Use {@link com.mx.path.testing.TestingBase#setupSpec()}
    */
+  @Deprecated
   def setupSpec() {
     safeInvoke("setupMockery")
     safeInvoke("setupSessionRepository")
@@ -32,14 +37,17 @@ trait BaseTestingTrait {
    *          If the trait needs to be setup before that, then it needs to be invoked in the setup method
    *          by the spec writer. Document this in trait's javadocs
    */
-  @Before()
+  @BeforeEach()
   def testSetup() {
   }
 
   /**
    * Runs after each test
+   *
+   * @deprecated Use {@link com.mx.path.testing.TestingBase#cleanup()}
    */
-  @After()
+  @AfterEach()
+  @Deprecated
   def testCleanup() {
     safeInvoke("cleanupRequestExpectations")
     safeInvoke("cleanupMockery")

@@ -13,6 +13,8 @@ import javax.annotation.processing.Filer;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import com.mx.path.core.common.accessor.API;
 import com.mx.path.core.common.accessor.RootAccessor;
 import com.mx.path.core.common.gateway.GatewayAPI;
@@ -20,6 +22,7 @@ import com.mx.path.core.common.lang.Strings;
 import com.mx.path.core.common.reflection.Annotations;
 import com.mx.path.gateway.accessor.Accessor;
 import com.mx.path.gateway.accessor.AccessorConfiguration;
+import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
@@ -196,6 +199,10 @@ public class AccessorProxyGenerator {
         .superclass(ClassName.get(packageName, proxyBaseClass))
         .addField(FieldSpec.builder(accessorClass, "instance", Modifier.PRIVATE).build())
         .addMethod(MethodSpec.constructorBuilder()
+            .addAnnotation(
+                AnnotationSpec.builder(SuppressFBWarnings.class)
+                    .addMember("value", "$S", "SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR")
+                    .build())
             .addModifiers(Modifier.PUBLIC)
             .addParameter(AccessorConfiguration.class, "configuration")
             .addParameter(ParameterizedTypeName.get(ClassName.get(Class.class), WildcardTypeName.subtypeOf(accessorClass)), "accessorClass")

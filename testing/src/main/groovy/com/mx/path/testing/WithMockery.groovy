@@ -19,7 +19,10 @@ import org.mockito.MockitoAnnotations
  *     }
  *   }
  * </pre>
+ *
+ * @deprecated Use {@link com.mx.path.testing.Mockery}
  */
+@Deprecated
 trait WithMockery extends BaseTestingTrait {
   def setupMockery(){
     MockitoAnnotations.openMocks(this)

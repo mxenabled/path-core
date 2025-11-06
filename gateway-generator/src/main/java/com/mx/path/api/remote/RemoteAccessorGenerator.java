@@ -51,7 +51,7 @@ public final class RemoteAccessorGenerator {
    * Holds metadata about a sub-accessor within an accessor class.
    */
   @Data
-  private static class SubAccessor {
+  private static final class SubAccessor {
     private Class<? extends Accessor> klass;
     private ClassName remoteClassName;
     private String getterMethodName;

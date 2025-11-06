@@ -13,6 +13,7 @@ import com.mx.path.core.common.connect.Request
 import com.mx.path.core.common.connect.RequestFilter
 
 import org.apache.http.HttpEntity
+import org.mockito.Mockito
 
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -116,13 +117,10 @@ class HttpClientFilterTest extends Specification {
 
   def "test connect exception handling in execute method"() {
     given: "A mock HttpRequest and Response"
-    def mockRequest = Mock(HttpRequest)
-    def mockResponse = Mock(HttpResponse)
-
-    // Create the real executor object (HttpClientFilter)
-    HttpClientFilter executor = Mock(HttpClientFilter)
-
-    executor.execute(mockRequest, mockResponse) >> { throw new ConnectException("Connection Exception") }
+    def mockRequest = mock(HttpRequest)
+    def mockResponse = mock(HttpResponse)
+    HttpClientFilter executor = mock(HttpClientFilter)
+    Mockito.when(executor.execute(mockRequest, mockResponse)).thenThrow(new ConnectException("Connection Exception", null))
 
     when: "Execute method is called"
     executor.execute(mockRequest, mockResponse)
