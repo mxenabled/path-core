@@ -50,6 +50,12 @@ subprojects {
     apply plugin: "com.github.mxenabled.vogue"
     apply plugin: "io.freefair.lombok"
 
+    ext {
+      mockitoVersion = "[4.0,5.0)"
+      spockVersion = "2.4-M1-groovy-4.0"
+      junitVersion = "[5.9.0,5.10.0)"
+    }
+
     dependencies {
       constraints {
         api("com.google.code.gson:gson") {
@@ -99,9 +105,9 @@ subprojects {
         // -----------------------------------------------------------------
       }
 
-      testImplementation "org.mockito:mockito-inline:[4.0,5.0)"
-      testImplementation "org.spockframework:spock-core:2.4-M1-groovy-4.0"
-      testImplementation "org.junit.jupiter:junit-jupiter-api:[5.9.0,5.10.0)"
+      testImplementation "org.mockito:mockito-inline:${project.ext.mockitoVersion}"
+      testImplementation "org.spockframework:spock-core:${project.ext.spockVersion}"
+      testImplementation "org.junit.jupiter:junit-jupiter-api:${project.ext.junitVersion}"
     }
 
     test { useJUnitPlatform() }
