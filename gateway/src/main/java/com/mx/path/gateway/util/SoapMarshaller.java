@@ -7,17 +7,17 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
-
 import com.mx.path.core.common.accessor.RequestPayloadException;
 import com.mx.path.core.common.accessor.UpstreamResponseUnprocessableException;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPMessage;
 
 /**
  * Static methods for marshalling to and from SOAP Envelopes
@@ -31,7 +31,7 @@ public class SoapMarshaller {
   /**
    * Object to SOAP envelope. Marshalls to requestObject.getClass().
    *
-   * <p>The class must have an XmlRoot annotation. If it does not (because it is generated), wrap in a {@link javax.xml.bind.JAXBElement} proxy and use {@code toEnvelope(Object requestObj, Class<?> klass)}
+   * <p>The class must have an XmlRoot annotation. If it does not (because it is generated), wrap in a {@link jakarta.xml.bind.JAXBElement} proxy and use {@code toEnvelope(Object requestObj, Class<?> klass)}
    *
    * @param requestObj
    * @return SOAP Envelope
@@ -46,7 +46,7 @@ public class SoapMarshaller {
   /**
    * Object to SOAP envelope. Allows the desired object marshalling type to be specified.
    *
-   * <p>Use this if the request object is wrapped in a {@link javax.xml.bind.JAXBElement} proxy.
+   * <p>Use this if the request object is wrapped in a {@link jakarta.xml.bind.JAXBElement} proxy.
    *
    * @param requestObj request object
    * @param klass convert to this type.

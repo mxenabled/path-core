@@ -10,7 +10,7 @@ dependencies {
   api "com.github.rholder:guava-retrying" // For Request retries
   api "com.github.spotbugs:spotbugs-annotations:4.9.8" // For annotating classes and methods to suppress SpotBugs violations
   api "com.google.code.gson:gson"
-  api "org.yaml:snakeyaml:1.33"
+  api "org.yaml:snakeyaml:2.4"
   implementation "org.slf4j:slf4j-api"
   implementation "org.objenesis:objenesis:3.3"
   testImplementation "org.objenesis:objenesis:3.3"
