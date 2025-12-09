@@ -85,7 +85,7 @@ public class ObjectMapYamlDeserializer {
   public final Object fromYaml(String document) {
     LoaderOptions options = new LoaderOptions();
     options.setMaxAliasesForCollections(getParameters().getMaxYamlAliases());
-    Yaml yaml = new Yaml(new ObjectMapConstructor(options), new Representer(), new DumperOptions(), options);
+    Yaml yaml = new Yaml(new ObjectMapConstructor(options), new Representer(new DumperOptions()), new DumperOptions(), options);
     Object root = yaml.load(document);
 
     // If the root node is a Map we need to convert it to an ObjectMap

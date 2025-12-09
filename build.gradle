@@ -1,7 +1,7 @@
 plugins {
   id "idea"
-  id "com.github.mxenabled.coppuccino" version "4.4.2" apply false
-  id "com.github.mxenabled.vogue" version "1.1.0"
+  id "com.github.mxenabled.coppuccino" version "5.+" apply false
+  id "com.github.mxenabled.vogue" version "2.+"
   id "io.freefair.lombok" version "8.+" apply false
   id "io.github.gradle-nexus.publish-plugin" version "1.1.+"
 }
@@ -29,8 +29,8 @@ allprojects {
   group "com.mx.path-core"
   description "MX Path Core"
   version rootProject.version
-  sourceCompatibility = JavaVersion.VERSION_11
-  targetCompatibility = JavaVersion.VERSION_11
+  sourceCompatibility = JavaVersion.VERSION_17
+  targetCompatibility = JavaVersion.VERSION_17
 
   repositories {
     mavenCentral()
@@ -51,7 +51,7 @@ subprojects {
     apply plugin: "io.freefair.lombok"
 
     ext {
-      mockitoVersion = "[4.0,5.0)"
+      mockitoVersion = "[5.0,6.0)"
       spockVersion = "2.4-M6-groovy-3.0"
       junitVersion = "5.14.0"
     }
@@ -60,7 +60,7 @@ subprojects {
       constraints {
         api("com.google.code.gson:gson") {
           version {
-            require "[2.9,2.10)"
+            require "[2.13.0,13.0.0)"
           }
         }
         api("io.opentracing:opentracing-api") {
@@ -98,10 +98,10 @@ subprojects {
         // Version changes to any of these need to be tested (not just built)
         //   with an apps that use SOAP.
         // -----------------------------------------------------------------
-        api "jakarta.xml.bind:jakarta.xml.bind-api:2.3.3!!"
-        api "jakarta.xml.soap:jakarta.xml.soap-api:1.4.2!!"
-        api "com.sun.xml.bind:jaxb-impl:2.3.1!!"
-        api "org.glassfish.jaxb:jaxb-runtime:2.3.9!!"
+        api "jakarta.xml.bind:jakarta.xml.bind-api:4.0.4!!"
+        api "jakarta.xml.soap:jakarta.xml.soap-api:3.0.2!!"
+        api "com.sun.xml.bind:jaxb-impl:4.0.6!!"
+        api "org.glassfish.jaxb:jaxb-runtime:4.0.6!!"
         // -----------------------------------------------------------------
       }
 
@@ -113,13 +113,6 @@ subprojects {
     test { useJUnitPlatform() }
 
     compileJava { options.compilerArgs << "-parameters" }
-
-    sourceSets {
-      test {
-        groovy { srcDirs "src/test/groovy" }
-        java { srcDirs "src/test/java" }
-      }
-    }
 
     javadoc {
       classpath = configurations.compileClasspath
@@ -251,6 +244,6 @@ task subdependencies {
 project.tasks.getByPath("dependencies").finalizedBy("subdependencies")
 
 wrapper {
-  gradleVersion = "7.6.3"
+  gradleVersion = "7.6.4"
   distributionType = Wrapper.DistributionType.ALL
 }
