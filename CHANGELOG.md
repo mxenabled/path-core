@@ -5,6 +5,17 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [5.0.0](https://github.com/mxenabled/path-core/compare/v4.7.0...v5.0.0) (2025-12-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* bump gradle, gradle quality plugin, snakeyaml, gson and jaxb
+
+### Features
+
+* bump gradle, gradle quality plugin, snakeyaml, gson and jaxb ([41d52dd](https://github.com/mxenabled/path-core/commit/41d52dd9eeba2f504aa60d045af7b8150eb6d1ce))
+
 ## [4.7.0](https://github.com/mxenabled/path-core/compare/v4.6.0...v4.7.0) (2025-11-20)
 
 
