@@ -51,6 +51,10 @@ public enum Feature {
    */
   ORIGINATIONS("originations"),
   /**
+   * P2P Transfers.
+   */
+  P2P_TRANSFERS("p2p_transfers"),
+  /**
    * Payments.
    */
   PAYMENTS("payments"),
