@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [5.1.0](https://github.com/mxenabled/path-core/compare/v5.0.0...v5.1.0) (2026-01-07)
+
+
+### Features
+
+* add P2P Transfers feature ([275b898](https://github.com/mxenabled/path-core/commit/275b8981fe4d8cf8888c350c2c08a7cde17de825))
+
 ## [5.0.0](https://github.com/mxenabled/path-core/compare/v4.7.0...v5.0.0) (2025-12-12)
 
 
