@@ -84,6 +84,7 @@ class HttpAccessorConnectionTest extends Specification {
     Feature.LOCATION  | "location"
     Feature.MANAGED_CARDS  | "managed_cards"
     Feature.ORIGINATIONS  | "originations"
+    Feature.P2P_TRANSFERS  | "p2p_transfers"
     Feature.PAYMENTS  | "payments"
     Feature.PAYOUTS  | "payouts"
     Feature.PRODUCTS  | "products"
