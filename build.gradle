@@ -1,8 +1,8 @@
 plugins {
   id "idea"
-  id "com.github.mxenabled.coppuccino" version "5.+" apply false
-  id "com.github.mxenabled.vogue" version "2.+"
-  id "io.freefair.lombok" version "8.+" apply false
+  id "com.github.mxenabled.coppuccino" version "6.+" apply false
+  id "com.github.mxenabled.vogue" version "3.+"
+  id "io.freefair.lombok" version "8.14.3" apply false
   id "io.github.gradle-nexus.publish-plugin" version "1.1.+"
 }
 
@@ -29,8 +29,12 @@ allprojects {
   group "com.mx.path-core"
   description "MX Path Core"
   version rootProject.version
-  sourceCompatibility = JavaVersion.VERSION_17
-  targetCompatibility = JavaVersion.VERSION_17
+
+  java {
+    toolchain {
+      languageVersion = JavaLanguageVersion.of(21)
+    }
+  }
 
   repositories {
     mavenCentral()
@@ -38,6 +42,12 @@ allprojects {
   }
 
   configurations.all {
+    //remove after upgrading checkstyle 13.0.0
+    resolutionStrategy.eachDependency { details ->
+      if (details.requested.group == "org.apache.commons" && details.requested.name == "commons-lang3") {
+        details.useVersion "3.18.0"
+      }
+    }
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
   }
 }
@@ -51,7 +61,7 @@ subprojects {
     apply plugin: "io.freefair.lombok"
 
     ext {
-      mockitoVersion = "[5.0,6.0)"
+      mockitoVersion = "5.21.0"
       spockVersion = "2.4-M6-groovy-3.0"
       junitVersion = "5.14.0"
     }
@@ -89,7 +99,6 @@ subprojects {
           }
         }
         api "com.datadoghq:dd-trace-api:1.38.0"
-        api "commons-lang:commons-lang:2.6"
         api "org.slf4j:slf4j-api:1.7.30"
         api "org.apache.httpcomponents:httpclient:4.5.13"
 
@@ -103,14 +112,19 @@ subprojects {
         api "com.sun.xml.bind:jaxb-impl:4.0.6!!"
         api "org.glassfish.jaxb:jaxb-runtime:4.0.6!!"
         // -----------------------------------------------------------------
+
       }
 
-      testImplementation "org.mockito:mockito-inline:${project.ext.mockitoVersion}"
+      testImplementation "org.mockito:mockito-core:${project.ext.mockitoVersion}"
       testImplementation "org.spockframework:spock-core:${project.ext.spockVersion}"
       testImplementation "org.junit.jupiter:junit-jupiter-api:${project.ext.junitVersion}"
     }
 
-    test { useJUnitPlatform() }
+    test {
+      useJUnitPlatform()
+      // restore reflection on base java classes to fix issue w/ tests
+      jvmArgs "--add-opens", "java.base/java.lang=ALL-UNNAMED"
+    }
 
     compileJava { options.compilerArgs << "-parameters" }
 
@@ -131,12 +145,12 @@ subprojects {
     }
 
     task sourcesJar(type: Jar, dependsOn: classes) {
-      classifier = "sources"
+      archiveClassifier = "sources"
       from sourceSets.main.allSource
     }
 
     task packageJavadoc(type: Jar) {
-      classifier = "javadoc"
+      archiveClassifier = "javadoc"
       from javadoc
     }
 
@@ -230,6 +244,12 @@ task spotlessApply {
   }
 }
 
+sourceSets {
+  main {
+    java { srcDir "build/generated/sources/annotationProcessor" }
+  }
+}
+
 task subdependencies {
   subprojects.each {
     if (it.name != platformProject) {
@@ -244,6 +264,6 @@ task subdependencies {
 project.tasks.getByPath("dependencies").finalizedBy("subdependencies")
 
 wrapper {
-  gradleVersion = "7.6.4"
+  gradleVersion = "8.14.3"
   distributionType = Wrapper.DistributionType.ALL
 }

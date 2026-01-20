@@ -25,7 +25,6 @@ dependencies {
 
   implementation "org.slf4j:slf4j-api"
   implementation "org.apache.httpcomponents:httpclient"
-  implementation "commons-lang:commons-lang"
   implementation "org.reflections:reflections:0.10.2"
 
   //testing dependencies

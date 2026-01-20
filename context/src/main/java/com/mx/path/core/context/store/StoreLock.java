@@ -11,7 +11,7 @@ import com.mx.path.core.common.collection.ObjectMap;
 import com.mx.path.core.common.process.Lock;
 import com.mx.path.core.common.store.Store;
 
-import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  * Uses a {@link Store} to provide global mutex operations.
