@@ -5,6 +5,17 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [6.0.0](https://github.com/mxenabled/path-core/compare/v5.1.0...v6.0.0) (2026-01-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* bump checkstyle, gradle, java, mockito, spotless
+
+### Features
+
+* bump checkstyle, gradle, java, mockito, spotless ([fb973c7](https://github.com/mxenabled/path-core/commit/fb973c7f89dfe6a1a7c8a19379c2b47777bbeddd))
+
 ## [5.1.0](https://github.com/mxenabled/path-core/compare/v5.0.0...v5.1.0) (2026-01-07)
 
 
