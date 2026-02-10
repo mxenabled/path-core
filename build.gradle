@@ -115,7 +115,6 @@ subprojects {
         api "jakarta.xml.soap:jakarta.xml.soap-api:3.0.2!!"
         api "com.sun.xml.bind:jaxb-impl:4.0.6!!"
         api "org.glassfish.jaxb:jaxb-runtime:4.0.6!!"
-        // -----------------------------------------------------------------
       }
 
       testImplementation "org.mockito:mockito-inline:${project.ext.mockitoVersion}"
