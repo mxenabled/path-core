@@ -1,12 +1,12 @@
 # This is a Gradle generated file for dependency locking.
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
-com.auth0:java-jwt:4.5.0=annotationProcessor,compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+com.auth0:java-jwt:4.5.1=annotationProcessor,compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 com.datadoghq:dd-trace-api:1.38.0=annotationProcessor,compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
-com.fasterxml.jackson.core:jackson-annotations:2.15.4=annotationProcessor,compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
-com.fasterxml.jackson.core:jackson-core:2.15.4=annotationProcessor,compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
-com.fasterxml.jackson.core:jackson-databind:2.15.4=annotationProcessor,compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
-com.fasterxml.jackson:jackson-bom:2.15.4=annotationProcessor,compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+com.fasterxml.jackson.core:jackson-annotations:2.21=annotationProcessor,runtimeClasspath,testRuntimeClasspath
+com.fasterxml.jackson.core:jackson-core:2.21.0=annotationProcessor,runtimeClasspath,testRuntimeClasspath
+com.fasterxml.jackson.core:jackson-databind:2.21.0=annotationProcessor,runtimeClasspath,testRuntimeClasspath
+com.fasterxml.jackson:jackson-bom:2.21.0=annotationProcessor,runtimeClasspath,testRuntimeClasspath
 com.github.oowekyala.ooxml:nice-xml-messages:3.1=pmd
 com.github.rholder:guava-retrying:2.0.0=annotationProcessor,compileClasspath,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 com.github.spotbugs:spotbugs-annotations:4.9.8=annotationProcessor,compileClasspath,runtimeClasspath,spotbugs,testCompileClasspath,testRuntimeClasspath
