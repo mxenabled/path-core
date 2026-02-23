@@ -37,23 +37,23 @@ allprojects {
     mavenLocal()
   }
 
-  configurations.configureEach {
-    resolutionStrategy.eachDependency { details ->
-      //Uncontrolled Recursion [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHECOMMONS-10734078] in org.apache.commons:commons-lang3@3.17.0
-      //    introduced by net.sourceforge.pmd:pmd-java@7.16.0 > org.apache.commons:commons-lang3@3.17.0 and 7 other path(s)
-      //  This issue was fixed in versions: 3.18.0
-      if (details.requested.group == "org.apache.commons" && details.requested.name == "commons-lang3") {
-        details.useVersion "3.18.0"
-      }
-      //Improper Validation of Certificate with Host Mismatch [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHELOGGINGLOG4J-14532782] in org.apache.logging.log4j:log4j-core@2.25.2
-      //    introduced by com.github.spotbugs:spotbugs@4.9.8 > org.apache.logging.log4j:log4j-core@2.25.2
-      //  This issue was fixed in versions: 2.25.3
-      else if (details.requested.group == "org.apache.logging.log4j" && details.requested.name == "log4j-core") {
-        details.useVersion "2.25.3"
-      }
-    }
-    resolutionStrategy.cacheChangingModulesFor 0, "seconds"
-  }
+//  configurations.configureEach {
+//    resolutionStrategy.eachDependency { details ->
+//      //Uncontrolled Recursion [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHECOMMONS-10734078] in org.apache.commons:commons-lang3@3.17.0
+//      //    introduced by net.sourceforge.pmd:pmd-java@7.16.0 > org.apache.commons:commons-lang3@3.17.0 and 7 other path(s)
+//      //  This issue was fixed in versions: 3.18.0
+//      if (details.requested.group == "org.apache.commons" && details.requested.name == "commons-lang3") {
+//        details.useVersion "3.18.0"
+//      }
+//      //Improper Validation of Certificate with Host Mismatch [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHELOGGINGLOG4J-14532782] in org.apache.logging.log4j:log4j-core@2.25.2
+//      //    introduced by com.github.spotbugs:spotbugs@4.9.8 > org.apache.logging.log4j:log4j-core@2.25.2
+//      //  This issue was fixed in versions: 2.25.3
+//      else if (details.requested.group == "org.apache.logging.log4j" && details.requested.name == "log4j-core") {
+//        details.useVersion "2.25.3"
+//      }
+//    }
+//    resolutionStrategy.cacheChangingModulesFor 0, "seconds"
+//  }
 }
 
 subprojects {
@@ -101,6 +101,14 @@ subprojects {
           version {
             require "[2.0,3.0)"
           }
+        }
+        api("org.apache.commons:commons-lang3") {
+          version { strictly "3.18.0" }
+          because("SNYK-JAVA-ORGAPACHECOMMONS-10734078")
+        }
+        api("org.apache.logging.log4j:log4j-core") {
+          version { strictly "2.25.3" }
+          because("SNYK-JAVA-ORGAPACHELOGGINGLOG4J-14532782")
         }
         api "com.datadoghq:dd-trace-api:1.38.0"
         api "org.slf4j:slf4j-api:1.7.30"
