@@ -15,19 +15,19 @@ dependencies {
   api project(":common")
   api project(":context")
   api project(":messaging")
+
   api "io.opentracing:opentracing-api"
   api "io.opentracing:opentracing-util"
-  api "com.datadoghq:dd-trace-api:1.38.0"
+  api "com.datadoghq:dd-trace-api"
   api "jakarta.xml.bind:jakarta.xml.bind-api"
   api "jakarta.xml.soap:jakarta.xml.soap-api"
   api "com.sun.xml.bind:jaxb-impl"
   api "org.glassfish.jaxb:jaxb-runtime"
 
-  implementation "org.slf4j:slf4j-api"
   implementation "org.apache.httpcomponents:httpclient"
   implementation "org.reflections:reflections:0.10.2"
+  implementation "org.slf4j:slf4j-api"
 
-  //testing dependencies
-  testImplementation "org.slf4j:slf4j-simple:1.7.30"
-  testImplementation "io.opentracing:opentracing-mock:0.33.0"
+  testImplementation "io.opentracing:opentracing-mock"
+  testImplementation "org.slf4j:slf4j-simple"
 }

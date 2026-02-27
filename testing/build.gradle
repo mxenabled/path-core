@@ -1,7 +1,8 @@
 dependencies {
   implementation project(":gateway")
   implementation "org.assertj:assertj-core:[3.0,4.0)"
-  implementation "org.mockito:mockito-inline:${project.ext.mockitoVersion}"
-  implementation "org.spockframework:spock-core:${project.ext.spockVersion}"
-  implementation "org.junit.jupiter:junit-jupiter-api:${project.ext.junitVersion}"
+
+  api "org.mockito:mockito-inline:${project.ext.mockitoVersion}"
+  api "org.spockframework:spock-core:${project.ext.spockVersion}"
+  api "org.junit.jupiter:junit-jupiter-api:${project.ext.junitVersion}"
 }

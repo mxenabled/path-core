@@ -1,7 +1,7 @@
 plugins {
+  id "com.github.mxenabled.coppuccino" version "6.+" apply false
+  id "com.github.mxenabled.vogue" version "3.+" apply false
   id "idea"
-  id "com.github.mxenabled.coppuccino" version "5.+" apply false
-  id "com.github.mxenabled.vogue" version "2.+"
   id "io.freefair.lombok" version "8.+" apply false
   id "io.github.gradle-nexus.publish-plugin" version "1.1.+"
 }
@@ -21,100 +21,80 @@ def publishedProjects = [
   "utilities"
 ]
 
-allprojects {
-  if (it.name != platformProject) {
-    apply plugin: "java"
-  }
-
+subprojects {
   group "com.mx.path-core"
   description "MX Path Core"
   version rootProject.version
-  sourceCompatibility = JavaVersion.VERSION_17
-  targetCompatibility = JavaVersion.VERSION_17
 
-  repositories {
-    mavenCentral()
-    mavenLocal()
-  }
-
-  configurations.configureEach {
-    resolutionStrategy.eachDependency { details ->
-      //Uncontrolled Recursion [High Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHECOMMONS-10734078] in org.apache.commons:commons-lang3@3.17.0
-      //    introduced by net.sourceforge.pmd:pmd-java@7.16.0 > org.apache.commons:commons-lang3@3.17.0 and 7 other path(s)
-      //  This issue was fixed in versions: 3.18.0
-      if (details.requested.group == "org.apache.commons" && details.requested.name == "commons-lang3") {
-        details.useVersion "3.18.0"
-      }
-      //Improper Validation of Certificate with Host Mismatch [Medium Severity][https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHELOGGINGLOG4J-14532782] in org.apache.logging.log4j:log4j-core@2.25.2
-      //    introduced by com.github.spotbugs:spotbugs@4.9.8 > org.apache.logging.log4j:log4j-core@2.25.2
-      //  This issue was fixed in versions: 2.25.3
-      else if (details.requested.group == "org.apache.logging.log4j" && details.requested.name == "log4j-core") {
-        details.useVersion "2.25.3"
-      }
-    }
-    resolutionStrategy.cacheChangingModulesFor 0, "seconds"
-  }
-}
-
-subprojects {
   if (it.name != platformProject) {
-    apply plugin: "java-library"
-    apply plugin: "groovy"
     apply plugin: "com.github.mxenabled.coppuccino"
     apply plugin: "com.github.mxenabled.vogue"
+    apply plugin: "groovy"
+    apply plugin: "java-library"
     apply plugin: "io.freefair.lombok"
+
+    java {
+      toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+      }
+      withSourcesJar()
+      withJavadocJar()
+    }
+
+    coppuccino {
+      rootDir = "${projectDir}/"
+    }
+
+    vogue {
+      dependencyUpdatesOutputDir = "${projectDir}/build/dependencyUpdates"
+    }
+
+    repositories {
+      mavenCentral()
+      mavenLocal()
+    }
 
     ext {
       mockitoVersion = "[5.0,6.0)"
       spockVersion = "2.4-M6-groovy-3.0"
       junitVersion = "5.14.0"
+      openTracingVersion = "[0.33,0.34)"
+      slf4jVersion = "1.7.30"
     }
 
     dependencies {
       constraints {
-        api("com.google.code.gson:gson") {
-          version {
-            require "[2.13.0,13.0.0)"
-          }
-        }
-        api("io.opentracing:opentracing-api") {
-          version {
-            require "[0.33,0.34)"
-          }
-        }
-        api("io.opentracing:opentracing-noop") {
-          version {
-            require "[0.33,0.34)"
-          }
-        }
-        api("io.opentracing:opentracing-util") {
-          version {
-            require "[0.33,0.34)"
-          }
-        }
-        api("com.google.guava:guava") {
-          version {
-              require "[32.0,33.0)"
-          }
-        }
-        api("com.github.rholder:guava-retrying") {
-          version {
-            require "[2.0,3.0)"
-          }
-        }
+        // --- Shared Libraries ---
+        api "com.google.code.gson:gson:[2.13.0,3.0.0)"
+        api "io.opentracing:opentracing-api:${project.ext.openTracingVersion}"
+        api "io.opentracing:opentracing-noop:${project.ext.openTracingVersion}"
+        api "io.opentracing:opentracing-util:${project.ext.openTracingVersion}"
+        api "com.google.guava:guava:[32.0,33.0)"
+        api "com.github.rholder:guava-retrying:[2.0,3.0)"
+
         api "com.datadoghq:dd-trace-api:1.38.0"
-        api "org.slf4j:slf4j-api:1.7.30"
-        api "org.apache.httpcomponents:httpclient:4.5.13"
+        api "org.apache.httpcomponents:httpclient:4.5.14"
+        api "org.slf4j:slf4j-api:${project.ext.slf4jVersion}"
 
         // -----------------------------------------------------------------
         // These re-add JAXB classes needed for SOAP interaction.
         // Version changes to any of these need to be tested (not just built)
-        //   with an apps that use SOAP.
+        //   with an app that uses SOAP.
         // -----------------------------------------------------------------
         api "jakarta.xml.bind:jakarta.xml.bind-api:4.0.4!!"
         api "jakarta.xml.soap:jakarta.xml.soap-api:3.0.2!!"
         api "com.sun.xml.bind:jaxb-impl:4.0.6!!"
         api "org.glassfish.jaxb:jaxb-runtime:4.0.6!!"
+
+        // --- Shared Testing Libraries ---
+        api "io.opentracing:opentracing-mock:${project.ext.openTracingVersion}"
+        api "org.slf4j:slf4j-simple:${project.ext.slf4jVersion}"
+
+        // --- Security Overrides ---
+        // Pulled in by org.apache.httpcomponents:httpclient:4.5.14
+        api("commons-codec:commons-codec:1.14") {
+          because "Fixes Low Severity vulnerability SNYK-JAVA-COMMONSCODEC-561518"
+        }
       }
 
       testImplementation "org.mockito:mockito-inline:${project.ext.mockitoVersion}"
@@ -133,85 +113,65 @@ subprojects {
         setAuthor true
       }
     }
+  }
 
-    coppuccino {
-      rootDir = "${projectDir}/"
-    }
+  if (publishedProjects.contains(it.name)) {
+    apply plugin: "maven-publish"
+    apply plugin: "signing"
 
-    vogue {
-      dependencyUpdatesOutputDir = "${projectDir}/build/dependencyUpdates"
-    }
-
-    task sourcesJar(type: Jar, dependsOn: classes) {
-      classifier = "sources"
-      from sourceSets.main.allSource
-    }
-
-    task packageJavadoc(type: Jar) {
-      classifier = "javadoc"
-      from javadoc
-    }
-
-    artifacts {
-      archives sourcesJar
-      archives jar
-      archives packageJavadoc
-    }
-
-    if (publishedProjects.contains(it.name)) {
-      apply plugin: "maven-publish"
-      apply plugin: "signing"
-
+    if (it.name != platformProject) {
       publishing {
         publications {
           maven(MavenPublication) {
             from components.java
-            artifact sourcesJar
-            artifact packageJavadoc
-
-            pom {
-              groupId = project.group
-              artifactId = project.name
-              name = project.name
-              description = project.description
-              url = "https://github.com/mxenabled/path-core"
-
-              developers {
-                developer {
-                  name = "MX"
-                  email = "path@mx.com"
-                  organization = "MX Technologies Inc."
-                  url = "http://www.mx.com"
-                }
-              }
-
-              licenses {
-                license {
-                  name = "Proprietary"
-                  url = "https://github.com/mxenabled/path-core/blob/master/LICENSE"
-                  distribution = "repo"
-                }
-              }
-
-              scm {
-                connection = "scm:git:git@github.com:mxenabled/path-core.git"
-                url = "https://github.com/mxenabled/path-core/tree/master"
-              }
-            }
           }
         }
       }
+    }
 
-      signing {
-        def signingKey = findProperty("signingKey")
-        def signingPassword = findProperty("signingKeyPassword")
-        if (signingKey != null && signingKey != "") {
-          useInMemoryPgpKeys(signingKey, signingPassword)
-          sign publishing.publications.maven
-          logger.lifecycle("Configuring signing for ${project.name}")
-        } else {
-          logger.lifecycle("Skipping artifact signing for ${project.name} - missing signing key")
+    publishing {
+      publications.withType(MavenPublication).configureEach {
+        pom {
+          groupId = project.group
+          artifactId = project.name
+          name = project.name
+          description = project.description
+          url = "https://github.com/mxenabled/path-core"
+
+          developers {
+            developer {
+              name = "MX"
+              email = "path@mx.com"
+              organization = "MX Technologies Inc."
+              url = "http://www.mx.com"
+            }
+          }
+
+          licenses {
+            license {
+              name = "Proprietary"
+              url = "https://github.com/mxenabled/path-core/blob/master/LICENSE"
+              distribution = "repo"
+            }
+          }
+
+          scm {
+            connection = "scm:git:git@github.com:mxenabled/path-core.git"
+            url = "https://github.com/mxenabled/path-core/tree/master"
+          }
         }
+      }
+    }
+
+    signing {
+      def signingKey = findProperty("signingKey")
+      def signingPassword = findProperty("signingKeyPassword")
+      if (signingKey != null && signingKey != "") {
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign publishing.publications
+        logger.lifecycle("Configuring signing for ${project.name}")
+      } else {
+        logger.lifecycle("Skipping artifact signing for ${project.name} - missing signing key")
       }
     }
   }
@@ -232,25 +192,11 @@ nexusPublishing {
 }
 
 task spotlessApply {
-  subprojects.each {
-    if (it.name != platformProject) {
-      it.afterEvaluate {
-        def spotlessApplyTask = it.tasks.findByName("spotlessApply")
-        dependsOn(spotlessApplyTask)
-      }
-    }
-  }
+  dependsOn subprojects.findAll { it.name != platformProject }.collect { "${it.path}:spotlessApply" }
 }
 
 task subdependencies {
-  subprojects.each {
-    if (it.name != platformProject) {
-      it.afterEvaluate {
-        def dependenciesTask = it.tasks.findByName("dependencies")
-        dependsOn(dependenciesTask)
-      }
-    }
-  }
+  dependsOn subprojects.findAll { it.name != platformProject }.collect { "${it.path}:dependencies" }
 }
 
 project.tasks.getByPath("dependencies").finalizedBy("subdependencies")

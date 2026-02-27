@@ -1,19 +1,18 @@
 plugins {
   id "java-platform"
   id "maven-publish"
-  id "signing"
 }
 
 dependencies {
   constraints {
-    api(project(":common"))
-    api(project(":context"))
-    api(project(":gateway"))
-    api(project(":gateway-generator"))
-    api(project(":http"))
-    api(project(":messaging"))
-    api(project(":testing"))
-    api(project(":utilities"))
+    api project(":common")
+    api project(":context")
+    api project(":gateway")
+    api project(":gateway-generator")
+    api project(":http")
+    api project(":messaging")
+    api project(":testing")
+    api project(":utilities")
   }
 }
 
@@ -21,47 +20,6 @@ publishing {
   publications {
     bom(MavenPublication) {
       from components.javaPlatform
-      pom {
-        groupId = project.group
-        artifactId = project.name
-        name = project.name
-        description = project.description
-        url = "https://github.com/mxenabled/path-core"
-
-        developers {
-          developer {
-            name = "MX"
-            email = "path@mx.com"
-            organization = "MX Technologies Inc."
-            url = "http://www.mx.com"
-          }
-        }
-
-        licenses {
-          license {
-            name = "Proprietary"
-            url = "https://github.com/mxenabled/path-core/blob/master/LICENSE"
-            distribution = "repo"
-          }
-        }
-
-        scm {
-          connection = "scm:git:git@github.com:mxenabled/path-core.git"
-          url = "https://github.com/mxenabled/path-core/tree/master"
-        }
-      }
     }
-  }
-}
-
-signing {
-  def signingKey = findProperty("signingKey")
-  def signingPassword = findProperty("signingKeyPassword")
-  if (signingKey != null && signingKey != "") {
-    useInMemoryPgpKeys(signingKey, signingPassword)
-    sign publishing.publications.bom
-    logger.lifecycle("Configuring signing for ${project.name}")
-  } else {
-    logger.lifecycle("Skipping artifact signing for ${project.name} - missing signing key")
   }
 }
