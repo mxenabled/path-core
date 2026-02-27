@@ -1,9 +1,0 @@
----
-defaultRules: {}
-packageRules:
-- package: "com.github.mxenabled.coppuccino:com.github.mxenabled.coppuccino.gradle.plugin"
-  rules: {}
-  suppressUntil: "2026-03-01"
-- package: "com.github.mxenabled.vogue:com.github.mxenabled.vogue.gradle.plugin"
-  rules: {}
-  suppressUntil: "2026-03-01"
