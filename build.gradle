@@ -8,7 +8,7 @@ plugins {
 
 group "com.mx.path-core"
 description "MX Path Core"
-version "6.0.2" // x-release-please-version
+version "6.0.3" // x-release-please-version
 
 def platformProject = "platform"
 def publishedProjects = [
