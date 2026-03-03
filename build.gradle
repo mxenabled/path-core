@@ -6,6 +6,8 @@ plugins {
   id "io.github.gradle-nexus.publish-plugin" version "1.1.+"
 }
 
+group "com.mx.path-core"
+description "MX Path Core"
 version "6.0.2" // x-release-please-version
 
 def platformProject = "platform"
@@ -22,8 +24,8 @@ def publishedProjects = [
 ]
 
 subprojects {
-  group "com.mx.path-core"
-  description "MX Path Core"
+  group rootProject.group
+  description rootProject.description
   version rootProject.version
 
   if (it.name != platformProject) {
