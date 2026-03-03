@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [6.0.3](https://github.com/mxenabled/path-core/compare/v6.0.2...v6.0.3) (2026-03-03)
+
+
+### Bug Fixes
+
+* add group and description to root gradle project for publishing ([8d6656b](https://github.com/mxenabled/path-core/commit/8d6656bd1af90991c70b63e2229eebf8f5f1e12f))
+
 ## [6.0.2](https://github.com/mxenabled/path-core/compare/v6.0.1...v6.0.2) (2026-03-03)
 
 
