@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [6.0.2](https://github.com/mxenabled/path-core/compare/v6.0.1...v6.0.2) (2026-03-03)
+
+
+### Bug Fixes
+
+* resolve snyk vulnerabilities ([969fa33](https://github.com/mxenabled/path-core/commit/969fa33e5cc632771a1726983fecabe4013f9c37))
+
 ## [6.0.1](https://github.com/mxenabled/path-core/compare/v6.0.0...v6.0.1) (2026-02-23)
 
 
