@@ -93,7 +93,7 @@ subprojects {
         api "org.slf4j:slf4j-simple:${project.ext.slf4jVersion}"
 
         // --- Security Overrides ---
-        // Pulled in by org.apache.httpcomponents:httpclient:4.5.14
+        // Transitive dependency of org.apache.httpcomponents:httpclient:4.5.14
         api("commons-codec:commons-codec:1.14") {
           because "Fixes Low Severity vulnerability SNYK-JAVA-COMMONSCODEC-561518"
         }
@@ -104,9 +104,9 @@ subprojects {
       testImplementation "org.junit.jupiter:junit-jupiter-api:${project.ext.junitVersion}"
     }
 
-    test { useJUnitPlatform() }
-
     compileJava { options.compilerArgs << "-parameters" }
+
+    test { useJUnitPlatform() }
 
     javadoc {
       classpath = configurations.compileClasspath
@@ -124,7 +124,7 @@ subprojects {
     if (it.name != platformProject) {
       publishing {
         publications {
-          maven(MavenPublication) {
+          register("maven", MavenPublication) {
             from components.java
           }
         }
@@ -193,15 +193,17 @@ nexusPublishing {
   }
 }
 
-task spotlessApply {
+tasks.register("spotlessApply") {
   dependsOn subprojects.findAll { it.name != platformProject }.collect { "${it.path}:spotlessApply" }
 }
 
-task subdependencies {
+tasks.register("subdependencies") {
   dependsOn subprojects.findAll { it.name != platformProject }.collect { "${it.path}:dependencies" }
 }
 
-project.tasks.getByPath("dependencies").finalizedBy("subdependencies")
+tasks.named("dependencies") {
+  finalizedBy("subdependencies")
+}
 
 wrapper {
   gradleVersion = "7.6.4"

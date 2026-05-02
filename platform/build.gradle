@@ -18,7 +18,7 @@ dependencies {
 
 publishing {
   publications {
-    bom(MavenPublication) {
+    register("bom", MavenPublication) {
       from components.javaPlatform
     }
   }
