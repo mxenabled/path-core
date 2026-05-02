@@ -54,7 +54,7 @@ public interface ConnectionSettings {
   Duration getRequestTimeout();
 
   /**
-   * @return true, if host name should be checked against the certificate
+   * @return true if host name should NOT be checked against the certificate, false otherwise
    */
   boolean getSkipHostNameVerify();
 

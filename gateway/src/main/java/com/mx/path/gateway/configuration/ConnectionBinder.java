@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import com.mx.path.core.common.collection.ObjectMap;
 import com.mx.path.core.common.connect.AccessorConnectionSettings;
 import com.mx.path.core.common.gateway.GatewayException;
+import com.mx.path.core.common.lang.Durations;
 import com.mx.path.core.common.lang.Strings;
 import com.mx.path.gateway.connect.filter.CallbacksFilter;
 import com.mx.path.gateway.connect.filter.ErrorHandlerFilter;
@@ -64,7 +65,15 @@ public class ConnectionBinder {
     if (passwordString != null) {
       connection.keystorePassword(passwordString.toCharArray());
     }
-    connection.skipHostNameVerify(Boolean.parseBoolean(String.valueOf(map.getMap(connectionName).get("skipHostNameVerify"))));
+    String connectTimeoutString = map.getMap(connectionName).getAsString("connectTimeout");
+    if (connectTimeoutString != null) {
+      connection.connectTimeout(Durations.fromCompactString(connectTimeoutString));
+    }
+    String requestTimeoutString = map.getMap(connectionName).getAsString("requestTimeout");
+    if (requestTimeoutString != null) {
+      connection.requestTimeout(Durations.fromCompactString(requestTimeoutString));
+    }
+    connection.skipHostNameVerify(map.getMap(connectionName).getAsBoolean("skipHostNameVerify", false));
 
     // Default request filters
     // todo: Provide way to configure the request filters in connection block

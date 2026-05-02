@@ -105,6 +105,10 @@ public class Fields {
       return null;
     }
 
+    if (targetType == value.getClass()) {
+      return value;
+    }
+
     if (targetType == byte.class || targetType == Byte.class) {
       return coerceToByte(value);
     }
