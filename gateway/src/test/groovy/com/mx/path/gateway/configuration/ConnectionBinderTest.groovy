@@ -1,11 +1,15 @@
 package com.mx.path.gateway.configuration
 
+import java.time.Duration
+
 import com.mx.path.core.common.accessor.PathResponseStatus
 import com.mx.path.core.common.collection.ObjectMap
+import com.mx.path.core.common.configuration.ConfigurationException
 import com.mx.path.core.common.gateway.GatewayException
 import com.mx.testing.binding.ConnectionWithBoundConfiguration
 
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class ConnectionBinderTest extends Specification {
 
@@ -40,6 +44,9 @@ class ConnectionBinderTest extends Specification {
       certificateAlias == "alias"
       keystorePath == "path"
       keystorePassword.toString() == "password"
+      connectTimeout == null
+      requestTimeout == null
+      !skipHostNameVerify
     }
   }
 
@@ -73,6 +80,9 @@ class ConnectionBinderTest extends Specification {
         put("certificateAlias", "alias")
         put("keystorePath", "path")
         put("keystorePassword", "password")
+        put("connectTimeout", "500ms")
+        put("requestTimeout", "20s")
+        put("skipHostNameVerify", true)
       }
     }
 
@@ -85,7 +95,34 @@ class ConnectionBinderTest extends Specification {
       certificateAlias == "alias"
       keystorePath == "path"
       keystorePassword.toString() == "password"
+      connectTimeout == Duration.ofMillis(500)
+      requestTimeout == Duration.ofSeconds(20)
+      skipHostNameVerify
     }
+  }
+
+  @Unroll
+  def "build connection throws on invalid #fieldName format"(String fieldName) {
+    given:
+    def configuration = new ObjectMap().tap {
+      createMap("TestConnection").tap {
+        put("baseUrl", "url")
+        put(fieldName, "not-a-valid-duration")
+      }
+    }
+
+    when:
+    subject.buildConnection(configuration, "TestConnection")
+
+    then:
+    def e = thrown(ConfigurationException)
+    e.message == "Invalid duration string: not-a-valid-duration"
+
+    where:
+    fieldName << [
+      "connectTimeout",
+      "requestTimeout"
+    ]
   }
 
   def "build connection and fail validation"() {
