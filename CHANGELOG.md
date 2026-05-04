@@ -5,6 +5,13 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [6.0.4](https://github.com/mxenabled/path-core/compare/v6.0.3...v6.0.4) (2026-05-04)
+
+
+### Bug Fixes
+
+* get connection timeout values from config ([4ed2faa](https://github.com/mxenabled/path-core/commit/4ed2faa0dfc358bfd03fdc43a6dc017694e0d099))
+
 ## [6.0.3](https://github.com/mxenabled/path-core/compare/v6.0.2...v6.0.3) (2026-03-03)
 
 
