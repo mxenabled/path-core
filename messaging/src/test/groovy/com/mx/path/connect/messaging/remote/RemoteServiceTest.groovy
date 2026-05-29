@@ -286,7 +286,7 @@ class RemoteServiceTest extends Specification {
 
     when:
     def responseStr = noOpSubject.respond("path.request.client.RemoteAccount.not_implemented", message.toJson())
-    MessageResponse response = new Gson().fromJson(responseStr, MessageResponse)
+    MessageResponse response = MessageResponse.fromJson(responseStr)
 
     then:
     noExceptionThrown()

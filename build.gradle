@@ -1,6 +1,6 @@
 plugins {
-  id "com.github.mxenabled.coppuccino" version "6.+" apply false
-  id "com.github.mxenabled.vogue" version "3.+" apply false
+  id "com.github.mxenabled.coppuccino" version "7.+" apply false
+  id "com.github.mxenabled.vogue" version "4.+" apply false
   id "idea"
   id "io.freefair.lombok" version "8.+" apply false
   id "io.github.gradle-nexus.publish-plugin" version "1.1.+"
@@ -37,7 +37,7 @@ subprojects {
 
     java {
       toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
       }
       withSourcesJar()
       withJavadocJar()
@@ -99,7 +99,7 @@ subprojects {
         }
       }
 
-      testImplementation "org.mockito:mockito-inline:${project.ext.mockitoVersion}"
+      testImplementation "org.mockito:mockito-core:${project.ext.mockitoVersion}"
       testImplementation "org.spockframework:spock-core:${project.ext.spockVersion}"
       testImplementation "org.junit.jupiter:junit-jupiter-api:${project.ext.junitVersion}"
     }
@@ -206,6 +206,6 @@ tasks.named("dependencies") {
 }
 
 wrapper {
-  gradleVersion = "7.6.4"
+  gradleVersion = "8.14.3"
   distributionType = Wrapper.DistributionType.ALL
 }
