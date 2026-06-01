@@ -23,7 +23,7 @@ _Gradle_
 <!-- x-release-please-start-version -->
 ```groovy
 dependencies {
-  api platform("com.mx.path-core:platform:6.0.4")
+  api platform("com.mx.path-core:platform:7.0.0")
 
   implementation "com.mx.path-core:common"
   implementation "com.mx.path-core:context"
@@ -45,16 +45,16 @@ _Gradle_
 <!-- x-release-please-start-version -->
 ```groovy
 dependencies {
-  implementation "com.mx.path-core:common:6.0.4"
-  implementation "com.mx.path-core:context:6.0.4"
-  implementation "com.mx.path-core:gateway:6.0.4"
-  implementation "com.mx.path-core:http:6.0.4"
-  implementation "com.mx.path-core:messaging:6.0.4"
-  implementation "com.mx.path-core:utilities:6.0.4"
+  implementation "com.mx.path-core:common:7.0.0"
+  implementation "com.mx.path-core:context:7.0.0"
+  implementation "com.mx.path-core:gateway:7.0.0"
+  implementation "com.mx.path-core:http:7.0.0"
+  implementation "com.mx.path-core:messaging:7.0.0"
+  implementation "com.mx.path-core:utilities:7.0.0"
 
-  annotationProcessor "com.mx.path-core:gateway-generator:6.0.4"
+  annotationProcessor "com.mx.path-core:gateway-generator:7.0.0"
 
-  testImplementation "com.mx.path-core:testing:6.0.4"
+  testImplementation "com.mx.path-core:testing:7.0.0"
 }
 ```
 <!-- x-release-please-end -->

@@ -5,6 +5,17 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [7.0.0](https://github.com/mxenabled/path-core/compare/v6.0.4...v7.0.0) (2026-06-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* bump to gradle 8 and java 21
+
+### Features
+
+* bump to gradle 8 and java 21 ([01b7174](https://github.com/mxenabled/path-core/commit/01b71747e97f9858311972c52055c7e745b9eb2a))
+
 ## [6.0.4](https://github.com/mxenabled/path-core/compare/v6.0.3...v6.0.4) (2026-05-04)
 
 
