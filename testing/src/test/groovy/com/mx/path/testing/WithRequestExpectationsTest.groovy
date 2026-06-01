@@ -2,13 +2,13 @@ package com.mx.path.testing
 
 import static org.mockito.Mockito.mock
 
+import com.mx.path.core.common.connect.Request
 import com.mx.path.testing.request.RequestExpectations
-import com.mx.path.testing.request.RequestMatcher
 import com.mx.testing.TestConnection
 
-import spock.lang.Specification
+import org.mockito.Mockito
 
-class WithRequestExpectationsTest extends Specification implements WithRequestExpectations {
+class WithRequestExpectationsTest extends Mockery {
 
   def cleanup() {
     RequestExpectations.reset()
@@ -83,7 +83,7 @@ class WithRequestExpectationsTest extends Specification implements WithRequestEx
 
   def "request() returns first captured request"() {
     given:
-    def req = mock(com.mx.path.core.common.connect.Request)
+    def req = mock(Request)
     RequestExpectations.addRequest(req)
 
     expect:
@@ -92,8 +92,8 @@ class WithRequestExpectationsTest extends Specification implements WithRequestEx
 
   def "request(matcher) returns matching request"() {
     given:
-    def req = mock(com.mx.path.core.common.connect.Request)
-    org.mockito.Mockito.when(req.getPath()).thenReturn("accounts")
+    def req = mock(Request)
+    Mockito.when(req.getPath()).thenReturn("accounts")
     RequestExpectations.addRequest(req)
 
     expect:
@@ -103,8 +103,8 @@ class WithRequestExpectationsTest extends Specification implements WithRequestEx
 
   def "requests() returns all captured requests"() {
     given:
-    RequestExpectations.addRequest(mock(com.mx.path.core.common.connect.Request))
-    RequestExpectations.addRequest(mock(com.mx.path.core.common.connect.Request))
+    RequestExpectations.addRequest(mock(Request))
+    RequestExpectations.addRequest(mock(Request))
 
     expect:
     requests().size() == 2
@@ -112,7 +112,7 @@ class WithRequestExpectationsTest extends Specification implements WithRequestEx
 
   def "exactly creates a matcher for the given request"() {
     given:
-    def req = mock(com.mx.path.core.common.connect.Request)
+    def req = mock(Request)
 
     when:
     def matcher = exactly(req)
@@ -124,10 +124,10 @@ class WithRequestExpectationsTest extends Specification implements WithRequestEx
 
   def "requests(matcher) returns filtered requests"() {
     given:
-    def req = mock(com.mx.path.core.common.connect.Request)
-    org.mockito.Mockito.when(req.getPath()).thenReturn("accounts")
+    def req = mock(Request)
+    Mockito.when(req.getPath()).thenReturn("accounts")
     RequestExpectations.addRequest(req)
-    RequestExpectations.addRequest(mock(com.mx.path.core.common.connect.Request))
+    RequestExpectations.addRequest(mock(Request))
 
     expect:
     requests(withPath("accounts")).size() == 1
