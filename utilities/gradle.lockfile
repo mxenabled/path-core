@@ -95,4 +95,4 @@ org.spockframework:spock-bom:2.4-M6-groovy-3.0=testCompileClasspath,testRuntimeC
 org.spockframework:spock-core:2.4-M6-groovy-3.0=testCompileClasspath,testRuntimeClasspath
 org.xmlresolver:xmlresolver:5.2.2=checkstyle
 org.xmlresolver:xmlresolver:5.3.3=pmd,spotbugs
-empty=signatures,spotbugsPlugins
+empty=spotbugsPlugins
