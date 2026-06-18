@@ -1,5 +1,8 @@
 package com.mx.path.testing.request
 
+import static org.mockito.Mockito.mock
+import static org.mockito.Mockito.when
+
 import com.mx.path.gateway.connect.filter.CallbacksFilter
 import com.mx.path.gateway.connect.filter.ErrorHandlerFilter
 import com.mx.path.gateway.connect.filter.RequestFinishedFilter
@@ -53,6 +56,79 @@ class RequestExpectationsTest extends Specification {
     then: "should be empty"
     RequestExpectations.getRequestAllowances().isEmpty()
     RequestExpectations.getRequestExpectations().isEmpty()
+  }
+
+  def "addRequest and request() retrieval"() {
+    given:
+    def req = mock(com.mx.path.core.common.connect.Request)
+    when(req.getPath()).thenReturn("accounts")
+
+    when:
+    RequestExpectations.addRequest(req)
+
+    then:
+    RequestExpectations.request() != null
+    RequestExpectations.request().is(req)
+  }
+
+  def "requests() returns all added requests"() {
+    given:
+    def req1 = mock(com.mx.path.core.common.connect.Request)
+    def req2 = mock(com.mx.path.core.common.connect.Request)
+    RequestExpectations.addRequest(req1)
+    RequestExpectations.addRequest(req2)
+
+    expect:
+    RequestExpectations.requests().size() == 2
+  }
+
+  def "requests(matcher) filters by matcher"() {
+    given:
+    def req1 = mock(com.mx.path.core.common.connect.Request)
+    def req2 = mock(com.mx.path.core.common.connect.Request)
+    when(req1.getPath()).thenReturn("accounts")
+    when(req2.getPath()).thenReturn("transactions")
+    RequestExpectations.addRequest(req1)
+    RequestExpectations.addRequest(req2)
+
+    when:
+    def matched = RequestExpectations.requests(RequestMatcher.Fluent.withPath("accounts"))
+
+    then:
+    matched.size() == 1
+    matched[0].is(req1)
+  }
+
+  def "request(matcher) returns first match"() {
+    given:
+    def req = mock(com.mx.path.core.common.connect.Request)
+    when(req.getPath()).thenReturn("accounts")
+    RequestExpectations.addRequest(req)
+
+    expect:
+    RequestExpectations.request(RequestMatcher.Fluent.withPath("accounts")).is(req)
+    RequestExpectations.request(RequestMatcher.Fluent.withPath("other")) == null
+  }
+
+  def "verifyConnectionExpectations passes with no expectations"() {
+    expect:
+    RequestExpectations.verifyConnectionExpectations()
+  }
+
+  def "Fluent.expectRequest registers expectation"() {
+    when:
+    RequestExpectations.Fluent.expectRequest(RequestMatcher.Fluent.withPath("accounts"))
+
+    then:
+    RequestExpectations.getRequestExpectations().size() == 1
+  }
+
+  def "Fluent.stubRequest registers allowance"() {
+    when:
+    RequestExpectations.Fluent.stubRequest(RequestMatcher.Fluent.withPath("accounts"))
+
+    then:
+    RequestExpectations.getRequestAllowances().size() == 1
   }
 
   def "setupConnection"() {

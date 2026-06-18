@@ -73,4 +73,28 @@ class FutureWithGatewayContextTest extends Specification {
     def e = thrown(GatewayException)
     e.message == "FutureWithGatewayContext timeout out"
   }
+
+  def "can pass custom executor and timeout"() {
+    given:
+    def executorService = Executors.newSingleThreadExecutor()
+    def subject = new FutureWithGatewayContext<String>({ -> "Feijoada!" }, executorService, 5000L)
+
+    when:
+    def result = subject.get()
+
+    then:
+    result == "Feijoada!"
+  }
+
+  def "wraps ExecutionException in GatewayException"() {
+    given:
+    def subject = new FutureWithGatewayContext<String>({ -> throw new RuntimeException("boom") })
+
+    when:
+    subject.get()
+
+    then:
+    def e = thrown(GatewayException)
+    e.message == "FutureWithGatewayContext execution failed"
+  }
 }

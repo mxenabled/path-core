@@ -1,3 +1,13 @@
+coppuccino {
+  coverage {
+    excludes = [
+      // Annotation processor code is tested via :test-gateway-generator and is not directly
+      // instrumentable by JaCoCo because it runs at compile time rather than test runtime.
+      "com/mx/path/api/**"
+    ]
+  }
+}
+
 dependencies {
   implementation project(":gateway")
 
