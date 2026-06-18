@@ -5,6 +5,7 @@ import static org.mockito.Mockito.spy
 import static org.mockito.Mockito.verify
 
 import com.mx.path.connect.http.HttpAccessorConnection
+import com.mx.path.connect.http.HttpClientFilter
 import com.mx.path.connect.http.HttpRequest
 import com.mx.path.connect.http.HttpResponse
 import com.mx.path.core.common.request.Feature
@@ -159,6 +160,18 @@ class HttpAccessorConnectionTest extends Specification {
 
     then:
     verify(fakeRequest).put() || true
+  }
+
+  def "connectionRequestFilters returns a single HttpClientFilter"() {
+    given:
+    def subject = new HttpAccessorConnection()
+
+    when:
+    def filters = subject.connectionRequestFilters()
+
+    then:
+    filters.size() == 1
+    filters[0] instanceof HttpClientFilter
   }
 
   def "patch"() {

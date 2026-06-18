@@ -1,3 +1,9 @@
+coppuccino {
+  coverage {
+    minimumCoverage = 0.80
+  }
+}
+
 dependencies {
   api project(":utilities")
   api "com.google.code.gson:gson"

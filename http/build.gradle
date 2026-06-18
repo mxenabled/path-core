@@ -1,6 +1,14 @@
 coppuccino {
   coverage {
-    minimumCoverage = 0.50
+    minimumCoverage = 0.80
+    excludes = [
+      // HttpClientFilter makes real Apache HttpClient calls (network I/O). Testing it
+      // properly requires WireMock or a live HTTP server, which is out of scope here.
+      "com/mx/path/connect/http/HttpClientFilter*",
+      // MutualAuthProviderKeystore and its PrivateKeyStrategy inner class require loading
+      // real SSL keystores with private keys, making them impractical to unit test.
+      "com/mx/path/connect/http/certificate/MutualAuthProviderKeystore*",
+    ]
   }
 }
 

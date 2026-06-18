@@ -18,4 +18,27 @@ class ModelBaseTest extends Specification {
     then:
     metadata != null
   }
+
+  def "wrapped marks object as wrapped and returns self"() {
+    when:
+    def result = subject.wrapped()
+
+    then:
+    subject.getWrapped()
+    result.is(subject)
+  }
+
+  def "setWrapped and getWrapped"() {
+    when:
+    subject.setWrapped(true)
+
+    then:
+    subject.getWrapped()
+
+    when:
+    subject.setWrapped(false)
+
+    then:
+    !subject.getWrapped()
+  }
 }
