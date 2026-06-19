@@ -5,6 +5,283 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
+## [6.0.1](https://github.com/mxenabled/path-core/compare/v7.0.1...v6.0.1) (2026-06-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* bump to gradle 8 and java 21
+* bump checkstyle, gradle, java, mockito, spotless
+* bump gradle, gradle quality plugin, snakeyaml, gson and jaxb
+* Updating classes used for tracing
+* **mutual_auth:** replace use of ConnectionSettings hashcode
+* correct constructors and make abstract
+* move com.mx.path.api.connect.http.certificates to com.mx.path.api.connect.http.certificate
+* remove deprecated com.mx.path.gateway.security classes
+* move accessor classes back to gateway
+* move com.mx.common to com.mx.path.common
+* move com.mx.path.common.accessors to com.mx.path.common.accessor
+* move com.mx.path.common.collections to com.mx.path.common.collection
+* move com.mx.path.common.events to com.mx.path.common.event
+* move com.mx.path.common.models to com.mx.path.common.model
+* move com.mx.path.gateway.events to com.mx.path.gateway.event
+* move com.mx.path.model.context to com.mx.path.core.context
+* move com.mx.path.utilities to com.mx.path.core.utility
+* move com.mx.path.core.utility.OAuth to com.mx.path.core.utility.oauth
+* move com.mx.path.gateway.connect.filters to com.mx.path.gateway.connect.filter
+* move com.mx.path.api.connect.http to com.mx.path.connect.http
+* move com.mx.path.api.connect.messaging to com.mx.path.connect.messaging
+* move all classes to standard packages
+* remove ServiceIdentifier
+* rename base models and fix up gateway generator to support the change.
+* move account behavior classes to legacy artifact
+* remove Request.featureName
+* remove Request.mutualAuthSettings
+* remove Request.isCircuitBreakerOpen
+* remove Response.checkStatus
+* remove com.mx.common.accessors.AccessorConnection
+* remove com.mx.path.gateway.util.MdxApiException.java
+* remove com.mx.path.gateway.net classes
+* remove com.mx.path.gateway.net.executors classes
+* clean up deprecated entities
+* Changes exception thrown on unknown exception
+* Reorganize exceptions into domain packages
+* Move ObjectMapJsonDeserializerTest from mdx-models
+* cleanup
+* remove StoreMutex
+* remove SessionRepositoryMutex
+* remove StoreMutex
+* connection exceptions
+* remove SessionStore
+* relocate classes into appropriate packages
+* combine response status enumerations
+* relocate classes and exception rework
+
+### Features
+
+* add after initialize method on accessor ([0262d69](https://github.com/mxenabled/path-core/commit/0262d69eb64f72c1fba6c122d45dcb71e3ce023f))
+* add all missing documentation and clear javadoc warnings ([3ef4291](https://github.com/mxenabled/path-core/commit/3ef429165a43491decf9b61e849acef6c7df809a))
+* add an 'optional' field to ConnectionAnnotation ([440e0a4](https://github.com/mxenabled/path-core/commit/440e0a45272edea5944f377a06f4140e8cf2c52b))
+* add artifact signing ([81c251e](https://github.com/mxenabled/path-core/commit/81c251e8fad869cec0a2c955ab32beafa83e3615))
+* add basic compression to session puts ([6a1d293](https://github.com/mxenabled/path-core/commit/6a1d293b1f763ea7ce89ee26e514f9754c116d67))
+* add comments to new ConnectionBinder class ([9a90cca](https://github.com/mxenabled/path-core/commit/9a90ccaee3ebe3510b14f54af7138db84bea1b8e))
+* add configurable ConnectTimeout and RequestTimeout ([232987d](https://github.com/mxenabled/path-core/commit/232987dfbab9924e79244f1c2e231a4d3ca4a9e4))
+* add configurator observer ([c78a702](https://github.com/mxenabled/path-core/commit/c78a7024dcc0e69342aa153bee659ec32b270076))
+* add connection builder for gateway objects ([860a88f](https://github.com/mxenabled/path-core/commit/860a88f40a42625bff0f4cd81d3fef037ba7df23))
+* add exception reporter facility ([1447e66](https://github.com/mxenabled/path-core/commit/1447e663cc3f5574646a07b2902a899b53b8440b))
+* add hook to AccessorConnectionBase that allows for call stack modifications ([d3a71a4](https://github.com/mxenabled/path-core/commit/d3a71a48eee05c05303ad2bbdd32da4c401d9b33))
+* add internal flag to PathRequestException ([6d954c7](https://github.com/mxenabled/path-core/commit/6d954c7a0d7086dba8a7e3efdce1bc30a3d50797))
+* add login to logs for troubleshooting failed authentication ([a6bec24](https://github.com/mxenabled/path-core/commit/a6bec24db901d3455ec9d5a236a1bbe5d2d208e2))
+* add new exception hierarchy ([2429040](https://github.com/mxenabled/path-core/commit/24290409fb46b3d239dd6cd1b14178d357d18ed9))
+* add new PathRequestExceptionWrapper ([403a1d5](https://github.com/mxenabled/path-core/commit/403a1d5d7f374f311aaa7309d9aa4fdeea0f4a61))
+* add P2P Transfers feature ([275b898](https://github.com/mxenabled/path-core/commit/275b8981fe4d8cf8888c350c2c08a7cde17de825))
+* add placeholder field to ConfigurationField annotation ([ec98e1f](https://github.com/mxenabled/path-core/commit/ec98e1f6407b23002378f627d263a75a6433a159))
+* add response status ([6b7e4f9](https://github.com/mxenabled/path-core/commit/6b7e4f9c48c59b9fa28ac8e8966026584a42acbe))
+* add retry configuration node ([f3dab3a](https://github.com/mxenabled/path-core/commit/f3dab3a15815131a64350dbc181a110c5ba7bd37))
+* add retry exception supplier override ([19af9cd](https://github.com/mxenabled/path-core/commit/19af9cdb247082e6def31cbd333000ce43c246dc))
+* add safe configuration object serializer ([1c1ee2c](https://github.com/mxenabled/path-core/commit/1c1ee2ccc48c5011298fe3026b53b570c5c1db7e))
+* add secret field to ConfigurationField annotation ([1c1ee2c](https://github.com/mxenabled/path-core/commit/1c1ee2ccc48c5011298fe3026b53b570c5c1db7e))
+* add slice convinience method to maps ([88175fa](https://github.com/mxenabled/path-core/commit/88175faeb83080eb5d98e279d1f334ef693d3043))
+* add support for .env files ([1d69da5](https://github.com/mxenabled/path-core/commit/1d69da509df62d8b7594856544540c71eb0ce550))
+* add support for .env files ([2b70c91](https://github.com/mxenabled/path-core/commit/2b70c91ee0cbabe9b524d62cd0362285bed3e048))
+* add support for byte binding ([9ac0350](https://github.com/mxenabled/path-core/commit/9ac03508ce20f03f93b1fd156269b1e41b132059))
+* add support for char binding ([62e666b](https://github.com/mxenabled/path-core/commit/62e666bf3c012a138a01a0815127cdd7f71b86a3))
+* add support for Class binding ([3b4b63c](https://github.com/mxenabled/path-core/commit/3b4b63c50a587f32758f9edb49a6bb131fe2e5d5))
+* add support for Duration configuration binding ([1c9085f](https://github.com/mxenabled/path-core/commit/1c9085fb21c0999de6a1f9516006ab8f30f7e4df))
+* add support for enum configuration bindings ([ed9eff1](https://github.com/mxenabled/path-core/commit/ed9eff1a3dc044d18c8b6f6104cbb144e729171d))
+* add support for regex pattern configuration binding ([8c8e848](https://github.com/mxenabled/path-core/commit/8c8e8484d65882ff4f767829c59fe05e72e40b4e))
+* add support for request retries ([0512ea7](https://github.com/mxenabled/path-core/commit/0512ea7f7bb61af6f784a1703c0689ab5f0a2edb))
+* add support for short binding ([bc13c02](https://github.com/mxenabled/path-core/commit/bc13c025f3369d8c4125b0e7912c1c9085d7b324))
+* add support for ZoneId binding ([2647b4c](https://github.com/mxenabled/path-core/commit/2647b4c6b3855c41da723c44fa6639fdda48f2f5))
+* add tests to connection binding on gateway objects ([d5901f0](https://github.com/mxenabled/path-core/commit/d5901f08ebd5dda0916b412e8a30a6d21542cdbd))
+* add throwable type adapter ([41bca46](https://github.com/mxenabled/path-core/commit/41bca46d45eaa96b97d12273a2dc0050e51feb02))
+* add upstream request processing ([a344fef](https://github.com/mxenabled/path-core/commit/a344fef97e40c2a54cd61eb59d462a0c81bfac8a))
+* add upstream response exceptions ([ac17869](https://github.com/mxenabled/path-core/commit/ac178697657fdcb283cdac9b40ecadb8ec14e880))
+* add value coercion to configuration binding ([ad8718b](https://github.com/mxenabled/path-core/commit/ad8718b2580bfeaa30a49057196372786b9590dd))
+* Adding GatewayEventBus as a default ([#38](https://github.com/mxenabled/path-core/issues/38)) ([84eecd5](https://github.com/mxenabled/path-core/commit/84eecd5635f3e32141c36fa6d03110191c320b73))
+* adding products feature ([7c66094](https://github.com/mxenabled/path-core/commit/7c66094c4aa5d97aeb184135283bf66b62a87d93))
+* adding RemoteException ([c8146f8](https://github.com/mxenabled/path-core/commit/c8146f830024f91886ffca34bfb5818ec2e7dbfe))
+* adding two new AccessorUserExceptions ([30613f8](https://github.com/mxenabled/path-core/commit/30613f81e4dcb6e206558fbd6e9168dfe15b52ec))
+* adding unit tests for no config accessors ([208616e](https://github.com/mxenabled/path-core/commit/208616ec11fb3c46536cdde0eb6434320afd162c))
+* bump checkstyle, gradle, java, mockito, spotless ([fb973c7](https://github.com/mxenabled/path-core/commit/fb973c7f89dfe6a1a7c8a19379c2b47777bbeddd))
+* bump gradle, gradle quality plugin, snakeyaml, gson and jaxb ([41d52dd](https://github.com/mxenabled/path-core/commit/41d52dd9eeba2f504aa60d045af7b8150eb6d1ce))
+* bump to gradle 8 and java 21 ([01b7174](https://github.com/mxenabled/path-core/commit/01b71747e97f9858311972c52055c7e745b9eb2a))
+* bump vulnerable dependencies ([1334c2a](https://github.com/mxenabled/path-core/commit/1334c2aea83c479d5b64371e2658a07a2d6799fd))
+* collection ordering annotation and comparator ([8c7f5fb](https://github.com/mxenabled/path-core/commit/8c7f5fb42740b73629b556020958b689af416b4c))
+* configuration and gateway object configuration hooks ([63ca562](https://github.com/mxenabled/path-core/commit/63ca562eda084dcf5d0859aadb5529f64df88094))
+* **configuration:** allow coerced types in arrays ([f5af605](https://github.com/mxenabled/path-core/commit/f5af6059f75bcda327ec79d9aab10ae764a868cd))
+* connection exceptions ([20353e1](https://github.com/mxenabled/path-core/commit/20353e10aa4732b33d072d353a65b877b28b6cfa))
+* **gateway:** add client facilities initialized event to configurator ([e9d0a9a](https://github.com/mxenabled/path-core/commit/e9d0a9a372307c3b5bc261806b151aefc0e850fe))
+* IM-99 - adding a new utility method to fetch all claims from the token ([f6f05d8](https://github.com/mxenabled/path-core/commit/f6f05d857932b0926df373412130494da4f7b030))
+* log configurations after binding ([d103fa4](https://github.com/mxenabled/path-core/commit/d103fa4ef98122022a2ee8fa2109241851cc2760))
+* log request attempt ([352fd84](https://github.com/mxenabled/path-core/commit/352fd841e283a35224a7a3e622eb2eccab639fce))
+* move session key to "loginHash" and rename log field to "login_hash" ([057eff6](https://github.com/mxenabled/path-core/commit/057eff65daf2f064d3d01c9f2a438f5275730be0))
+* publish javadocs jar ([42901d8](https://github.com/mxenabled/path-core/commit/42901d8647f8970dc87b7eb84ba3583dbf6d1aaa))
+* publish platform ([73c883c](https://github.com/mxenabled/path-core/commit/73c883ca2093d835ef4952a3801125333da67e1d))
+* publish sources jar ([42901d8](https://github.com/mxenabled/path-core/commit/42901d8647f8970dc87b7eb84ba3583dbf6d1aaa))
+* publish to central ([b958da4](https://github.com/mxenabled/path-core/commit/b958da45800c02d964b427d8a5bf23d86a1c94e6))
+* relocate classes and exception rework ([2429040](https://github.com/mxenabled/path-core/commit/24290409fb46b3d239dd6cd1b14178d357d18ed9))
+* remove SessionStore ([c0e7d2f](https://github.com/mxenabled/path-core/commit/c0e7d2f7949a4f720626c4b0a23a2f77e0b7553d))
+* removing LoginHash From Logging ([f9d3c9e](https://github.com/mxenabled/path-core/commit/f9d3c9e3926dbf5527d413d9abd2fe8bbcb0672e))
+* removing requirement for AccessorConfiguration parameter ([208616e](https://github.com/mxenabled/path-core/commit/208616ec11fb3c46536cdde0eb6434320afd162c))
+* **serialization:** add LocalDateTimeTypeAdapter ([cf54aa9](https://github.com/mxenabled/path-core/commit/cf54aa9c46faa9f11a278f2c473cfff610c9350d))
+* **serialization:** add LocalDateTypeAdapter ([6f2f0aa](https://github.com/mxenabled/path-core/commit/6f2f0aac1ed1f4ec8d51609515cdf35bb4876fec))
+* **serialization:** convert OffsetDateTimeDeserializer to TypeAdapter ([8b3cde3](https://github.com/mxenabled/path-core/commit/8b3cde33f5643e47be5cfb9dade389d9a47960f4))
+* **serialization:** convert ZonedDateTimeDeserializer to TypeAdapter ([141886b](https://github.com/mxenabled/path-core/commit/141886b1e7ab9d5517f914f751c3aad908e2fff3))
+* **session:** track keys saved to session store and DEL on logout ([c28d7d3](https://github.com/mxenabled/path-core/commit/c28d7d3712fa24ead46b43baba0ec631ba1ea7cd))
+* support ConfigurationField.secret lists ([02a063f](https://github.com/mxenabled/path-core/commit/02a063f91c3e41c672b1c85e6dec28c4b3725221))
+* **testing:** add test helpers for deep reflection equality assertions ([628c459](https://github.com/mxenabled/path-core/commit/628c459fef59dbfe3fe06922313d536c9816e4c1))
+
+
+### Bug Fixes
+
+* add group and description to root gradle project for publishing ([8d6656b](https://github.com/mxenabled/path-core/commit/8d6656bd1af90991c70b63e2229eebf8f5f1e12f))
+* add service unavailable http status ([8d29eaf](https://github.com/mxenabled/path-core/commit/8d29eaf188efadc4c433f2e38023bf057879a584))
+* add some more context fields to ExceptionContext ([6aa2e0c](https://github.com/mxenabled/path-core/commit/6aa2e0ca477f8d6092bb951018b2074b5abd1cae))
+* add UpstreamSystemMaintenance exception ([ffe76c3](https://github.com/mxenabled/path-core/commit/ffe76c3d044e243bb3b73eedb8020678012b4139))
+* add UpstreamSystemUnavailable exception ([ffe76c3](https://github.com/mxenabled/path-core/commit/ffe76c3d044e243bb3b73eedb8020678012b4139))
+* add user id to exception context ([7a87488](https://github.com/mxenabled/path-core/commit/7a874886ee4a446cda2596910d0f47d161e36a46))
+* adding Java17 fix for requests with non-string bodies ([8097673](https://github.com/mxenabled/path-core/commit/8097673e750a35cc04c655c419421dfa4fbd5fd3))
+* adding OffsetDateTime and ZonedDateTime serializers ([d9521a3](https://github.com/mxenabled/path-core/commit/d9521a371eadea3468f3d0459e5cb536f6dde269))
+* allow gateway generator to support accessor and accessors package ([90b7ccb](https://github.com/mxenabled/path-core/commit/90b7ccb02d17a7291229794bfafe2da41e9a5fb1))
+* allow setting of default session expiration ([681d7dc](https://github.com/mxenabled/path-core/commit/681d7dc89e0b7c10cee7b37bb60ff566d3115a4d))
+* apply spotless ([440e0a4](https://github.com/mxenabled/path-core/commit/440e0a45272edea5944f377a06f4140e8cf2c52b))
+* applying spotless ([208616e](https://github.com/mxenabled/path-core/commit/208616ec11fb3c46536cdde0eb6434320afd162c))
+* bump connectTimeout to 10s from 5s ([db7f829](https://github.com/mxenabled/path-core/commit/db7f82923eb6d1eb95dae3df32604313adff0d34))
+* call afterInitialize on all accessors ([ed95a0d](https://github.com/mxenabled/path-core/commit/ed95a0dadaf4d727ae557b75e286d4299ce6b23d))
+* change MessageError parent to PathRequestException ([31796aa](https://github.com/mxenabled/path-core/commit/31796aabd3dbc50d6ec1cad960afd2f4bc55c792))
+* change name of variable to avoid http://checkstyle.sourceforge.io/config_coding.html#HiddenField ([1cdb774](https://github.com/mxenabled/path-core/commit/1cdb774e552a7651c92a4375901f4a3430ba682b))
+* cleanup throw text ([c8146f8](https://github.com/mxenabled/path-core/commit/c8146f830024f91886ffca34bfb5818ec2e7dbfe))
+* **configuration:** add type adapters for complex configuration types ([e706be1](https://github.com/mxenabled/path-core/commit/e706be100d6fb17c439df39b9dee5abd6d22ade3))
+* **configurator:** show correct field name on missing error value ([e43dcd8](https://github.com/mxenabled/path-core/commit/e43dcd80229abf84abaae6d32beacf34c6df9813))
+* correct ambiguous model namespaing in generated gateways ([ac914f9](https://github.com/mxenabled/path-core/commit/ac914f966f35bf55913428dfc1db5dfde538c6f9))
+* deprecate function ([fbedb5d](https://github.com/mxenabled/path-core/commit/fbedb5d636505765b99ddff852cf22ae041549a1))
+* deprecating constructor ([208616e](https://github.com/mxenabled/path-core/commit/208616ec11fb3c46536cdde0eb6434320afd162c))
+* deprecating getConfiguration ([208616e](https://github.com/mxenabled/path-core/commit/208616ec11fb3c46536cdde0eb6434320afd162c))
+* drop default connect timeout to 5 seconds ([d57c26a](https://github.com/mxenabled/path-core/commit/d57c26afe6805af5b3b05ded25402e5c8a7ccfd7))
+* duration serialization fail on null ([687371f](https://github.com/mxenabled/path-core/commit/687371f675f1f9151f26213744d5282723c67208))
+* expose the current ConfigurationState ([08fa3dc](https://github.com/mxenabled/path-core/commit/08fa3dcb94240def36ccc8292a4893408b3e5dea))
+* fill in stack trace ([c8146f8](https://github.com/mxenabled/path-core/commit/c8146f830024f91886ffca34bfb5818ec2e7dbfe))
+* fix ambiguous cast of incoming object in gateway methods ([6b3bd48](https://github.com/mxenabled/path-core/commit/6b3bd488fe00215421a4fd9963ef60e97c1176a7))
+* fix incompatible jaxb-runtime version constraint ([3c6c07c](https://github.com/mxenabled/path-core/commit/3c6c07c9a2d4f20aa77b8a886685ce375aa90dc7))
+* force minor version bump to fix stuck publish ([1e24895](https://github.com/mxenabled/path-core/commit/1e24895fa689431dfa2a3632557fe23fdcb5e887))
+* **gateway:** change visibility of event classes to public ([e9d0a9a](https://github.com/mxenabled/path-core/commit/e9d0a9a372307c3b5bc261806b151aefc0e850fe))
+* get connection timeout values from config ([4ed2faa](https://github.com/mxenabled/path-core/commit/4ed2faa0dfc358bfd03fdc43a6dc017694e0d099))
+* handle Connection Exception and socket exception ([b91af79](https://github.com/mxenabled/path-core/commit/b91af799686eb2a32b6a74b08ba349fd32327a62))
+* handle external timeout error with status code 531 ([aeba873](https://github.com/mxenabled/path-core/commit/aeba873636199969dbb42f2dde84b285bca54dc5))
+* handle external timeout error with status code 531 ([ae407c4](https://github.com/mxenabled/path-core/commit/ae407c42264b07916f2f457f72a59326587c052f))
+* handle internal error flag for NATs timeout error ([35fe9ad](https://github.com/mxenabled/path-core/commit/35fe9ad3393be5a737b13b1222d9cee6c422edfa))
+* handle internal error flag for NATs timeout error ([d29b62c](https://github.com/mxenabled/path-core/commit/d29b62caba5fd32365d807c9cece2ba0098f76e1))
+* handle more specific HttpClient exceptions ([a956927](https://github.com/mxenabled/path-core/commit/a95692784932b1e0e34d91adf512edb944b22235))
+* handle null ObjectMap in ConfigurationBinder ([77eaea6](https://github.com/mxenabled/path-core/commit/77eaea696066b0fed4acc3a6322091c714c50719))
+* handle nulls in Date/Time deserialization ([09eb67d](https://github.com/mxenabled/path-core/commit/09eb67d9d0110fba25948f79463202fe0011b46b))
+* initialize facilities when facilities are empty ([b3ddc6c](https://github.com/mxenabled/path-core/commit/b3ddc6c4f03ff79523cb6422c4152ca6fca7362f))
+* log configurations after binding ([3d701fb](https://github.com/mxenabled/path-core/commit/3d701fb0b36eb2282c6370a09f3998b47a206b5d))
+* log configurations after binding with debug level ([4b596ba](https://github.com/mxenabled/path-core/commit/4b596ba23bfedf8642b94fb068cb0892e8cfd7b0))
+* logic error on request_method logging ([2239690](https://github.com/mxenabled/path-core/commit/223969055b9e33996d513b8354f24ccebb014ffa))
+* making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
+* mark Response JSON deserialization as deprecated ([5ccb138](https://github.com/mxenabled/path-core/commit/5ccb138c3b10c3ef550e007acad29a8afac9188b))
+* masking request URIs in UpstreamLogger ([4aed61f](https://github.com/mxenabled/path-core/commit/4aed61f3413bbc7cb55b27b4321fda0ec2cb7c8c))
+* mc-3689 - centralize some log masker regex strings ([ab52f03](https://github.com/mxenabled/path-core/commit/ab52f03d9658b9925d0f8f2503c6c78807cfc08a))
+* move mutual auth hash code to interface ([9f626dc](https://github.com/mxenabled/path-core/commit/9f626dcc293ebe4cba123493cd754ee95cbc7259))
+* move RemoteService dispatch tracing scope up so errors have tracing info ([f07c9a6](https://github.com/mxenabled/path-core/commit/f07c9a6fc0ee38d14298b03e22e2f81018fa534f))
+* **mutual_auth:** replace use of ConnectionSettings hashcode ([bd7bbac](https://github.com/mxenabled/path-core/commit/bd7bbac755884ff80644a11929fd6bd8e261b4ea))
+* remove redundant code field from MdxApiException ([99b496b](https://github.com/mxenabled/path-core/commit/99b496bd0194b1d34fa9572721c5827a2eb73b26))
+* remove unnecessary tab from beginning of UpstreamLogger api_call_payload ([8ebfb5d](https://github.com/mxenabled/path-core/commit/8ebfb5d5988a27e646b57b6ebcc8921a95d041e4))
+* remove unneeded annotations attribute from GatewayBaseClass ([98cbe04](https://github.com/mxenabled/path-core/commit/98cbe0489ad258fa542d12b238c788152cc87453))
+* remove unused Facilities.populate ([1447e66](https://github.com/mxenabled/path-core/commit/1447e663cc3f5574646a07b2902a899b53b8440b))
+* removing PARAMETER target from ClientID annotation ([08d69fd](https://github.com/mxenabled/path-core/commit/08d69fd2657b83a749327d08e5a319e80ca243a0))
+* removing uses of deprecated constructor from gateways ([f60a580](https://github.com/mxenabled/path-core/commit/f60a580c81b0845fe3eae4fda1b12b664f5db1d1))
+* rename base models and fix up gateway generator to support the change. ([bcd6ca6](https://github.com/mxenabled/path-core/commit/bcd6ca657832de6bf8f3e8309f5eb6bde59d321b))
+* resolve snyk vulnerabilities ([969fa33](https://github.com/mxenabled/path-core/commit/969fa33e5cc632771a1726983fecabe4013f9c37))
+* return a known exception ([c8146f8](https://github.com/mxenabled/path-core/commit/c8146f830024f91886ffca34bfb5818ec2e7dbfe))
+* semantic release ([c33e3e1](https://github.com/mxenabled/path-core/commit/c33e3e1af2702e5975e7ce985550b7f32bc34dea))
+* **serialization:** implement Duration deserialization ([e217457](https://github.com/mxenabled/path-core/commit/e2174579261469279666197be6d479e658161dd0))
+* **serialization:** implement Pattern deserialization ([32dcda7](https://github.com/mxenabled/path-core/commit/32dcda740b51ddca5ba7ac2b5b50e94df0641c2c))
+* set clientid in request context if not present ([1f5d5eb](https://github.com/mxenabled/path-core/commit/1f5d5eb6bd9e963d145e96b8827aaf7fe2f03bb8))
+* set Cookie Spec ([a241460](https://github.com/mxenabled/path-core/commit/a241460687bf1babd82d234efc22c715e117c0ad))
+* spotless apply ([c8146f8](https://github.com/mxenabled/path-core/commit/c8146f830024f91886ffca34bfb5818ec2e7dbfe))
+* squash ([cc69a85](https://github.com/mxenabled/path-core/commit/cc69a85e31a721c00878130a693f936c108dbcf7))
+* tighten up ConfiguratorObserver types ([2ea2d13](https://github.com/mxenabled/path-core/commit/2ea2d13750708693d966b4d6b871213c002e7b79))
+* trigger hotfix release ([1d5abba](https://github.com/mxenabled/path-core/commit/1d5abba0118bfe104c6160bd6fecc0d98197211b))
+* trigger re-release after vogue hotfix ([3c0dc3f](https://github.com/mxenabled/path-core/commit/3c0dc3f913dbacb7e3477666e2d6e585dfe45696))
+* tweak upstream log fields for better log viewing ([bb64241](https://github.com/mxenabled/path-core/commit/bb64241bbfbdcf8ef01c2a7868205a349df253bb))
+* update connect exception statuses and set codes ([492c6c8](https://github.com/mxenabled/path-core/commit/492c6c8dfca6c019deb7c85d88b478ec1ea03657))
+* update lombok dependency lock ([c65b2f0](https://github.com/mxenabled/path-core/commit/c65b2f0bb8ea7441cbbc1538772e20918ff1194d))
+* update maven publish url ([a13f8ef](https://github.com/mxenabled/path-core/commit/a13f8efc69869149ec7aa43a36109dfeaaeb83a8))
+* update Response#throwException to ([bc94f62](https://github.com/mxenabled/path-core/commit/bc94f62473620cbb5631e565f5dd9c0ba94ed1c0))
+* use only relevant fields in AccessorConnectionSettings hashcode ([7d15919](https://github.com/mxenabled/path-core/commit/7d15919732fe14bbfbbfca568d6c3b4e6d0648ea))
+
+
+### Reverts
+
+* "chore(master): release 6.0.0" ([1928a40](https://github.com/mxenabled/path-core/commit/1928a405f3301b4c735bd3adfe01b0ff0aa36790))
+* "feat!: bump checkstyle, gradle, java, mockito, spotless" ([6919be2](https://github.com/mxenabled/path-core/commit/6919be2f3b96b5da28f39181ed1e8fb34175da8a))
+* 2b70c91ee0cbabe9b524d62cd0362285bed3e048 ([20480f5](https://github.com/mxenabled/path-core/commit/20480f5c08d8b585e1016454ddea64519f3753a7))
+
+
+### Miscellaneous Chores
+
+* release 1.0.0 ([ebf1fc0](https://github.com/mxenabled/path-core/commit/ebf1fc0a7726356c9c1480abcba253fd53129ef5))
+* release 1.0.0-rc.4 ([6896946](https://github.com/mxenabled/path-core/commit/68969464ebabf25b516483a8e35104561de32dae))
+* release 1.7.0 ([09e1924](https://github.com/mxenabled/path-core/commit/09e1924d898d9d544b59ab75041eb78d633a9c2d))
+* release 1.7.0-SNAPSHOT ([1041b35](https://github.com/mxenabled/path-core/commit/1041b3552b05c93c43c93b3c27176f44acc4fb6b))
+* release 1.7.1 ([1c7d2af](https://github.com/mxenabled/path-core/commit/1c7d2aff0e256f42312050d1b8f08952ad177a99))
+
+
+### Code Refactoring
+
+* change from brave tracing to datadog tracing ([5915de7](https://github.com/mxenabled/path-core/commit/5915de75f807e44fe10da9ba177a985ac426eaf4))
+* clean up deprecated entities ([378dd57](https://github.com/mxenabled/path-core/commit/378dd576c41891f1878041d9c0820b1afe4d7572))
+* cleanup ([530cce4](https://github.com/mxenabled/path-core/commit/530cce4db235ed965636676aab52d6e069a69f82))
+* combine response status enumerations ([2429040](https://github.com/mxenabled/path-core/commit/24290409fb46b3d239dd6cd1b14178d357d18ed9))
+* correct constructors and make abstract ([3fa086e](https://github.com/mxenabled/path-core/commit/3fa086ef021f7cda101c4bbfa4ba181b41084285))
+* move accessor classes back to gateway ([c67970c](https://github.com/mxenabled/path-core/commit/c67970cdacc71a058263c5fa5e16adbfd98732c0))
+* move account behavior classes to legacy artifact ([92b257c](https://github.com/mxenabled/path-core/commit/92b257cf70b75f23f6638492c45452303945cd88))
+* move all classes to standard packages ([cc69a85](https://github.com/mxenabled/path-core/commit/cc69a85e31a721c00878130a693f936c108dbcf7))
+* move com.mx.common to com.mx.path.common ([cc69a85](https://github.com/mxenabled/path-core/commit/cc69a85e31a721c00878130a693f936c108dbcf7))
+* move com.mx.path.api.connect.http to com.mx.path.connect.http ([cc69a85](https://github.com/mxenabled/path-core/commit/cc69a85e31a721c00878130a693f936c108dbcf7))
+* move com.mx.path.api.connect.http.certificates to com.mx.path.api.connect.http.certificate ([41706c6](https://github.com/mxenabled/path-core/commit/41706c64275259a684e6ae1e50c2959404aa9213))
+* move com.mx.path.api.connect.messaging to com.mx.path.connect.messaging ([cc69a85](https://github.com/mxenabled/path-core/commit/cc69a85e31a721c00878130a693f936c108dbcf7))
+* move com.mx.path.common.accessors to com.mx.path.common.accessor ([cc69a85](https://github.com/mxenabled/path-core/commit/cc69a85e31a721c00878130a693f936c108dbcf7))
+* move com.mx.path.common.collections to com.mx.path.common.collection ([cc69a85](https://github.com/mxenabled/path-core/commit/cc69a85e31a721c00878130a693f936c108dbcf7))
+* move com.mx.path.common.events to com.mx.path.common.event ([cc69a85](https://github.com/mxenabled/path-core/commit/cc69a85e31a721c00878130a693f936c108dbcf7))
+* move com.mx.path.common.models to com.mx.path.common.model ([cc69a85](https://github.com/mxenabled/path-core/commit/cc69a85e31a721c00878130a693f936c108dbcf7))
+* move com.mx.path.core.utility.OAuth to com.mx.path.core.utility.oauth ([cc69a85](https://github.com/mxenabled/path-core/commit/cc69a85e31a721c00878130a693f936c108dbcf7))
+* move com.mx.path.gateway.connect.filters to com.mx.path.gateway.connect.filter ([cc69a85](https://github.com/mxenabled/path-core/commit/cc69a85e31a721c00878130a693f936c108dbcf7))
+* move com.mx.path.gateway.events to com.mx.path.gateway.event ([cc69a85](https://github.com/mxenabled/path-core/commit/cc69a85e31a721c00878130a693f936c108dbcf7))
+* move com.mx.path.model.context to com.mx.path.core.context ([cc69a85](https://github.com/mxenabled/path-core/commit/cc69a85e31a721c00878130a693f936c108dbcf7))
+* move com.mx.path.utilities to com.mx.path.core.utility ([cc69a85](https://github.com/mxenabled/path-core/commit/cc69a85e31a721c00878130a693f936c108dbcf7))
+* Move ObjectMapJsonDeserializerTest from mdx-models ([530cce4](https://github.com/mxenabled/path-core/commit/530cce4db235ed965636676aab52d6e069a69f82))
+* relocate classes into appropriate packages ([2429040](https://github.com/mxenabled/path-core/commit/24290409fb46b3d239dd6cd1b14178d357d18ed9))
+* remove com.mx.common.accessors.AccessorConnection ([378dd57](https://github.com/mxenabled/path-core/commit/378dd576c41891f1878041d9c0820b1afe4d7572))
+* remove com.mx.path.gateway.net classes ([378dd57](https://github.com/mxenabled/path-core/commit/378dd576c41891f1878041d9c0820b1afe4d7572))
+* remove com.mx.path.gateway.net.executors classes ([378dd57](https://github.com/mxenabled/path-core/commit/378dd576c41891f1878041d9c0820b1afe4d7572))
+* remove com.mx.path.gateway.util.MdxApiException.java ([378dd57](https://github.com/mxenabled/path-core/commit/378dd576c41891f1878041d9c0820b1afe4d7572))
+* remove deprecated com.mx.path.gateway.security classes ([d4a4f4b](https://github.com/mxenabled/path-core/commit/d4a4f4bb71613674004a8644cc0ef47ac6d65c12))
+* remove Request.featureName ([378dd57](https://github.com/mxenabled/path-core/commit/378dd576c41891f1878041d9c0820b1afe4d7572))
+* remove Request.isCircuitBreakerOpen ([378dd57](https://github.com/mxenabled/path-core/commit/378dd576c41891f1878041d9c0820b1afe4d7572))
+* remove Request.mutualAuthSettings ([378dd57](https://github.com/mxenabled/path-core/commit/378dd576c41891f1878041d9c0820b1afe4d7572))
+* remove Response.checkStatus ([378dd57](https://github.com/mxenabled/path-core/commit/378dd576c41891f1878041d9c0820b1afe4d7572))
+* remove ServiceIdentifier ([add274b](https://github.com/mxenabled/path-core/commit/add274b7b1c65b045b9bbd8bc63ebb8eddd1578f))
+* remove SessionRepositoryMutex ([4e94411](https://github.com/mxenabled/path-core/commit/4e94411c48c01487be4cf7210606032570418cf8))
+* remove StoreMutex ([4e94411](https://github.com/mxenabled/path-core/commit/4e94411c48c01487be4cf7210606032570418cf8))
+* remove StoreMutex ([4e94411](https://github.com/mxenabled/path-core/commit/4e94411c48c01487be4cf7210606032570418cf8))
+* Reorganize exceptions into domain packages ([83a70eb](https://github.com/mxenabled/path-core/commit/83a70eb083f74f9286c043754f4d4891b4463063))
+
+
+### Build System
+
+* update dependencies ([05d4407](https://github.com/mxenabled/path-core/commit/05d440757c39961c859973c7557f2ed1d056fc1e))
+* upgrade coppuccino and other dependencies ([ea057a9](https://github.com/mxenabled/path-core/commit/ea057a9f9761ae6313b5d98861e268f7ef5e2517))
+
+## [7.0.1](https://github.com/mxenabled/path-core/compare/v7.0.0...v7.0.1) (2026-06-01)
+
+
+### Bug Fixes
+
+* trigger re-release after vogue hotfix ([3c0dc3f](https://github.com/mxenabled/path-core/commit/3c0dc3f913dbacb7e3477666e2d6e585dfe45696))
+
 ## [7.0.0](https://github.com/mxenabled/path-core/compare/v6.0.4...v7.0.0) (2026-06-01)
 
 
