@@ -5,13 +5,6 @@
 
 * making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
 
-## [7.0.1](https://github.com/mxenabled/path-core/compare/v7.0.0...v7.0.1) (2026-06-01)
-
-
-### Bug Fixes
-
-* trigger re-release after vogue hotfix ([3c0dc3f](https://github.com/mxenabled/path-core/commit/3c0dc3f913dbacb7e3477666e2d6e585dfe45696))
-
 ## [7.0.0](https://github.com/mxenabled/path-core/compare/v6.0.4...v7.0.0) (2026-06-01)
 
 

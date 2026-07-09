@@ -5,5 +5,12 @@ coppuccino {
 }
 
 dependencies {
-  api("com.auth0:java-jwt:[4.5.2, 5.0.0)")
+  api "com.auth0:java-jwt:[4.5.1, 5.0.0)" // For JWT Parsing Library
+
+  constraints {
+    // Transitive dependency of com.auth0:java-jwt:4.5.1
+    api("com.fasterxml.jackson.core:jackson-core:2.21.1") {
+      because "Fixes High Severity vulnerability SNYK-JAVA-COMFASTERXMLJACKSONCORE-15365924"
+    }
+  }
 }
