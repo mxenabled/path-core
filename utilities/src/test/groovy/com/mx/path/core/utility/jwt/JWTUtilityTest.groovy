@@ -27,7 +27,7 @@ class JWTUtilityTest extends Specification  {
 
   def "validating a proper JWT with passing wrong client name"(){
     when:
-    String jwt = JWTUtility.generateNewJWT("userID", "sessionID", "ClientName", "secret", 100)
+    String jwt = JWTUtility.generateNewJWT("userID", "sessionID", "ClientName", "secret", 1)
 
     then: "Only valid with correct issuer"
     !JWTUtility.isValidJWT(jwt, "secret", "")

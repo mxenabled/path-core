@@ -1,9 +1,9 @@
 plugins {
-  id "com.github.mxenabled.coppuccino" version "8.+" apply false
-  id "com.github.mxenabled.vogue" version "5.+" apply false
+  id "com.github.mxenabled.coppuccino" version "7.+" apply false
+  id "com.github.mxenabled.vogue" version "4.+" apply false
   id "idea"
-  id "io.freefair.lombok" version "9.+" apply false
-  id "io.github.gradle-nexus.publish-plugin" version "2.+"
+  id "io.freefair.lombok" version "8.+" apply false
+  id "io.github.gradle-nexus.publish-plugin" version "1.1.+"
 }
 
 group "com.mx.path-core"
@@ -58,7 +58,7 @@ subprojects {
 
     ext {
       mockitoVersion = "[5.0,6.0)"
-      spockVersion = "2.4-groovy-4.0"
+      spockVersion = "2.4-M6-groovy-3.0"
       junitVersion = "5.14.0"
       openTracingVersion = "[0.33,0.34)"
       slf4jVersion = "1.7.30"
@@ -83,9 +83,10 @@ subprojects {
         // Version changes to any of these need to be tested (not just built)
         //   with an app that uses SOAP.
         // -----------------------------------------------------------------
-        api "jakarta.xml.bind:jakarta.xml.bind-api:4.0.5!!"
+        api "jakarta.xml.bind:jakarta.xml.bind-api:4.0.4!!"
         api "jakarta.xml.soap:jakarta.xml.soap-api:3.0.2!!"
-        api "org.glassfish.jaxb:jaxb-runtime:[4.0.9,5.0.0)"
+        api "com.sun.xml.bind:jaxb-impl:4.0.6!!"
+        api "org.glassfish.jaxb:jaxb-runtime:4.0.6!!"
 
         // --- Shared Testing Libraries ---
         api "io.opentracing:opentracing-mock:${project.ext.openTracingVersion}"
@@ -101,7 +102,6 @@ subprojects {
       testImplementation "org.mockito:mockito-core:${project.ext.mockitoVersion}"
       testImplementation "org.spockframework:spock-core:${project.ext.spockVersion}"
       testImplementation "org.junit.jupiter:junit-jupiter-api:${project.ext.junitVersion}"
-      testRuntimeOnly "org.junit.platform:junit-platform-launcher"
     }
 
     compileJava { options.compilerArgs << "-parameters" }
@@ -206,6 +206,6 @@ tasks.named("dependencies") {
 }
 
 wrapper {
-  gradleVersion = "9.5.1"
+  gradleVersion = "8.14.3"
   distributionType = Wrapper.DistributionType.ALL
 }
