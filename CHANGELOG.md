@@ -1,9 +1,14 @@
-## [3.2.2](https://github.com/mxenabled/path-core/compare/3.2.1...3.2.2) (2023-06-22)
+## [8.0.0](https://github.com/mxenabled/path-core/compare/v7.0.1...v8.0.0) (2026-07-14)
 
 
-### Bug Fixes
+### ⚠ BREAKING CHANGES
 
-* making Annotations.fieldsAnAnnotations respect inheritance ([3b266dd](https://github.com/mxenabled/path-core/commit/3b266ddcb227766a32f16e88e7b9b2022737de53))
+* bump to Gradle 9.5.1 and Spring Boot 4.1.0
+
+### Features
+
+* bump to Gradle 9.5.1 and Spring Boot 4.1.0 ([cee6cc3](https://github.com/mxenabled/path-core/commit/cee6cc3bd7ba33cd80e2c16f5236b892ba6889b4))
+
 
 ## [7.0.1](https://github.com/mxenabled/path-core/compare/v7.0.0...v7.0.1) (2026-06-01)
 
