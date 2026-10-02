@@ -26,9 +26,9 @@ class LocalDateDeserializerTest extends Specification {
     result == expected
 
     where:
-    str              || format         || expected
-    "10/11/2000"     || "M/d/yyyy"     || LocalDate.of(2000, 10, 11)
-    "1/1/2000"       || "M/d/yyyy"     || LocalDate.of(2000, 1, 1)
+    str || format || expected
+    "10/11/2000" || "M/d/yyyy" || LocalDate.of(2000, 10, 11)
+    "1/1/2000" || "M/d/yyyy" || LocalDate.of(2000, 1, 1)
   }
 
   def "deserialize with multiple formats"() {
@@ -102,8 +102,8 @@ class LocalDateDeserializerTest extends Specification {
     result == "{\"date\":\"${expected}\"}"
 
     where:
-    format        || date                        || expected
-    "MM-dd-yyyy"  || LocalDate.of(2000, 10, 11)  || "10-11-2000"
-    "M-d-yyyy"    || LocalDate.of(2000, 1, 1)    || "1-1-2000"
+    format || date || expected
+    "MM-dd-yyyy" || LocalDate.of(2000, 10, 11) || "10-11-2000"
+    "M-d-yyyy" || LocalDate.of(2000, 1, 1) || "1-1-2000"
   }
 }

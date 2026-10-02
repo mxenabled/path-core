@@ -62,7 +62,9 @@ class AccessorStackConfiguratorTest extends Specification {
 
     then:
     mockAccessor.verify({ MockAccessor.afterInitialize() }, times(1))
-    mockAccessor.verify({ MockAccessor.afterInitializeWithClientId("clientId") }, times(1))
+    mockAccessor.verify({
+      MockAccessor.afterInitializeWithClientId("clientId")
+    }, times(1))
   }
 
   def "invoke both afterInitializeMethods"() {
@@ -73,9 +75,15 @@ class AccessorStackConfiguratorTest extends Specification {
 
     then:
     mockAccessor.verify({ MockAccessor.afterInitialize() }, times(1))
-    childMockAccessor.verify({ ChildMockAccessor.afterInitializeChild() }, times(1))
+    childMockAccessor.verify({
+      ChildMockAccessor.afterInitializeChild()
+    }, times(1))
 
-    mockAccessor.verify({ MockAccessor.afterInitializeWithClientId("clientId") }, times(1))
-    childMockAccessor.verify({ ChildMockAccessor.afterInitializeChildWithClientId("clientId") }, times(1))
+    mockAccessor.verify({
+      MockAccessor.afterInitializeWithClientId("clientId")
+    }, times(1))
+    childMockAccessor.verify({
+      ChildMockAccessor.afterInitializeChildWithClientId("clientId")
+    }, times(1))
   }
 }

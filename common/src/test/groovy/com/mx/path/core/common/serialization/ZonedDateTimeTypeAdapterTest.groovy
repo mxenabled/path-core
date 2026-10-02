@@ -26,7 +26,7 @@ class ZonedDateTimeTypeAdapterTest extends Specification {
     def result = subject.fromJson(json, ClassWithZonedDateTime)
 
     then:
-    verifyAll (result.zonedDateTime) {
+    verifyAll(result.zonedDateTime) {
       getYear() == 2022
       getMonthValue() == 12
       getDayOfMonth() == 6
@@ -53,7 +53,7 @@ class ZonedDateTimeTypeAdapterTest extends Specification {
     def result = subject.fromJson(json, ClassWithZonedDateTime)
 
     then:
-    verifyAll (result.zonedDateTime) {
+    verifyAll(result.zonedDateTime) {
       getYear() == 2022
       getMonthValue() == 12
       getDayOfMonth() == 6
@@ -110,7 +110,7 @@ class ZonedDateTimeTypeAdapterTest extends Specification {
     def result = subject.fromJson(json, ClassWithZonedDateTime)
 
     then:
-    verifyAll (result.zonedDateTime) {
+    verifyAll(result.zonedDateTime) {
       getYear() == 2022
       getMonthValue() == 8
       getDayOfMonth() == 12
@@ -150,7 +150,7 @@ class ZonedDateTimeTypeAdapterTest extends Specification {
     def result = subject.fromJson(json, ClassWithZonedDateTime)
 
     then:
-    verifyAll (result.zonedDateTime) {
+    verifyAll(result.zonedDateTime) {
       getYear() == 2022
       getMonthValue() == 8
       getDayOfMonth() == 12

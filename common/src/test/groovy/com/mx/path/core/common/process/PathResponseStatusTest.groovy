@@ -16,10 +16,10 @@ class PathResponseStatusTest extends Specification {
     result == expected
 
     where:
-    pathResponseStatus                   || expected
+    pathResponseStatus || expected
     PathResponseStatus.TOO_MANY_REQUESTS || HttpStatus.TOO_MANY_REQUESTS
-    PathResponseStatus.INTERNAL_ERROR    || HttpStatus.INTERNAL_SERVER_ERROR
-    PathResponseStatus.UNAVAILABLE       || HttpStatus.SERVICE_UNAVAILABLE
-    PathResponseStatus.TIMEOUT           || HttpStatus.GATEWAY_TIMEOUT
+    PathResponseStatus.INTERNAL_ERROR || HttpStatus.INTERNAL_SERVER_ERROR
+    PathResponseStatus.UNAVAILABLE || HttpStatus.SERVICE_UNAVAILABLE
+    PathResponseStatus.TIMEOUT || HttpStatus.GATEWAY_TIMEOUT
   }
 }

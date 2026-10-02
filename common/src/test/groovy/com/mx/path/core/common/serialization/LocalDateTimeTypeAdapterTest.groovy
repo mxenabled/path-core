@@ -26,7 +26,7 @@ class LocalDateTimeTypeAdapterTest extends Specification {
     def result = subject.fromJson(json, ClassWithLocalDateTime)
 
     then:
-    verifyAll (result.localDateTime) {
+    verifyAll(result.localDateTime) {
       getYear() == 2022
       getMonthValue() == 12
       getDayOfMonth() == 6
@@ -52,7 +52,7 @@ class LocalDateTimeTypeAdapterTest extends Specification {
     def result = subject.fromJson(json, ClassWithLocalDateTime)
 
     then:
-    verifyAll (result.localDateTime) {
+    verifyAll(result.localDateTime) {
       getYear() == 2022
       getMonthValue() == 12
       getDayOfMonth() == 6
@@ -107,7 +107,7 @@ class LocalDateTimeTypeAdapterTest extends Specification {
     def result = subject.fromJson(json, ClassWithLocalDateTime)
 
     then:
-    verifyAll (result.localDateTime) {
+    verifyAll(result.localDateTime) {
       getYear() == 2022
       getMonthValue() == 8
       getDayOfMonth() == 12
@@ -180,7 +180,9 @@ class LocalDateTimeTypeAdapterTest extends Specification {
 
     def localDateTypeAdapter = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, LocalDateTimeTypeAdapter.builder().build()).create()
 
-    def target = new ClassWithLocalDateTime().tap { it.localDateTime = LocalDateTime.of(2015, 10, 21, 4, 29, 0) }
+    def target = new ClassWithLocalDateTime().tap {
+      it.localDateTime = LocalDateTime.of(2015, 10, 21, 4, 29, 0)
+    }
 
     when:
     def serialized = localDateTypeAdapter.toJson(target)

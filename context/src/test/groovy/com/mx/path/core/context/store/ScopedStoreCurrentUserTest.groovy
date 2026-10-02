@@ -9,7 +9,7 @@ import com.mx.testing.WithSessionRepository
 
 import spock.lang.Specification
 
-class ScopedStoreCurrentUserTest extends Specification  implements WithMockery, WithSessionRepository {
+class ScopedStoreCurrentUserTest extends Specification implements WithMockery, WithSessionRepository {
 
   Store store
   ScopedStoreCurrentUser subject

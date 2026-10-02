@@ -42,7 +42,7 @@ class RequestContextTest extends Specification {
         .clientGuid("clientAF")
         .clientId("client1")
         .feature("featureA")
-        .header("h2" , "v2")
+        .header("h2", "v2")
         .originatingIP("127.0.0.1")
         .parameter("p2", "v2")
         .path("/accounts")

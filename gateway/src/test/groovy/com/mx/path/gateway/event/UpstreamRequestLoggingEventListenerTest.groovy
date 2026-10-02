@@ -41,7 +41,7 @@ class UpstreamRequestLoggingEventListenerTest extends Specification {
     def response = null
     def requestContext = AfterUpstreamRequestEvent.builder().build().requestContext
     def session = AfterUpstreamRequestEvent.builder().build().session
-    def afterUpstreamEvent =  spy(new AfterUpstreamRequestEvent(response, requestContext, session))
+    def afterUpstreamEvent = spy(new AfterUpstreamRequestEvent(response, requestContext, session))
 
     when:
     subject.onAfterUpstreamRequestEvent(afterUpstreamEvent)

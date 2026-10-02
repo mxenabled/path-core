@@ -47,7 +47,7 @@ class AnnotationsTest extends Specification {
     fields[3].getAnnotation(Nullable.class) != null
   }
 
-  def "hasAnnotation"()  {
+  def "hasAnnotation"() {
     when:
     true == true
 

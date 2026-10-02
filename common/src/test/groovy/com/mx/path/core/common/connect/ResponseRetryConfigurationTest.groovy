@@ -39,7 +39,9 @@ class ResponseRetryConfigurationTest extends Specification implements WithMocker
     subject = ResponseRetryConfiguration.<TestResponse>builder()
         .stopStrategy(RetryConfiguration.StopStrategy.COUNT)
         .count(2)
-        .onResponse(Collections.singletonList(ResponseMatcher.builder().predicate( { t-> true }).build()))
+        .onResponse(Collections.singletonList(ResponseMatcher.builder().predicate({ t->
+          true
+        }).build()))
         .build()
 
     request.withRetryer(subject.instance())
@@ -86,8 +88,12 @@ class ResponseRetryConfigurationTest extends Specification implements WithMocker
     subject = ResponseRetryConfiguration.<TestResponse>builder()
         .stopStrategy(RetryConfiguration.StopStrategy.COUNT)
         .count(2)
-        .onResponse(Collections.singletonList(ResponseMatcher.builder().predicate( { t-> true }).build()))
-        .exceptionSupplier({ e -> new UpstreamSystemMaintenance("System is not ready", e) })
+        .onResponse(Collections.singletonList(ResponseMatcher.builder().predicate({ t->
+          true
+        }).build()))
+        .exceptionSupplier({ e ->
+          new UpstreamSystemMaintenance("System is not ready", e)
+        })
         .build()
 
     request.withResponseRetryConfiguration(subject)
@@ -105,11 +111,17 @@ class ResponseRetryConfigurationTest extends Specification implements WithMocker
     subject = ResponseRetryConfiguration.<TestResponse>builder()
         .stopStrategy(RetryConfiguration.StopStrategy.COUNT)
         .count(2)
-        .onResponse(Collections.singletonList(ResponseMatcher.builder().predicate( { t-> true }).build()))
-        .exceptionSupplier({ e -> new UpstreamSystemMaintenance("System is not ready", e) })
+        .onResponse(Collections.singletonList(ResponseMatcher.builder().predicate({ t->
+          true
+        }).build()))
+        .exceptionSupplier({ e ->
+          new UpstreamSystemMaintenance("System is not ready", e)
+        })
         .build()
 
-    request.withResponseRetryConfiguration(subject, { e -> new UpstreamSystemUnavailable("System is not available") })
+    request.withResponseRetryConfiguration(subject, { e ->
+      new UpstreamSystemUnavailable("System is not available")
+    })
 
     when:
     request.execute().throwException()
@@ -133,13 +145,13 @@ class ResponseRetryConfigurationTest extends Specification implements WithMocker
     error.message == message
 
     where:
-    configuration                                                                                                                                                                       | message
-    ResponseRetryConfiguration.builder().build()                                                                                                                                           | "Missing required field at configuration."
-    ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).build()                                                                               | "Missing required fields for stopStrategy COUNT: count at configuration."
-    ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.DURATION).build()                                                                            | "Missing required fields for stopStrategy DURATION: duration at configuration."
-    ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.FIXED).build()        | "Missing required fields for pauseStrategy FIXED: pause at configuration."
+    configuration | message
+    ResponseRetryConfiguration.builder().build() | "Missing required field at configuration."
+    ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).build() | "Missing required fields for stopStrategy COUNT: count at configuration."
+    ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.DURATION).build() | "Missing required fields for stopStrategy DURATION: duration at configuration."
+    ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.FIXED).build() | "Missing required fields for pauseStrategy FIXED: pause at configuration."
     ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.INCREMENTING).build() | "Missing required fields for pauseStrategy INCREMENTING: initialPause, increment at configuration."
-    ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.FIBONACCI).build()    | "Missing required fields for pauseStrategy FIBONACCI: multiplier, maxPause at configuration."
+    ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.FIBONACCI).build() | "Missing required fields for pauseStrategy FIBONACCI: multiplier, maxPause at configuration."
   }
 
   @Unroll
@@ -155,12 +167,12 @@ class ResponseRetryConfigurationTest extends Specification implements WithMocker
     noExceptionThrown()
 
     where:
-    configuration                                                                                                                                                                                                                                            | _
-    ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).build()                                                                                                                                           | null
-    ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.DURATION).duration(Duration.ofSeconds(1)).build()                                                                                                                 | null
-    ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.FIXED).pause(Duration.ofMillis(10)).build()                                                | null
+    configuration | _
+    ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).build() | null
+    ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.DURATION).duration(Duration.ofSeconds(1)).build() | null
+    ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.FIXED).pause(Duration.ofMillis(10)).build() | null
     ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.INCREMENTING).initialPause(Duration.ofMillis(10)).increment(Duration.ofMillis(10)).build() | null
-    ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.FIBONACCI).maxPause(Duration.ofMillis(100)).multiplier(Duration.ofSeconds(1)).build()      | null
+    ResponseRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.FIBONACCI).maxPause(Duration.ofMillis(100)).multiplier(Duration.ofSeconds(1)).build() | null
   }
 
   def "call when all attempts fail"() {

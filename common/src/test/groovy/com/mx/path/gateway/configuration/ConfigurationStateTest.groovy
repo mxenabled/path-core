@@ -95,7 +95,9 @@ class ConfigurationStateTest extends Specification {
     def state = ConfigurationState.getCurrent()
 
     when:
-    def result = state.withField("port", { -> "8080" } as java.util.function.Supplier)
+    def result = state.withField("port", {
+      -> "8080"
+    } as java.util.function.Supplier)
 
     then:
     result == "8080"
@@ -107,7 +109,9 @@ class ConfigurationStateTest extends Specification {
     def state = ConfigurationState.getCurrent()
 
     when:
-    state.withField("port", { -> throw new ConfigurationError("invalid", "port") } as java.util.function.Supplier)
+    state.withField("port", {
+      -> throw new ConfigurationError("invalid", "port")
+    } as java.util.function.Supplier)
 
     then:
     thrown(ConfigurationError)
@@ -147,7 +151,9 @@ class ConfigurationStateTest extends Specification {
     def state = ConfigurationState.getCurrent()
 
     when:
-    def result = state.withLevel("client", { -> "done" } as java.util.function.Supplier)
+    def result = state.withLevel("client", {
+      -> "done"
+    } as java.util.function.Supplier)
 
     then:
     result == "done"
@@ -159,7 +165,9 @@ class ConfigurationStateTest extends Specification {
     def state = ConfigurationState.getCurrent()
 
     when:
-    state.withLevel("client", { -> throw new ConfigurationError("oops", state) } as java.util.function.Supplier)
+    state.withLevel("client", {
+      -> throw new ConfigurationError("oops", state)
+    } as java.util.function.Supplier)
 
     then:
     thrown(ConfigurationError)

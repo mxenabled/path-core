@@ -40,6 +40,6 @@ class SingletonBaseAccessorProxyTest extends Specification {
 
     then:
     org.mockito.Mockito.verify(accessorInstance).accounts() || true
-    org.mockito.Mockito.verify(accessorInstance).id()       || true
+    org.mockito.Mockito.verify(accessorInstance).id() || true
   }
 }

@@ -30,7 +30,7 @@ class AccessorConfigurationTest extends Specification {
         .configuration("name", "value")
         .build()
     when:
-    def description =  new ObjectMap()
+    def description = new ObjectMap()
     subject.describe(description)
 
     then:

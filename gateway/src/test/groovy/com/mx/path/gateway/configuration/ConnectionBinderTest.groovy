@@ -39,7 +39,7 @@ class ConnectionBinderTest extends Specification {
     def connection = (ConnectionWithBoundConfiguration) subject.build(ConnectionWithBoundConfiguration.class, configuration, "TestConnection")
 
     then:
-    verifyAll (connection) {
+    verifyAll(connection) {
       baseUrl == "url"
       certificateAlias == "alias"
       keystorePath == "path"
@@ -90,7 +90,7 @@ class ConnectionBinderTest extends Specification {
     def connection = subject.buildConnection(configuration, "TestConnection")
 
     then:
-    verifyAll (connection) {
+    verifyAll(connection) {
       baseUrl == "url"
       certificateAlias == "alias"
       keystorePath == "path"

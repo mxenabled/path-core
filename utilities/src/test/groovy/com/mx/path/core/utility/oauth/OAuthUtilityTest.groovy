@@ -2,7 +2,7 @@ package com.mx.path.core.utility.oauth
 
 import spock.lang.Specification
 
-class OAuthUtilityTest extends Specification  {
+class OAuthUtilityTest extends Specification {
   def "test generate Basic AuthorizationToken "(){
     /***   everything valid scenario ***/
     when:
