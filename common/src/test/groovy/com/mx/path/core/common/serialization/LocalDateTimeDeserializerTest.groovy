@@ -25,7 +25,7 @@ class LocalDateTimeDeserializerTest extends Specification {
     def result = subject.fromJson(json, ClassWithLocalDateTime)
 
     then:
-    verifyAll (result.localDateTime) {
+    verifyAll(result.localDateTime) {
       getYear() == 2022
       getMonthValue() == 12
       getDayOfMonth() == 6
@@ -51,7 +51,7 @@ class LocalDateTimeDeserializerTest extends Specification {
     def result = subject.fromJson(json, ClassWithLocalDateTime)
 
     then:
-    verifyAll (result.localDateTime) {
+    verifyAll(result.localDateTime) {
       getYear() == 2022
       getMonthValue() == 12
       getDayOfMonth() == 6
@@ -88,7 +88,7 @@ class LocalDateTimeDeserializerTest extends Specification {
     def result = subject.fromJson(json, ClassWithLocalDateTime)
 
     then:
-    verifyAll (result.localDateTime) {
+    verifyAll(result.localDateTime) {
       getYear() == 2022
       getMonthValue() == 8
       getDayOfMonth() == 12

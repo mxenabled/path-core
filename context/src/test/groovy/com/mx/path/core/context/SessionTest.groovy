@@ -384,7 +384,7 @@ class SessionTest extends Specification {
 
     when:
     subject.setEmail("test@unit.me")
-    assert "test@unit.me" ==  subject.getEmail()
+    assert "test@unit.me" == subject.getEmail()
 
     then:
     1 * encryptionService.isEncrypted("encrypted:v1:(!ph3%") >> true

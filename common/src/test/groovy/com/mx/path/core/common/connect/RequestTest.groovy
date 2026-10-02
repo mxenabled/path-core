@@ -214,7 +214,9 @@ class RequestTest extends Specification {
     subject.withResponseRetryConfiguration(ResponseRetryConfiguration.<TestResponse>builder()
         .stopStrategy(ResponseRetryConfiguration.StopStrategy.COUNT)
         .count(3)
-        .onResponse(Collections.singletonList(ResponseMatcher.builder().predicate({ t -> true }).build()))
+        .onResponse(Collections.singletonList(ResponseMatcher.builder().predicate({ t ->
+          true
+        }).build()))
         .build())
 
     when:
@@ -230,12 +232,16 @@ class RequestTest extends Specification {
     def retry = ResponseRetryConfiguration.<TestResponse>builder()
         .stopStrategy(ResponseRetryConfiguration.StopStrategy.COUNT)
         .count(3)
-        .onResponse(Collections.singletonList(ResponseMatcher.builder().predicate({ t -> true }).build()))
+        .onResponse(Collections.singletonList(ResponseMatcher.builder().predicate({ t ->
+          true
+        }).build()))
         .build()
 
     filterChain = mock(RequestFilter)
     subject = new TestRequest(filterChain)
-    def response = subject.withResponseRetryConfiguration(retry, { e -> new UpstreamSystemUnavailable("System is not ready", e) })
+    def response = subject.withResponseRetryConfiguration(retry, { e ->
+      new UpstreamSystemUnavailable("System is not ready", e)
+    })
 
     when:
     subject.execute().throwException()
@@ -312,7 +318,9 @@ class RequestTest extends Specification {
         .withFeature(Feature.ACCOUNTS)
         .withHeader("headerKey", "headerValue")
         .withPath("/some/path")
-        .withQueryStringParams(new SingleValueMap<String, String>().tap {put("key", "value")})
+        .withQueryStringParams(new SingleValueMap<String, String>().tap {
+          put("key", "value")
+        })
         .withRequestTimeout(Duration.ofMillis(100))
 
     when: "same instance"
@@ -337,7 +345,9 @@ class RequestTest extends Specification {
         .withFeature(Feature.ACCOUNTS)
         .withHeader("headerKey", "headerValue")
         .withPath("/some/path")
-        .withQueryStringParams(new SingleValueMap<String, String>().tap {put("key", "value")})
+        .withQueryStringParams(new SingleValueMap<String, String>().tap {
+          put("key", "value")
+        })
         .withRequestTimeout(Duration.ofMillis(100))
 
     then:
@@ -353,7 +363,9 @@ class RequestTest extends Specification {
         .withFeature(Feature.TRANSFERS)
         .withHeader("headerKey", "headerValue2")
         .withPath("/some/other/path")
-        .withQueryStringParams(new SingleValueMap<String, String>().tap {put("key", "value2")})
+        .withQueryStringParams(new SingleValueMap<String, String>().tap {
+          put("key", "value2")
+        })
         .withRequestTimeout(Duration.ofMillis(100))
 
     then:

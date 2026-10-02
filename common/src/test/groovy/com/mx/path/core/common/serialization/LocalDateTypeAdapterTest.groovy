@@ -23,9 +23,9 @@ class LocalDateTypeAdapterTest extends Specification {
     result == expected
 
     where:
-    str              || format         || expected
-    "10/11/2000"     || "M/d/yyyy"     || LocalDate.of(2000, 10, 11)
-    "1/1/2000"       || "M/d/yyyy"     || LocalDate.of(2000, 1, 1)
+    str || format || expected
+    "10/11/2000" || "M/d/yyyy" || LocalDate.of(2000, 10, 11)
+    "1/1/2000" || "M/d/yyyy" || LocalDate.of(2000, 1, 1)
   }
 
   def "deserialize with multiple formats"() {
@@ -99,15 +99,17 @@ class LocalDateTypeAdapterTest extends Specification {
     def gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, LocalDateTypeAdapter.builder().serializeFormat(format).build()).create()
 
     when:
-    def result = gson.toJson(new ClassWithLocalDate().tap { it.localDate = date })
+    def result = gson.toJson(new ClassWithLocalDate().tap {
+      it.localDate = date
+    })
 
     then:
     result == "{\"localDate\":\"${expected}\"}"
 
     where:
-    format        || date                        || expected
-    "MM-dd-yyyy"  || LocalDate.of(2000, 10, 11)  || "10-11-2000"
-    "M-d-yyyy"    || LocalDate.of(2000, 1, 1)    || "1-1-2000"
+    format || date || expected
+    "MM-dd-yyyy" || LocalDate.of(2000, 10, 11) || "10-11-2000"
+    "M-d-yyyy" || LocalDate.of(2000, 1, 1) || "1-1-2000"
   }
 
   def "LocalDateDeserializer compatibility"() {
@@ -118,7 +120,9 @@ class LocalDateTypeAdapterTest extends Specification {
 
     def localDateTypeAdapter = new GsonBuilder().registerTypeAdapter(LocalDate.class, LocalDateTypeAdapter.builder().build()).create()
 
-    def target = new ClassWithLocalDate().tap { it.localDate = LocalDate.of(2023, 6, 11) }
+    def target = new ClassWithLocalDate().tap {
+      it.localDate = LocalDate.of(2023, 6, 11)
+    }
 
     when:
     def serialized = localDateTypeAdapter.toJson(target)

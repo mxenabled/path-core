@@ -26,7 +26,7 @@ class OffsetDateTimeTypeAdapterTest extends Specification {
     def result = subject.fromJson(json, ClassWithOffsetDateTime)
 
     then:
-    verifyAll (result.offsetDateTime) {
+    verifyAll(result.offsetDateTime) {
       getYear() == 2022
       getMonthValue() == 12
       getDayOfMonth() == 6
@@ -53,7 +53,7 @@ class OffsetDateTimeTypeAdapterTest extends Specification {
     def result = subject.fromJson(json, ClassWithOffsetDateTime)
 
     then:
-    verifyAll (result.offsetDateTime) {
+    verifyAll(result.offsetDateTime) {
       getYear() == 2022
       getMonthValue() == 12
       getDayOfMonth() == 6
@@ -110,7 +110,7 @@ class OffsetDateTimeTypeAdapterTest extends Specification {
     def result = subject.fromJson(json, ClassWithOffsetDateTime)
 
     then:
-    verifyAll (result.offsetDateTime) {
+    verifyAll(result.offsetDateTime) {
       getYear() == 2022
       getMonthValue() == 8
       getDayOfMonth() == 12
@@ -148,7 +148,7 @@ class OffsetDateTimeTypeAdapterTest extends Specification {
     def result = subject.fromJson(json, ClassWithOffsetDateTime)
 
     then:
-    verifyAll (result.offsetDateTime) {
+    verifyAll(result.offsetDateTime) {
       getYear() == 2022
       getMonthValue() == 8
       getDayOfMonth() == 12

@@ -40,7 +40,7 @@ class ConfigurationBinderTest extends Specification {
     subject.configure(configurationObj, configuration)
 
     then:
-    verifyAll (configurationObj) {
+    verifyAll(configurationObj) {
       getKey1() == "value1"
       getKey2() == 12
       initialized
@@ -52,7 +52,7 @@ class ConfigurationBinderTest extends Specification {
     subject.configure(configurationObj, null)
 
     then: "takes defaults"
-    verifyAll (configurationObj) {
+    verifyAll(configurationObj) {
       getKey1() == null
       getKey2() == null
       initialized
@@ -69,7 +69,7 @@ class ConfigurationBinderTest extends Specification {
     BasicConfigurationObj configurationObj = subject.build(BasicConfigurationObj.class, configuration)
 
     then:
-    verifyAll (configurationObj) {
+    verifyAll(configurationObj) {
       getClientId() == "client1"
       getKey1() == "value1"
       getKey2() == 12
@@ -81,7 +81,7 @@ class ConfigurationBinderTest extends Specification {
     configurationObj = subject.build(BasicConfigurationObj.class, null)
 
     then: "takes defaults"
-    verifyAll (configurationObj) {
+    verifyAll(configurationObj) {
       getKey1() == null
       getKey2() == null
       initialized

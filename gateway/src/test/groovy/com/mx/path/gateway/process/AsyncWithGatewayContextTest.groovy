@@ -33,7 +33,9 @@ class AsyncWithGatewayContextTest extends Specification {
 
   def "calls the supplied lambda"() {
     given:
-    AsyncWithGatewayContext<String> subject = new AsyncWithGatewayContext<String>({ -> "Wakarimasu ka?" })
+    AsyncWithGatewayContext<String> subject = new AsyncWithGatewayContext<String>({
+      -> "Wakarimasu ka?"
+    })
 
     when:
     def result = subject.execute()
@@ -44,7 +46,9 @@ class AsyncWithGatewayContextTest extends Specification {
 
   def "returns a Future when submitted to an executor service"() {
     given:
-    AsyncWithGatewayContext<String> subject = new AsyncWithGatewayContext<String>({ -> "Kinjiru!" })
+    AsyncWithGatewayContext<String> subject = new AsyncWithGatewayContext<String>({
+      -> "Kinjiru!"
+    })
     def executorService = Executors.newSingleThreadExecutor()
 
     when:

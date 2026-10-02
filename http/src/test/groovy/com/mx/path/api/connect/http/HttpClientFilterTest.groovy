@@ -102,17 +102,17 @@ class HttpClientFilterTest extends Specification {
 
     where:
     rawBodyShouldBeReturned || contentTypeHeaders
-    true                    || makeContentTypeHeaders("application/pdf")
-    true                    || makeContentTypeHeaders("image/png")
-    true                    || makeContentTypeHeaders("IMAGE/JPEG")
-    true                    || makeContentTypeHeaders("Image/gif")
-    true                    || makeContentTypeHeaders("image/svg+xml")
-    true                    || makeContentTypeHeaders("image/tiff")
-    true                    || makeContentTypeHeaders("application/msword")
-    false                   || makeContentTypeHeaders("application/json")
-    false                   || makeContentTypeHeaders("text/html")
-    false                   || makeContentTypeHeaders("application/xml")
-    false                   || makeContentTypeHeaders()
+    true || makeContentTypeHeaders("application/pdf")
+    true || makeContentTypeHeaders("image/png")
+    true || makeContentTypeHeaders("IMAGE/JPEG")
+    true || makeContentTypeHeaders("Image/gif")
+    true || makeContentTypeHeaders("image/svg+xml")
+    true || makeContentTypeHeaders("image/tiff")
+    true || makeContentTypeHeaders("application/msword")
+    false || makeContentTypeHeaders("application/json")
+    false || makeContentTypeHeaders("text/html")
+    false || makeContentTypeHeaders("application/xml")
+    false || makeContentTypeHeaders()
   }
 
   def "test connect exception handling in execute method"() {

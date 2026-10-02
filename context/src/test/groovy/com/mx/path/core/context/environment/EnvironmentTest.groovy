@@ -26,7 +26,7 @@ class EnvironmentTest extends Specification {
     given:
     def key = "MY_KEY"
     def defaultValue = "default value"
-    Environment.setDotenv( Mock(Dotenv))
+    Environment.setDotenv(Mock(Dotenv))
     Environment.dotenv().get(key, defaultValue) >> defaultValue
 
     when:

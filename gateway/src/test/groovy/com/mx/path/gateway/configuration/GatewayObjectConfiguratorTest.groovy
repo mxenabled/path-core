@@ -95,7 +95,7 @@ class GatewayObjectConfiguratorTest extends Specification {
       connectionWithBoundConfiguration
       behaviorConfiguration.active
       initialized
-      verifyAll (connectionWithBoundConfiguration) {
+      verifyAll(connectionWithBoundConfiguration) {
         baseUrl == "url"
         certificateAlias == "alias"
         keystorePath == "path"

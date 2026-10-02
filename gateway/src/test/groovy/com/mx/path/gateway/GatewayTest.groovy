@@ -225,7 +225,7 @@ class GatewayTest extends Specification {
 
   def "describe() throws when baseAccessor is null on non-root gateway"() {
     given:
-    def gateway = new MinimalGateway()  // no-arg constructor, baseAccessor is null
+    def gateway = new MinimalGateway() // no-arg constructor, baseAccessor is null
 
     when:
     gateway.describe()

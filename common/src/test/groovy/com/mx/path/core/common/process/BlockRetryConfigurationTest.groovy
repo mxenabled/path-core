@@ -51,13 +51,13 @@ class BlockRetryConfigurationTest extends Specification implements WithMockery {
     error.message == message
 
     where:
-    configuration                                                                                                                                                                       | message
-    BlockRetryConfiguration.builder().build()                                                                                                                                           | "Missing required field at configuration."
-    BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).build()                                                                               | "Missing required fields for stopStrategy COUNT: count at configuration."
-    BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.DURATION).build()                                                                            | "Missing required fields for stopStrategy DURATION: duration at configuration."
-    BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.FIXED).build()        | "Missing required fields for pauseStrategy FIXED: pause at configuration."
+    configuration | message
+    BlockRetryConfiguration.builder().build() | "Missing required field at configuration."
+    BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).build() | "Missing required fields for stopStrategy COUNT: count at configuration."
+    BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.DURATION).build() | "Missing required fields for stopStrategy DURATION: duration at configuration."
+    BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.FIXED).build() | "Missing required fields for pauseStrategy FIXED: pause at configuration."
     BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.INCREMENTING).build() | "Missing required fields for pauseStrategy INCREMENTING: initialPause, increment at configuration."
-    BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.FIBONACCI).build()    | "Missing required fields for pauseStrategy FIBONACCI: multiplier, maxPause at configuration."
+    BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.FIBONACCI).build() | "Missing required fields for pauseStrategy FIBONACCI: multiplier, maxPause at configuration."
   }
 
   @Unroll
@@ -73,12 +73,12 @@ class BlockRetryConfigurationTest extends Specification implements WithMockery {
     noExceptionThrown()
 
     where:
-    configuration                                                                                                                                                                                                                                            | _
-    BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).build()                                                                                                                                           | null
-    BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.DURATION).duration(Duration.ofSeconds(1)).build()                                                                                                                 | null
-    BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.FIXED).pause(Duration.ofMillis(10)).build()                                                | null
+    configuration | _
+    BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).build() | null
+    BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.DURATION).duration(Duration.ofSeconds(1)).build() | null
+    BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.FIXED).pause(Duration.ofMillis(10)).build() | null
     BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.INCREMENTING).initialPause(Duration.ofMillis(10)).increment(Duration.ofMillis(10)).build() | null
-    BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.FIBONACCI).maxPause(Duration.ofMillis(100)).multiplier(Duration.ofSeconds(1)).build()      | null
+    BlockRetryConfiguration.builder().stopStrategy(RetryConfiguration.StopStrategy.COUNT).count(1).pauseStrategy(RetryConfiguration.PauseStrategy.FIBONACCI).maxPause(Duration.ofMillis(100)).multiplier(Duration.ofSeconds(1)).build() | null
   }
 
   def "call when all attempts fail"() {

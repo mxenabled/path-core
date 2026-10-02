@@ -57,7 +57,9 @@ class RequestMatcherTest extends Specification {
 
   def "with uses provided function matcher"() {
     given:
-    def matcher = new RequestMatcher().with({ req -> req.getPath() == "accounts" } as java.util.function.Function)
+    def matcher = new RequestMatcher().with({ req ->
+      req.getPath() == "accounts"
+    } as java.util.function.Function)
 
     expect:
     matcher.isMatch(makeRequest("accounts"))
@@ -66,7 +68,9 @@ class RequestMatcherTest extends Specification {
 
   def "withMatcher uses provided function matcher"() {
     given:
-    def matcher = new RequestMatcher().withMatcher({ req -> req.getMethod() == "DELETE" } as java.util.function.Function)
+    def matcher = new RequestMatcher().withMatcher({ req ->
+      req.getMethod() == "DELETE"
+    } as java.util.function.Function)
 
     expect:
     matcher.isMatch(makeRequest("any", "DELETE"))
@@ -75,7 +79,9 @@ class RequestMatcherTest extends Specification {
 
   def "Fluent.with uses provided function"() {
     given:
-    def matcher = RequestMatcher.Fluent.with({ req -> req.getPath() == "accounts" } as java.util.function.Function)
+    def matcher = RequestMatcher.Fluent.with({ req ->
+      req.getPath() == "accounts"
+    } as java.util.function.Function)
 
     expect:
     matcher.isMatch(makeRequest("accounts"))

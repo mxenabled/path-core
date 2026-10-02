@@ -157,7 +157,9 @@ class StoreLockTest extends Specification implements WithMockery {
     mutex.setAcquireTimeoutMilliseconds(1000)
     def acquiringThread = new Thread({
       ->
-      lockState = mutex.acquireOr({ -> Objects.equals(store.get("waitForIt"), "done") })
+      lockState = mutex.acquireOr({
+        -> Objects.equals(store.get("waitForIt"), "done")
+      })
     })
     acquiringThread.start()
     Thread.sleep(50)

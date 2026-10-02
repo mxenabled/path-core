@@ -17,9 +17,9 @@ class MessageStatusTest extends Specification {
     result == expected
 
     where:
-    httpStatus                  || expected
+    httpStatus || expected
     HttpStatus.OK || MessageStatus.SUCCESS
-    HttpStatus.REQUEST_TIMEOUT  || MessageStatus.TIMEOUT
+    HttpStatus.REQUEST_TIMEOUT || MessageStatus.TIMEOUT
     HttpStatus.ALREADY_REPORTED || null
   }
 
@@ -32,7 +32,7 @@ class MessageStatusTest extends Specification {
     result == expected
 
     where:
-    messageStatus         || expected
+    messageStatus || expected
     MessageStatus.SUCCESS || HttpStatus.OK
     MessageStatus.TIMEOUT || HttpStatus.REQUEST_TIMEOUT
   }

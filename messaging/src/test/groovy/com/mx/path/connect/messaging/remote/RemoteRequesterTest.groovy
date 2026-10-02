@@ -177,7 +177,9 @@ class RemoteRequesterTest extends Specification {
         .build()
 
     when:
-    def response = subject.withSession(message, { MessageRequest request ->  MessageResponse.builder().build() })
+    def response = subject.withSession(message, { MessageRequest request ->
+      MessageResponse.builder().build()
+    })
 
     then:
     response != null

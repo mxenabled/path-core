@@ -6,7 +6,7 @@ import java.time.ZonedDateTime
 
 import spock.lang.Specification
 
-class JWTUtilityTest extends Specification  {
+class JWTUtilityTest extends Specification {
 
   def "fun test create JWT method"(){
     when:

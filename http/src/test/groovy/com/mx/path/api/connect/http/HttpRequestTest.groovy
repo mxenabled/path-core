@@ -42,7 +42,7 @@ class HttpRequestTest extends Specification {
     when:
     subject.put()
 
-    then:"sets method and executes"
+    then: "sets method and executes"
     subject.getMethod() == "PUT"
     verify(filterChain).execute(any(HttpRequest), any(HttpResponse))
   }
@@ -51,7 +51,7 @@ class HttpRequestTest extends Specification {
     when:
     subject.delete()
 
-    then:"sets method and executes"
+    then: "sets method and executes"
     subject.getMethod() == "DELETE"
     verify(filterChain).execute(any(HttpRequest), any(HttpResponse))
   }
@@ -60,7 +60,7 @@ class HttpRequestTest extends Specification {
     when:
     subject.patch()
 
-    then:"sets method and executes"
+    then: "sets method and executes"
     subject.getMethod() == "PATCH"
     verify(filterChain).execute(any(HttpRequest), any(HttpResponse))
   }
@@ -69,7 +69,7 @@ class HttpRequestTest extends Specification {
     when:
     subject.post()
 
-    then:"sets method and executes"
+    then: "sets method and executes"
     subject.getMethod() == "POST"
     verify(filterChain).execute(any(HttpRequest), any(HttpResponse))
   }

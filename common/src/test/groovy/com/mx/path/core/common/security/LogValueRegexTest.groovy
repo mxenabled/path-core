@@ -74,7 +74,7 @@ class LogValueRegexTest extends Specification {
     jsonElement.asString == expectedResult
 
     where:
-    fieldName             || expectedResult
+    fieldName || expectedResult
     "test_number_field_1" || maskedString
     "test_number_field_2" || maskedString
     "test_number_field_3" || maskedString
@@ -101,12 +101,12 @@ class LogValueRegexTest extends Specification {
     }
 
     where:
-    fieldName            || expectedArraySize || expectedResult
-    "test_array_field_1" || 0                 || ""
-    "test_array_field_2" || 0                 || ""
-    "test_array_field_3" || 1                 || maskedString
-    "test_array_field_4" || 1                 || maskedString
-    "test_array_field_5" || 1                 || maskedString
-    "test_array_field_6" || 1                 || maskedString
+    fieldName || expectedArraySize || expectedResult
+    "test_array_field_1" || 0 || ""
+    "test_array_field_2" || 0 || ""
+    "test_array_field_3" || 1 || maskedString
+    "test_array_field_4" || 1 || maskedString
+    "test_array_field_5" || 1 || maskedString
+    "test_array_field_6" || 1 || maskedString
   }
 }

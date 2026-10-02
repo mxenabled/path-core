@@ -144,6 +144,6 @@ class MessageRequestTest extends Specification {
     def duration = subject.getDuration()
 
     then:
-    duration > 9
+    duration> 9
   }
 }

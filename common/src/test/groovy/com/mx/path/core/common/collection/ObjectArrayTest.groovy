@@ -202,15 +202,15 @@ class ObjectArrayTest extends Specification {
     subject.getAsBoolean(0) == result
 
     where:
-    name                   || value          || result
-    "one String"           || "1"            || true
-    "zero String"          || "0"            || false
-    "one Int"              || 1              || true
-    "zero Int"             || 0              || false
-    "one Double"           || 1.0            || true
-    "String true"          || "true"         || true
-    "Boolean true"         || true           || true
-    "Boolean false"        || false          || false
+    name || value || result
+    "one String" || "1" || true
+    "zero String" || "0" || false
+    "one Int" || 1 || true
+    "zero Int" || 0 || false
+    "one Double" || 1.0 || true
+    "String true" || "true" || true
+    "Boolean true" || true || true
+    "Boolean false" || false || false
   }
 
   @Unroll("getAsBoolean with default #name")
@@ -224,16 +224,16 @@ class ObjectArrayTest extends Specification {
     subject.getAsBoolean(0, defaultValue) == result
 
     where:
-    name                   || value          || defaultValue     || result
-    "one String"           || "1"            || false            || true
-    "zero String"          || "0"            || true             || false
-    "one Int"              || 1              || false            || true
-    "zero Int"             || 0              || true             || false
-    "one Double"           || 1.0            || false            || true
-    "String true"          || "true"         || false            || true
-    "Boolean true"         || true           || false            || true
-    "Nothing true"         || null           || true             || true
-    "Nothing false"        || null           || false            || false
+    name || value || defaultValue || result
+    "one String" || "1" || false || true
+    "zero String" || "0" || true || false
+    "one Int" || 1 || false || true
+    "zero Int" || 0 || true || false
+    "one Double" || 1.0 || false || true
+    "String true" || "true" || false || true
+    "Boolean true" || true || false || true
+    "Nothing true" || null || true || true
+    "Nothing false" || null || false || false
   }
 
   def "getAsString"() {
