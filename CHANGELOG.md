@@ -10,6 +10,13 @@
 * bump to Gradle 9.5.1 and Spring Boot 4.1.0 ([cee6cc3](https://github.com/mxenabled/path-core/commit/cee6cc3bd7ba33cd80e2c16f5236b892ba6889b4))
 
 
+## [8.0.1](https://github.com/mxenabled/path-core/compare/v8.0.0...v8.0.1) (2026-10-05)
+
+
+### Bug Fixes
+
+* bump transitive jackson deps to resolve CVEs ([71969ad](https://github.com/mxenabled/path-core/commit/71969ad398730425a10f021c331fad63916fcf1a))
+
 ## [7.0.1](https://github.com/mxenabled/path-core/compare/v7.0.0...v7.0.1) (2026-06-01)
 
 
