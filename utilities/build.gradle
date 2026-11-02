@@ -5,15 +5,12 @@ coppuccino {
 }
 
 dependencies {
-  api("com.auth0:java-jwt:[4.5.2, 5.0.0)")
+  api("com.auth0:java-jwt:[4.6.2, 5.0.0)")
 
   constraints {
-    // Transitive dependency of com.auth0:java-jwt:4.6.1
-    api("com.fasterxml.jackson.core:jackson-core:2.22.3") {
-      because "Fixes High Severity vulnerabilities"
-    }
-    api("com.fasterxml.jackson.core:jackson-databind:2.22.3") {
-      because "Fixes High Severity vulnerabilities"
+    // Transitive dependency of com.auth0:java-jwt:4.6.2
+    api("com.fasterxml.jackson:jackson-bom:2.22.4") {
+      because "Fixes Critical Severity vulnerabilities"
     }
   }
 }

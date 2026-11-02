@@ -163,7 +163,7 @@ class RemoteServiceTest extends Specification {
         .header("feature", "feature")
         .sessionId("sessionId")
         .build()
-        ).build()
+    ).build()
     def response = subject.dispatch(RemoteChannel.buildRequestChannel("client", Object.class, message), message)
 
     then:
@@ -181,7 +181,7 @@ class RemoteServiceTest extends Specification {
         .header("device-trace-id", "device-trace-id")
         .sessionId("sessionId")
         .build()
-        ).build()
+    ).build()
 
     def channel = RemoteChannel.builder()
         .clientId("clientId")
@@ -213,7 +213,7 @@ class RemoteServiceTest extends Specification {
         .builder()
         .sessionId("sessionId")
         .build()
-        ).build()
+    ).build()
 
     def channel = RemoteChannel.builder()
         .clientId("clientId")
