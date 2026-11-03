@@ -10,6 +10,13 @@
 * bump to Gradle 9.5.1 and Spring Boot 4.1.0 ([cee6cc3](https://github.com/mxenabled/path-core/commit/cee6cc3bd7ba33cd80e2c16f5236b892ba6889b4))
 
 
+## [8.0.2](https://github.com/mxenabled/path-core/compare/v8.0.1...v8.0.2) (2026-11-03)
+
+
+### Bug Fixes
+
+* bump dependencies to resolve CVEs ([8e6d477](https://github.com/mxenabled/path-core/commit/8e6d4777038c1db4c2d9e3c2e024f198b9f8742d))
+
 ## [8.0.1](https://github.com/mxenabled/path-core/compare/v8.0.0...v8.0.1) (2026-10-05)
 
 
